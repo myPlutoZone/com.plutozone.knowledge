@@ -1,0 +1,31 @@
+/**
+ * YOU ARE STRICTLY PROHIBITED TO COPY, DISCLOSE, DISTRIBUTE, MODIFY OR USE THIS PROGRAM
+ * IN PART OR AS A WHOLE WITHOUT THE PRIOR WRITTEN CONSENT OF PLUTOZONE.COM.
+ * PLUTOZONE.COM OWNS THE INTELLECTUAL PROPERTY RIGHTS IN AND TO THIS PROGRAM.
+ * COPYRIGHT (C) 2005 PLUTOZONE.COM ALL RIGHTS RESERVED.
+ *
+ * 하기 프로그램에 대한 저작권을 포함한 지적재산권은 plutozone.com에 있으며,
+ * plutozone.com이 명시적으로 허용하지 않는 사용, 복사, 변경 및 제 3자에 의한 공개, 배포는 엄격히 금지되며
+ * plutozone.com의 지적재산권 침해에 해당된다.
+ * Copyright (C) 2005 plutozone.com All Rights Reserved.
+ *
+ *
+ * Program		: com.plutozone
+ * Description	:
+ * Environment	:
+ * File			: /css/common.css
+ * Notes		:
+ * History		: [NO][Programmer][Description]
+ *				: [20190111101500][pluto#plutozone.com][CREATE: Initial Release]
+ */
+@charset "UTF-8";
+
+@import url(/css/initial.css);
+@import url(/css/font.css);
+
+.txtLeft  {text-align:left   !important}
+.txtCenter{text-align:center !important}
+.txtRight {text-align:right  !important}
+
+.btnBasic{border-radius:5px;display:inline-block;min-width:50px;height:26px;line-height:26px;text-align:center;background-color:#808080;color:#FFFFFF;vertical-align:middle;margin:10px auto 10px;padding:0px 7px}
+.btnMore {border-radius:5px;display:inline-block;min-width:50px;height:26px;line-height:26px;text-align:center;background-color:#000000;color:#808080;vertical-align:middle;margin:10px auto 10px;padding:0px 7px}

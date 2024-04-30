@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale-1.0" />
+	<style>
+		.container {
+			display: flex
+			; flex-direction: column
+		}
+		header {
+			border-bottom: 1px solid gray
+			; padding-left: 20px
+		}
+		footer {
+			border-top: 1px solid gray
+			; padding: 20px
+			; text-align: center;
+		}
+		.content {
+			display: flex
+		}
+		.content nav {
+			border-right: 1px solid gray
+		}
+		.content aside {
+			border-left: 1px solid gray
+		}
+		
+		@media(max-width: 500px) {
+			.content {
+				flex-direction: column
+			}
+			.content nav, .content aside {
+				border: none
+				; flex-basis: auto
+			}
+			main {
+				order: 0
+			}
+			nav {
+				order: 1
+			}
+			aside {
+				order: 2
+				; display: none
+			}
+		}
+		nav, aside {
+			flex-basis: 150px
+			; flex-shrink: 0
+		}
+		main {
+			padding: 10px
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<header>
+		<h1>Holy Grail Layout by Flex</h1>
+	</header>
+	<section class="content">
+		<nav>
+			<ul>
+				<li>HTML</li>
+				<li>CSS</li>
+				<li>Javascript</li>
+			</ul>
+		</nav>
+		<article>
+			PlutoZone
+			Lorem ipsum dolor sit amet, facer paulo veritus cu duo, dolorem euripidis consequat ex pro. Altera mentitum ut sit, ea assum appellantur usu. Ei ocurreret reformidans pri. Vix at soluta labitur laboramus, et est doming eripuit, ad nam evertitur similique. Constituto argumentum qui ei.
+			
+			Ea quo brute epicuri, aliquip splendide ne ius, etiam pertinax recteque ea quo. Ius nemore perpetua cu, vis malis sanctus postulant at. Nam ea liber dissentiunt. Te labores propriae reprimique mel, duo erat solum dissentias no. Te malis invenire principes mel, eos inani mediocrem ad.
+			
+			Legimus graecis feugait quo ea, dolor iuvaret nam ut, illum scaevola sententiae usu et. Ut ludus solet ubique vix, ad utroque apeirian has. Nulla debet nec at. Vim reque temporibus ne, id mea constituto honestatis, alia modus moderatius in vim. Te habeo propriae mel, et pri ipsum lobortis.
+			
+			Eirmod reformidans in quo. Assentior voluptatibus eos ne. Duo no summo offendit. No ipsum cetero lucilius sed, cu populo nonumes nec. Ne sed purto laudem, his ei graeci iracundia, libris petentium sapientem pro ei.
+			
+			Ea deleniti corrumpit mea, eos diam verear atomorum an. Debet definitiones mei ad. Errem honestatis in mel, has et appareat persecuti. Mel omnes soluta qualisque te. Vel feugait apeirian ex.
+		</article>
+		<aside>
+			AD
+		</aside>
+	</section>
+	<footer>
+		<a href="http://www.plutozone.com">Homepage</a>
+	</footer>
+</div>
+</body>
+</html>

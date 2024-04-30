@@ -1,0 +1,1 @@
+java -server -Xms128M -Xmx256M -Xloggc:../../gc/com.plutozone.util.messenger.messageClient.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -classpath ..\..\bin;..\..\lib\log4j-1.2.15.jar;..\..\lib\slf4j-api-1.6.6.jar;..\..\lib\slf4j-log4j12-1.6.6.jar com.plutozone.util.messenger.MessageClient 192.168.0.58 8888
