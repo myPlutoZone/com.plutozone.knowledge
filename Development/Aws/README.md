@@ -70,18 +70,17 @@
 
 
 # Create Auto Scaling
-	1. Create VPCs
-		- Make VPC
-		- Make Subnet
-		- Make Security Group
-		- Make Internet Gateway and Select Public Subnet
-		- Make NAT Gateway and Select Private Subnet
-	2. Create EC2
-	3. Create Target Group(PLZ-PRD-LB-TG) for ELB
-	4. Create ELB(PLZ-PRD-LB)
-	5. Create Launch Template(PLZ-PRD-AS-TP) for Auto Scaling
-	6. Create Auto Scaling Group(PLZ-PRD-AS)
-
+1. Create VPCs
+	- Make VPC
+	- Make Subnet
+	- Make Security Group
+	- Make Internet Gateway and Select Public Subnet
+	- Make NAT Gateway and Select Private Subnet
+2. Create EC2
+3. Create Target Group(PLZ-PRD-LB-TG) for ELB
+4. Create ELB(PLZ-PRD-LB)
+5. Create Launch Template(PLZ-PRD-AS-TP) for Auto Scaling
+6. Create Auto Scaling Group(PLZ-PRD-AS)
 
 
 # ECS(Elastic Container Service)
