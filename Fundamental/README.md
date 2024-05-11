@@ -294,8 +294,9 @@
 ## HTML + CSS
 - https://caniuse.com/, https://csscompressor.com/
 
-## Java
+## Java 등
 - Launch4j, Selenium
+- https://ideone.com/
 
 ## JSON
 - https://codebeautify.org/jsonviewer

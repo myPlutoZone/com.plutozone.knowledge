@@ -28,6 +28,8 @@
 # 개발 환경
 ## 자바(Java) 개발 환경
 - Java Standard/Enterprise/Micro Edition 그리고 JDK(Java Development Kit) vs. JRE(Java Runtime Environment)
+- Open JDK vs. Oracle JDK and LTS(Long Term Support, 장기 지원 서비스)
+- Software Version: Major.Minor.Patch(예: 1.0.0) and 안정화 버전(=Even Number Version)
 - JDK 다운로드와 설치
 - 환경 설정(JAVA_HOME과 PATH 등)
 - System.out.println("Hello, World!");
