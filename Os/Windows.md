@@ -1,4 +1,11 @@
 # Windows
+
+- 여러 개의 파일명을 동시에 편집 at PowerShell
+
+```bash
+PS D:\Temp> dir | rename-item -newname {$_.name -replace "OLD 단어", "NEW 단어"}	# D:\Temp의 모든 파일명에서 "OLD 단어"를 "NEW 단어"로 편집
+```
+
 - tree
 
 ```bash
