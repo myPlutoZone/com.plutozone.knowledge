@@ -41,19 +41,19 @@ C:\> notepad.exe %ECLIPSE%\configuration\.settings\org.eclipse.ui.ide.prefs
  * Copyright (C) ${year} plutozone.com All Rights Reserved.
  *
  *
- * Program		: com.plutozone.education
+ * Program		: com.plutozone.knowledge
  * Description	:
  * Environment	: JRE 1.7 or more
  * File			: ${file_name}
  * Notes		:
  * History		: [NO][Programmer][Description]
- *				: [${currentDateTime:date('yyyyMMddHHmmss')}][pluto#plutozone.com][CREATE: Initial Release]
+ *				: [${currentDateTime:date('yyyyMMddHHmmss')}][pluto#brightsoft.co.kr][CREATE: Initial Release]
  */
 ${package_declaration}
 
 /**
  * @version 1.0.0
- * @author pluto#plutozone.com
+ * @author pluto#brightsoft.co.kr
  * 
  * @since ${currentDate:date('yyyy-MM-dd')}
  * <p>DESCRIPTION:</p>

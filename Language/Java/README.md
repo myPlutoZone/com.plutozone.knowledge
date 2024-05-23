@@ -70,20 +70,20 @@
 	- Light and easy code + Real OOP(But OOP is not easy)
 	- Independent platform(Byte code at JVM: Write once, run everywhere)
 	- Source Charset support UTF-16 vs. UTF-8 vs. ANSI
+![JRE](./image/jre.png)
 - Java vs. C++ and procedure, structured programming
 	- Remove pointer, structure, union
 	- All code in class
 - Java Folder
 ![JDK](./image/jdk.png)
 - Class library Source: C:\jdk*\src.jar vs. C:\Program Files\Java\jdk*\src.zip
-![JRE](./image/jre.png)
 
 ## Compile and run
-- For Beginner: 99%
-	- Text Error
-	- Syntax Error
-	- Case Sensitive
-	- Edit > Save > Compile > Run
+- For Beginner: 99%(Text + Syntax + Compile)
+	- Edit & Save > Compile > Run
+	- [ERROR] Text(Case Sensitive 등)
+	- [ERROR] Syntax or Compile
+	- [ERROR] Runtime
 - Compile
 	- C:\Examle\javac HelloWorld.java
 ![Compile](./image/compile.png)
@@ -100,7 +100,7 @@
 	- 주석 for Java Doc
 - 문장(sentence or statement, ;)
 - 변수 선언(예약어 등 제약 사항, 카멜 표기법)과 상수(final), 자료형(정수, 실수, 문자, 문자열, 논리형 등) 그리고 초기화(initialize) 또는 대입(assign)
-- 묵시적(자동) 형변환 vs. 명시적(강제) 형변환
+- 자동(묵시적) 형 변환 vs. 강제(명시적) 형 변환, 산술 연산 시 자동 형 변환(피연산자들이 리터럴 또는 long이 아닌 경우 변수의 형은 int로 자동 변환됨) 그리고 문자열을 자료형으로 강제 타입 변환(parse)
 
 ## 연산자와 우선 순위
 - 단항, 이항, 삼항
