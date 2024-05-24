@@ -10,7 +10,7 @@
  * Copyright (C) 2023 brightsoft.co.kr All Rights Reserved.
  *
  *
- * Program		: com.plutozone.programming.java
+ * Program		: com.plutozone.knowledge
  * Description	:
  * Environment	: JRE 1.7 or more
  * File			: ForEach.java
