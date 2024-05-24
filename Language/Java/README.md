@@ -16,8 +16,8 @@
 
 # Contents
 1. 개발 환경
-2. 특징 및 기본 문법
-3. 클래스와 객체 그리고 배열
+2. 특징 및 기본 문법 그리고 배열
+3. 클래스와 객체
 4. 상속과 다형성
 5. 추상 클래스와 인터페이스
 6. 주요 클래스와 예외 처리
@@ -120,6 +120,20 @@
 - for
 - break와 continue
 
+## 기본 타입(Primitive Type) vs. 참조 타입(Reference Type)
+- 기본 타입(형) 변수에는 정수, 실수, 문자, 논리에 대한 실제 값(=리터럴)를 저장
+- 참조 타입(형) 변수에는 배열, 열거, 클래스, 인터페이스와 같이 객체를 참조하는 주소(Address)를 저장
+
+## 배열(Array)
+- 배열의 선언(객체 포함)과 초기화 그리고 Index
+- 배열의 크기와 사용
+- 배열의 복사(System.arraycopy()) 그리고 배열의 주소 복사(shallow copy) vs. 값 복사(deep copy)
+- 다차원 배열
+- ArrayList 클래스(선언 시 크기 지정 없음)
+
+## 열거 타입(Enumeration Type)
+- 한정된 상수를 갖는 타입(예: 요일, 계절, 전문 번호 등)
+
 
 # 클래스와 객체 그리고 배열
 ## 객체 지향 프로그래밍(OOP, Object Oriented Programming)과 클래스(Class)
@@ -132,6 +146,7 @@
 
 ## 메서드(Method) 또는 함수(Function)
 - 반환형 이름(매개변수) { …; return 반환값; }
+- Overloading vs. Overriding
 
 ## 클래스(Class)와 인스턴스(Instance)
 - 클래스형 변수명 = new 생성자;
@@ -146,13 +161,6 @@
 - this
 - static 변수(=클래스 변수)와 메서드(=클래스 메서드)
 - 변수의 유효 범위: 지역(Local) 변수, 멤버(Instance) 변수, 클래스(Static) 변수
-
-## 배열(Array)
-- 배열의 선언(객체 포함)과 초기화 그리고 Index
-- 배열의 크기와 사용
-- 배열의 복사(System.arraycopy()) 그리고 배열의 주소 복사(shallow copy) vs. 값 복사(deep copy)
-- 다차원 배열
-- ArrayList 클래스(선언 시 크기 지정 없음)
 
 
 # 상속과 다형성

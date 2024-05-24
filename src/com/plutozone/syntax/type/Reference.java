@@ -25,8 +25,8 @@ package com.plutozone.syntax.type;
  * @author pluto#brightsoft.co.kr
  * 
  * @since 2024-05-24
- * <p>DESCRIPTION:</p>
- * <p>IMPORTANT:</p>
+ * <p>DESCRIPTION: Example of Reference Type(참조 타입)</p>
+ * <p>IMPORTANT: Web Framework에서 개체 생성(예: request.getParameter) 시 new 연산자를 통해 생성될 수 있으므로 문자열 값을 비교 시 가능한 equals()를 사용</p>
  */
 public class Reference {
 	
@@ -36,11 +36,9 @@ public class Reference {
 		String str2 = "String";
 		String str3 = new String("String");
 		
+		
 		if (str1 == str2) System.out.println("str1 == str2");
 		
-		/**
-		 * [주의] Web Framework에서 개체 생성(예: request.getParameter) 시 new 연산자를 통해 생성될 수 있으므로 문자열 비교 시 가능한 equals()를 사용해야 한다.
-		 */
 		if (str2 != str3) System.out.println("str2 != str3");
 		
 		if (str2.equals(str3)) System.out.println("str2 == str3");
