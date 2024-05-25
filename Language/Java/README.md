@@ -10,6 +10,7 @@
 - Web Program(Static vs. Dynamic)의 종류와 특성
 - Eclipse vs. STS(Spring Tool Suite)
 - Framework(Struts, Spring 등)
+- 개발 툴의 Text, Syntax, Compile 그리고 Runtime 에러를 1) 이해하고 2) 활용하여야 한다.
 - 호랑이는 죽어서 가죽을 남기고 사람은 죽어서 이름을 남기고 개발자는 죽어서 코드(네트워크와 서버에)를 남긴다.
 - [학습 목표] 1) 관리자 구현 2) API 구현
 
@@ -161,6 +162,12 @@
 - this
 - static 변수(=클래스 변수)와 메서드(=클래스 메서드)
 - 변수의 유효 범위: 지역(Local) 변수, 멤버(Instance) 변수, 클래스(Static) 변수
+
+- this
+- static 변수(=클래스 필드)와 메서드(=클래스 메서드)
+- 변수의 유효 범위: 지역(Local) 변수, 멤버(Instance) 변수, 클래스(Static) 변수
+- Singleton(한 개의 객체만 생성할 수 있으며 메모리 낭비 방지 등을 위해 사용)
+- final과 Constant(static final)
 
 
 # 상속과 다형성
