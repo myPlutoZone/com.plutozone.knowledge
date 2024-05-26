@@ -174,10 +174,11 @@
 ## 상속(Inheritance)<sup>Java is not support Multiple-Inheritance</sup>
 - 상위(Parent, 부모) 클래스와 하위(Child, 자식) 클래스 그리고 상속(extends)
 - 하위 클래스의 생성 프로세스와 super 그리고 형 변환
-- 메서드 재정의(Method Overriding, @Override)와 묵시적 클래스 형 변환(Casting)에 따른 가상 메서드
+- 메서드 재정의(Method Overriding, @Override)와 final
+- 필드 또는 매개변수의 자동/강제 형 변환(Casting)에 따른 가상 메서드
 
 ## 다형성(Polymorphism)
-- 하나의 코드가 여러 자료형으로 구현되어 실행(예: 묵시적 형 변환에 따른 가상 메서드, 추상 클래스, 인터페이스 등)
+- 하나의 코드가 여러 자료형으로 구현되어 실행(예: 필드 또는 매개변수의 자동/강제 형 변환에 따른 가상 메서드, 추상 클래스, 인터페이스 등)
 - Down Casting과 instanceof
 ![Polymorphism](./image/polymorphism.png)
 
