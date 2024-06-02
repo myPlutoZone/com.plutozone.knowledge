@@ -32,7 +32,7 @@ package com.plutozone.syntax.classes;
 public class Nested {
 	
 	Nested() {
-		System.out.println("중첩 객체가 생성됨");
+		System.out.println("0. 중첩 객체가 생성됨");
 	}
 	
 	/** 1. 멤버 클래스 */
@@ -40,7 +40,7 @@ public class Nested {
 	public class MemberInstance {
 		
 		MemberInstance() {
-			System.out.println("인스턴스 멤버 객체가 생성됨");
+			System.out.println("1-1. 인스턴스 멤버 객체가 생성됨");
 		}
 		
 		int field1;
@@ -53,7 +53,7 @@ public class Nested {
 	static class MemberStatic {
 		
 		MemberStatic() {
-			System.out.println("정적 멤버 객체가 생성됨");
+			System.out.println("1-2. 정적 멤버 객체가 생성됨");
 		}
 		
 		int field1;
@@ -68,7 +68,7 @@ public class Nested {
 		class Local {
 			
 			Local() {
-				System.out.println("로컬 객체가 생성됨");
+				System.out.println("2. 로컬 객체가 생성됨");
 			}
 			
 			@SuppressWarnings("unused")
