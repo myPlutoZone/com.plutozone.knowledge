@@ -11,7 +11,6 @@
  *
  *
  * Program		: com.plutozone.knowledge
-
  * Description	:
  * Environment	: JRE 1.7 or more
  * File			: Nested.java

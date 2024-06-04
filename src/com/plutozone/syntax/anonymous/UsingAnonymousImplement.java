@@ -13,43 +13,41 @@
  * Program		: com.plutozone.knowledge
  * Description	:
  * Environment	: JRE 1.7 or more
- * File			: UsingNested.java
+ * File			: UsingAnonymousImplement.java
  * Notes		:
  * History		: [NO][Programmer][Description]
- *				: [20240603073513][pluto#brightsoft.co.kr][CREATE: Initial Release]
+ *				: [20240604235401][pluto#brightsoft.co.kr][CREATE: Initial Release]
  */
-package com.plutozone.syntax.classes;
+package com.plutozone.syntax.anonymous;
 
 /**
  * @version 1.0.0
  * @author pluto#brightsoft.co.kr
  * 
- * @since 2024-06-03
- * <p>DESCRIPTION: 중첩 클래스(Nested Class) 사용법</p>
+ * @since 2024-06-04
+ * <p>DESCRIPTION: 익명 구현 객체 사용</p>
  * <p>IMPORTANT:</p>
  */
-public class UsingNested {
+public class UsingAnonymousImplement {
 	
 	public static void main(String[] args) {
-		
-		Nested nested = new Nested();
-		
-		/** 1-1. 인스턴스 멤버 클래스 객체 생성 */
-		Nested.MemberInstance memberInstance = nested.new MemberInstance();
-		memberInstance.field1 = 3;
-		memberInstance.method1();
-		
-		// Nested.MemberInstance.field2 = 3;	// Java 17 version or higher
-		// Nested.MemberInstance.method2(); 	// Java 17 version or higher
-		
-		/** 1-2. 정적 멤버 클래스 객체 생성 */
-		Nested.MemberStatic c = new Nested.MemberStatic();
-		c.field1 = 3;
-		c.method1();
-		Nested.MemberStatic.field2 = 3;
-		Nested.MemberStatic.method2();
-		
-		/** 2. 로컬 클래스 객체 생성을 위한 메소드 호출 */
-		nested.method();
+		AnonymousImplement anonymousImplement = new AnonymousImplement();
+		// 익명 객체 필드 사용
+		anonymousImplement.field.turnOn();
+		// 익명 객체 로컬변수 사용
+		anonymousImplement.method1();
+		// 익명 객체 매개값 사용
+		anonymousImplement.method2(
+			new RemoteControl() {
+				@Override
+				public void turnOn() {
+					System.out.println("SmartTV를 켭니다.");
+				}
+				@Override
+				public void turnOff() {
+					System.out.println("SmartTV를 끕니다.");
+				}
+			}
+		);
 	}
 }

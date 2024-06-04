@@ -13,24 +13,24 @@
  * Program		: com.plutozone.knowledge
  * Description	:
  * Environment	: JRE 1.7 or more
- * File			: Hello.java
+ * File			: Person.java
  * Notes		:
  * History		: [NO][Programmer][Description]
- *				: [20240525180627][pluto#brightsoft.co.kr][CREATE: Initial Release]
+ *				: [20240604234258][pluto#brightsoft.co.kr][CREATE: Initial Release]
  */
+package com.plutozone.syntax.anonymous;
 
 /**
  * @version 1.0.0
  * @author pluto#brightsoft.co.kr
  * 
- * @since 2024-05-25
+ * @since 2024-06-04
  * <p>DESCRIPTION:</p>
  * <p>IMPORTANT:</p>
  */
-public class Hello {
+public class Person {
 	
-	public static void main(String[] args) {
-		
+	void wake() {
+		System.out.println("7시에 일어납니다.");
 	}
-
 }

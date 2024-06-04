@@ -13,24 +13,22 @@
  * Program		: com.plutozone.knowledge
  * Description	:
  * Environment	: JRE 1.7 or more
- * File			: Hello.java
+ * File			: RemoteControl.java
  * Notes		:
  * History		: [NO][Programmer][Description]
- *				: [20240525180627][pluto#brightsoft.co.kr][CREATE: Initial Release]
+ *				: [20240604235142][pluto#brightsoft.co.kr][CREATE: Initial Release]
  */
+package com.plutozone.syntax.anonymous;
 
 /**
  * @version 1.0.0
  * @author pluto#brightsoft.co.kr
  * 
- * @since 2024-05-25
+ * @since 2024-06-04
  * <p>DESCRIPTION:</p>
  * <p>IMPORTANT:</p>
  */
-public class Hello {
-	
-	public static void main(String[] args) {
-		
-	}
-
+public interface RemoteControl {
+	public void turnOn();
+	public void turnOff();
 }
