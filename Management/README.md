@@ -3,7 +3,7 @@
 - ![Generic badge](https://img.shields.io/badge/Reference-Contents1_Contents2-blue.svg)
 
 
-# Management
+# Introduction to Management
 
 
 # Contents

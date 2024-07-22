@@ -3,7 +3,7 @@
 - ![Generic badge](https://img.shields.io/badge/Reference-Contents1_Contents2-blue.svg)
 
 
-# HTML
+# Introduction to HTML
 - 정적 리소스(Static Resource)
 - HTML + CSS + JavaScript는 웹 브라우저(Web Browser)에서 실행
 - Web Page at Backend vs. Web Page at Frontend

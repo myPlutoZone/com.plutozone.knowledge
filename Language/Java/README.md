@@ -3,7 +3,7 @@
 - ![Generic badge](https://img.shields.io/badge/Reference-Contents1_Contents2-blue.svg)
 
 
-# Java
+# Introduction to Java
 - Programming Language vs. Program vs. Programming vs. Programmer
 - Programming Language(Java vs. C/C++ 등)의 종류와 특성
 - Program(Standalone vs. OS 기반 Server/Client vs. Web 기반 Server/Client 등)의 종류와 특성
