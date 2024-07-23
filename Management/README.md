@@ -1,23 +1,19 @@
-- ![Generic badge](https://img.shields.io/badge/Important-Contents1_Contents2-red.svg)
-- ![Generic badge](https://img.shields.io/badge/Confirm-Contents1_Contents2-green.svg)
-- ![Generic badge](https://img.shields.io/badge/Reference-Contents1_Contents2-blue.svg)
-
-
 # Introduction to Management
 
 
-# Contents
+
+## Contents
 1. 개요
 2. 시스템 구축 및 관리
 3. 서비스 개발 및 관리
 4. 시스템 및 서비스 유지운영을 위한 주요 정보 및 메뉴얼
 
 
-# 개요
+## 개요
 - 보안은 네트워크, 서버, 미들웨어, 서비스 등 모든 노드에 설정할 수 있다.
 
 
-# 시스템 구축 및 관리
+## 시스템 구축 및 관리
 - 시스템 성능 향상
 	- 경우에 따라 CPU 절전 기능 해제 시에만 최대 Clock 적용됨
 	- 경우에 따라 Memory Bank 모두 채울 때 최대 속도 적용됨
@@ -30,11 +26,11 @@
 	4. S(Service, Office365)aaS, P(Platform, 개발 서버)aaS, B(Backend, Firebase)aaS, F(Front, CodeAnywhere/Azure Event)aaS, Hybrid Cloud 및 Multi Cloud를 활용하라.
 
 
-# 서비스 개발 및 관리
+## 서비스 개발 및 관리
 - 빠른 응답 속도와 최소 자원 사용을 위해 코드 최적화할 것
 
 
-# 시스템 및 서비스 유지운영을 위한 주요 정보 및 메뉴얼
+## 시스템 및 서비스 유지운영을 위한 주요 정보 및 메뉴얼
 `#FF0000` 프로젝트 폴더와 통합할 것-산출물 상세화 포함
 <table>
 <tr>

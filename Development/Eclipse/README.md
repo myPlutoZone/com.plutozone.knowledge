@@ -1,18 +1,14 @@
-- ![Generic badge](https://img.shields.io/badge/Important-Contents1_Contents2-red.svg)
-- ![Generic badge](https://img.shields.io/badge/Confirm-Contents1_Contents2-green.svg)
-- ![Generic badge](https://img.shields.io/badge/Reference-Contents1_Contents2-blue.svg)
-
-
 # Introduction to Eclipse
 
 
-# Contents
-1. Configuration
-2. Plug-in(Help > Install New Software)
-3. Tips
+
+## Contents
+- Configuration
+- Plug-in(Help > Install New Software)
+- Tips
 
 
-# Configuration
+## Configuration
 - When an error called "Downloading external resources is disabled." occurs(Window > Preference > Maven)
 
 ```
@@ -64,7 +60,7 @@ ${type_declaration}
 ```
 
 
-# Plug-in(Help > Install New Software)
+## Plug-in(Help > Install New Software)
 - Properties Editor(http://propedit.sourceforge.jp/eclipse/updates)
 
 ```
@@ -78,7 +74,7 @@ jp.gr.java_conf.ussiy.app.propedit,6.0.5,plugins/jp.gr.java_conf.ussiy.app.prope
 ```
 
 
-# Tips
+## Tips
 - When a Git password Error occurs
 
 ```

@@ -1,16 +1,14 @@
-- ![Generic badge](https://img.shields.io/badge/Important-Contents1_Contents2-red.svg)
-- ![Generic badge](https://img.shields.io/badge/Confirm-Contents1_Contents2-green.svg)
-- ![Generic badge](https://img.shields.io/badge/Reference-Contents1_Contents2-blue.svg)
-
-
 # Introduction to Cloud
 - OpenStack for IaaS vs.OpenShift for PaaS by Red Hat
 
 
-# Contents
+
+## Contents
+- AWS
 
 
-# VPC(Virtual Private Cloud)
+## AWS
+### VPC(Virtual Private Cloud)
 - Reference
 	- Inside(=Private) for WAS vs. Outside(=Public) for WS or All Inside(=Private)
 	- CIDR(Classless Inter-Domain Routing) is not modified at AWS
@@ -57,8 +55,7 @@
 			- PLZ-PRD-SG-LB(HTTP, HTTPS)
 			- PLZ-PRD-SG-AS(HTTP, HTTPS)
 
-
-# EC2(Elastic Computing Cloud)
+### EC2(Elastic Computing Cloud)
 - Reference
 	- AMI(Amazon Machine Image): Amazon Linux, Ubuntu, Windows, ...
 	- ELB(Elastic Load Balancer) Function vs. Auto Scaling by EC2(Amazon EC2 Auto Scaling, Not Support LB and HC)
@@ -76,8 +73,7 @@
 	- Make PEM for ec2-user at Amazon Linux 2
 	- Install Nginx or Tomcat
 
-
-# Create Auto Scaling
+### Create Auto Scaling
 1. Create VPCs
 	- Make VPC
 	- Make Subnet
@@ -90,11 +86,6 @@
 5. Create Launch Template(PLZ-PRD-AS-TP) for Auto Scaling
 6. Create Auto Scaling Group(PLZ-PRD-AS)
 
-
-# ECS(Elastic Container Service)
-
-
-# EKS(Elastic Kubernetes Service)
-
-
-# Route 53
+### ECS(Elastic Container Service)
+### EKS(Elastic Kubernetes Service)
+### Route 53
