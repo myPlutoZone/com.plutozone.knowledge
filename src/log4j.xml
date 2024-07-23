@@ -21,7 +21,7 @@
 		<param name="encoding" value="UTF-8" />
 		<param name="threshold" value="info" />
 		<param name="ImmediateFlush" value="true" />
-		<param name="File" value="./log/com.plutozone.education.log" />
+		<param name="File" value="./log/com.plutozone.knowledge.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<param name="Append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">
