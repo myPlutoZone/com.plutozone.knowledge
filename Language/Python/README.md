@@ -11,6 +11,6 @@
 - 딥러닝
 	- 머신러닝의 일종으로 스스로 학습(인공 신경망)하여 특징을 인식한다. 특히 이미지
 	- TensorFlow는 구글이 오픈 소스로 공개한 머신러닝 알고리즘으로 대규모 숫자 계산과 다차원 행렬 계산을 지원
-- 구글 코랩(https://colab.research.google.com/)
-	- 온라인 파이션 또는 개발 환경(텍스트 + 코드 = 노트북)
+- 코랩(https://colab.research.google.com/) = 구글이 대화식 개발(파이션 등) 환경인 Jupyter(https://jupyter.org)를 커스터마이징하여 온라인으로 제공
+	- 노트북(Notebook)은 Jupyter 프로젝트의 대표적인 기능(제품)이며 코랩 노트북은 구글 클라우드의 가상 서버를 사용
 	- 노트북(Notebook) = 텍스트 셀(Text Cell) + 코드 셀(Code Cell)
