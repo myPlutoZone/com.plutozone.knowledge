@@ -1,8 +1,22 @@
 - pip
 ```
-# pip list					# 설치된 목록 보기
-# pip install LIBRARY		# 라이브러리 설치
+# pip list						# 설치된 목록 보기
+# pip install LIBRARY			# 라이브러리 설치
+# pip install beautifulsoup4
+# pip install selenium			# Firefox headless와 geckodriver가 자동 설치됨(사전에 하위 버전의 FireFox 설치 권장)
+# pip install openpyxl
 ```
+
+- os(운영체제에서 제공되는 여러 기능을 다룰 수 있는 파이썬 모듈) 모듈의 listdir(현재 경로의 파일 또는 폴더의 리스트를 반환하는 함수) 함수를 사용 방법들
+	- Case 1. import os
+		- 현재 python 파일에서 listdir 함수를 사용 하려면 os.listdir( )이라고 입력
+	- Case 2. from os import *
+		- 현재 python 파일에서 listdir 함수를 사용하려면 listdir( )만 입력
+		- 이때 주의할 점은 from으로 불러온 모듈에 같은 이름의 함수가 있으면 문제가 발생
+		- 참고로 import *를 와일드 임포트(wild import)
+	- Case 3. from os import listdir
+		- 하나의 함수만 가져오는 것도 가능(함수 사용법은 Case 2.와 같음)
+		- 와일드 임포트는 뜻하지 않게 기존의 변수나 함수를 덮어 쓸 때가 있을 수 있으므로 해당 방법이 바람직
 
 - Python Library
 	- NumPy(넘파이, Numerical Python)
