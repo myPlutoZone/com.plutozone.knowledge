@@ -40,7 +40,7 @@
 - https://clova-x.naver.com/
 
 ## Slack
-- Slack + GitLab or GitHub
+- Slack + GitLab
     - Add Apps at Slack
     - Add "Incoming WebHooks"
     - Select Channel and Copy Webhook URL(https://hooks.slack.com/services/...) for GitLab
