@@ -39,6 +39,12 @@
 - https://learn.microsoft.com/ko-kr/azure/ai-services/openai/chatgpt-quickstart?tabs=command-line%2Cpython&pivots=programming-language-studio
 - https://clova-x.naver.com/
 
+## Slack
+- Slack + GitLab or GitHub
+    - Add Apps at Slack
+    - Add "Incoming WebHooks"
+    - Select Channel and Copy Webhook URL(https://hooks.slack.com/services/...) for GitLab
+    - Go settins > Integrations > Slack notificatios and Paste Webook URL(https://hooks.slack.com/services/...) at GitLab
 
 ## History
 - 2024-04-30 [UPDATE] Repository Name(The previous repository name was com.plutozone.education)
