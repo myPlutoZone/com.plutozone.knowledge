@@ -46,6 +46,11 @@
     - Select Channel and Copy Webhook URL(https://hooks.slack.com/services/...) for GitLab
     - Go settins > Integrations > Slack notificatios and Paste Webook URL(https://hooks.slack.com/services/...) at GitLab
 
+- Slack + GitHub
+    - Add Apps at Slack
+    - Add "GitHub"
+    - Select Channel and ...
+
 ## History
 - 2024-04-30 [UPDATE] Repository Name(The previous repository name was com.plutozone.education)
 - 2023-09-29 [UPDATE] Repository Name(The previous repository name was com.plutozone.programming.java)
