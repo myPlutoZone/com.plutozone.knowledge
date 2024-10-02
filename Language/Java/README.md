@@ -148,6 +148,16 @@
 ### 클래스(Class)와 인스턴스(Instance)
 - 클래스형 변수명 = new 생성자;
 
+```java
+Class clazz_1 = 클래스.class;
+Class clazz_2 = Class.forName("패키지.클래스");
+Class clazz_3 = 참조변수.getClass();
+
+System.out.println(clazz_1.getName());
+System.out.println(clazz_2.getName());
+System.out.println(clazz_3.getName());
+```
+
 ### 생성자(Constructor)
 - 디폴트 생성자와 매개 변수 생성자
 
