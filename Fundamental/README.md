@@ -4,11 +4,11 @@
 - Fundamental vs. Basic
 - Developer in IT(Information Technology)
 - Illiterate, User, End User, Administrator, Nerd(Geek), Hacker, Guru, Wizard
+- Science vs. Engineering
 - 1 vs. 0 + true vs. false + Sever vs. Client + PC vs. Server & Network + IDC vs. Cloud
 - Network + Programming + Database
 - [학습 목표-1] "Main Project"를 목표로 한 "과목과 솔루션" 교육
 - [학습 목표-2] 1) 면접 시 자세와 의지 및 프로젝트 산출물 2) 참여 기업 솔루션 3) 정보처리기사
-
 
 
 ## Contents
@@ -258,7 +258,8 @@
 
 ## Tools
 ### Presentation
-- Epic Pen
+- Zoomit, Epic Pen
+- https://codeshare.io/
 
 ### Requirement
 - XMind or 알Mind
@@ -274,7 +275,7 @@
 - Visual Route, Advanced IP Scanner, WinShark
 
 ### SSH + SFTP
-- Putty, FileZilla
+- MobaXterm vs. Putty + FileZilla
 
 ### ER 또는 UML 등
 - https://app.diagrams.net/ 또는 https://draw.io
