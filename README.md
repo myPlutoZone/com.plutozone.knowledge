@@ -1,5 +1,4 @@
 ## Contents
-[Fundamental of IT(Information Technology) Education . 정보기술 교육의 핵심](./Fundamental/README.md)
 [Language ................................................. 프로그래밍 언어](#language)
 [Development ......................................................... 개발](#development)
 [Database .................................................... 데이터베이스](./Database/README.md)
