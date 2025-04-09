@@ -1,6 +1,11 @@
 # com.plutozone.knowledge.middleware.Jenkins
 
 
+## Overview
+- CI(Continuous Integration=지속적 통합)
+- CD(Continuous Deployment=지속적 배포 vs. Continuous Delivery=지속적 인도)
+
+
 ## Developer + GitLab + Jenkins + Registry(=hub.docker.com)
 1. Developer is uploadding code at GitLab
 2. Jenkins is pushing at Registry and testing for development or staging or product
