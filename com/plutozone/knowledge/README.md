@@ -17,6 +17,7 @@
 
 
 ## Language
+- [Java](./language/java.md)
 - [Python](./language/python.md)
 
 
