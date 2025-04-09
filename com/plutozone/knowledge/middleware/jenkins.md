@@ -7,7 +7,7 @@
 
 
 ## Developer + GitLab + Jenkins + Registry(=hub.docker.com)
-1. Developer is uploadding code at GitLab
+1. Developer is uploadding code at GitLab and Code is builded(include testing) automatically at Jenkins
 2. Jenkins is pushing at Registry and testing for development or staging or product
 3. Kubernetes is upload at development or staging or product
 
