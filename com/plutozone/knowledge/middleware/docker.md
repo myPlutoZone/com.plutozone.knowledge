@@ -197,7 +197,7 @@ $ docker inspect -f '{{ .NetworkSettings.IPAddress }}' [CONTAINTER_NAME or CONTA
 $ docker rm [CONTAINTER_ID%]                                                                # 종료(stop or kill)되어 있어야 삭제 가능
 $ docker run --rm                                                                           # 실행 후 즉시 삭제
 $ docker rm -f $(docker container ls -a -q)                                                 # 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
-$ docker rmi [IMAGE_NAME]                                                                   # 이미지 삭제(해당 컨테이너가 삭제되어야 이미지 삭제 가능, -f 시 강제 삭제)
+$ docker rmi [IMAGE_NAME]                                                                   # 이미지 삭제(=docker image rm [IMAGE_NAME], 해당 컨테이너가 삭제되어야 이미지 삭제 가능, -f 시 강제 삭제)
 ```
 
 
