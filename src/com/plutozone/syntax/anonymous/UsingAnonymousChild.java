@@ -31,11 +31,15 @@ package com.plutozone.syntax.anonymous;
 public class UsingAnonymousChild {
 	
 	public static void main(String[] args) {
+		
 		AnonymousChild anonymousChild = new AnonymousChild();
+		
 		// 익명 객체 필드 사용
 		anonymousChild.field.wake();
-		// 익명 객체 로컬변수 사용
+		
+		// 익명 객체 로컬 변수 사용
 		anonymousChild.method1();
+		
 		// 익명 객체 매개값 사용
 		anonymousChild.method2(
 			new Person() {

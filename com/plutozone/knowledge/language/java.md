@@ -69,11 +69,13 @@
 	- Light and easy code + Real OOP(But OOP is not easy)
 	- Independent platform(Byte code at JVM: Write once, run everywhere)
 	- Source Charset support UTF-16 vs. UTF-8 vs. ANSI
+
 ![JRE](./image/jre.png)
 - Java vs. C++ and procedure, structured programming
 	- Remove pointer, structure, union
 	- All code in class
 - Java Folder
+
 ![JDK](./image/jdk.png)
 - Class library Source: C:\jdk*\src.jar vs. C:\Program Files\Java\jdk*\src.zip
 
@@ -85,6 +87,7 @@
 	- [ERROR] Runtime
 - Compile
 	- C:\Example\javac HelloWorld.java
+
 ![Compile](./image/compile.png)
 - Run
 	- C:\Example\java HelloWorld
@@ -117,11 +120,13 @@
 - while
 - do/while
 - for
+- for each(`com.plutozone.syntax.control.ForEach`)
 - break와 continue
 
 ### 2-6. 기본 타입(Primitive Type) vs. 참조 타입(Reference Type)
 - 기본 타입(형) 변수에는 정수, 실수, 문자, 논리에 대한 실제 값(=리터럴)를 저장
 - 참조 타입(형) 변수에는 배열, 열거, 클래스, 인터페이스와 같이 객체를 참조하는 주소(Address)를 저장
+- `com.plutozone.syntax.type.Reference`
 
 ### 2-7. 배열(Array)
 - 배열의 선언(객체 포함)과 초기화 그리고 Index
@@ -141,6 +146,7 @@
 - 패키지(Package)
 - 절차 지향 프로그래밍 vs. 객체 지향 프로그래밍(OOP, Object Oriented Programming)
 - 패키지(Package)와 클래스(Class) 선언과 멤버 변수(Membership Field)와 멤버 함수(Member Function) 정의
+
 ![Class](./image/class.png)
 
 ### 3-2. 메서드(Method) 또는 함수(Function)
@@ -149,6 +155,7 @@
 
 ### 3-3. 클래스(Class)와 인스턴스(Instance)
 - 클래스형 변수명 = new 생성자;
+- 클래스 정보(`com.plutozone.syntax.classes.Clazz`)
 
 ```java
 Class clazz_1 = 클래스.class;
@@ -188,6 +195,7 @@ System.out.println(clazz_3.getName());
 ### 4-2. 다형성(Polymorphism)
 - 하나의 코드가 여러 자료형으로 구현되어 실행(예: 필드 또는 매개변수의 자동/강제 형 변환에 따른 가상 메서드, 추상 클래스, 인터페이스 등)
 - Down Casting과 instanceof
+
 ![Polymorphism](./image/polymorphism.png)
 
 
@@ -222,19 +230,23 @@ System.out.println(clazz_3.getName());
 - Generic Programming: 런타임(Runtime) 시 자료형 확정
 - 제네릭(Generic) 클래스 정의와 사용
 - 자바에서 제공하는 자료 구조 라이브러리를 컬렉션 프레임워크는 대부분 제네릭(Generic)을 사용
+
 ![Collection](./image/collection.png)
 
 ### 6-5. 내부(Inner) 클래스와 유형
 - 내부 클래스가 외부 클래스와 밀접한 관계에 있고 다른 클래스와 관계가 없을 때
-- 인스턴스 내부 클래스, 정적 내부 클래스, 지역 내부 클래스 그리고 익명 내부 클래스
+- 인스턴스 내부 클래스, 정적 내부 클래스, 지역 내부 클래스 그리고 익명(`com.plutozone.syntax.anonymous.*`) 내부 클래스
 
-### 6-6. 람다식(Lambda expression, 함수형 프로그래밍) at Java 8 over
+### 6-6. 중첩(Nested) 클래스
+- `com.plutozone.syntax.classes.UsingNested`
+
+### 6-7. 람다식(Lambda expression, 함수형 프로그래밍) at Java 8 over
 - 람다식 문법과 사용
 
-### 6-7. 스트림(Stream)<sup>자료에 대한 Sorting, Filter 기능 등을 제공</sup>
+### 6-8. 스트림(Stream)<sup>자료에 대한 Sorting, Filter 기능 등을 제공</sup>
 - 스트림 종류(중간 연산, 최종 연산)와 사용 그리고 특징
 
-### 6-8. 예외(Exception) 처리와 예외 클래스
+### 6-9. 예외(Exception) 처리와 예외 클래스
 - 컴파일 시 에러(Compile Error) = 문법 에러(Syntax Error) vs. 실행 시 에러(Runtime Error) = Bug(버그) 그리고 Debug(디버그)
 - 시스템 에러(Error) = 제어 불가?(예: Static Memory Overflow) vs. 예외(Exception) = 제어 가능(예: File Not Found)
 - try/catch/finally
@@ -242,6 +254,7 @@ System.out.println(clazz_3.getName());
 - throw와 다중 예외 처리와 순서
 - 사용자 정의 예외
 - 로그 레벨(log4j: ALL > TRACE > DEBUG > INFO > WARN > ERROR > FATAL > OFF)과 로깅의 중요성 그리고 보안
+
 ![Exception](./image/exception.png)
 
 
