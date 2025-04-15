@@ -34,6 +34,22 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # Temporary
+- Docker
+```bash
+# docker run -d --name web1 nginx
+# docker run -d --name web2 nginx
+# docker ps -a
+# docker top web1
+# docker top web2
+# ps -ef | grep nginx
+# docker stop web1
+# docker ps -a						# web1 is Exited(0)
+# docker kill web2				# kill is SIGKILL(9)
+# docker ps -a						# web2 is Exited(137)
+# docker start web2
+# docker kill -s 15 web2	# 15(=docker stop) is SIGTERM
+# docker ps -a						# web2 is Exited(0)
+```
 - Selenium
 	- https://testmanager.tistory.com/116
 - Free Online Courses
