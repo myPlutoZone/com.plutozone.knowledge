@@ -14,13 +14,13 @@
 - Compose(Docker=Container Engine, Kubernetes=Orchestrator=Server Cluster Tool)
 
 
-## Change Host Only Network Properties at Virtual Box
+## Change `Host Only Network` Properties at Virtual Box
 - 172.16.0.0/24(24 = 11111111.11111111.11111111.00000000 = 255.255.255.0)
 - `172.16.0.101 ~ 254 for DHCP(172.16.0.100)`
 
 
 ## Create VM
-- `1 vCPU, 2GB, NAT(enp0s3) for External` + `Host Only(enp0s8, 172.16.0.0/24) for Internal` + 20GB/25GB at Rocky/Ubuntu
+- 1 vCPU + 2GB + `NAT(enp0s3) for External` + `Host Only(enp0s8, 172.16.0.0/24) for Internal` + 20GB/25GB at Rocky/Ubuntu
 
 
 ## What's Container
@@ -42,13 +42,13 @@
 $ curl -fsSL https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
 $ yum install -y docker-ce
 $ systemctl status docker
-$ docker version								# Only Client Version
-$ systemctl start docker						# Server Start
+$ docker version                              # Only Client Version
+$ systemctl start docker                      # Server Start
 $ systemctl status docker
-$ docker version								# Client and Server Version
-$ systemctl enable docker						# Server Start on Boot
+$ docker version                              # Client and Server Version
+$ systemctl enable docker						          # Server Start on Boot
 $ docker images
-$ docker run hello-world						# Download hello-world and Print "Hello from Docker!"
+$ docker run hello-world						          # Download hello-world and Print "Hello from Docker!"
 $ docker images
 $ docker run ubuntu /bin/echo 'Hello World'		# Download ubuntu and Print "Hello World"
 $ docker images
@@ -72,6 +72,7 @@ $ sudo shutdown -r now
 $ groups
 $ docker ps -a
 ```
+
 
 ## Server & Client
 - docker는 Client Tool이므로 Localhost 통신이 기본 vs. Kubernetes는 Server Tool이므로 Remote Host 통신이 기본
@@ -117,51 +118,51 @@ $ docker images
 ```bash
 $ docker images
 $ docker run nginx                                               # Forground(stdout + stderr) Mode
-$ docker run openjdk                                             # Forground(stdout + stderr) Mode
-$ docker run openjdk:8-alpine                                    # Forground(stdout + stderr) Mode
-$ docker run plutomsw/demo-nginx                                 # Forground(stdout + stderr) Mode
-$ docker run quay.io/uvelyster/nginx                             # Forground(stdout + stderr) Mode
+$ docker run openjdk
+$ docker run openjdk:8-alpine
+$ docker run plutomsw/demo-nginx
+$ docker run quay.io/uvelyster/nginx
 $ docker ps
 $ docker ps -a
 
 $ docker run -d nginx                                            # Background(stdout is none) Mode
-$ docker run -d openjdk                                          # Background(stdout is none) Mode
-$ docker run -d openjdk:8-alpine                                 # Background(stdout is none) Mode
-$ docker run -d plutomsw/demo-nginx                              # Background(stdout is none) Mode
-$ docker run -d quay.io/uvelyster/nginx                          # Background(stdout is none) Mode
+$ docker run -d openjdk
+$ docker run -d openjdk:8-alpine
+$ docker run -d plutomsw/demo-nginx
+$ docker run -d quay.io/uvelyster/nginx
 $ docker ps
 $ docker ps -a
 
 $ docker run -i nginx                                            # Interactive(stdin + stdout + stderr) Mode
-$ docker run -i openjdk                                          # Interactive(stdin + stdout + stderr) Mode
-$ docker run -i openjdk:8-alpine                                 # Interactive(stdin + stdout + stderr) Mode
-$ docker run -i plutomsw/demo-nginx                              # Interactive(stdin + stdout + stderr) Mode
-$ docker run -i quay.io/uvelyster/nginx                          # Interactive(stdin + stdout + stderr) Mode
+$ docker run -i openjdk
+$ docker run -i openjdk:8-alpine
+$ docker run -i plutomsw/demo-nginx
+$ docker run -i quay.io/uvelyster/nginx
 $ docker ps
 $ docker ps -a
 $ curl 172.17.0.2                                                # [중요] Default Container Network=172.17.0.0/16(Default: Container Host에서만 접속 가능)
 
 $ docker run nginx echo helloworld                               # Forground(stdout + stderr) Mode + Command Parameter(echo helloworld)
-$ docker run openjdk echo helloworld                             # Forground(stdout + stderr) Mode + Command Parameter(echo helloworld)
-$ docker run openjdk:8-alpine echo helloworld                    # Forground(stdout + stderr) Mode + Command Parameter(echo helloworld)
-$ docker run plutomsw/demo-nginx echo helloworld                 # Command Parameter(echo helloworld)
-$ docker run quay.io/uvelyster/nginx echo helloworld             # Command Parameter(echo helloworld)
+$ docker run openjdk echo helloworld
+$ docker run openjdk:8-alpine echo helloworld
+$ docker run plutomsw/demo-nginx echo helloworld
+$ docker run quay.io/uvelyster/nginx echo helloworld
 $ docker ps
 $ docker ps -a
 
-$ docker run -d --name demoNginx-1 nginx                         # Background Mode(-d) + Alias Name(--name)
-$ docker run -d --name demoOpenJdk-1 openjdk                     # Background Mode(-d) + Alias Name(--name)
-$ docker run -d --name demoOpenJdk8-1 openjdk:8-alpine           # Background Mode(-d) + Alias Name(--name)
-$ docker run -d --name myDemoNginx-1 plutomsw/demo-nginx         # Background Mode(-d) + Alias Name(--name)
-$ docker run -d --name demoApp-1 quay.io/uvelyster/nginx         # Background Mode(-d) + Alias Name(--name)
+$ docker run -d --name demoNginx-1 nginx                         # Background Mode(stdout is none) + Alias Name(--name)
+$ docker run -d --name demoOpenJdk-1 openjdk
+$ docker run -d --name demoOpenJdk8-1 openjdk:8-alpine
+$ docker run -d --name myDemoNginx-1 plutomsw/demo-nginx
+$ docker run -d --name demoApp-1 quay.io/uvelyster/nginx
 $ docker ps
 $ docker ps -a
 
 $ docker run -it --name demoNginx-2 nginx                        # Forground Mode(stdin + stdout + stderr) / Interactive + TTY Mode(=-i -t) + Alias Name(--name)
-$ docker run -it --name demoOpenJdk-2 openjdk                    # Forground Mode(stdin + stdout + stderr) / Interactive + TTY Mode(=-i -t) + Alias Name(--name)
-$ docker run -it --name demoOpenJdk8-2 openjdk:8-alpine          # Forground Mode(stdin + stdout + stderr) / Interactive + TTY Mode(=-i -t) + Alias Name(--name)
-$ docker run -it --name myDemoNginx-2 plutomsw/demo-nginx        # Forground Mode(stdin + stdout + stderr) / Interactive + TTY Mode(=-i -t) + Alias Name(--name)
-$ docker run -it --name demoApp-2 quay.io/uvelyster/nginx        # Forground Mode(stdin + stdout + stderr) / Interactive + TTY Mode(=-i -t) + Alias Name(--name)
+$ docker run -it --name demoOpenJdk-2 openjdk
+$ docker run -it --name demoOpenJdk8-2 openjdk:8-alpine
+$ docker run -it --name myDemoNginx-2 plutomsw/demo-nginx
+$ docker run -it --name demoApp-2 quay.io/uvelyster/nginx
 $ docker ps
 $ docker ps -a
 
