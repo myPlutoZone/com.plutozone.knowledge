@@ -9,11 +9,11 @@
 ## Installation
 - pip
 ```cmd
-C:\> pip list						# 설치된 라이브러리 목록
+C:\> pip list											# 설치된 라이브러리 목록
 C:\> pip install beautifulsoup4		# 라이브러리 설치(예: Beautiful Soup)
-C:\> pip install openpyxl			# 라이브러리 설치(예: Openpyxl)
-C:\> pip install selenium			# Firefox headless와 geckodriver가 자동 설치됨(사전에 하위 버전의 FireFox 설치 권장)
-C:\> pip install jupyter			# C:\> jupyter notebook(웹 브라우저에서 실행되는 대화형 파이썬 환경)
+C:\> pip install openpyxl					# 라이브러리 설치(예: Openpyxl)
+C:\> pip install selenium					# Firefox headless와 geckodriver가 자동 설치됨(사전에 하위 버전의 FireFox 설치 권장)
+C:\> pip install jupyter					# C:\> jupyter notebook(웹 브라우저에서 실행되는 대화형 파이썬 환경)
 ```
 
 - Colab(코랩: https://colab.research.google.com)
