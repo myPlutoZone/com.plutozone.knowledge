@@ -216,12 +216,12 @@ $ docker tag quay.io/uvelyster/nginx nginx2nd      # tag 설정
 $ docker images
 $ docker run -d busybox2nd sleep 1d                # sleep 1d로 해당 컨테이너를 실행
 $ docker network inspect bridge                    # bridge detail
-$ docker exec -it [Name or ID%] bash     # bash로 해당 컨테이너로 접근
+$ docker exec -it [Name or ID%] bash               # bash로 해당 컨테이너로 접근
 $ docker network create demoNet --subnet 172.20.0.0/24                  # 사용자 정의 네트워크 생성
 $ docker network ls
 $ docker run -d --network demoNet --name demoApp nginx2nd               # 사용자 정의 네트워크로 컨테이너 실행
 $ docker inspect demoApp | grep IP                                      # IP 확인
-$ docker run -d --network demoNet --name demoApp2 -p 1000:80 nginx2nd   # [중요] 사용자 정의 네트워크로 컨테이너 실행(-p: 포트 포워딩): 요청 포트:응답 포트
+$ docker run -d --network demoNet --name demoApp2 -p 1000:80 nginx2nd   # 사용자 정의 네트워크로 컨테이너 실행(-p: 포트 포워딩, 요청 포트:응답 포트)
                                                                         # http://172.16.0.101:1000
 $ docker rm -f $(docker container ls -a -q)                             # 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
 $ docker network rm demoNet
