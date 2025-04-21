@@ -229,12 +229,12 @@ $ docker network rm demoNet
 
 
 ## Storage(Volume) for Container
+- EFK(Elastic Search + Fluentd + Kibana) vs. PLG(Promtail + Loki + Grafana) for Logging
 - Storage Type
-  - /var/lib/docker/volumes by Docker(volume mount)
-  - ... by 사용자(bind mount)
-  - ... by 메모리(tempfs mount)
+	- /var/lib/docker/volumes by Docker(volume mount)
+	- ... by 사용자(bind mount)
+	- ... by 메모리(tempfs mount)
 ```bash
-# EFK(Elastic Search + Fluentd + Kibana) vs. PLG(Promtail + Loki + Grafana) for Logging
 $ docker volume ls
 $ docker volume create demoVol1
 $ docker volume inspect demoVol1
@@ -250,8 +250,8 @@ $ docker run -d --name demoApp4 -p 1236:80 -v demoVol1:/usr/share/nginx/html ngi
 $ curl 172.17.0.1:1236                                                                  # demoVol1
 $ docker run -d --name demoApp5 -p 1237:80 -v /demoVol2:/usr/share/nginx/html nginx2nd  # "/"로 시작할 경우 by 사용자(bind mount)
 $ ls /
-$ docker run -d -e MYSQL_ROOT_PASSWORD=root mysql                                       # MySQL 설치 시 암호 설정(-e)
-$ docker volume ls                                                                      # MySQL 설치 시 데이터베이스 저장 공간이 자동 생성됨
+$ docker run -d -e MYSQL_ROOT_PASSWORD=root mysql                                       # MySQL 설치 시 1) 볼륨을 지장하지 않을 경우 자동 생성 2) 암호 설정(-e)
+$ docker volume ls
 $ docker rm -f $(docker container ls -a -q)                                             # 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
 $ docker rm -vf [Name or ID%]                                                           # 컨테이너 삭제 시 볼륨 자동 삭제
 $ docker volume ls
