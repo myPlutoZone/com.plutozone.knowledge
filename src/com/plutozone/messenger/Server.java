@@ -17,6 +17,7 @@
  * Notes		:
  * History		: [NO][Programmer][Description]
  *				: [20170614133200][pluto#plutozone.com][CREATE: Initial Release]
+ *				: [20250422225100][pluto#brightsoft.co.kr][REPORT: Class Names and Etc. have changed]
  */
 package com.plutozone.messenger;
 
@@ -35,10 +36,10 @@ import java.net.Socket;
  * <p>DESCRIPTION: 메신저 서버 클래스</p>
  * <p>IMPORTANT:</p>
  */
-public class MessageServer {
+public class Server {
 	
 	/** Logger */
-	private static Logger logger = LoggerFactory.getLogger(MessageServer.class);
+	private static Logger logger = LoggerFactory.getLogger(Server.class);
 	
 	/** Server */
 	ServerSocket server		= null;
@@ -52,7 +53,7 @@ public class MessageServer {
 		
 		if (args.length > 0 && args[0] != null && !args[0].equals("")) port = Integer.parseInt(args[0]);
 		
-		new MessageServer(port);
+		new Server(port);
 	}
 	
 	/**
@@ -63,24 +64,24 @@ public class MessageServer {
 	 * <p>IMPORTANT:</p>
 	 * <p>EXAMPLE:</p>
 	 */
-	public MessageServer(int port) {
+	public Server(int port) {
 		try {
 			server = new ServerSocket(port);
 			
 			logger.info("---------------------------------------------------------------------------");
-			logger.info("com.plutozone.util.messenger.MessageServer has started at " + port + " port");
+			logger.info("com.plutozone.messenger.Server has started at " + port + " port");
 			logger.info("---------------------------------------------------------------------------");
 			
 			while (true) {
 				client = server.accept();
-				logger.info("A new client has connected... " + client.getInetAddress().getHostAddress() +" at com.plutozone.util.messenger.MessageServer");
+				logger.info("A new client has connected... " + client.getInetAddress().getHostAddress() +" at com.plutozone.messenger.Server");
 				
 				ClientHandler clientHandler = new ClientHandler(client);
 				clientHandler.start();
 			}
 		}
 		catch (IOException e) {
-			logger.error("[" + this.getClass().getName() + ".MessageServer()] " + e.getMessage(), e);
+			logger.error("[" + this.getClass().getName() + ".Server()] " + e.getMessage(), e);
 		}
 	}
 }

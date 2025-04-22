@@ -17,6 +17,7 @@
  * Notes		:
  * History		: [NO][Programmer][Description]
  *				: [20170614133300][pluto#plutozone.com][CREATE: Initial Release]
+ *				: [20250422225500][pluto#brightsoft.co.kr][REPORT: Class Names and Etc. have changed]
  */
 package com.plutozone.messenger;
 
@@ -47,10 +48,10 @@ import org.slf4j.LoggerFactory;
  * <p>DESCRIPTION: 메신저 클라이언트 클래스</p>
  * <p>IMPORTANT:</p>
  */
-public class MessageClient extends Frame implements Runnable, ActionListener, WindowListener {
+public class Client extends Frame implements Runnable, ActionListener, WindowListener {
 	
 	/** Logger */
-	private static Logger logger = LoggerFactory.getLogger(MessageClient.class);
+	private static Logger logger = LoggerFactory.getLogger(Client.class);
 	
 	/** Serial version UID */
 	private static final long serialVersionUID = 20170614133900L;
@@ -84,7 +85,7 @@ public class MessageClient extends Frame implements Runnable, ActionListener, Wi
 		if (args.length > 1 && args[0] != null && !args[0].equals("")) ip = args[0];
 		if (args.length > 1 && args[1] != null && !args[1].equals("")) port = Integer.parseInt(args[1]);
 		
-		new MessageClient(ip, port);
+		new Client(ip, port);
 	}
 	
 	/**
@@ -95,7 +96,7 @@ public class MessageClient extends Frame implements Runnable, ActionListener, Wi
 	 * <p>IMPORTANT:</p>
 	 * <p>EXAMPLE:</p>
 	 */
-	public MessageClient(String ip, int port) {
+	public Client(String ip, int port) {
 		
 		super("Messenger GUI(Java AWT) Client Version 1.0.0");
 		
