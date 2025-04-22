@@ -244,20 +244,23 @@ $ curl 172.17.0.1:1234
 $ curl localhost:1234
 $ docker volume inspect demoVol1
 $ nano /var/lib/docker/volumes/demoVol1/_data/index.html
-$ curl 172.17.0.1:1235                                                                  # demoVol1 저장된 index.html(예: 동적 소스, 설정 등)
+$ curl 172.17.0.1:1235                                                                  	# demoVol1 저장된 index.html(예: 동적 소스, 설정 등)
 $ curl 172.17.0.1:1234
 $ docker run -d --name demoApp4 -p 1236:80 -v demoVol1:/usr/share/nginx/html nginx2nd
-$ curl 172.17.0.1:1236                                                                  # demoVol1
-$ docker run -d --name demoApp5 -p 1237:80 -v /demoVol2:/usr/share/nginx/html nginx2nd  # "/"로 시작할 경우 by 사용자(bind mount)
+$ curl 172.17.0.1:1236                                                                  	# demoVol1
+$ docker run -d --name demoApp5 -p 1237:80 -v /demoVol2:/usr/share/nginx/html nginx2nd  	# "/"로 시작할 경우 by 사용자(bind mount)
+$ docker run -d --name demoApp6 -p 1236:80 -v  demoVol1:/usr/share/nginx/html:ro nginx2nd	# 읽기 전용 volume mount
+$ docker run -d --name demoApp7 -p 1237:80 -v /demoVol3:/usr/share/nginx/html:ro nginx2nd	# 읽기 전용 bind mount
 $ ls /
-$ docker run -d -e MYSQL_ROOT_PASSWORD=root mysql                                       # MySQL 설치 시 1) 볼륨을 지장하지 않을 경우 자동 생성 2) 암호 설정(-e)
+$ docker run -d -e MYSQL_ROOT_PASSWORD=root mysql                                       	# MySQL 설치 시 1) 볼륨을 지장하지 않을 경우 자동 생성 2) 암호 설정(-e)
 $ docker volume ls
-$ docker rm -f $(docker container ls -a -q)                                             # 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
-$ docker rm -vf [Name or ID%]                                                           # 컨테이너 삭제 시 볼륨 자동 삭제
+$ docker rm -f $(docker container ls -a -q)                                             	# 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
+$ docker rm -vf [Name or ID%]                                                           	# 컨테이너 삭제 시 볼륨 자동 삭제
 $ docker volume ls
-$ docker volume rm demoVol1                                                             # 볼륨 수동 삭제
+$ docker volume rm demoVol1                                                             	# 볼륨 수동 삭제
+$ docker volume rm -f $(docker vloume ls -q)							# 모든 볼륨 삭제
 $ docker volume ls
-$ docker volume prune                                                                   # 생성된 모든 볼륨을 삭제
+$ docker volume prune                                                                   	# 생성된 모든 볼륨을 삭제
 ```
 
 
