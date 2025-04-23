@@ -7,7 +7,7 @@
 
 
 ## Developer + GitLab + Jenkins + Registry(=hub.docker.com)
-1. Developer is uploadding code at GitLab and Code is builded(include testing) automatically at Jenkins
+1. Developer is uploadding code at GitLab and Code is builded(include testing) automatically by Jenkins
 2. Jenkins is pushing at Registry and testing for development or staging or product
 3. Kubernetes is upload at development or staging or product
 
@@ -15,7 +15,7 @@
 ## Enviroments
 1. Virtual Box
 2. Rocky 9.5(rockylinux.org vs. mirror.navercorp.com) at Virtual Box
-3. mobaxterm + https://codeshare.io/
+3. MobaXterm
 
 
 ## Docker Repositoy 설정 및 설치 그리고 Run Container(ngnix) as root at Rocky
@@ -55,7 +55,7 @@ $ docker rmi test                          # remove tag or image
 ```
 
 
-## Instruction
+## Instruction at Dockerfile
 ```bash
 $ vi Dockerfile
 FROM quay.io/uvelyster/nginx                                # FROM
@@ -73,6 +73,7 @@ $ docker build -t test_apache .
 $ docker run -d test_apache
 $ curl 172.17.0.3
 $ vi index.html
+Hello Apache Web Server!
 $ vi Dockerfile
 FROM quay.io/uvelyster/ubuntu:24.04
 RUN apt-get update; apt-get install -y apache2
