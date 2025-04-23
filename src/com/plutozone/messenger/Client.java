@@ -250,6 +250,7 @@ public class Client extends Frame implements Runnable, ActionListener, WindowLis
 					logger.error("[" + this.getClass().getName() + ".actionPerformed().btnDisconnect2nd] " + e.getMessage(), ioe);
 				}
 			}
+			
 			isConnected = false;
 			if (listener != null) listener.stop();
 			setChatMode(false);
@@ -274,25 +275,30 @@ public class Client extends Frame implements Runnable, ActionListener, WindowLis
 	@SuppressWarnings("deprecation")
 	public void windowClosing(WindowEvent windowEvent) {
 		
-		String message = "************** " + txtName.getText() + " has exit! **************";
-		MessageObject co = new MessageObject(-1, txtName.getText(), message);
-		try {
-			objectOutputStream.writeObject(co);
-			objectOutputStream.flush();
-		}
-		catch (IOException e) {
-			logger.error("[" + this.getClass().getName() + ".windowClosing()1st] " + e.getMessage(), e);
+		if (isConnected) {
+			String message = "************** " + txtName.getText() + " has exit! **************";
+			MessageObject co = new MessageObject(-1, txtName.getText(), message);
 			try {
-				objectOutputStream.close();
-				objectInputStream.close();
-				socket.close();
+				objectOutputStream.writeObject(co);
+				objectOutputStream.flush();
 			}
-			catch (Exception ioe) {	
-				logger.error("[" + this.getClass().getName() + ".windowClosing()2nd] " + e.getMessage(), ioe);
+			catch (IOException e) {
+				logger.error("[" + this.getClass().getName() + ".windowClosing()1st] " + e.getMessage(), e);
+				try {
+					objectOutputStream.close();
+					objectInputStream.close();
+					socket.close();
+				}
+				catch (Exception ioe) {	
+					logger.error("[" + this.getClass().getName() + ".windowClosing()2nd] " + e.getMessage(), ioe);
+				}
 			}
+			
+			isConnected = false;
+			if (listener != null) listener.stop();
+			setChatMode(false);
 		}
 		
-		if (listener != null) listener.stop();
 		setVisible(false);
 		dispose();
 		System.exit(0);
