@@ -1,6 +1,10 @@
 # com.plutozone.knowledge.middleware.Docker
 
 
+## Overview
+- Docker(=Container)는 충분히 검증되었지만 Host 또는 Virtual Machine이 제공하는 OS 기반 격리보다는 덜 안전하고 비효율적이다고 여겨지기도 한다.
+
+
 ## Environments
 - VM Tools(Virtual Box)
 - Linux Distribution(Rocky 9.5)
