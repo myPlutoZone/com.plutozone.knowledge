@@ -332,6 +332,9 @@
 ### 8-15. Stress Tool
 - Jmeter
 
+### 8-15. Etc
+- mirror.navercorp.com
+
 
 ## 9. 향후
 ### 9-1. 6개월 후
