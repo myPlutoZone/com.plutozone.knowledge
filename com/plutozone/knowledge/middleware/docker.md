@@ -424,8 +424,8 @@ $ docker compose up -d
 $ docker run -d --name mysql -v /db:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_PASSWORD=wordpress mysql:5.7
 $ docker run -d --name wordpress --link mysql:mysql -e WORDPRESS_DB_PASSWORD=wordpress -p 80:80 wordpress:4
 # firefox http://172.17.0.3 접속 후 WordPress 설정 
-$ docker container top wordpress
-$ docker container top mysql
+$ docker container top wordpress	# wordpress 컨테이너에 실행중인 프로세스 정보를 ps -ef 형식으로 출력
+$ docker container top mysql aux	# mysql 컨테이너에 실행중인 프로세스 정보를 ps -aux 형식으로 출력
 $ docker rm -f $(docker ps -aq)
 $ rm -rf /db
 ```
