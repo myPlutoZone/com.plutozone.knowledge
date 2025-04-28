@@ -244,7 +244,7 @@ $ docker volume prune                                                           
 
 ## Network for Container
 ```bash
-$ docker network ls                                			# Network(Default:bridge=자체, host=호스트, none=없음) for Container
+$ docker network ls                                			# Network(Default:bridge=호스트에 브릿지 네트워크 추가, host=호스트 네트워크 자체, none=없음) for Container
 $ docker pull quay.io/uvelyster/busybox
 $ docker tag quay.io/uvelyster/busybox busybox2nd  			# quay.io/uvelyster/busybox를 busybox2nd로 설정(tag)
 $ docker images
@@ -270,6 +270,7 @@ $ docker rm -f $(docker container ls -a -q)                             # 모든
 $ docker network rm demoNet
 # 기타 옵션: --add-host(/etc/hosts 설정), --dns(/etc/resolv.conf 설정), --mac-address(MAC 설정), --hostname(/etc/hostname 설정), --ip(IP 지정)
 $ docker container run --rm -it --hostname www.test.com --add-host node1.test.com:172.17.0.10 --dns 192.168.10.2 centos # hotname, ip addr, ip route, cat /etc/hosts, cat /etc/hostname, df -hT, cat /etc/resolv.conf 등으로 확인
+# 컨테이너 통신 방법 (1) /etc/hots (2) --link (3) 자동 이름 검색 서비스 in 사용자 정의 네트워크
 ```
 
 
@@ -288,7 +289,8 @@ $ docker run -d -v /source:/data -p 1000:5000 --name demoHelloPy -e APP=python m
 # 컨테이너 이름은 demoNginx
 # 환경 변수는 ENV=hello
 $ docker run -d -v /source:/data -p 1000:80 --name demoNginx -e ENV=hello nginx
-$ docker exec -it demoNginx /bin/bash
+$ docker exec -it demoNginx /bin/bash		# docker attach demoNginx
+# exit(프로세스 종료) vs. [CTRL] + [p] +[q](프로세스 유지)
 ```
 
 
@@ -414,4 +416,16 @@ services:
       - '/root/gitlab/backup:/var/opt/gitlab/backups'
       - '/root/gitlab/registry:/var/opt/gitlab/gitlab-rails/shared/registry'
 $ docker compose up -d
+```
+
+## Example
+- WordPress(웹 페이지 제작 및 관리용 CMS) + MySQL
+```bash
+$ docker run -d --name mysql -v /db:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_PASSWORD=wordpress mysql:5.7
+$ docker run -d --name wordpress --link mysql:mysql -e WORDPRESS_DB_PASSWORD=wordpress -p 80:80 wordpress:4
+# firefox http://172.17.0.3 접속 후 WordPress 설정 
+$ docker container top wordpress
+$ docker container top mysql
+$ docker rm -f $(docker ps -aq)
+$ rm -rf /db
 ```
