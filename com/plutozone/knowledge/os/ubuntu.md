@@ -17,7 +17,7 @@ sudo reboot
 sudo apt purge cloud-init -y
 sudo rm -rf /etc/cloud && sudo rm -rf /var/lib/cloud/
 sudo reboot
- sudo hostnamectl set-hostname plutozone
+sudo hostnamectl set-hostname plutozone
 ```
 
 - 시간대(TimeZone) 설정
