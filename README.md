@@ -14,7 +14,7 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # TODO
-- import Selenium Library
+- ...
 
 # Overview
 - Our knowledge and wisdom are learned from someone and should be given to the next person.

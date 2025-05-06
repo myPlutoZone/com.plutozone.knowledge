@@ -21,12 +21,14 @@
 - [Python](./language/python.md)
 
 
-## [Development](./development/README.md "개발 표준 가이드")
+## Development
+- [Overview of Development](./development/README.md "개발 표준 가이드 등")
 - [AWS](./development/cloud/aws.md)
 - [Eclipse](./development/eclipse.md)
 
 
-## [Database](./database/README.md "데이터베이스 개론")
+## Database
+- [Overview of Database](./database/README.md "데이터베이스 개론 등")
 - [Oracle](./database/oracle.md)
 
 
