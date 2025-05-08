@@ -9,7 +9,7 @@
 05. [Database .................................................................... 데이터베이스](#database)
 06. [Middleware ...................................................................... 미들웨어](#middleware)
 07. [AI(ML + DL) ..................................................................... 인공 지능](./ai/README.md)
-08. [Management ............................. 시스템과 서비스에 대한 관리 및 정책]
+08. [Management ............................................ 시스템과 서비스에 대한 관리 및 정책](#management)
 
 
 ## OS
@@ -38,3 +38,8 @@
 - [@Jenkins](./middleware/jenkins.md)
 - [@Kubernates](./middleware/kubernetes.md)
 - [Tomcat](./middleware/tomcat.md)
+
+
+## Management
+- [Overview of Management](./management/README.md "관리 개론 등")
+- [@Log](./management/log.md)
