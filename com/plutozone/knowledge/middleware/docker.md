@@ -1,6 +1,10 @@
 # com.plutozone.knowledge.middleware.Docker
 
 
+## TODO
+- 코드(탭 vs. 스페이스 포함) 및 예제 정규화
+
+
 ## Overview
 - Docker(=Container)는 충분히 검증되었지만 Host 또는 Virtual Machine이 제공하는 OS 기반 격리보다는 덜 안전하고 비효율적이다고 여겨지기도 한다.
 
@@ -179,12 +183,26 @@ $ docker inspect demoOpenJdk8-2                                   # Forground Mo
 $ docker inspect myDemoNginx-1                                    # Backgroud Mode and Service
 $ docker inspect myDemoNginx-2                                    # Forground Mode
 
-$ docker cp demoNginx-1:/usr/share/nginx/html/index.html .             # 컨테이너 파일을 로컬(.)로 복사 [참고] demoNginx-1 and myDemoNginx-1 are a live!!!
+$ docker rm -f $(docker ps -aq)
+
+$ docker run -d --name web1 nginx
+$ docker run -d --name web2 -p 8080:80 nginx
+$ docker top web1			# web1 컨테이너에 실행중인 프로세스 정보를 ps -ef 형식으로 출력(=docker container top web1)
+$ docker top web1 aux		# web1 컨테이너에 실행중인 프로세스 정보를 ps -aux 형식으로 출력
+$ docker port web1			# web1 컨테이너에 사용중인 포트 정보(=docker container port web1)
+$ docker port web2			# web2 컨테이너에 사용중인 포트 정보
+$ docker stop web1
+$ docker ps -a
+$ docker rename web1 www1	# 컨테이너명 변경(=docker container rename web1 www1)
+$ docker rename web2 www2
+$ docker container ls -a
+$ docker cp www1:/usr/share/nginx/html/index.html .						# 컨테이너 파일을 로컬(.)로 복사(=docker container cp www1:/usr/share/nginx/html/index.html .) [참고] www2 is a only live!!!
 $ nano index.html
-$ docker cp ./index.html demoNginx-1:/usr/share/nginx/html/index.html  # 로컬 파일을 컨테이너 파일로 복사
-$ docker exec -it demoNginx-1 /bin/bash                                # [중요] 해당 컨테이너에 접근=exec addtional process(i: Interactive, t: TTY) after run
+$ docker cp ./index.html www1:/usr/share/nginx/html/index.html			# 로컬 파일을 컨테이너 파일로 복사
+$ docker cp ./index.html www2:/usr/share/nginx/html/index.html			# 로컬 파일을 컨테이너 파일로 복사
+$ docker exec -it www2 /bin/bash										# [중요] 해당 컨테이너에 접근=exec addtional process(i: Interactive, t: TTY) after run
 $ cat /usr/share/nginx/html/index.html
-$ exit                                                                 # 해당 컨테이너에서 나가기
+$ exit																	# 해당 컨테이너에서 나가기
 ```
 
 - LifeCycle for Container
@@ -425,9 +443,6 @@ $ docker run -d --name mysql -v /db:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=wordpr
 $ docker run -d --name wordpress --link mysql:mysql -e WORDPRESS_DB_PASSWORD=wordpress -p 80:80 wordpress:4
 $ docekr ps -a
 # firefox http://172.17.0.3 접속 후 WordPress 설정
-$ docker container top wordpress	# wordpress 컨테이너에 실행중인 프로세스 정보를 ps -ef 형식으로 출력
-$ docker container port wordpress	# wordpress 컨테이너에 사용중인 포트 정보
-$ docker container top mysql aux	# mysql 컨테이너에 실행중인 프로세스 정보를 ps -aux 형식으로 출력
 $ docker rm -f $(docker ps -aq)
 $ rm -rf /db
 ```
