@@ -6,7 +6,10 @@
 
 
 ## 개발 환경 설정
-
+- Node.js 설치 및 확인
+```cmd
+C:\>node -v
+```
 
 ## Instance and Component
 <details><summary>Instance Life Cycle</summary>
