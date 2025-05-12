@@ -108,9 +108,3 @@ C:\>netstat -ano | find "80"		# "80" 확인 vs. "LISTEN" 등
 - ![Generic badge](https://img.shields.io/badge/IMPORTANT-comment_...-red.svg)
 - ![Generic badge](https://img.shields.io/badge/CONFIRM-comment_...-green.svg)
 - ![Generic badge](https://img.shields.io/badge/REFERENCE-comment_...-blue.svg)
-
-<details><summary>CLICK ME</summary>
-```
-pythonprint("hello world!")
-```
-</details>
