@@ -9,7 +9,7 @@
 
 
 ## Instance and Component
-- Instance Life Cycle
+<details><summary>Instance Life Cycle</summary>
 ```html
 <html>
 <head>
@@ -65,3 +65,4 @@
 </body>
 </html>
 ```
+</details>
