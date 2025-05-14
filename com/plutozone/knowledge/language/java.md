@@ -70,13 +70,13 @@
 	- Independent platform(Byte code at JVM: Write once, run everywhere)
 	- Source Charset support UTF-16 vs. UTF-8 vs. ANSI
 
-![JRE](./image/jre.png)
+![JRE](./image/java/jre.png)
 - Java vs. C++ and procedure, structured programming
 	- Remove pointer, structure, union
 	- All code in class
 - Java Folder
 
-![JDK](./image/jdk.png)
+![JDK](./image/java/jdk.png)
 - Class library Source: C:\jdk*\src.jar vs. C:\Program Files\Java\jdk*\src.zip
 
 ### 2-2. Compile and Run
@@ -88,7 +88,7 @@
 - Compile
 	- C:\Example\javac HelloWorld.java
 
-![Compile](./image/compile.png)
+![Compile](./image/java/compile.png)
 - Run
 	- C:\Example\java HelloWorld
 	- C:\Example\appletviewer ExApplet.html
@@ -147,7 +147,7 @@
 - 절차 지향 프로그래밍 vs. 객체 지향 프로그래밍(OOP, Object Oriented Programming)
 - 패키지(Package)와 클래스(Class) 선언과 멤버 변수(Membership Field)와 멤버 함수(Member Function) 정의
 
-![Class](./image/class.png)
+![Class](./image/java/class.png)
 
 ### 3-2. 메서드(Method) 또는 함수(Function)
 - 반환형 이름(매개변수) { …; return 반환값; }
@@ -196,11 +196,11 @@ System.out.println(clazz_3.getName());
 - 하나의 코드가 여러 자료형으로 구현되어 실행(예: 필드 또는 매개변수의 자동/강제 형 변환에 따른 가상 메서드, 추상 클래스, 인터페이스 등)
 - Down Casting과 instanceof
 
-![Polymorphism](./image/polymorphism.png)
+![Polymorphism](./image/java/polymorphism.png)
 
 
 ## 5. 추상 클래스와 인터페이스
-![Abstract + Interface](./image/abstract+interface.png)
+![Abstract + Interface](./image/java/abstract+interface.png)
 ### 5-1. 추상(Abstract) 클래스<sup>동일한 객체 변수로 해당 메서드를 상속한 클래스의 메서드 호출(하나의 코드가 여러 자료형으로 구현되어 실행)</sup>
 - 추상 클래스는 구현되지 않은 메서드가 있고 상속(extends) 클래스에서 구현해야 사용 가능
 - final을 통한 템플릿 메서드 정의
@@ -231,7 +231,7 @@ System.out.println(clazz_3.getName());
 - 제네릭(Generic) 클래스 정의와 사용
 - 자바에서 제공하는 자료 구조 라이브러리를 컬렉션 프레임워크는 대부분 제네릭(Generic)을 사용
 
-![Collection](./image/collection.png)
+![Collection](./image/java/collection.png)
 
 ### 6-5. 내부(Inner) 클래스와 유형
 - 내부 클래스가 외부 클래스와 밀접한 관계에 있고 다른 클래스와 관계가 없을 때
@@ -255,7 +255,7 @@ System.out.println(clazz_3.getName());
 - 사용자 정의 예외
 - 로그 레벨(log4j: ALL > TRACE > DEBUG > INFO > WARN > ERROR > FATAL > OFF)과 로깅의 중요성 그리고 보안
 
-![Exception](./image/exception.png)
+![Exception](./image/java/exception.png)
 
 
 ## 7. 입출력과 스트림
