@@ -188,21 +188,22 @@ $ docker rm -f $(docker ps -aq)
 $ docker run -d --name web1 nginx
 $ docker run -d --name web2 -p 8080:80 nginx
 $ docker top web1			# web1 컨테이너에 실행중인 프로세스 정보를 ps -ef 형식으로 출력(=docker container top web1)
-$ docker top web1 aux		# web1 컨테이너에 실행중인 프로세스 정보를 ps -aux 형식으로 출력
+$ docker top web1 aux			# web1 컨테이너에 실행중인 프로세스 정보를 ps -aux 형식으로 출력
 $ docker port web1			# web1 컨테이너에 사용중인 포트 정보(=docker container port web1)
 $ docker port web2			# web2 컨테이너에 사용중인 포트 정보
 $ docker stop web1
 $ docker ps -a
-$ docker rename web1 www1	# 컨테이너명 변경(=docker container rename web1 www1)
+$ docker rename web1 www1						# 컨테이너명 변경(=docker container rename web1 www1)
 $ docker rename web2 www2
 $ docker container ls -a
-$ docker cp www1:/usr/share/nginx/html/index.html .						# 컨테이너 파일을 로컬(.)로 복사(=docker container cp www1:/usr/share/nginx/html/index.html .) [참고] www2 is a only live!!!
+$ docker cp www1:/usr/share/nginx/html/index.html .			# 컨테이너 파일을 로컬(.)로 복사(=docker container cp www1:/usr/share/nginx/html/index.html .) [참고] www2 is a only live!!!
 $ nano index.html
-$ docker cp ./index.html www1:/usr/share/nginx/html/index.html			# 로컬 파일을 컨테이너 파일로 복사
-$ docker cp ./index.html www2:/usr/share/nginx/html/index.html			# 로컬 파일을 컨테이너 파일로 복사
-$ docker exec -it www2 /bin/bash										# [중요] 해당 컨테이너에 접근=exec addtional process(i: Interactive, t: TTY) after run
+$ docker cp ./index.html www1:/usr/share/nginx/html/index.html		# 로컬 파일을 컨테이너 파일로 복사
+$ docker cp ./index.html www2:/usr/share/nginx/html/index.html		# 로컬 파일을 컨테이너 파일로 복사
+$ docker exec -it www2 /bin/bash					# [중요] 해당 컨테이너에 접근=exec addtional process(i: Interactive, t: TTY) after run
 $ cat /usr/share/nginx/html/index.html
-$ exit																	# 해당 컨테이너에서 나가기
+$ exit									# 해당 컨테이너에서 나가기
+
 ```
 
 - LifeCycle for Container
