@@ -217,7 +217,13 @@ $ docker attach ubuntu1
 $ docker diff ubuntu1
 $ docker rm -f $(docker ps -aq)
 
-
+$ docker run --name web1 -d -p 8080:80 nginx
+$ docker logs web1							# 컨테이너 로그 확인(=docker container logs web1)
+$ docker inspect -f "{{.LogPath}}" web1		# 로그 파일 위치 확인
+$ docker logs -f web1						# 컨테이너 로그 계속(--follow) 확인
+$ docker logs -n 5 web1						# 컨테이너 로그의 마지막 5줄 확인
+$ docker logs -t web1						# 컨테이너 로그 타임스템프도 확인
+$ docker rm -f $(docker ps -aq)
 ```
 
 - LifeCycle for Container
