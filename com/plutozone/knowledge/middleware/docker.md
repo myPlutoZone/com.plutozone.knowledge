@@ -2,7 +2,7 @@
 
 
 ## TODO
-- 코드(탭 vs. 스페이스 포함) 및 예제 정규화
+- `코드(탭 vs. 스페이스 포함) 및 예제 정규화`
 
 
 ## Overview
@@ -50,15 +50,15 @@
 $ curl -fsSL https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
 $ yum install -y docker-ce
 $ systemctl status docker
-$ docker version                              # Only Client Version
-$ systemctl start docker                      # Server Start
+$ docker version                              	# Only Client Version
+$ systemctl start docker                      	# Server Start
 $ systemctl status docker
-$ docker version                              # Client and Server Version
-$ systemctl enable docker						          # Server Start on Boot
+$ docker version                              	# Client and Server Version
+$ systemctl enable docker	          	# Server Start on Boot
 $ docker images
-$ docker run hello-world						          # Download hello-world and Print "Hello from Docker!"
+$ docker run hello-world		        # Download hello-world and Print "Hello from Docker!"
 $ docker images
-$ docker run ubuntu /bin/echo 'Hello World'		# Download ubuntu and Print "Hello World"
+$ docker run ubuntu /bin/echo 'Hello World'	# Download ubuntu and Print "Hello World"
 $ docker images
 $ docker ps -a
 ```
@@ -98,15 +98,15 @@ $ docker -H 172.16.0.102:2375      # Remote Host 접속 시
 ## Commands
 - Search Image at Registry and Image at Localhost
 ```bash
-$ docker search nginx				# Default Registry(hub.docker.com)에서 nginx Image를 검색 = https://hub.docker.com/에서 nginx를 검색
+$ docker search nginx			# Default Registry(hub.docker.com)에서 nginx Image를 검색 = https://hub.docker.com/에서 nginx를 검색
 $ docker search quay.io/nginx		# quay.io Registry에서 nginx Image를 검색
-$ docker images						# Localhost의 Image 확인
+$ docker images				# Localhost의 Image 확인
 ```
 
 - System Information
 ```bash
-$ docker system info				# 실행 환경
-$ docker system df					# 디스크 사용량
+$ docker system info			# 실행 환경
+$ docker system df			# 디스크 사용량
 ```
 
 - Pull
@@ -182,11 +182,10 @@ $ docker inspect demoOpenJdk8-1                                   # Backgroud Mo
 $ docker inspect demoOpenJdk8-2                                   # Forground Mode
 $ docker inspect myDemoNginx-1                                    # Backgroud Mode and Service
 $ docker inspect myDemoNginx-2                                    # Forground Mode
-
 $ docker rm -f $(docker ps -aq)
 
-$ docker run -d --name web1 nginx
-$ docker run -d --name web2 -p 8080:80 nginx
+$ docker run --name web1 -d nginx
+$ docker run --name web2 -d -p 8080:80 nginx
 $ docker top web1			# web1 컨테이너에 실행중인 프로세스 정보를 ps -ef 형식으로 출력(=docker container top web1)
 $ docker top web1 aux			# web1 컨테이너에 실행중인 프로세스 정보를 ps -aux 형식으로 출력
 $ docker port web1			# web1 컨테이너에 사용중인 포트 정보(=docker container port web1)
@@ -203,6 +202,21 @@ $ docker cp ./index.html www2:/usr/share/nginx/html/index.html		# 로컬 파일�
 $ docker exec -it www2 /bin/bash					# [중요] 해당 컨테이너에 접근=exec addtional process(i: Interactive, t: TTY) after run
 $ cat /usr/share/nginx/html/index.html
 $ exit									# 해당 컨테이너에서 나가기
+$ docker rm -f $(docker ps -aq)
+
+$ docker run --name web1 -d -p 8080:80 nginx
+$ docker diff web1		# 이미지와 컨테이너 차이점 확인(=docker container diff web1): A(Add) , C(Change), D(Delete)
+$ docker stop web1
+$ docker diff web1
+$ docker run --name ubuntu1 -it -d ubuntu
+$ docker diff ubuntu1
+$ docker attach ubuntu1
+# useradd user1
+# passwd user1
+...				# [Ctrl] + [p] + [q]
+$ docker diff ubuntu1
+$ docker rm -f $(docker ps -aq)
+
 
 ```
 
