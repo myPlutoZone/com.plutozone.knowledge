@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>::: HTML Tag :::</title>
+	<style>
+		/* li {color: red; border-bottom: 1px solid green;} */
+	</style>
+	<script></script>
+</head>
+<body>
+	HTML 태그(Tag)는	 소문자
+	<hr />
+	
+	<h1>H1</h1>
+	<h2>H2</h2>
+	<h3>H3</h3>
+	<h4>H4</h4>
+	<hr />
+	
+	지금은 <b>강조할거야</b> 다시 강조 안 해.<i>이탤릭체 이탤릭체<mark>이탤릭체</mark>이탤릭체</i><br />
+	유튜브 채널에 영상이<blockquote>마지막으로</blockquote>이를 변형해 한국에서 쓰이는 <sup style="color:red">new</sup>영상이
+	<hr />
+	
+	<a href="http://www.naver.com" target="_blank">Naver</a>&nbsp;&nbsp;&nbsp;
+	<a href="http://www.daum.net" target="_self">Daum</a>
+	<hr />
+	
+	<ul>
+		<li>Java</li>
+		<li>Oracle</li>
+		<li>Java</li>
+		<li>Oracle</li>
+	</ul>
+	<hr />
+	
+	<ol>
+		<li>Java</li>
+		<li>Oracle</li>
+			<li>Java</li>
+		<li>Oracle</li>
+	</ol>
+	<hr />
+	
+	<a href="http://www.plutozone.com"><img src="/image/logo.jpg" alt="plutozone.com"></a>
+	<hr />
+	
+	<form method="POST" action="/html2.html">
+		<input type="text" value="" placeholder="명성완" id="id" name="id" style="ime-mode: disabled; border: 1px solid green;" required maxlength="16" autocomplete="off" onkeydown="if (event.keyCode==13) alert('Enter키');" /><br/>
+		<input type="password" id="passwd" name="passwd" tabindex="1" /><br/>
+		<input type="file" /><br/>
+		<input type="button" value="Button" /><br/>
+		<label>20대<input type="radio" name="연령대" value="20대" /></label>
+		<label>30대<input type="radio" name="연령대" value="30대" /></label>
+		<label>40대<input type="radio" name="연령대" value="40대" /></label>
+		<label>50대<input type="radio" name="연령대" value="50대" /></label><br/>
+		<label>수영<input type="checkbox" id="취미" /></label>
+		<label>달리기<input type="checkbox" id="취미" /></label>
+		<label>자전기<input type="checkbox" id="취미" /></label><br/>
+		<input type="submit" /><br/>
+		<input type="reset" /><br/>
+		<input type="image" src="./login.jpg" width="100px" /><br/>
+		<input type="hidden" value="hidden" /><br/>
+		<input type="number" /><br/>
+		<input type="date" /><br/>
+		<textarea style="width: 300px; height: 100px;"></textarea>
+	</form>
+	<hr />
+	
+	<table border="1">
+	<tr>
+		<th>날짜</th>
+		<th>이름</th>
+		<th>성별</th>
+	</tr>
+	<tr>
+		<td>11/15</td>
+		<td>김우직</td>
+		<td>남</td>
+	</tr>
+	<tr>
+		<td>11/14</td>
+		<td>박수진</td>
+		<td>여</td>
+	</tr>
+	</table>
+	<hr />
+	
+	<table border="1">
+	<tr>
+		<th>번호</th>
+		<th>제목</th>
+		<th colspan="2">이름</th>
+		<!-- <th>조회수</th> : 밀려난 셀 제거-->
+	</tr>
+	<tr>
+		<td rowspan="3">1</td>
+		<td>테이블-1</td>
+		<td>홍길동</td>
+		<td>10</td>
+	</tr>
+	<tr>
+		<!-- <td>2</td> -->
+		<td>테이블-2</td>
+		<td>둘리</td>
+		<td>20</td>
+	</tr>
+	<tr>
+		<!-- <td>3</td> -->
+		<td>테이블-3</td>
+		<td>도우너</td>
+		<td>30</td>
+	</tr>
+	</table>
+	
+	<p>
+		단락
+	</p>
+	<hr />
+	
+	<span>span</span>
+	<hr />
+	
+	<div>div</div>
+</body>
+</html>
