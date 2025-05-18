@@ -51,7 +51,7 @@
 		- input(text, password, radio, checkbox, button, submit, hidden)
 		- select
 		- textarea 등
-	- [시맨틱 태그(Semantic Tag)](../../WebContent/html/semantic.html)와 [레이아웃(Layout)](../HTML+CSS/README.md)
+	- [시맨틱 태그(Semantic Tag)](/WebContent/html/semantic.html)와 [레이아웃(Layout)](../HTML+CSS/README.md)
 
 ![Layout-1](./image/html/layout_1.png)
 ![Layout-2](./image/html/layout_2.png)
