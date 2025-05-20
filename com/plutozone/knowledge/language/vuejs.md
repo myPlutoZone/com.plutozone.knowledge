@@ -12,6 +12,7 @@ C:\>node -v
 ```
 
 ## Instance and Component
+### Instance
 <details><summary>Instance Life Cycle</summary>
 ```html
 <html>
@@ -69,3 +70,7 @@ C:\>node -v
 </html>
 ```
 </details>
+
+### Component
+- 전역 컴포넌트
+- 지역 컴포넌트
