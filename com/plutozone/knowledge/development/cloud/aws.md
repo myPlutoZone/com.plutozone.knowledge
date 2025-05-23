@@ -45,6 +45,7 @@
 	- Create EC2 Instances
 		- Make PEM for ec2-user at Amazon Linux 2
 		- Install Nginx or Tomcat
+- S3(Simple Storage Service=External Storage)
 - Route53(=DNS, 자체 또는 외부 DNS 관리)
 
 
@@ -144,7 +145,7 @@
 - 일반적으로 Bastion Server(관제용), NAT Gateway(패치용), EKS Management Server(관리용)만을 Public Zone에 배치
 
 ### 6-3. 참고
-- ssh -i keyPair.pem id@localhost at Bastion Server
+- ssh -i keyPair.pem id@targetHost at Bastion Server(# chmod 400 keyPair.pem)
 - 새로운 SG(Security Group) 생성 후 Inbound를 설정할 경우 Outbound는 Any로 자동 설정됨
 - Amazon Linux, Ubuntu의 기본 계정은 ec2-user, ubuntu
 - EC2, NAT Gateway는 화면 상에서 즉시 삭제되지 않고 추후 삭제됨
