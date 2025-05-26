@@ -40,13 +40,14 @@
 		- Health Check
 		- Auto Scaling
 	- Storage at EC2
-		- Instance Storage(예: C:\)
-		- EBS(Elastic Block Storage, 예: D:\)
+		- Instance Storage(Default Disk로 예를 들어 C:\)
+		- EBS(Elastic Block Storage, Additional Disk로 예를 들어 D:\)
 	- Create EC2 Instances
 		- Make PEM for ec2-user at Amazon Linux 2
 		- Install Nginx or Tomcat
 - S3(Simple Storage Service=External Storage)
 - Route53(=DNS, 자체 또는 외부 DNS 관리)
+- SNS(Simple Notification Service)
 
 
 ## 3. Step for Create Network and EC2 Instances
