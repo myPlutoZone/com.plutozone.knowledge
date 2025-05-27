@@ -109,3 +109,5 @@ $ python -m http.server --cgi 8080
 - www.genspark.ai(Search Engine + AI for 교차 검증)
 - https://zapier.com
 - https://actions.zapier.com
+- https://orangedatamining.com
+- https://notebooklm.google.com
