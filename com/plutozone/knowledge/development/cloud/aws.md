@@ -45,7 +45,7 @@
 	- Create EC2 Instances
 		- Make PEM for ec2-user at Amazon Linux 2
 		- Install Nginx or Tomcat
-- S3(Simple Storage Service=External Storage)
+- S3(Simple Storage Service=NAS or External Storage by HTTPS for File Upload/Download)
 - Route53(=DNS, 자체 또는 외부 DNS 관리)
 - SNS(Simple Notification Service)
 
