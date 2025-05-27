@@ -12,11 +12,11 @@
 	- [Float](/WebContent/knowledge/language/css/layout/holyGrailByFlex.html)
 	- [Position](/WebContent/knowledge/language/css/layout/holyGrailByFlex.html)
 - [Float](/WebContent/knowledge/language/css/layout/float.html)
-- [Masonry](/WebContent/knowledge/language/css/layout/masonry.htm)
+- [Masonry](/WebContent/knowledge/language/css/layout/masonry.html)
 - [Sticky](/WebContent/knowledge/language/css/layout/sticky.html)
 
 ### Example
-- [Button](/WebContent/knowledge/language/css/button.htm)
+- [Button](/WebContent/knowledge/language/css/button.html)
 - [Random Background](/WebContent/knowledge/language/css/randomBackground.html)
-- [Tree](/WebContent/knowledge/language/csstree.htm)
-- [Thumbnail](/WebContent/knowledge/language/css/thumbnail/thumbnail.htm)
+- [Tree](/WebContent/knowledge/language/csstree.html)
+- [Thumbnail](/WebContent/knowledge/language/css/thumbnail/thumbnail.html)
