@@ -18,5 +18,5 @@
 ### Example
 - [Button](/WebContent/knowledge/language/css/button.html)
 - [Random Background](/WebContent/knowledge/language/css/randomBackground.html)
-- [Tree](/WebContent/knowledge/language/csstree.html)
+- [Tree](/WebContent/knowledge/language/css/tree.html)
 - [Thumbnail](/WebContent/knowledge/language/css/thumbnail/thumbnail.html)
