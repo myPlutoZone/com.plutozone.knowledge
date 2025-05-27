@@ -41,7 +41,7 @@
 - HTML
 	- 개요와 특징
 	- 구조
-	- [태그(Tag)](/WebContent/html/html.html)
+	- [태그(Tag)](/WebContent/knowledge/language/html/html.html)
 		- a
 		- p
 		- br
@@ -51,8 +51,8 @@
 		- input(text, password, radio, checkbox, button, submit, hidden)
 		- select
 		- textarea 등
-	- [시맨틱 태그(Semantic Tag)](/WebContent/html/semantic.html)
-	- [레이아웃(Layout)](../HTML+CSS/README.md)
+	- [시맨틱 태그(Semantic Tag)](/WebContent/knowledge/language/html/semantic.html)
+	- [레이아웃(Layout)](./css.md)
 
 ![Layout-1](./image/html/layout_1.png)
 ![Layout-2](./image/html/layout_2.png)
