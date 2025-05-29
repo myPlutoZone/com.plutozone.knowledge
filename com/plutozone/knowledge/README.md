@@ -2,7 +2,7 @@
 
 
 ## TODO
-- .gitignore 파일은 루트에 있어야 한다. 확인중....
+- .gitignore 파일은 루트에 있어야 한다.
 
 
 ## Contents
@@ -24,6 +24,7 @@
 - [@CSS](./language/css.md)
 - [@HTML](./language/html.md)
 - [Java](./language/java.md)
+- [JavaScript](./language/javascript.md)
 - [Python](./language/python.md)
 
 
