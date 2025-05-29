@@ -35,7 +35,7 @@
 - EC2(Elastic Computing Cloud=Host)
 	- Type: Micro(M), Free Tier(T), ...
 	- AMI(Amazon Machine Image): Amazon Linux, Ubuntu, Windows, ...
-	- ELB(Elastic Load Balancer) Function vs. Auto Scaling by EC2(Amazon EC2 Auto Scaling, Not Support LB and HC)
+	- ELB(Elastic Load Balancer) vs. Auto Scaling by EC2(Amazon EC2 Auto Scaling, Not Support LB and HC)
 		- Load Balancer
 		- Health Check
 		- Auto Scaling
@@ -48,7 +48,7 @@
 - S3(Simple Storage Service=NAS or External Storage by HTTPS for File Upload/Download)
 - Route53(=DNS, 자체 또는 외부 DNS 관리)
 - SNS(Simple Notification Service)
-
+- SES(Simple Email Service)
 
 ## 3. Step for Create Network and EC2 Instances
 ### 3-1. Make `VPC`(=전체 인프라 네트워크)
