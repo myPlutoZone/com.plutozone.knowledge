@@ -106,12 +106,12 @@
 - Configure Private IP
 
 ### 3-9. Make ELB(CLB or ALB) at EC2
-#### 3-9-1. Make CLB(Classic LB) for only HTTP
+#### 3-9-1. Make CLB(Classic LB, Support L4) for only HTTP
 - Make SG(PLZ-PRD-SG-CLB-WS: HTTP)
 - Select Classic LB(PLZ-PRD-CLB-WS) and Setting up ...
 - Setting up Instances
 
-#### 3-9-2. Make ALB(Application LB) for HTTPS
+#### 3-9-2. Make ALB(Application LB, Support L7) for HTTPS
 - Make Target Group(PLZ-PRD-ALB-WS-TG) and Setting up Instances
 - Make SG(PLZ-PRD-SG-ALB-WS: HTTP, HTTPS)
 - Make Classic(참고: Instance vs. IP/Base on Container) LB(PLZ-PRD-ALB-WS) and Setting up ...
