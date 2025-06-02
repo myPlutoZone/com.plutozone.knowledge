@@ -35,7 +35,7 @@
 - EC2(Elastic Computing Cloud=Host)
 	- Type: Micro(M), Free Tier(T), ...
 	- AMI(Amazon Machine Image): Amazon Linux, Ubuntu, Windows, ...
-	- ELB(Elastic Load Balancer) vs. Auto Scaling by EC2(Amazon EC2 Auto Scaling, Not Support LB and HC)
+	- ELB(Elastic Load Balancer, Support L4 and L7) vs. Auto Scaling by EC2(Amazon EC2 Auto Scaling, Not Support LB and HC)
 		- Load Balancer
 		- Health Check
 		- Auto Scaling
@@ -105,7 +105,7 @@
 - Select Subnet & SG(Security Group)
 - Configure Private IP
 
-### 3-9. Make LB(CLB or ALB) at EC2
+### 3-9. Make ELB(CLB or ALB) at EC2
 #### 3-9-1. Make CLB(Classic LB) for only HTTP
 - Make SG(PLZ-PRD-SG-CLB-WS: HTTP)
 - Select Classic LB(PLZ-PRD-CLB-WS) and Setting up ...
