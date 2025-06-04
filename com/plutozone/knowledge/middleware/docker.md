@@ -173,7 +173,10 @@ $ docker run -it --name myDemoNginx-2 plutomsw/demo-nginx
 $ docker run -it --name demoApp-2 quay.io/uvelyster/nginx
 $ docker ps
 $ docker ps -a
+```
 
+- Inspect
+```bash
 $ docker inspect demoNginx-1                                      # Backgroud Mode and Service
 $ docker inspect demoNginx-2                                      # Forground Mode
 $ docker inspect demoOpenJdk-1                                    # Backgroud Mode and Non Service
@@ -183,7 +186,10 @@ $ docker inspect demoOpenJdk8-2                                   # Forground Mo
 $ docker inspect myDemoNginx-1                                    # Backgroud Mode and Service
 $ docker inspect myDemoNginx-2                                    # Forground Mode
 $ docker rm -f $(docker ps -aq)
+```
 
+- Top, Port, Rename, Copy
+```bash
 $ docker run --name web1 -d nginx
 $ docker run --name web2 -d -p 8080:80 nginx
 $ docker top web1			# web1 컨테이너에 실행중인 프로세스 정보를 ps -ef 형식으로 출력(=docker container top web1)
@@ -203,7 +209,10 @@ $ docker exec -it www2 /bin/bash					# [중요] 해당 컨테이너에 접근=ex
 $ cat /usr/share/nginx/html/index.html
 $ exit									# 해당 컨테이너에서 나가기
 $ docker rm -f $(docker ps -aq)
+```
 
+- Diff, Attach
+```bash
 $ docker run --name web1 -d -p 8080:80 nginx
 $ docker diff web1		# 이미지와 컨테이너 차이점 확인(=docker container diff web1): A(Add) , C(Change), D(Delete)
 $ docker stop web1
@@ -216,7 +225,10 @@ $ docker attach ubuntu1
 ...				# [Ctrl] + [p] + [q]
 $ docker diff ubuntu1
 $ docker rm -f $(docker ps -aq)
+```
 
+- Log
+```bash
 $ docker run --name web1 -d -p 8080:80 nginx
 $ docker logs web1							# 컨테이너 로그 확인(=docker container logs web1)
 $ docker inspect -f "{{.LogPath}}" web1		# 로그 파일 위치 확인
