@@ -17,7 +17,12 @@
 
 
 ## OS
+| Linux                      | Windows            | 설명 |
+| :------------------------: | :----------------: | :--- |
+| pluto@$UbuntuS24:~$ export | C:\Users\pluto>set | 모든 환경 변수 확인 |
+
 - [Ubuntu](./os/ubuntu.md)
+- [Windows](./os/windows.md)
 
 
 ## Language

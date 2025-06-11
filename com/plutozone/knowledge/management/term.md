@@ -8,7 +8,7 @@
 
 
 ## 1. Business
-- Full Name = Package or Class or Varialbe at Java
+- Full Name = Package or Class or Variable at Java
 - Short Name = Table or Attribute at Database
 
 ### 1-1. 상태(Status)
@@ -51,7 +51,7 @@
 | Board                     | BBS | 게시판 |      
 | Register(Join)            |  -  | 서비스/회원/관리자에 가입 |
 | CellPhone                 |  -  | 휴대폰 번호 |
-| TelPhone                  |  -  | 연락처 번호 |
+| TelePhone                 |  -  | 연락처 번호 |
 
 ### 1-4. Division(구분)
 | 용어 | 약어  | 설명 |
@@ -96,6 +96,14 @@
 | 용어 | 약어  | 설명 |
 | :--- | :---: | :--- |
 | Server | SVR   | 서버 |
+
+### 2-4. Server Name(Host or VM)
+| 용어 | 약어  | 설명 |
+| :--- | :---: | :--- |
+| Ubuntu Server 24.x.x | UbuntuS24   | |
+| Web Server           | WEB-A01     | A Group의 Web Server-01 |
+| WAS                  | WAS-A01     | A Group의 WAS-01 |
+| MariaDB              | MDB-A01     | A Group의 MariaDB-01 |
 
 
 ## 3. Process
