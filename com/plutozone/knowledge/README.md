@@ -49,4 +49,5 @@
 
 ## Management
 - [Overview of Management](./management/README.md "관리 개론 등")
+- [@Term](./management/term.md)
 - [@Log](./management/log.md)
