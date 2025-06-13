@@ -49,7 +49,7 @@
 - Route53(=DNS, 자체 또는 외부 DNS 관리)
 - SNS(Simple Notification Service)
 - SES(Simple Email Service)
-- Lambda(FaaS)와 Trigger
+- Lambda(=FaaS and Serverless at Computing or Anonymous functions at Programming)와 Trigger
 
 
 ## 3. Step for Create Network and EC2 Instances
