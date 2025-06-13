@@ -49,6 +49,8 @@
 - Route53(=DNS, 자체 또는 외부 DNS 관리)
 - SNS(Simple Notification Service)
 - SES(Simple Email Service)
+- Lambda(FaaS)와 Trigger
+
 
 ## 3. Step for Create Network and EC2 Instances
 ### 3-1. Make `VPC`(=전체 인프라 네트워크)
