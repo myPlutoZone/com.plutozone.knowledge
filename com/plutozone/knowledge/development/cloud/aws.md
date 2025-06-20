@@ -3,6 +3,7 @@
 
 ## 1. Fundamental
 - On-Premise vs. Cloud
+- ISP(Internet Service Provider) vs. CSP(Cloud Service Provider) vs. MSP(Managed Service Provider)
 - OpenStack for IaaS vs.OpenShift for PaaS by Red Hat
 - Inside(=Private) Zone for WAS + Outside(=Public) Zone for WS vs. All Inside(=Private)
 - Private IP Band
@@ -15,6 +16,7 @@
 ### 2-1. Term
 - CIDR(Classless Inter-Domain Routing)
 - EIP(Elastic IP=Public and Static IP, 무료는 최대 5개까지) vs. PIP(Public IP=Public and Dynamic IP)
+- SLA(Service Level Agreement, 서비스 수준 계약)
 
 ### 2-2. Login
 - Sign in as the root user
