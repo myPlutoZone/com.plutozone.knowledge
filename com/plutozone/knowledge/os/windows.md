@@ -1,5 +1,10 @@
 # com.plutozone.knowledge.os.Windows
 
+- Curl(Client URL)
+```cmd
+C:\>curl -X GET  http://localhost:8080 -v																									# 상세(-v)
+C:\>curl -X POST http://localhost:8080/api/board -d "{\"title\":\"test\", \"contents\":\"test\"}" -H "Content-type: application/json" -v	# POST + JSON
+```
 
 - 탐색기에서 Copilot 제거
 ```cmd

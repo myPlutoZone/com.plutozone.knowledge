@@ -36,6 +36,9 @@
 
 
 ## Development
+- MPA(Multiple Page Application = JSP + Data) vs. SPA(Single Page Application = Script + Ajax + JSON)
+- 식별(ID) vs. 인증(Password) vs. 인가(Using)
+
 - [Overview of Development](./development/README.md "개발 표준 가이드 등")
 - [AWS](./development/cloud/aws.md)
 - [Eclipse](./development/eclipse.md)

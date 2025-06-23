@@ -53,6 +53,7 @@
 - SNS(Simple Notification Service)
 - SES(Simple Email Service)
 - Lambda(=FaaS and Serverless at Computing or Anonymous functions at Programming)와 Trigger
+- RDS, Aurora, DynamoDB(=No SQL)
 
 
 ## 3. Step for Create Network and EC2 Instances
