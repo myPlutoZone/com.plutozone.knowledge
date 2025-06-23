@@ -238,6 +238,11 @@ $ docker logs -t web1						# 컨테이너 로그 타임스템프도 확인
 $ docker rm -f $(docker ps -aq)
 ```
 
+- Resource and Monitoring
+```bash
+$ docker run -d -m 512m --oom-kill-disable=true nginx	# 메모리를 512MB로 제한하지만 초과해도 프로세스 강제 미종료(기본값: 초과하면 강세 종료)
+```
+
 - LifeCycle for Container
 ```bash
 $ docker run [IMAGE_NAME]                                                                   # 실행(run = create + start)
