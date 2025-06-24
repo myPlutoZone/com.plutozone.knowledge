@@ -23,13 +23,6 @@
 - Sign in as an IAM user(비용 설정 및 사용량 확인 불가)
 
 ### 2-3. Service
-- ACM(Amazon Certificate Manager=HTTPS/SSL 인증서 관리)
-	- 상용(com, co.kr 등)이 아닌 개인(store, shop 등) 도메인에 대한 SSL 인증서 발급 무료 지원
-- ECS(Elastic Container Service) vs. EKS(Elastic Kubernetes Service)
-- ELB(Elastic Load Balancing=L7/4) Options
-	- Application Load Balancer(L7 + Containers, ...)
-	- Network Load Balancer(L4, ...)
-	- Classic Load Balancer(L7/4 + EC2 Instances, ...)
 - IAM(Identity and Access Management=Account)
 - VPC(Virtual Private Cloud=Network, 최대 5개)
 	- `The generated VPC(=Default VPC) information is not modified at AWS.`
@@ -48,12 +41,20 @@
 		- Make PEM for ec2-user at Amazon Linux 2
 		- Install Nginx or Tomcat
 	- Scale up and down
-- S3(Simple Storage Service=NAS or External Storage by HTTPS for File Upload/Download)
+	- EC2 vs. AWS Managed Service
+- RDS(MySQL, PostgreSQL, MariaDB, ..) and Aurora, DynamoDB(=No SQL)
 - Route53(=DNS, 자체 또는 외부 DNS 관리)
+- S3(Simple Storage Service=NAS or External Storage by HTTPS for File Upload/Download)
 - SNS(Simple Notification Service)
 - SES(Simple Email Service)
+- ELB(Elastic Load Balancing=L7/4) Options
+	- Application Load Balancer(L7 + Containers, ...)
+	- Network Load Balancer(L4, ...)
+	- Classic Load Balancer(L7/4 + EC2 Instances, ...)
+- ACM(Amazon Certificate Manager=HTTPS/SSL 인증서 관리)
+	- 상용(com, co.kr 등)이 아닌 개인(store, shop 등) 도메인에 대한 SSL 인증서 발급 무료 지원
+- ECS(Elastic Container Service) vs. EKS(Elastic Kubernetes Service)
 - Lambda(=FaaS and Serverless at Computing or Anonymous functions at Programming)와 Trigger
-- RDS(MySQL, PostgreSQL, MariaDB, ..) and Aurora, DynamoDB(=No SQL)
 
 
 ## 3. Step for Create Network and EC2 Instances
