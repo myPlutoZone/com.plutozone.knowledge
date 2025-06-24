@@ -243,7 +243,7 @@ $ docker rm -f $(docker ps -aq)
 $ docker run -d -m 512m --oom-kill-disable=true nginx	# 메모리를 512MB로 제한하지만 초과해도 프로세스 강제 미종료(기본값: 초과하면 강세 종료)
 ```
 
-- LifeCycle for Container(build > push/ship > pull > (create) > run)
+## LifeCycle for Container(build > push/ship > pull > (create) > run)
 ```bash
 $ docker run [IMAGE_NAME]                                                                   # 실행(run = create + start)
 $ docker create [IMAGE_NAME]                                                                # 생성(대문자 사용 불가)
