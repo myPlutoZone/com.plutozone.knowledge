@@ -40,7 +40,7 @@
 	- Create EC2 Instances
 		- Make PEM for ec2-user at Amazon Linux 2
 		- Install Nginx or Tomcat
-	- Scale up and down
+	- `Scale up and down` for a Instance vs. `Scale out and in` by Instance
 	- EC2 vs. AWS Managed Service
 - RDS(MySQL, PostgreSQL, MariaDB, ..) and Aurora, DynamoDB(=No SQL)
 - Route53(=DNS, 자체 또는 외부 DNS 관리)
@@ -127,7 +127,7 @@
 - Setting up ...
 
 
-## 4. Step for Auto Scaling
+## 4. Step for Auto Scaling Group(ASG)
 1. `Create Network and EC2 Instances`
 2. Make Launch Template(PLZ-PRD-AS-TP) for Auto Scaling
 3. Make Auto Scaling Group(PLZ-PRD-AS)
