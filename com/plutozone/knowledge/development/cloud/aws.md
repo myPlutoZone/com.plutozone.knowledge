@@ -127,10 +127,11 @@
 - Setting up ...
 
 
-## 4. Step for Auto Scaling Group(ASG)
+## 4. Step for Auto Scaling
 1. `Create Network and EC2 Instances`
-2. Make Launch Template(PLZ-PRD-AS-TP) for Auto Scaling
-3. Make Auto Scaling Group(PLZ-PRD-AS)
+2. Make Start or Launch Template(PLZ-PRD-AS-TP: 자동 증설 서버 정보 설정) for Auto Scaling at Instance
+3. Make Auto Scaling Group(ASG, PLZ-PRD-AS: 상기 설정된 시작 템플릿 기반으로 Min/Max수, 대상 지표 등을 설정)
+4. Make Health Check 등
 
 
 ## 5. Step for Remove

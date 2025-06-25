@@ -1,5 +1,12 @@
 # com.plutozone.knowledge.os.Ubuntu(아프리카 반투어의 말로 "네가 있어 내가 있다"라는 뜻)
 
+
+- stress
+```bash
+$ sudo apt install stress
+$ stress --cpu 2 --timeout 300		# 2개의 CPU 코어에 300초(5분) 동안 100% 부하
+```
+
 - top vs. htop
 
 - 호스트 네임 변경
