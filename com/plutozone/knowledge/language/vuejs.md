@@ -2,13 +2,16 @@
 
 
 ## Vue.js
-- Vue.js vs. React vs. AngularJS
+- Vue.js vs. React vs. AngularJS vs. Svelte
 
 
 ## 개발 환경 설정
 - Node.js 설치 및 확인
 ```cmd
 C:\>node -v
+# 프론트 개발 환경 by vite
+C:\>npm run dev			# Run React or Svelte
+C:\>npm run build		# Build React or Svelte
 ```
 
 ## Instance and Component
