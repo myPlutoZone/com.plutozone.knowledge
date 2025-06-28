@@ -58,23 +58,23 @@ BECOME password[defaults to SSH password]:        # sudo 암호
 ```bash
 $ ansible-doc -l                                  # 엔서블 모듈 목록(q: 종료)
 $ ansible-doc user                                # 엔서블 모듈 user에 대한 설명(q: 종료)
-$ vi example.yaml
+$ vi user.yaml
 ---
-- name: Playbook Example
+- name: Playbook exUser
   hosts: all
   tasks:
-    - name: Create User Example
+    - name: Create User exUser
       ansible.builtin.user:
         name: pluto
         comment: Sungwan Myung
         uid: 1212
         group: wheel
-$ ansible-playbook -C example.yaml                # Syntax-check Mode(-C or --syntax-check)
-$ ansible-playbook example.yaml
+$ ansible-playbook -C user.yaml                # Syntax-check Mode(-C or --syntax-check)
+$ ansible-playbook user.yaml
 $ ssh guru@server-a.test.com
 $ cat /etc/passwd
 $ exit
-$ ansible-doc dnf                                # 엔서블 모듈 dnf(설치), service(서비스), copy(복사), firewalld(방화벽), blockinfile(파일)에 대한 설명(q: 종료)
+$ ansible-doc dnf                                # 엔서블 모듈 dnf(설치), service(서비스), copy(복사), firewalld(방화벽), file(파일), blockinfile(블럭인파일), lineinfile(라인인파일)에 대한 설명(q: 종료)
 $ vi index.html
 <html>
     <body bgcolor="blue">
@@ -115,7 +115,7 @@ $ vi web.yaml
       ansible.builtin.service:
         name: httpd
         state: restarted
-$ ansible all -m command -a 'poweroff'
+$ ansible all -m command -a 'poweroff'          # 모든 서버 Power off
 $ vi block.yaml
 ---
 - name: block and rescue
@@ -163,5 +163,103 @@ $ vi block2nd.yaml
           dnf:
             name: mariadb-server
             state: latest
+$ vi commnad.yaml
+---
+- name: print msg
+  hosts: server-a.test.com
+  tasks:
+    - name: print msg 1
+      debug:
+        msg:
+          hello ansible
+          how are
+          you
+          fine thank
 
+    - name: print msg 2
+      debug:
+        msg: >
+          hello ansible
+          how are
+          you
+          fine thank
+
+    - name: print msg 1
+      debug:
+        msg: |
+          hello ansible
+          how are
+          you
+          fine thank
+$ vi file.yaml
+---
+- name: file module demo
+  hosts: db
+  tasks:
+    - name: create Dir
+      file:
+        path: /oracle
+        state: directory
+        mode: '0750'
+       
+    - name: create empty file to /oracle
+      ansible.builtin.file:
+        path: /oracle/docs.txt
+        owner: guru
+        group: wheel
+        state: touch
+    
+    - name: insert multi line
+      ansible.builtin.blockinfile:
+        path: /oracle/docs.txt
+        block: |
+          192.168.11.10 master.test.com
+          192.168.11.11 server-a.test.com
+          192.168.11.12 server-b.test.com
+
+    - name: change 1 line
+      ansible.builtin.lineinfile:
+        path: /oracle/docs.txt
+        regexp: '^192.168.11.10'
+        line: 8.8.8.8 www.google.co.kr
+$ vi noPass.yaml
+---
+- name: no password playbook
+  hosts: localhost
+  tasks:
+    - name: ssh key gen
+      user:
+        name: guru
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: /home/guru/.ssh/id_rsa
+
+- name: upload public key to node
+  hosts: all
+  tasks:
+    - name: upload public key
+      ansible.posix.authorized_key:
+        user: guru
+        state: present
+        key: "{{ lookup('file', '/home/guru/.ssh/id_rsa.pub') }}"
+
+    - name: change /etc/sudoers
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        regexp: '^%wheel'
+        line: '%wheel  ALL=(ALL)       NOPASSWD: ALL'
+$ ssh guru@server-c.test.com
+$ sudo cat /etc/shadow
+$ vi ansible.cfg
+[defaults]
+inventory = ./inventory
+remote_user = guru
+ask_pass = false
+
+[privilege_escalation]
+become = true
+become_method = sudo
+become_user = root
+become_ask_pass = false
+$ ansible-playbook user.yaml
 ```
