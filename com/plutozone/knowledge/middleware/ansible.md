@@ -11,7 +11,7 @@ $ sudo dnf -y install ansible tar
 $ ansible  --version
 ```
 
-## 설정(Inventory, Config and Playbook) at master
+## 설정(Inventory and Configure) at master
 ```bash
 $ sudo vi /etc/hosts
 ...
@@ -50,8 +50,12 @@ become_method = sudo
 become_user = root
 become_ask_pass = true
 $ ansible --list-hosts db
-SSH password:                                     # SSH 접속 암호
-BECOME password[defaults to SSH password]:        # sudo 명령 암호
+SSH password:                                     # SSH 암호
+BECOME password[defaults to SSH password]:        # sudo 암호
+```
+
+## Run Playbook at master
+```bash
 $ ansible-doc -l                                  # 엔서블 모듈 설명(q: 종료)
 $ ansible-doc user                                # 엔서블 모듈 user에 대한 설명(q: 종료)
 $ vi example.yaml
