@@ -4,14 +4,14 @@
 - server-b at 192.168.11.12
 - server-c at 192.168.11.13
 
-## 설치 at master
+## Installation at master
 ```bash
 $ sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 $ sudo dnf -y install ansible tar
 $ ansible  --version
 ```
 
-## 설정(Inventory and Configure) at master
+## Inventory and Configure at master
 ```bash
 $ sudo vi /etc/hosts
 ...
@@ -255,6 +255,7 @@ $ vi ansible.cfg
 inventory = ./inventory
 remote_user = guru
 ask_pass = false
+host_key_checking = false
 
 [privilege_escalation]
 become = true
