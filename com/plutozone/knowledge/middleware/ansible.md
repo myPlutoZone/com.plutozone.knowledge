@@ -80,5 +80,15 @@ $ vi web.yaml
       ansible.builtin.dnf:
         name: httpd
         state: present
+    - name: Start httpd(if not started)
+      ansible.builtin.service:
+        name: httpd
+        state: started
 $ ansible-playbook web.yaml
+$ vi index.html
+<html>
+    <body bgcolor="blue">
+        Hello Ansible
+    </body>
+</html>
 ```
