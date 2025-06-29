@@ -64,13 +64,13 @@ $ ansible-doc -l                                  # 엔서블 전체 모듈 목�
 $ ansible-doc user                                # 엔서블 user 모듈 설명(q: 종료)
 $ vi user.yaml                                    # user라는 Playbook 작성
 ---
-- name: Playbook exUser
+- name: create user
   hosts: all
   tasks:
-    - name: Create User exUser
+    - name: create pluto
       ansible.builtin.user:
         name: pluto
-        comment: Member at PlutoZone
+        comment: member at PlutoZone
         uid: 1212
         group: wheel
 $ ansible-playbook -C user.yaml                 # Syntax Check Mode(-C or --syntax-check)
@@ -100,7 +100,7 @@ $ vi web.yaml
         src: ./index.html
         dest: /var/www/html/index.html
       notify:
-        restart_web
+        web_restart
     
 #    - name: Start service httpd, if not started
 #      ansible.builtin.service:
@@ -115,7 +115,7 @@ $ vi web.yaml
         immediate: true
   
   handlers:
-    - name: restart_web
+    - name: web_restart
       ansible.builtin.service:
         name: httpd
         state: restarted
@@ -292,7 +292,7 @@ $ vi web.yaml
         src: ./index.html
         dest: "{{package_web_index}}"
       notify:
-        - restart_web
+        - web_restart
 
     - name: permit traffic in default zone for https service
       ansible.posix.firewalld:
@@ -302,7 +302,7 @@ $ vi web.yaml
         immediate: true
  
   handlers:
-    - name: restart_web
+    - name: web_restart
       ansible.builtin.service:
         name: "{{ package_web }}"
         state: restarted
@@ -339,4 +339,161 @@ $ vi include.yaml
       debug:
         msg: i am 3 task
 $ ansible-playbook --list-tasks include.yaml
+```
+
+## Role 작성
+```bahs
+$ ansible-galaxy --help
+$ ansible-galaxy role --help
+$ ansible-galaxy role list           # 기본 또는 저장된 롤
+$ sudo dnf -y install tree
+$ ansible-galaxy role init myRole
+$ tree
+$ vi myRole/tasks/main.yaml
+---
+# tasks file for myRole
+- name: install by dnf
+  ansible.builtin.dnf:
+    name: "{{ package_web }}"
+    state: present
+
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: "{{web_index}}"
+    dest: "{{package_web_path_index}}"
+  notify:
+    - web_restart
+
+- name: permit traffic in default zone for https service
+  ansible.posix.firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: true
+$ vi myRole/handers/main.yaml
+---
+# handlers file for myRole
+- name: web_restart
+  ansible.builtin.service:
+    name: "{{ package_web }}"
+    state: restarted
+$ vi myRole/vars/main.yaml
+---
+# vars file for myRole
+package_web: nginx
+web_index: ../files/index.html
+package_web_path_index: /usr/share/nginx/html/index.html
+$ vi myRole/files/index.html
+<html>
+    <body bgcolor="red">
+        Hello Ansible
+    </body>
+</html>
+```
+
+## Role 사용
+- Playbook의 tasks에서 섹션 사용
+```bash
+$ vi role1.yaml
+---
+- name: role demo 1
+  hosts: server-a.test.com
+  tasks:
+    - name: dummy msg 1
+      debug:
+        msg: "Let's start role"
+   
+    - name: import myRole
+      import_role:
+        name: myRole
+```
+
+- Playbook의 roles 섹션에서 사용
+```bash
+$ vi role2.yaml
+---
+- name: role demo 2
+  hosts: server-b.test.com
+  roles:
+    - myRole
+  tasks:
+    - name: dummy msg 1
+      debug:
+        msg: "end role"
+```
+
+## Role Download
+```bash
+$ sudo rpm -qa | grep roles
+$ sudo dnf search roles
+$ sudo dnf -y install rhel-system-roles
+$ ansible-galaxy role list
+$ tree /usr/share/ansible/roles
+$ tree /usr/share/ansible/roles/rhel-system-roles.timesync
+$ less /usr/share/ansible/roles/rhel-system-roles.timesync/README.md
+# http://time.ewha.or.kr/domestic.html
+# ntp.ewha.or.kr / time.bora.net
+$ vi role3.yaml
+---
+- name: time sync
+  hosts: all
+  vars:
+    timesync_ntp_servers:
+      - hostname: ntp.ewha.or.kr
+        iburst: true
+      - hostname: time.bora.net
+        iburst: true
+  roles:
+    - rhel-system-roles.timesync
+$ ssh guru@server-c.test.com
+$ sudo chronyc sources
+$ exit
+# https://galaxy.ansible.com/
+$ ansible-galaxy role search --help
+$ ansible-galaxy role search nfs --platforms EL
+$ ansible-galaxy role info asg1612.ansible-role-nfs
+$ ansible-galaxy role install --help
+$ ansible-galaxy role install asg1612.ansible-role-nfs -p roles    # roles 폴더에 다운로드
+$ ansible-galaxy role list -p roles
+```
+
+## Collection(*.py + *.yaml)
+```bash
+$ ansible-galaxy collection --help
+$ ansible-galaxy collection list
+# download https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-docker-4.6.1.tar.gz
+$ ansible-galaxy collection install ./community-docker-4.6.1.tar.gz -p collections
+$ ls -al
+$ tree collections
+$ ansible-galaxy collection list | grep docker
+```
+
+## Ansible AWX by K3S at Ubuntu
+```bash
+$ sudo ufw status                              # Ubuntu FireWall
+$ curl -sfL https://get.k3s.io | sh -          # Install K3S
+$ k3s --version
+$ ls -l /etc/rancher/k3s/k3s.yaml
+$ sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+$ ls -l /etc/rancher/k3s/k3s.yaml
+$ source < (kubectl completion bash)            # 임시 자동 완성
+$ vi ~/.bashrc                                  # 영구 자동 완성
+...
+source < (kubectl completion bash)
+$ sudo systemctl enable k3s
+# https://github.com/ansible/awx
+# https://github.com/ansible/awx-operator
+# https://ansible.readthedocs.io/projects/awx-operator/en/latest/
+# https://ansible.readthedocs.io/projects/awx-operator/en/latest/installation/basic-install.html
+$ sudo apt -y install tar git make
+$ sudo git clone https://github.com/ansible/awx-operator.git
+$ cd awx-operator
+$ git config --global --add safe.directory /home/guru/awx-operator
+$ git tag
+$ sudo git checkout tags/2.19.1
+$ sudo make deploy
+$ sudo kubectl get ns
+$ sudo kubectl get pod
+$ sudo kubectl get pod -n awx
+$ sudo kubectl config set-context --current --namespace=awx      # Default Name Space(ns) 변경
 ```
