@@ -1,4 +1,8 @@
-## Need hosts
+## TODO
+- IP, Domain 변경
+- Account Group and UID
+
+## Need hosts(Rocky 9.5)
 - master at 192.168.11.10
 - server-a at 192.168.11.11
 - server-b at 192.168.11.12
@@ -19,7 +23,7 @@ $ sudo vi /etc/hosts
 192.168.11.11  server-a.test.com
 192.168.11.12  server-b.test.com
 192.168.11.13  server-c.test.com
-$ mkdir plutozone     # for Inventory 폴더
+$ mkdir plutozone     # Inventory 폴더
 $ cd plutozone
 $ vi inventory        # Inventory 파일
 server-a.test.com
@@ -33,12 +37,12 @@ server-c.test.com
 [servers:children]
 web
 db
-$ ansible -i inventory --list-hosts web          # Inventory(i) 파일 지정
-$ ansible -i inventory --list-hosts servers
-$ ansible -i inventory --list-hosts all
-$ ansible -i inventory --list-hosts ungrouped
+$ ansible -i inventory --list-hosts web          # Inventory(i) 파일 지정하여 web 그룹의 호스트 확인
+$ ansible -i inventory --list-hosts servers      # Inventory(i) 파일 지정하여 servers 그룹의 호스트 확인
+$ ansible -i inventory --list-hosts all          # Inventory(i) 파일 지정하여 전체(all) 호스트 확인
+$ ansible -i inventory --list-hosts ungrouped    # Inventory(i) 파일 지정하여 미그룹된 호스트 확인
 $ touch ansible.cfg
-$ vi ansible.cfg                                  # Ansible 설정 파일
+$ vi ansible.cfg                                  # 사용자 정의 Ansible 설정 파일
 [defaults]
 inventory = ./inventory
 remote_user = guru
@@ -49,16 +53,16 @@ become = true
 become_method = sudo
 become_user = root
 become_ask_pass = true
-$ ansible --list-hosts db                         # 설정된 Inventory at ansible.cfg
+$ ansible --list-hosts db                         # db 그룹의 호스트 확인 by ansible.cfg
 SSH password:                                     # SSH 암호
 BECOME password[defaults to SSH password]:        # sudo 암호
 ```
 
 ## Run Playbook at master
 ```bash
-$ ansible-doc -l                                  # 엔서블 모듈 목록(q: 종료)
-$ ansible-doc user                                # 엔서블 모듈 user에 대한 설명(q: 종료)
-$ vi user.yaml
+$ ansible-doc -l                                  # 엔서블 전체 모듈 목록(q: 종료)
+$ ansible-doc user                                # 엔서블 user 모듈 설명(q: 종료)
+$ vi user.yaml                                    # user라는 Playbook 작성
 ---
 - name: Playbook exUser
   hosts: all
@@ -66,11 +70,11 @@ $ vi user.yaml
     - name: Create User exUser
       ansible.builtin.user:
         name: pluto
-        comment: Sungwan Myung
+        comment: Member at PlutoZone
         uid: 1212
         group: wheel
-$ ansible-playbook -C user.yaml                # Syntax-check Mode(-C or --syntax-check)
-$ ansible-playbook user.yaml
+$ ansible-playbook -C user.yaml                 # Syntax Check Mode(-C or --syntax-check)
+$ ansible-playbook user.yaml                    # Run Playbook
 $ ssh guru@server-a.test.com
 $ cat /etc/passwd
 $ exit
