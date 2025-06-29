@@ -535,4 +535,55 @@ $ kubectl get svc
 $ kubectl get pv
 $ kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode ; echo
 # http://localhost:PORT/        # admin / hOgO0ySBXpp5jUGogPLKxsbIUZAsHffO
+$ git config --global user.name "Sungwan Myung"
+$ git config --global user.email "plutomsw@gmail.com"
+$ mkdir myLast                  # This is Git Repository
+$ pwd
+$ git init
+$ vi ansible.cfg
+[defaults]
+inventory = ./inventory
+remote_user = guru
+ask_pass = true
+host_key_checking = false
+
+[privilege_escalation]
+become = true
+become_method = sudo
+become_user = root
+become_ask_pass = true
+$ vi file.yaml
+---
+- name: file module demo
+  hosts: db
+  tasks:
+    - name: create Dir
+      file:
+        path: /oracle
+        state: directory
+        mode: '0750'
+       
+    - name: create empty file to /oracle
+      ansible.builtin.file:
+        path: /oracle/docs.txt
+        owner: guru
+        group: wheel
+        state: touch
+    
+    - name: insert multi line
+      ansible.builtin.blockinfile:
+        path: /oracle/docs.txt
+        block: |
+          192.168.11.10 master.test.com
+          192.168.11.11 server-a.test.com
+          192.168.11.12 server-b.test.com
+
+    - name: change 1 line
+      ansible.builtin.lineinfile:
+        path: /oracle/docs.txt
+        regexp: '^192.168.11.10'
+        line: 8.8.8.8 www.google.co.kr
+# upload at GitHub
+# make Tocken at GitHub
+# 리소스의 인증 정보(GitHub, Linux), 프로젝트, 인벤토리, 템플릿 생성 후 템플릿 시작 at AWX
 ```
