@@ -495,5 +495,44 @@ $ sudo make deploy
 $ sudo kubectl get ns
 $ sudo kubectl get pod
 $ sudo kubectl get pod -n awx
-$ sudo kubectl config set-context --current --namespace=awx      # Default Name Space(ns) 변경
+$ sudo kubectl config set-context --current --namespace=awx       # Default Name Space(ns) 변경
+$ sudo vi awx-demo.yml                                            # :set nu
+---
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx-demo
+spec:
+  service_type: nodeport
+  projects_persistence: true
+  projects_storage_size: 20Gi
+  projects_storage_access_mode: ReadWriteOnce
+  web_resource_requirements:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 1000m
+      memory: 2Gi
+$ sudo vi kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Find the latest tag here: https://github.com/ansible/awx-operator/releases
+  - github.com/ansible/awx-operator/config/default?ref=2.19.1
+  - awx-demo.yml
+
+# Set the image tags to match the git version from above
+images:
+  - name: quay.io/ansible/awx-operator
+    newTag: 2.19.1
+
+# Specify a custom namespace in which to install AWX
+namespace: awx
+$ kubectl apply -k .
+$ kubectl get pod
+$ kubectl get svc
+$ kubectl get pv
+$ kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode ; echo
+# http://localhost:PORT/        # admin / hOgO0ySBXpp5jUGogPLKxsbIUZAsHffO
 ```
