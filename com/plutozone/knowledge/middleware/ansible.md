@@ -268,3 +268,75 @@ become_user = root
 become_ask_pass = false
 $ ansible-playbook user.yaml
 ```
+
+## 변수
+- 문자열이 먼저 시작할 경우 {{ 변수명 }}
+- [권장] 변수명이 먼저 시작할 경우 "{{ 변수명 }}"
+```bash
+$ vi web.yaml
+---
+- name: install and configure web server
+  hosts: web
+  vars_files:
+    - vars/package.yaml
+#  vars:
+#    - package_web: httpd
+  tasks:
+    - name: install by dnf
+      ansible.builtin.dnf:
+        name: "{{ package_web }}"
+        state: present
+
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: ./index.html
+        dest: "{{package_web_index}}"
+      notify:
+        - restart_web
+
+    - name: permit traffic in default zone for https service
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
+ 
+  handlers:
+    - name: restart_web
+      ansible.builtin.service:
+        name: "{{ package_web }}"
+        state: restarted
+$ vi vars/package.yaml
+package_web: nginx
+package_web_index: /usr/share/nginx/html/index.html
+```
+
+# include(동적) vs. import(정적)
+```bash
+$ vi task_vars.yaml
+- name: set name
+  set_fact:
+    myname: pluto
+
+- name: get name
+  debug:
+    var: myname
+$ vi include.yaml
+---
+- name: include(동적) vs. import(정적)
+  hosts: localhost
+  tasks:
+    - name: 1st task
+      debug:
+        msg: this is 1st task
+
+    - name: show me value
+      include_tasks: task_vars.yaml
+      # import_tasks: task_vars.yaml
+      when: myname is not defined
+    
+    - name: 3st task
+      debug:
+        msg: i am 3 task
+$ ansible-playbook --list-tasks include.yaml
+``
