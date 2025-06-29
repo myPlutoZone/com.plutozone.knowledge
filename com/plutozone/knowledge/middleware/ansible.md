@@ -311,7 +311,7 @@ package_web: nginx
 package_web_index: /usr/share/nginx/html/index.html
 ```
 
-# include(동적) vs. import(정적)
+# include(동적-실행 결과을 적용) vs. import(정적-실제 코드를 적용)
 ```bash
 $ vi task_vars.yaml
 - name: set name
@@ -323,7 +323,7 @@ $ vi task_vars.yaml
     var: myname
 $ vi include.yaml
 ---
-- name: include(동적) vs. import(정적)
+- name: include vs. import
   hosts: localhost
   tasks:
     - name: 1st task
@@ -339,4 +339,4 @@ $ vi include.yaml
       debug:
         msg: i am 3 task
 $ ansible-playbook --list-tasks include.yaml
-``
+```
