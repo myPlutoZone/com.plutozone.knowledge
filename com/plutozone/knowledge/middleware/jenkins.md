@@ -3,7 +3,7 @@
 
 ## Overview
 - CI(Continuous Integration=지속적 통합)
-- CD(Continuous Deployment=지속적 배포 vs. Continuous Delivery=지속적 인도)
+- CD(Continuous Deployment=지속적 배포 또는 배포 자동화 vs. Continuous Delivery=지속적 인도)
 
 
 ## Developer + GitLab + Jenkins + Registry(=hub.docker.com)
