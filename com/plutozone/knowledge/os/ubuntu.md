@@ -37,9 +37,12 @@ pluto@ubuntu:~$ sudo timedatectl set-timezone Asia/Seoul
 pluto@ubuntu:~$ date
 ```
 
-- root 계정으로 전환
+- 계정(su: Switch User) 전환
 ```bash
-pluto@ubuntu:~$ sudo -i
+pluto@ubuntu:~$ su 계정명		# 계정명으로만 전환
+pluto@ubuntu:~$ su - 계정명		# 계정명+환경으로 전환
+pluto@ubuntu:~$ su -			# root로 계정(환경 포함) 전환
+pluto@ubuntu:~$ sudo -i			# root로 계정(환경 포함) 전환
 root@ubutu:~# cd /
 root@ubutu:/#
 ```
