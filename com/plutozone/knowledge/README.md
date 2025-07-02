@@ -23,6 +23,7 @@
 | pluto@$UbuntuS24:~$ export		| C:\Users\pluto>set	| 모든 환경 변수 확인 |
 | pluto@$UbuntuS24:~$ echo $PATH	| C:\Users\pluto>PATH	| 개별 환경 변수 확인(예: PATH) |
 
+- [Rocky](./rocky.md)
 - [Ubuntu](./os/ubuntu.md)
 - [Windows](./os/windows.md)
 
