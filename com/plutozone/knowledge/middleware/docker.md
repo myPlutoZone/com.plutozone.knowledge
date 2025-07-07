@@ -359,8 +359,8 @@ $ docker exec -it demoNginx /bin/bash		# docker attach demoNginx
 
 ## Build for Container
 - Build Type
-  - 수동 빌드(=docker commit): 대부분 기존 이미지를 기반으로 이미지 빌드
-  - **자동 빌드(=docker build)**: 대부분 신규 이미지를 빌드(**베이스 이미지 선택 또는 설정이 가장 중요**)
+  - 수동 빌드(=docker commit): 명령어(commit)로 생성 또는 실행중인 컨테이너를 기반으로 이미지 빌드
+  - **자동 빌드(=docker build)**: Dockerfile을 기반으로 대부분 신규 이미지를 빌드(**베이스 이미지 선택 또는 설정이 가장 중요**)
 ```bash
 # 수동 빌드(docker commit)
 $ docker images
