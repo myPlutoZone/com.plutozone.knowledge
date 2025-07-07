@@ -65,13 +65,20 @@ $ docker ps -a
 
 - Install at Ubuntu 24.04.1(https://docs.docker.com/engine/install/ubuntu/)
 ```bash
-$ sudo apt update                                                                                                # Update
-$ sudo apt install apt-transport-https ca-certificates curl                                                      # Install requried package
-$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -                                   # Docker official GPG Key
-$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"  # Docker Repository
-$ sudo apt update                                                                                                # Update
-$ sudo apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.io                              # Install Docker
-$ sudo docker run hello-world                                                                                    # Confirm Docker
+$ sudo apt update																								# Update
+$ sudo apt install apt-transport-https ca-certificates curl														# Install requried package
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -									# Docker official GPG Key
+$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"	# Docker Repository
+$ sudo apt update																								# Update
+$ sudo apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.i								# Install Docker
+$ sudo systemctl status docker
+$ sudo docker version						# Only Client Version
+$ sudo systemctl start docker				# Server Start
+$ sudo systemctl status docker
+$ sudo docker version						# Client and Server Version
+$ sudo systemctl enable docker				# Server Start on Boot
+$ sudo docker images
+$ sudo docker run hello-world				# Download hello-world and Print "Hello from Docker!"
 $ sudo docker version
 
 # Run without sudo for Docker
