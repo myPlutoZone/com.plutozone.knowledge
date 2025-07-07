@@ -41,9 +41,9 @@
 | Alliance                  | ALI | 제휴사(고객사 + 협력사) |
 | Client                    |  -  | 고객사(서비스 개발을 요청한 제휴사) |
 | Partner                   |  -  | 협력사(서비스 개발을 협업한 제휴사 |
-| BackOffice(Console)       |  -  | 백오피스(통합 관리자만 사용하는 서비스 영역) |
-| FrontOffice or Admin      |  -  | 프론트오피스 또는 어드민(개별 관리자만 사용하는 서비스 영역) |
 | Front                     |  -  | 프론트(회원이 사용하는 서비스 영역) |
+| FrontOffice or Admin      |  -  | 프론트오피스 또는 어드민(개별 관리자만 사용하는 서비스 영역) |
+| BackOffice(Console)       |  -  | 백오피스(통합 관리자만 사용하는 서비스 영역) |
 | Product                   | PRD | 상품 |
 | Coupon                    | CPN | 쿠폰 |
 | Master                    | MST | 개요(엔티티의 개요) |
