@@ -44,7 +44,7 @@
 	- EC2 vs. AWS Managed Service
 - RDS(MySQL, PostgreSQL, MariaDB, ..) and Aurora, DynamoDB(=No SQL)
 - Route53(=DNS, 자체 또는 외부 DNS 관리)
-- S3(Simple Storage Service=NAS or External Storage by HTTPS for File Upload/Download)
+- 버킷(=폴더) + 객체(=파일) at S3(Simple Storage Service=NAS or External Storage by HTTPS for File Upload/Download: 객체 업로드 시 폴더를 추가하면 해당 폴더에 객체가 저장)
 - SNS(Simple Notification Service)
 - SES(Simple Email Service)
 - ELB(Elastic Load Balancing=L7/4) Options
