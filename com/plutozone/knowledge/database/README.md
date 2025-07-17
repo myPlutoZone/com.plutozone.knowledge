@@ -21,6 +21,13 @@
 ```sql
 -- 데이터베이스 생성
 CREATE DATABASE backoffice DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+-- Connection Pool 최대 허용 수
+SHOW VARIABLES LIKE '%max_connection%';
+-- Connection Pool 최대 접속 수
+SHOW STATUS LIKE 'Max_used_connections';
+-- Connection Pool 현재 접속 수
+SHOW STATUS LIKE 'Threads_connected';
 ```
 
 
