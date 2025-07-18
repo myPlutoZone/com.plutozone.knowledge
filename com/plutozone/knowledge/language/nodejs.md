@@ -8,8 +8,8 @@
 - Install NestJS CLI(Command Line Interface)
 ```cmd
 C:\>node -v					# Node 버전 확인
-C:\>node ./src/App.js		# Node 실행
-C:\>npm i -g @nestjs/cli	# npm(Node Package Manager)은 Node.js의 기본 패키지 관리자
+C:\>node ./src/app.js		# Node 실행
+C:\>npm i -g @nestjs/cli	# npm(Node Package Manager)은 Node.js의 기본 패키지 관리자 + i(install) + -g(Global)
 ```
 
 - Create NestJS Project
@@ -20,7 +20,7 @@ D:\Business\00.com.plutozone>Set-ExecutionPolicy RemoteSigned			# [참고] 보�
 ```
 
 - NestJS Project Files
-	- dist(배포 폴더)
+	- dist(배포 폴더=.ts가 컴파일된 .js 파일 저장 위치)
 	- node_modules(사용하는 모듈 폴더)
 	- src(소스 폴더)
 		- app.controller.ts(컨트롤러 파일)
@@ -43,13 +43,23 @@ D:\Business\00.com.plutozone\xx.com.plutozone.nestjs-first>npm start	# http://lo
 		- A Module
 		- B Module
 		- ...
-	- Module
+	- A Module
 		- Controller
 		- Provider(=Service)
-
+	- B Module
+		- Controller
+		- Provider(=Service)
+		
 - Generate Code
 ```cmd
-D:\Business\00.com.plutozone\xx.com.plutozone.nestjs-first>nest g module users
-D:\Business\00.com.plutozone\xx.com.plutozone.nestjs-first>nest g controller users
-D:\Business\00.com.plutozone\xx.com.plutozone.nestjs-first>nest g service users
+D:\Business\00.com.plutozone\xx.com.plutozone.nestjs-first>nest g module member
+D:\Business\00.com.plutozone\xx.com.plutozone.nestjs-first>nest g controller member
+D:\Business\00.com.plutozone\xx.com.plutozone.nestjs-first>nest g service member
+```
+
+- Middleware(=AOP + Interceptor) vs. Functional Middleware vs. Multiple Middleware vs. Global Middleware
+
+- TypeORM
+```cmd
+D:\Business\00.com.plutozone\xx.com.plutozone.nestjs-first>npm install --save @nestjs/typeorm typeorm mysql2
 ```
