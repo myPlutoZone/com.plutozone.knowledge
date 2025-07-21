@@ -48,9 +48,9 @@
 - SNS(Simple Notification Service)
 - SES(Simple Email Service)
 - ELB(Elastic Load Balancing=L7/4) Options
-	- Application Load Balancer(L7 + Containers, ...)
 	- Network Load Balancer(L4, ...)
 	- Classic Load Balancer(L7/4 + EC2 Instances, ...)
+	- Application Load Balancer(L7 + Containers, ...)
 - ACM(Amazon Certificate Manager=HTTPS/SSL 인증서 관리)
 	- 상용(com, co.kr 등)이 아닌 개인(store, shop 등) 도메인에 대한 SSL 인증서 발급 무료 지원
 - ECS(Elastic Container Service) vs. EKS(Elastic Kubernetes Service)
