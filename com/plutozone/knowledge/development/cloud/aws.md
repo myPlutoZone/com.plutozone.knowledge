@@ -55,7 +55,7 @@
 	- 상용(com, co.kr 등)이 아닌 개인(store, shop 등) 도메인에 대한 SSL 인증서 발급 무료 지원
 - ECS(Elastic Container Service) vs. EKS(Elastic Kubernetes Service)
 - Lambda(=FaaS and Serverless at Computing or Anonymous functions at Programming)와 Trigger
-- Rekognition(Recognition=Machine Learning and Deep Learning), Poly(=TTS), Lex(Chatbot) Service
+- Amazon Rekognition(Recognition=Machine and Deep Learning), Polly(=TTS), Lex(=Chatbot)
 
 
 ## 3. Step for Create Network and EC2 Instances
