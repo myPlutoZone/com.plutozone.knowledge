@@ -4,21 +4,28 @@
 ## Overview
 - CI(Continuous Integration=지속적 통합)
 - CD(Continuous Deployment=지속적 배포 또는 배포 자동화 vs. Continuous Delivery=지속적 인도)
+- Continuous Delivery(지속적 인도)
+	- 전통적 인도 프로세스 vs. 지속적 인도의 장점
+	- 자동 배포 파이프라인(=지속적 인도 프로세스)
+		- CI(지속적 통함)
+		- 자동 인수 테스트
+		- 구성 관리(개발 및 상용 환경 등)
+	- 지속적 인도를 위한 사업 및 기술적 전제 조건(예: 빌드에 1시간이 걸리고 커밋이 수시로 일어나면 지속적 인도 불가)
 
 
 ## Developer + GitLab + Jenkins + Registry(=hub.docker.com)
-1. Developer is uploadding code at GitLab and Code is builded(include testing) automatically by Jenkins
+1. Developer is uploading code at GitLab and Code is builded(include testing) automatically by Jenkins
 2. Jenkins is pushing at Registry and testing for development or staging or product
 3. Kubernetes is upload at development or staging or product
 
 
-## Enviroments
+## Environments
 1. Virtual Box
 2. Rocky 9.5(rockylinux.org vs. mirror.navercorp.com) at Virtual Box
 3. MobaXterm
 
 
-## Docker Repositoy 설정 및 설치 그리고 Run Container(ngnix) as root at Rocky
+## Docker Repository 설정 및 설치 그리고 Run Container(ngnix) as root at Rocky
 ```bash
 $ curl -o /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo
 $ dnf install -y docker-ce
