@@ -13,11 +13,9 @@ plutozone.com의 지적재산권 침해에 해당된다.
 ![정보기술-개발](./IT-development.png )
 
 
-# TODO
-- ...
-
 # Overview
 - Our knowledge and wisdom are learned from someone and should be given to the next person.
+- This article introduces some technical aspects of information technology and was written based on the author's subjective opinion. Therefore, the author is not legally responsible for any problems that may arise during citation or application, and the information may be changed without notice.
 - `Markdown + Example or Demo Source + Image + PDF for IT(Information Technology)`
 - `Open Source exists in a other Repository`
 
@@ -38,32 +36,6 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # Temporary
-- Docker
-```bash
-# docker run -d --name web1 nginx
-# docker run -d --name web2 nginx
-# docker ps -a
-# docker top web1
-# docker top web2
-# ps -ef | grep nginx
-# docker stop web1
-# docker ps -a						# web1 is Exited(0)
-# docker kill web2				# kill is SIGKILL(9)
-# docker ps -a						# web2 is Exited(137)
-# docker start web2
-# docker kill -s 15 web2	# 15(=docker stop) is SIGTERM
-# docker ps -a						# web2 is Exited(0)
-```
-- Selenium
-	- https://testmanager.tistory.com/116
-- Free Online Courses
-	- step.or.kr
-	- boostcourse.org
-	- kdata.or.kr
-- AI 시대! 개발자의 길을 찾다! = 시대의 변화(닷컴, 검색과 포탈, 클라우드 등)
-	- AI 코딩 도구: Cursor AI, Windsurf 등
-	- 전통적 코딩 vs. 바이브 코딩 and Low Code vs. No Code
-	- 신속한 개발과 분석 및 보고를 원하는 대표와 팀장 vs. 담당자
 - cmd.exe
 ```cmd
 C:\>netstat -ano | find "80"		# "80" 확인 vs. "LISTEN" 등

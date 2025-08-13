@@ -182,6 +182,23 @@ $ docker ps
 $ docker ps -a
 ```
 
+- Stop vs. kill
+```bash
+# docker run -d --name web1 nginx
+# docker run -d --name web2 nginx
+# docker ps -a
+# docker top web1
+# docker top web2
+# ps -ef | grep nginx
+# docker stop web1
+# docker ps -a						# web1 is Exited(0)
+# docker kill web2					# kill is SIGKILL(9)
+# docker ps -a						# web2 is Exited(137)
+# docker start web2
+# docker kill -s 15 web2			# 15(=docker stop) is SIGTERM
+# docker ps -a						# web2 is Exited(0)
+```
+
 - Inspect
 ```bash
 $ docker inspect demoNginx-1                                      # Backgroud Mode and Service
@@ -200,7 +217,7 @@ $ docker rm -f $(docker ps -aq)
 $ docker run --name web1 -d nginx
 $ docker run --name web2 -d -p 8080:80 nginx
 $ docker top web1			# web1 컨테이너에 실행중인 프로세스 정보를 ps -ef 형식으로 출력(=docker container top web1)
-$ docker top web1 aux			# web1 컨테이너에 실행중인 프로세스 정보를 ps -aux 형식으로 출력
+$ docker top web1 aux		# web1 컨테이너에 실행중인 프로세스 정보를 ps -aux 형식으로 출력
 $ docker port web1			# web1 컨테이너에 사용중인 포트 정보(=docker container port web1)
 $ docker port web2			# web2 컨테이너에 사용중인 포트 정보
 $ docker stop web1
