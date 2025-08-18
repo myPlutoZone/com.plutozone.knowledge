@@ -2,20 +2,20 @@
 DOCUMENT IN PART OR AS A WHOLE WITHOUT THE PRIOR WRITTEN CONSENT OF
 PLUTOZONE.COM.
 PLUTOZONE.COM OWNS THE INTELLECTUAL PROPERTY RIGHTS IN AND TO THIS DOCUMENT.
-COPYRIGHT (C) 2005 PLUTOZONE.COM ALL RIGHTS RESERVED
+COPYRIGHT © 2005 PLUTOZONE.COM ALL RIGHTS RESERVED
 ***
 > 하기 문서에 대한 저작권을 포함한 지적재산권은 plutozone.com에 있으며 plutozone.com이 명시적으
 로 허용하지 않는 사용, 복사, 변경 및 제 3자에 의한 공개, 배포는 엄격히 금지되며
 plutozone.com의 지적재산권 침해에 해당된다.
 ***
-> Copyright (C) 2005 plutozone.com All Rights Reserved
+> Copyright © 2005 plutozone.com All Rights Reserved
 
 ![정보기술-개발](./IT-development.png )
 
 
 # Overview
 - Our knowledge and wisdom are learned from someone and should be given to the next person.
-- This article introduces some technical aspects of information technology and was written based on the author's subjective opinion. Therefore, the author is not legally responsible for any problems that may arise during citation or application, and the information may be changed without notice.
+- This article introduces some technical aspects of information technology and was written based on the author's subjective opinion. Therefore the author is not legally responsible for any problems that may arise during citation or application and the information may be changed without notice.
 - `Markdown + Example or Demo Source + Image + PDF for IT(Information Technology)`
 - `Open Source exists in a other Repository`
 

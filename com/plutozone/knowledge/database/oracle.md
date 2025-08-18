@@ -119,6 +119,7 @@ export PATH=$ORACLE_HOME/bin:$PATH
 # Oracle XE 환경 변수 즉시 적용
 $ source ~/.profile
 ```
+
 #### 설치 확인
 ```bash
 # Oracle XE 리스너 상태(status) 확인
@@ -175,6 +176,7 @@ SQL> exit
 
 #### Application을 위한 Database 생성 및 설정
 단, XE 버전은 신규 SID를 생성할 수 없으므로 기존 SID(XE)를 이용하여 하기 작업을 진행한다.
+
 ##### [예제] Table Space 생성
 ```sql
 $ sqlplus system
@@ -187,6 +189,7 @@ SQL> CREATE TABLESPACE "Backoffice" datafile '/u01/app/oracle/oradata/XE/Backoff
 SQL> CREATE TABLESPACE "Membership" datafile '/u01/app/oracle/oradata/XE/Membership.dbf' SIZE 100M reuse autoextend ON;
 SQL> CREATE TABLESPACE "Message"    datafile '/u01/app/oracle/oradata/XE/Message.dbf'    SIZE 100M reuse autoextend ON;
 ```
+
 ##### [예제] User 생성
 ```sql
 SQL> CREATE USER openmalls  IDENTIFIED BY password DEFAULT TABLESPACE "OpenMalls"  TEMPORARY TABLESPACE temp;
