@@ -1,5 +1,27 @@
 # com.plutozone.knowledge.os.Ubuntu(아프리카 반투어의 말로 "네가 있어 내가 있다"라는 뜻)
 
+- firewall
+```bash
+# ufw status									# 방화벽 상태
+# ufw disable									# 방화벽 미사용
+# ufw allow 22									# Allow 22
+# ufw allow from 192.168.0.100
+# ufw allow from 192.168.0.0/24
+# ufw allow from 192.168.0.100 to any port 22
+# ufw allow from 192.168.0.0/24 to any port 22
+# ufw enable									# 방화벽 사용
+# ufw status									# 방화벽 상태
+# ufw deny 22									# Deny 22
+# ufw delete deny 22							# Delete Deny 22
+# pico /etc/default/ufw
+...
+IPV6=no
+...
+# ufw disable
+# ufw enable
+# ufw status
+# ufw reset										# 모든 규칙 삭제
+```
 
 - stress
 ```bash
