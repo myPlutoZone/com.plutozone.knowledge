@@ -509,5 +509,27 @@ $ docker rm -f $(docker ps -aq)
 $ rm -rf /db
 ```
 
+- Make Image(Ubuntu + Git + JDK) by docker commit
+```bash
+$ docker run --name my_ubuntu -i -t ubuntu:20.04 /bin/bash
+root@my_ubuntu:/# apt update
+...
+root@my_ubuntu:/# apt install -y git
+...
+root@my_ubuntu:/# which git
+..
+root@my_ubuntu:/# exit
+$ docker diff my_ubuntu
+$ docker commit my_ubuntu ubuntu_git
+$ docker images
+$ docker rm my_ubuntu
+```
+
+- Make Image(Ubuntu + Git + JDK) by docker file
+```bash
+
+```
+
+
 ## Reference
 - https://github.com/google/cadvisor
