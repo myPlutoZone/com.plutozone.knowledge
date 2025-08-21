@@ -3,22 +3,23 @@
 
 ## Contents
 - Installation
+- Application을 위한 Database 생성 및 설정
 - Export and Import
 
 
-## Installation
+## 1. Installation
 본 설치는 Ubuntu 20.04.3와 Oracle Database Express Edition (EX) Release 11.2.0.2.0(11gR2)를 기준으로 한다.
 
-### Oracle Database Express Edition (EX) Release 11.2.0
+### 1-1. Oracle Database Express Edition (EX) Release 11.2.0
 무료(2023년 2월 기준)이지만 상업적 목적으로도 사용 가능하고 아래와 같은 제한 사항이 있으며 이후 버전에서는 사용 가능한 저장 공간, 메모리, CPU가 증가하였다.
 - Database 저장 공간 사용 제한: 11GB
 - Memory 사용 제한: 1GB
 - CPU 사용 제한: 1개(Single CPU)
 
-#### Download
+#### 1-1-1. Download
 설치 파일을 https://www.oracle.com/database/technologies/xe-prior-release-downloads.html 또는 오라클 사이트에서 다운로드 한다.
 
-#### RPM 파일을 DEB로 변환(alien) 그리고 설치 및 설정
+#### 1-1-2. RPM 파일을 DEB로 변환(alien) 그리고 설치 및 설정
 ```bash
 # Oracle에서는 Redhat 계열에서 사용하는 RPM 파일만을 제공하므로 Debian(Ubuntu 등) 계열에서 사용하는 DEB 파일로 변환하여 설치 및 설정을 진행해야 한다.
 # [권장] Database와 Oracle를 관리할 별도 그룹(예: dba) 및 계정(예: oracle, sudo 권한 포함)으로 진행한다.
@@ -120,7 +121,7 @@ export PATH=$ORACLE_HOME/bin:$PATH
 $ source ~/.profile
 ```
 
-#### 설치 확인
+#### 1-1-3. 설치 확인
 ```bash
 # Oracle XE 리스너 상태(status) 확인
 $ lsnrctl status
@@ -129,8 +130,8 @@ $ lsnrctl status
 $ sqlplus system
 ```
 
-#### 에러 발생 시
-##### ORA-000845:MEMORY_TARGET 에러가 발생하게 되는 경우
+#### 1-1-4. 에러 발생 시
+##### 1-1-4-1. ORA-000845:MEMORY_TARGET 에러가 발생하게 되는 경우
 메모리의 설정이 잘못되거나 사이즈가 부족한 경우이며 이런 경우 메모리 설정을 위해서 다음 과정을 진행한다.
 ```bash
 # Oracle XE를 중지하고 현재 설정된 shared memeory 삭제한다.
@@ -155,8 +156,8 @@ esac
 $ sudo chmod 755 /etc/rc2.d/S01shm_load
 ```
 
-#### 설정
-##### Oracle Application Express 원격 접속 허용 및 포트번호
+#### 1-1-5. 설정
+##### 1-1-5-1. Oracle Application Express 원격 접속 허용 및 포트번호
 ```bash
 # Oracle XE APEX 원격 접속 허용(FALSE) 시 하기와 같이 설정한다.
 $ sqlplus system
@@ -174,43 +175,7 @@ SQL> exit
 # Default Workspace 및 User는 INTERNAL, ADMIN이며 암호는 SYS/SYSTEM과 동일하다.
 ```
 
-#### Application을 위한 Database 생성 및 설정
-단, XE 버전은 신규 SID를 생성할 수 없으므로 기존 SID(XE)를 이용하여 하기 작업을 진행한다.
-
-##### [예제] Table Space 생성
-```sql
-$ sqlplus system
-…
--- Table Space 생성 전에 기존 Table Space 정보를 확인한다.
-SQL> SELECT * FROM DBA_DATA_FILES;
-…
-SQL> CREATE TABLESPACE "OpenMalls"  datafile '/u01/app/oracle/oradata/XE/OpenMalls.dbf'  SIZE 100M reuse autoextend ON;
-SQL> CREATE TABLESPACE "Backoffice" datafile '/u01/app/oracle/oradata/XE/Backoffice.dbf' SIZE 100M reuse autoextend ON;
-SQL> CREATE TABLESPACE "Membership" datafile '/u01/app/oracle/oradata/XE/Membership.dbf' SIZE 100M reuse autoextend ON;
-SQL> CREATE TABLESPACE "Message"    datafile '/u01/app/oracle/oradata/XE/Message.dbf'    SIZE 100M reuse autoextend ON;
-```
-
-##### [예제] User 생성
-```sql
-SQL> CREATE USER openmalls  IDENTIFIED BY password DEFAULT TABLESPACE "OpenMalls"  TEMPORARY TABLESPACE temp;
-SQL> CREATE USER backoffice IDENTIFIED BY password DEFAULT TABLESPACE "Backoffice" TEMPORARY TABLESPACE temp;
-SQL> CREATE USER membership IDENTIFIED BY password DEFAULT TABLESPACE "Membership" TEMPORARY TABLESPACE temp;
-SQL> CREATE USER message    IDENTIFIED BY password DEFAULT TABLESPACE "Message"    TEMPORARY TABLESPACE temp;
--- User(membership) 삭제
-SQL> DROP USER membership CASCADE;
-
-```
-##### [예제] User에게 사용자 권한 부여
-```sql
--- 권한 부여는 GRANT, 취소는 REVOKE
-SQL> GRANT connect, resource, dba to plutozone;
-SQL> GRANT connect, resource to openmalls;
-SQL> GRANT connect, resource to backoffice;
-SQL> GRANT CREATE SESSION, SELECT ANY TABLE to membership;
-SQL> GRANT CREATE SESSION, SELECT ANY TABLE to message;
-```
-
-#### 설치 제거
+#### 1-1-6. 설치 제거
 ```bash
 # Oracle XE 서비스 정지
 $ sudo service oracle-xe stop
@@ -236,7 +201,44 @@ $ sudo delgroup dba
 ```
 
 
-## Export and Import
+## 2. Application을 위한 Database 생성 및 설정
+단, XE 버전은 신규 SID를 생성할 수 없으므로 기존 SID(XE)를 이용하여 하기 작업을 진행한다.
+
+### 2-1. [예제] Table Space 생성
+```sql
+$ sqlplus system
+…
+-- Table Space 생성 전에 기존 Table Space 정보를 확인한다.
+SQL> SELECT * FROM DBA_DATA_FILES;
+…
+SQL> CREATE TABLESPACE "OpenMalls"  datafile '/u01/app/oracle/oradata/XE/OpenMalls.dbf'  SIZE 100M reuse autoextend ON;
+SQL> CREATE TABLESPACE "Backoffice" datafile '/u01/app/oracle/oradata/XE/Backoffice.dbf' SIZE 100M reuse autoextend ON;
+SQL> CREATE TABLESPACE "Membership" datafile '/u01/app/oracle/oradata/XE/Membership.dbf' SIZE 100M reuse autoextend ON;
+SQL> CREATE TABLESPACE "Message"    datafile '/u01/app/oracle/oradata/XE/Message.dbf'    SIZE 100M reuse autoextend ON;
+```
+
+### 2-2. [예제] User 생성
+```sql
+SQL> CREATE USER openmalls  IDENTIFIED BY password DEFAULT TABLESPACE "OpenMalls"  TEMPORARY TABLESPACE temp;
+SQL> CREATE USER backoffice IDENTIFIED BY password DEFAULT TABLESPACE "Backoffice" TEMPORARY TABLESPACE temp;
+SQL> CREATE USER membership IDENTIFIED BY password DEFAULT TABLESPACE "Membership" TEMPORARY TABLESPACE temp;
+SQL> CREATE USER message    IDENTIFIED BY password DEFAULT TABLESPACE "Message"    TEMPORARY TABLESPACE temp;
+-- User(membership) 삭제
+SQL> DROP USER membership CASCADE;
+
+```
+### 2-3. [예제] User에게 사용자 권한 부여
+```sql
+-- 권한 부여는 GRANT, 취소는 REVOKE
+SQL> GRANT connect, resource, dba to plutozone;
+SQL> GRANT connect, resource to openmalls;
+SQL> GRANT connect, resource to backoffice;
+SQL> GRANT CREATE SESSION, SELECT ANY TABLE to membership;
+SQL> GRANT CREATE SESSION, SELECT ANY TABLE to message;
+```
+
+
+## 3. Export and Import
 ```cmd
 C:\>exp userid=ID/PASSWD file=D:\FILE_NAME.dmp		# Export
 C:\>imp userid=ID/PASSWD file=D:\FILE_NAME.dmp		# Import
