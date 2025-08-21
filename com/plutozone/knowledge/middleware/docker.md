@@ -511,25 +511,71 @@ $ rm -rf /db
 
 - Make Image(Ubuntu + Git + JDK) by docker commit
 ```bash
-$ docker run --name my_ubuntu -i -t ubuntu:20.04 /bin/bash
-root@my_ubuntu:/# apt update
+$ docker run --name myUbuntu -i -t ubuntu:20.04 /bin/bash
+root@myUbuntu:/# apt update
 ...
-root@my_ubuntu:/# apt install -y git
+root@myUbuntu:/# apt install -y git
 ...
-root@my_ubuntu:/# which git
-..
-root@my_ubuntu:/# exit
-$ docker diff my_ubuntu
-$ docker commit my_ubuntu ubuntu_git
+root@myUbuntu:/# which git
+...
+root@myUbuntu:/# exit
+$ docker diff myUbuntu
+$ docker commit myUbuntu ubuntu_with_git
 $ docker images
-$ docker rm my_ubuntu
+$ docker rm myUbuntu
+$ docker run --name myUbuntu -i -t ubuntu_with_git /bin/bash
+root@myUbuntu:/# apt update
+...
+root@myUbuntu:/# apt install -y openjdk-8-jdk
+...
+root@myUbuntu:/# exit
+$ docker diff myUbuntu
+$ docker commit myUbuntu ubuntu_with_git_and_jdk
+$ docker images
+$ docker rm myUbuntu
+$ docker run --name myUbuntu -i -t ubuntu_with_git_and_jdk /bin/bash
+root@myUbuntu:/# java -version
+...
+root@myUbuntu:/# exit
+$ docker rm myUbuntu
 ```
 
-- Make Image(Ubuntu + Git + JDK) by docker file
+- Make Image(Ubuntu + Python) by docker file
 ```bash
-
+$ mkdir build
+$ cd build
+$ pico Dockerfile
+FROM ubuntu:20.04
+RUN apt update && \
+	apt install -y python
+$ docker build -t ubuntu_with_python .
+$ docker images
 ```
 
+- Make Image(Ubuntu + Python + hello.py) by docker file
+```bash
+$ mkdir build
+$ cd build
+$ pico hello.py
+print "Hello, Python"
+$ pico Dockerfile
+FROM ubuntu:20.04
+RUN apt update && \
+	apt install -y python
+COPY hello.py .
+ENTRYPOINT ["python", "hello.py"]
+$ docker build -t python_hello .
+$ docker images
+$ docker run python_hello
+```
+
+- Make Image(Ubuntu + Python + hello.py + 환경 변수) by docker file
+```bash
+# 환경 변수와 도커 파일과 커맨드 모두에 있을 경우 커맨드가 우선 순위
+...
+```
 
 ## Reference
+- Naming
+	- 이미지명에 대문자 사용 불가(영문자와 숫자, -, _, ., /)
 - https://github.com/google/cadvisor
