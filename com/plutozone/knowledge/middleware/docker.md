@@ -7,6 +7,7 @@
 
 ## Overview
 - Docker(=Container)는 충분히 검증되었지만 Host 또는 Virtual Machine이 제공하는 OS 기반 격리보다는 덜 안전하고 비효율적이다고 여겨지기도 한다.
+- docker build, commit, diff, images, info, inspect, logs, network, port, ps , rm, rmi, run, search, start/stop/pause/unpause
 
 
 ## Environments
@@ -544,7 +545,7 @@ $ docker rm myUbuntu
 ```bash
 $ mkdir build
 $ cd build
-$ pico Dockerfile
+$ nano Dockerfile
 FROM ubuntu:20.04
 RUN apt update && \
 	apt install -y python
@@ -556,9 +557,9 @@ $ docker images
 ```bash
 $ mkdir build
 $ cd build
-$ pico hello.py
+$ nano hello.py
 print "Hello, Python"
-$ pico Dockerfile
+$ nano Dockerfile
 FROM ubuntu:20.04
 RUN apt update && \
 	apt install -y python
@@ -572,7 +573,16 @@ $ docker run python_hello
 - Make Image(Ubuntu + Python + hello.py + 환경 변수) by docker file
 ```bash
 # 환경 변수와 도커 파일과 커맨드 모두에 있을 경우 커맨드가 우선 순위
+$ ...
+$ nano hello.py
+import os
+print "Hello, Python from %s!" % os.environ['NAME']
+# 기존 Dockerfile
+$ docker build -t python_hello_with_env .
+$ docker run -e NAME=PlutoZone1st python_hello_with_env
 ...
+$ export NAME=PlutoZone2nd
+$ docker run -e NAME=$NAME python_hello_with_env
 ```
 
 ## Reference
