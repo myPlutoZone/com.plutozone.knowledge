@@ -1,12 +1,11 @@
 # com.plutozone.knowledge.middleware.Docker
 
-# TODO
-- 코드(탭 vs. 스페이스 포함) + 예제 정규화
 
 ## Contents
-01. [Overview ............... 개요](#overview)
-02. [Environments ... 환경 for 실습](#environments)
-03. ...
+01. [Overview .................................................. 개요](#overview)
+02. [Container and Docker ............................ 컨테이너와 도커](#container_and_docker)
+03. [Environments ..................................... 환경 for 실습](#environments)
+04. [Install Docker and Configuration ................... 설치와 구성](#install_docker_and_configuration)
 
 
 ## Overview
@@ -14,44 +13,42 @@
 - docker build, commit, diff, images, info, inspect, logs, network, port, ps , rm, rmi, run, search, start/stop/pause/unpause
 
 
+## Container and Docker
+- What's Container
+	- Process at Source + Runtime + Environment
+	- Isolation
+	- Virtualization(base on OS) by Hypervisor vs. Containerization by Container Engine(=Docker)
+- Docker
+	- Containerization and Container Basic Life-cycle
+	- Image Build vs. Source Build
+	- Network and Storage
+	- Docker Compose vs. Kubernetes(Orchestrator=Server Cluster Tool, Multi-host 등)
+- Run VM vs. Container(OCI, Open Container Initiative)
+	- vdi for Oracle VirtualBox
+	- vmdk for VMware
+	- qcow2 for OpenSource
+	- vhd/x for Windows
+
+
 ## Environments
-- VM Tools(Virtual Box)
+- Default Docker Container Network(172.17.0.0/16)
 - Linux Distribution(Rocky 9.5)
+- VM Tools(Virtual Box)
+	- Change Host Only Network Properties at Virtual Box
+		- 172.16.0.0/24(24 = 11111111.11111111.11111111.00000000 = 255.255.255.0)
+		- 172.16.0.101 ~ 254 for DHCP Server(172.16.0.100)
+	- Create VM
+		- 1 vCPU + 2GB
+  		- NAT(enp0s3) for External
+      	- Host Only(enp0s8, 172.16.0.0/24) for Internal
+      	- 20GB/25GB at Rocky/Ubuntu
 - Terminal(MobaXterm)
 
 
-## Docker Container Basic
-- Containerization and Container Basic Life-cycle
-- Image Build vs. Source Build
-- Network and Storage
-- Compose(Docker=Container Engine, Kubernetes=Orchestrator=Server Cluster Tool)
-
-
-## Change `Host Only Network` Properties at Virtual Box
-- 172.16.0.0/24(24 = 11111111.11111111.11111111.00000000 = 255.255.255.0)
-- `172.16.0.101 ~ 254 for DHCP(172.16.0.100)`
-
-
-## Create VM
-- 1 vCPU + 2GB + `NAT(enp0s3) for External` + `Host Only(enp0s8, 172.16.0.0/24) for Internal` + 20GB/25GB at Rocky/Ubuntu
-
-
-## What's Container
-- Process at Source + Runtime + Environment
-- Isolation
-- Virtualization(base on OS) by Hypervisor vs. Containerization by Container Engine(=Docker)
-
-
-## Run VM vs. Container(OCI, Open Container Initiative)
-- vdi for Oracle VirtualBox
-- vmdk for VMware
-- qcow2 for OpenSource
-- vhd/x for Windows
-
-
-## Install Docker(CE, Community Edition)
+## Install Docker and Configuration
 - Install by root(#) at Rocky 9.5(https://docs.rockylinux.org/gemstones/containers/docker/)
 ```bash
+# CE(Community Edition)
 $ curl -fsSL https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
 $ yum install -y docker-ce
 $ systemctl status docker
@@ -59,15 +56,14 @@ $ docker version                              	# Only Client Version
 $ systemctl start docker                      	# Server Start
 $ systemctl status docker
 $ docker version                              	# Client and Server Version
-$ systemctl enable docker	          	# Server Start on Boot
+$ systemctl enable docker	          			# Server Start on Boot
 $ docker images
-$ docker run hello-world		        # Download hello-world and Print "Hello from Docker!"
+$ docker run hello-world		        		# Download hello-world and Print "Hello from Docker!"
 $ docker images
-$ docker run ubuntu /bin/echo 'Hello World'	# Download ubuntu and Print "Hello World"
+$ docker run ubuntu /bin/echo 'Hello World'		# Download ubuntu and Print "Hello World"
 $ docker images
 $ docker ps -a
 ```
-
 - Install at Ubuntu 24.04.1(https://docs.docker.com/engine/install/ubuntu/)
 ```bash
 $ sudo apt update																								# Update
@@ -92,19 +88,14 @@ $ sudo shutdown -r now
 $ groups
 $ docker ps -a
 ```
-
-
-## Server & Client
+- Docker Host(=Server/Daemon) 구성
+	- Containers(Thin Read/Write)
+	- Images(Read Only + Version 및 Source, Runtime 등으로 구분됨)
+	- Registry(Default: hub.docker.com)
 - docker는 Client Tool이므로 Localhost 통신이 기본 vs. Kubernetes는 Server Tool이므로 Remote Host 통신이 기본
 ```bash
 $ docker -H 172.16.0.102:2375      # Remote Host 접속 시
 ```
-
-
-## Docker Host(=Server/Daemon) 구성
-- Containers(Thin Read/Write)
-- Images(Read Only + Version 및 Source, Runtime 등으로 구분됨)
-- Registry(Default: hub.docker.com)
 
 
 ## Commands
