@@ -1,5 +1,11 @@
 # com.plutozone.knowledge.language.Python
 
+# TODO
+```py
+list = ["value1", value2]
+tuple = ("value1", value2)
+dictionary = {"key1" : "value1", "key2" : value2}
+```
 
 ## Overview
 - Python and PSF(Python Software Foundation)
@@ -341,3 +347,4 @@ def sum_four(num: int) -> int:
 num = int(input("4자리 정수: "))
 print("자리수의 합: ", sum_four(num))
 ```
+
