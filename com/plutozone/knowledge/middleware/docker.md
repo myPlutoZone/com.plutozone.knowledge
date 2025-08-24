@@ -6,6 +6,7 @@
 02. [Container and Docker ............................ 컨테이너와 도커](#container_and_docker)
 03. [Environments ..................................... 환경 for 실습](#environments)
 04. [Install Docker and Configuration ................... 설치와 구성](#install_docker_and_configuration)
+05. ...
 
 
 ## Overview
@@ -81,7 +82,6 @@ $ sudo systemctl enable docker				# Server Start on Boot
 $ sudo docker images
 $ sudo docker run hello-world				# Download hello-world and Print "Hello from Docker!"
 $ sudo docker version
-
 # Run without sudo for Docker
 $ sudo usermod -aG docker ${USER}
 $ sudo shutdown -r now
@@ -95,6 +95,26 @@ $ docker ps -a
 - docker는 Client Tool이므로 Localhost 통신이 기본 vs. Kubernetes는 Server Tool이므로 Remote Host 통신이 기본
 ```bash
 $ docker -H 172.16.0.102:2375      # Remote Host 접속 시
+```
+
+
+## LifeCycle of Docker Container
+```bash
+# build > push/ship > pull > (create) > run
+$ docker run [IMAGE_NAME]                                                                   # 실행(run = create + start)
+$ docker create [IMAGE_NAME]                                                                # 생성(대문자 사용 불가)
+$ docker start [CONTAINTER_NAME or CONTAINTER_ID%]                                          # 시작
+$ docker stats [CONTAINTER_NAME or CONTAINTER_ID%]                                          # 통계(자원 사용량 정보)
+$ docker restart [CONTAINTER_NAME or CONTAINTER_ID%]                                        # 재시작
+$ docker stop [CONTAINTER_NAME or CONTAINTER_ID%]                                           # SIGTERM(15)에 해당하는 안전 종료(참고: kill -l)
+$ docker kill [CONTAINTER_NAME or CONTAINTER_ID%]                                           # SIGTERM(9)에 해당하는 강제 종료
+$ docker logs -f [CONTAINTER_ID%]
+$ docker inspect [CONTAINTER_NAME or CONTAINTER_ID%]
+$ docker inspect -f '{{ .NetworkSettings.IPAddress }}' [CONTAINTER_NAME or CONTAINTER_ID%]  # IP 확인
+$ docker rm [CONTAINTER_ID%]                                                                # 종료(stop or kill)되어 있어야 삭제 가능
+$ docker run --rm                                                                           # 실행 후 즉시 삭제
+$ docker rm -f $(docker container ls -a -q)                                                 # 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
+$ docker rmi [IMAGE_NAME]                                                                   # 이미지 삭제(=docker image rm [IMAGE_NAME], 해당 컨테이너가 삭제되어야 이미지 삭제 가능, -f 시 강제 삭제)
 ```
 
 
@@ -261,24 +281,6 @@ $ docker rm -f $(docker ps -aq)
 - Resource and Monitoring
 ```bash
 $ docker run -d -m 512m --oom-kill-disable=true nginx	# 메모리를 512MB로 제한하지만 초과해도 프로세스 강제 미종료(기본값: 초과하면 강세 종료)
-```
-
-## LifeCycle for Container(build > push/ship > pull > (create) > run)
-```bash
-$ docker run [IMAGE_NAME]                                                                   # 실행(run = create + start)
-$ docker create [IMAGE_NAME]                                                                # 생성(대문자 사용 불가)
-$ docker start [CONTAINTER_NAME or CONTAINTER_ID%]                                          # 시작
-$ docker stats [CONTAINTER_NAME or CONTAINTER_ID%]                                          # 통계(자원 사용량 정보)
-$ docker restart [CONTAINTER_NAME or CONTAINTER_ID%]                                        # 재시작
-$ docker stop [CONTAINTER_NAME or CONTAINTER_ID%]                                           # SIGTERM(15)에 해당하는 안전 종료(참고: kill -l)
-$ docker kill [CONTAINTER_NAME or CONTAINTER_ID%]                                           # SIGTERM(9)에 해당하는 강제 종료
-$ docker logs -f [CONTAINTER_ID%]
-$ docker inspect [CONTAINTER_NAME or CONTAINTER_ID%]
-$ docker inspect -f '{{ .NetworkSettings.IPAddress }}' [CONTAINTER_NAME or CONTAINTER_ID%]  # IP 확인
-$ docker rm [CONTAINTER_ID%]                                                                # 종료(stop or kill)되어 있어야 삭제 가능
-$ docker run --rm                                                                           # 실행 후 즉시 삭제
-$ docker rm -f $(docker container ls -a -q)                                                 # 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
-$ docker rmi [IMAGE_NAME]                                                                   # 이미지 삭제(=docker image rm [IMAGE_NAME], 해당 컨테이너가 삭제되어야 이미지 삭제 가능, -f 시 강제 삭제)
 ```
 
 
