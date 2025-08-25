@@ -2,9 +2,11 @@
 
 
 ## Contents
-- Installation
-- Application을 위한 Database 생성 및 설정
-- Export and Import
+01. Installation
+02. Application을 위한 Database 생성 및 설정
+03. Export and Import
+04. Performance
+05. Tip
 
 
 ## 1. Installation
@@ -43,12 +45,12 @@ if [[ ! `tail -n1 $file | grep INIT` ]]; then
 	echo >> $file
 	echo '### BEGIN INIT INFO' >> $file
 	echo '# Provides: OracleXE' >> $file
-        echo '# Required-Start: $remote_fs $syslog' >> $file
-        echo '# Required-Stop: $remote_fs $syslog' >> $file
-        echo '# Default-Start: 2 3 4 5' >> $file
-        echo '# Default-Stop: 0 1 6' >> $file
-        echo '# Short-Description: Oracle 11g Express Edition' >> $file
-        echo '### END INIT INFO' >> $file
+	echo '# Required-Start: $remote_fs $syslog' >> $file
+	echo '# Required-Stop: $remote_fs $syslog' >> $file
+	echo '# Default-Start: 2 3 4 5' >> $file
+	echo '# Default-Stop: 0 1 6' >> $file
+	echo '# Short-Description: Oracle 11g Express Edition' >> $file
+	echo '### END INIT INFO' >> $file
 fi
 update-rc.d oracle-xe defaults 80 01
 # EOF
@@ -242,4 +244,128 @@ SQL> GRANT CREATE SESSION, SELECT ANY TABLE to message;
 ```cmd
 C:\>exp userid=ID/PASSWD file=D:\FILE_NAME.dmp		# Export
 C:\>imp userid=ID/PASSWD file=D:\FILE_NAME.dmp		# Import
+```
+
+
+## 4. Performance
+### 4-1. New
+```sql
+-- Oracle 12c 이상
+-- [OFFSET offset ROWS] FETCH NEXT [row_count | percent PERCENT] ROWS [ONLY | WITH TIES]
+-- 첫행은 제외하고 2개 행만
+SELECT * FROM TB_TABLE
+OFFSET 1 ROWS FETCH NEXT 2 ROWS ONLY;
+```
+
+### 4-2. Slow Query
+```sql
+-- DBA 권한으로 하기 명령어를 통하여 수행 시간이 긴 쿼리(=Slow Query)를 확인할 수 있다.
+SELECT
+	-- 사용자 이름
+	PARSING_SCHEMA_NAME
+	-- 마지막 실행 시각
+	, LAST_ACTIVE_TIME
+	-- 평균 실행 시간(ET)
+	, TO_CHAR(ELAPSED_TIME/(1000000 * DECODE(EXECUTIONS, NULL, 1, 0, 1, EXECUTIONS)), 999999.99) ET
+	-- 실행 횟수(EC)
+	, EXECUTIONS EC
+	-- 쿼리
+	, SQL_TEXT
+	-- 전체 쿼리
+	, SQL_FULLTEXT
+FROM
+	-- 실행한 쿼리를 담고 있는 테이블
+	V$SQL
+WHERE
+	-- 평균 실행 시간(ET)가 1초 이상
+	ELAPSED_TIME >= 1 * 1000000 * DECODE(EXECUTIONS, NULL, 1, 0, 1, EXECUTIONS)
+	-- 평균 실행 회수(EC)가 10회 이상
+	AND EXECUTIONS > 10
+	-- 사용자 이름이 PlutoZone
+	AND PARSING_SCHEMA_NAME = 'PlutoZone'
+ORDER BY
+	LAST_ACTIVE_TIME DESC, ET DESC, EC DESC
+```
+
+### 4-3. Lock
+```sql
+-- 1. Lock 상태인 SERIAL_NO, SESSION_ID, OBJECT 확인
+SELECT
+	DISTINCT
+	T1.SESSION_ID			AS SESSION_ID
+	,T2.SERIAL#			AS SERIAL_NO
+	,T1.OS_USER_NAME		AS OS_USER_NAME
+	,T1.ORACLE_USERNAME	AS ORACLE_USERNAME
+	,T2.STATUS				AS STATUS
+	,T3.OBJECT_NAME
+	,DECODE(LOCKED_MODE
+			,2, 'ROW SHARE'
+			,3, 'ROW EXCLUSIVE'
+			,4, 'SHARE'
+			,5, 'SHARE ROW EXCLUSIVE'
+			,6, 'EXCLUSIVE'
+			, 'UNKNOWN'
+	) LOCK_MODE
+FROM
+	V$LOCKED_OBJECT T1, V$SESSION T2, DBA_OBJECTS T3
+WHERE
+	T1.SESSION_ID		= T2.SID
+	AND T1.OBJECT_ID	= T3.OBJECT_ID;
+
+-- 2. LOCK 상태인 SQL(*SESSION_ID*) 확인
+SELECT
+	B.USERNAME USERNAME
+	,C.SID AS SESSION_ID
+	,C.OWNER OBJECT_OWNER
+	,C.OBJECT OBJECT
+	,B.LOCKWAIT
+	,A.SQL_TEXT SQL
+	,PIECE
+FROM
+	V$SQLTEXT A, V$SESSION B, V$ACCESS C
+WHERE
+	A.ADDRESS			= B.SQL_ADDRESS
+	AND A.HASH_VALUE	= B.SQL_HASH_VALUE
+	AND B.SID			= C.SID
+	AND C.OWNER		!= 'SYS'
+	AND C.SID			= '*SESSION_ID*'
+ORDER BY
+	B.USERNAME, C.SID, C.OWNER, C.OBJECT, PIECE;
+
+-- 3. LOCK 상태인 SESSION(*SESSION_ID*, *SERIAL_NO*) KILL
+ALTER SYSTEM KILL SESSION '*SESSION_ID*, *SERIAL_NO*'
+
+-- 4. ALTER SYSTEM KILL SESSION을 사용하여도 죽지 않는 경우 아래 쿼리를 사용하여 PROCESS ID를 확인하여 UNIX에서 직접 PROCESS를 KILL(주의!!! 실수하기 쉽고 위험한 방법으로 LOCK걸린 내용을 정확히 알지 못할 경우 KILL하지 말 것!!!)
+-- LOCK 걸린 PROCESS ID 찾기
+SELECT
+	DISTINCT
+	S.USERNAME "ORACLE USER"
+	,P.PID "PROCESS ID"
+	,S.SID "SESSION ID"
+	,S.SERIAL#
+	,OSUSER "OS USER"
+	,P.SPID "PROC SPID"
+	,S.PROCESS "SESS SPID"
+	,S.LOCKWAIT "LOCK WAIT"
+FROM
+	V$PROCESS P, V$SESSION S, V$ACCESS A
+WHERE
+	A.SID = S.SID
+	AND P.ADDR = S.PADDR
+	AND S.USERNAME != 'SYS'
+
+-- 5. UNIX에 로그인하여 PROCESS KILL
+KILL -9 프로세스_아이디
+```
+
+
+## 5. Tip
+### 5.1	 SQL *Plus
+```sql
+-- SQL *Plus 접속 시 하기와 같은 명령(AS SYSDBA)을 통해 권한을 변경할 수 있다.
+SQL *Plus: Release 18.0.0.0.0 - ...
+-- SYSDBA 권한으로 접속할 경우
+Enter user-name: sys AS SYSDBA
+Enter password:
+...
 ```

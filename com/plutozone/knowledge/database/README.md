@@ -3,6 +3,7 @@
 
 ## Contents
 - Database 주요 업무
+- SQL
 - MariaDB
 - SQL Example
 
@@ -15,6 +16,15 @@
 - System 및 User Database
 - Database 저장 공간
 - Index
+
+
+## SQL
+### Overview of SQL Joins
+- (Inner) Join은 내부 조인으로 테이블을 조인할 때 모든 테이블의 지정된 열에 데이터가 있어야 한다.
+- Left/Right/Full (Outer) Join은 외부 조인으로 1개의 테이블에만 데이터가 있어도 조인한다.
+- Self Join은 자체 조인으로 자신이 자신과 조인하며 1개의 테이블을 사용한다.
+- Cross Join은 상호 조인으로 한 쪽 테이블의 모든 행과 다른 쪽 테이블의 모든 행을 조인한다.
+- Natural Join은 등가 조인으로 두 테이블 간의 동일한 이름을 갖는 모든 컬럼들에 대해 조인한다.
 
 
 ## MariaDB
