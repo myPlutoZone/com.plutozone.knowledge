@@ -307,3 +307,13 @@ $ git add .
 $ git commit -m 'message'
 $ git push -u origin main
 ```
+
+
+## Installation Type
+```bash
+# 1. Docker by root(-u root)
+$ mkdir $HOME/jenkins
+$ docker run -d -p 8080:8080 -v $HOME/jenkins:/var/jenkins_home --name jenkins -u root jenkins/jenkins
+$ docker logs jenkins
+# http://localhost:8080
+```
