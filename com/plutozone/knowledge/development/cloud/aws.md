@@ -61,7 +61,7 @@
 ## 3. Step for Create Network and EC2 Instances
 ### 3-1. Make `VPC`(=전체 인프라 네트워크)
 - Select Region		: ap-northeast-2(=아시아 태평양-서울)
-- Name Tag			: PLZ-PRD-VPC(PRD or STG or DEV)
+- Name Tag			: PLZ-VPC-PRD(PRD or STG or DEV)
 - IPv4 CIDR			: 10.0.0.0/16(=65,563)
 - 참고적으로 VPN 설정에서 DNS 호스트 이름를 활성화할 것
 
@@ -69,27 +69,27 @@
 - Select AZ(`Availability Zone`): 2A and 2C(하기는 장애 방지를 위해 Free Tier를 지원하는 2개의 Region에 Subnet을 생성)
 - BST(Bastion)은 선택적으로 생성
 - Name Tag(IPv4 CIDR) for 2A
-	- PLZ-PRD-VPC-2A-BST(10.0.0.0/24)
-	- PLZ-PRD-VPC-2A-PUB(10.0.1.0/24)
-	- PLZ-PRD-VPC-2A-PRI(10.0.64.0/24)
+	- PLZ-VPC-PRD-2A-BST(10.0.0.0/24)
+	- PLZ-VPC-PRD-2A-PUB(10.0.1.0/24)
+	- PLZ-VPC-PRD-2A-PRI(10.0.64.0/24)
 - Name Tag(IPv4 CIDR) for 2C
-	- PLZ-PRD-VPC-2C-BST(10.0.128.0/24)
-	- PLZ-PRD-VPC-2C-PUB(10.0.129.0/24)
-	- PLZ-PRD-VPC-2C-PRI(10.0.192.0/24)
+	- PLZ-VPC-PRD-2C-BST(10.0.128.0/24)
+	- PLZ-VPC-PRD-2C-PUB(10.0.129.0/24)
+	- PLZ-VPC-PRD-2C-PRI(10.0.192.0/24)
 
 ### 3-3. Make `Routing Table`(=AZ간의 통신을 위한 라우팅 테이블) at VPC
 - Name Tags: PLZ-PRD-RT-BST, PLZ-PRD-RT-PUB, PLZ-PRD-RT-PRI
-- Setting Subnet(PLZ-PRD-VPC-2A-BST, PLZ-PRD-VPC-2C-BST) for PLZ-PRD-RT-BST at `Subnet Connection`
-- Setting Subnet(PLZ-PRD-VPC-2A-PUB, PLZ-PRD-VPC-2C-PUB) for PLZ-PRD-RT-PUB at `Subnet Connection`
-- Setting Subnet(PLZ-PRD-VPC-2A-PRI, PLZ-PRD-VPC-2C-PRI) for PLZ-PRD-RT-PRI at `Subnet Connection`
+- Setting Subnet(PLZ-VPC-PRD-2A-BST, PLZ-VPC-PRD-2C-BST) for PLZ-PRD-RT-BST at `Subnet Connection`
+- Setting Subnet(PLZ-VPC-PRD-2A-PUB, PLZ-VPC-PRD-2C-PUB) for PLZ-PRD-RT-PUB at `Subnet Connection`
+- Setting Subnet(PLZ-VPC-PRD-2A-PRI, PLZ-VPC-PRD-2C-PRI) for PLZ-PRD-RT-PRI at `Subnet Connection`
 
 ### 3-4. Make `Internet Gateway` for Public Subnet(=Public Subnet을 위한 Outbound 네트워크) at VPC
 - Name Tag: PLZ-PRD-IGW
-- Setting PLZ-PRD-IGW for Internet Gateway at PLZ-PRD-VPC
+- Setting PLZ-PRD-IGW for Internet Gateway at PLZ-VPC-PRD
 
 ### 3-5. Make `NAT Gateway` for Private Subnet(=Private Subnet을 위한 Outbound 네트워크, 비용 절감을 위해 2A에만 생성) at VPC
 - Name Tag		: PLZ-PRD-NGW-2A(and 2C)
-- Select Subnet	: PLZ-PRD-VPC-2A-PUB(and 2C-PUB)
+- Select Subnet	: PLZ-VPC-PRD-2A-PUB(and 2C-PUB)
 - Assign Elastic IP(참고: 최대 5개의 EIP에서 1개 사용됨) and Binding
 
 ### 3-6. Setting up Routing(Public/Private Subnet를 위한 Outbound 설정 등) at `Routing Table` at VPC
