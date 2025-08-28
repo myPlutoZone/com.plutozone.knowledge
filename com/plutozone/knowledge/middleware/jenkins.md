@@ -316,4 +316,6 @@ $ mkdir $HOME/jenkins
 $ docker run -d -p 8080:8080 -v $HOME/jenkins:/var/jenkins_home --name jenkins -u root jenkins/jenkins
 $ docker logs jenkins
 # http://localhost:8080
+$ docker stop jenkins
+$ docker start jenkins
 ```
