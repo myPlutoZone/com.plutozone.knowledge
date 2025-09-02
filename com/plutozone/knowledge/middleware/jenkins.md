@@ -309,12 +309,13 @@ $ git push -u origin main
 ```
 
 
-## Installation Type
+## Installation by Docker
 ```bash
-# 1. Docker by root(-u root)
+# Run by root(-u root)
 $ mkdir $HOME/jenkins
 $ docker run -d -p 8080:8080 -v $HOME/jenkins:/var/jenkins_home --name jenkins -u root jenkins/jenkins
 $ docker logs jenkins
+
 # http://localhost:8080
 $ docker stop jenkins
 $ docker start jenkins
