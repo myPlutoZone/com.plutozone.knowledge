@@ -20,7 +20,7 @@
 
 ### 2-2. Login
 - Sign in as the root user
-- Sign in as an IAM user(비용 설정 및 사용량 확인 불가)
+- Sign in as an IAM user(비용 설정 및 사용량 확인 불가 등)
 
 ### 2-3. Service
 - IAM(Identity and Access Management=Account)
@@ -31,8 +31,8 @@
 	- Type: Micro(M), Free Tier(T), ...
 	- AMI(Amazon Machine Image): Amazon Linux, Ubuntu, Windows, ...
 	- ELB(Elastic Load Balancer, Support L4 and L7) vs. Auto Scaling by EC2(Amazon EC2 Auto Scaling, Not Support LB and HC)
-		- Load Balancer
-		- Health Check
+		- Load Balancer(LB)
+		- Health Check(HC)
 		- Auto Scaling
 	- Storage at EC2
 		- Instance Storage(Default Disk로 예를 들어 C:\)
@@ -44,7 +44,8 @@
 	- EC2 vs. AWS Managed Service
 - RDS(MySQL, PostgreSQL, MariaDB, ..) and Aurora, DynamoDB(=No SQL)
 - Route53(=DNS, 자체 또는 외부 DNS 관리)
-- 버킷(=폴더) + 객체(=파일) at S3(Simple Storage Service=NAS or External Storage by HTTPS for File Upload/Download: 객체 업로드 시 폴더를 추가하면 해당 폴더에 객체가 저장)
+- 버킷(=폴더) + 객체(=파일) at S3(Simple Storage Service=NAS or External Storage by HTTPS for File Upload/Download)
+	- 객체 업로드 시 폴더를 추가하면 해당 폴더에 객체가 저장
 - SNS(Simple Notification Service)
 - SES(Simple Email Service)
 - ELB(Elastic Load Balancing=L7/4) Options
