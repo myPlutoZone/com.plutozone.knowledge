@@ -1,6 +1,50 @@
 # com.plutozone.knowledge.os.Ubuntu(아프리카 반투어의 말로 "네가 있어 내가 있다"라는 뜻)
 
-- firewall
+- User, Group and sudo(root)
+```bash
+# 그룹 추가, 삭제 및 현재 계정의 그룹 확인
+$ sudo groupadd GROUP
+$ sudo groupdel GROUP
+$ sudo groups
+
+# 계정 추가(GROUP 포함)
+$ sudo useradd -g GROUP USER
+
+# 계정 암호 설정, 삭제(계정만) 그리고 삭제(전체)
+$ sudo passwd USER
+$ sudo userdel USER
+$ sudo userdel -r USER
+
+# 계정의 홈 폴더 생성
+$ sudo mkdir /home/ USER
+
+# 파일 또는 폴더의 소유권 변경
+$ sudo chown USER:GROUP FILE_OR_DIR
+
+# 계정의 셀(bash) 변경
+$ sudo usermod -s /bin/bash USER
+
+# 현재 계정 및 폴더 확인
+$ whoami
+$ pwd
+
+# [중요] sudo 권한 부여 방안(1) - visudo(반드시 기존 이름인 /etc/sudoers로 저장)
+$ sudo visudo
+…
+root ALL=(ALL:ALL) ALL
+# 계정 단위 추가("계정명" "현재 시스템에 접속 허용된 시스템"=(가능 그룹:가능 계정)[가능 명령])
+USER ALL=(ALL:ALL) ALL
+…
+%admin ALL=(ALL) ALL
+# 그룹 단위 추가(%"그룹명" "현재 시스템에 접속 허용된 시스템]=(가능 계정)[가능 명령])
+%GROUP ALL=(ALL) ALL
+…
+
+# [중요] sudo 권한 부여 방안(2) - 계정을 sudo(=root) 그룹에 추가
+$ sudo usermod -aG sudo USER
+```
+
+- Firewall
 ```bash
 # ufw status									# 방화벽 상태
 # ufw disable									# 방화벽 미사용
