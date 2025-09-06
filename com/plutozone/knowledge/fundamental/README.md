@@ -148,9 +148,9 @@
 	- 1 계층: 물리(Physical) 예) Device and Cable
  - TCP/IP 4 Layer
    	- 4 계층: 응용(Application) = Application + Presentation + Session 예) HTTP/S, SSL/TLS
-   	- 3 계층: 전송(Transport) = Transport
-   	- 2 계층: 인터넷(Internet) = Network
-   	- 1 계층: 네트워크 액세스(Network Access) = Physical + Data Link
+   	- 3 계층: 전송(Transport) = Transport 예) TCP, UDP
+   	- 2 계층: 인터넷(Internet) = Network 예) IP, ICMP
+   	- 1 계층: 네트워크 액세스(Network Access) = Physical + Data Link 예) MAC
 
 ### 5-2. From LAN(Local Area Network) To WAN(Wide Area Network)
 - ISP(Internet Service Provider: SKT, KT, LG U+ 등)의 서비스 종류, 속도, 가격, 인지도 고려하여 선택
@@ -373,3 +373,4 @@
 - [중요] 1) 개념과 목차 그리고 나를 위한 문서화와 용도에 따른 코드화 2) 자동 완성 그리고 3) 검색
 - 6개월간 16개 과목(Network, OS 포함) + Mini Project + Main Project
 - PBL(Project and Problem based Project)
+
