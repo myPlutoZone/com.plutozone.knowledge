@@ -1,8 +1,10 @@
 # com.plutozone.knowledge.os.Linux
 
+
 - . vs. source vs. bash vs. chmod
 ```bash
-$ touch shell.sh
+$ touch shell.sh 
+$ nano shell.sh
 #!/bin/bash
 ls -l
 $ . shell.sh
