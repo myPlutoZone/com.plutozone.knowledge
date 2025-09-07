@@ -25,7 +25,7 @@
 | pluto@$UbuntuS24:~$ echo $MY_ENV          | C:\Users\pluto>echo %MY_ENV%	        | 환경 변수 확인 |
 | pluto@$UbuntuS24:~$ echo $PATH            | C:\Users\pluto>PATH	                  | 개별 환경 변수 확인(예: PATH) |
 
-- [Rocky](./os/linux.md)
+- [Linux](./os/linux.md)
 - [Rocky](./os/rocky.md)
 - [Ubuntu](./os/ubuntu.md)
 - [Windows](./os/windows.md)
