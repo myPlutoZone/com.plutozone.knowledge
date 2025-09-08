@@ -1,6 +1,39 @@
 # com.plutozone.knowledge.os.Linux
 
 
+- Default Setting for PlutoZone
+```bash
+# KST
+$ sudo timedatectl set-timezone Asia/Seoul
+
+# YYYY-MM-DD HH:mm:SS
+$ nano ~/.bashrc
+...
+alias ls='ls --color=auto --time-style="+%Y-%m-%d %H:%M:%S"'
+$ source ~/.bashrc
+
+# Login Information
+$ sudo echo 'pluto ALL=NOPASSWD:/usr/bin/lastb, /var/log/btmp' >> /etc/sudoers
+$ nano ~/.profile
+...
+# 최근 실패한 로그인(9)
+echo "-------------------------------------------------------"
+echo " 9 Recent Failed Logins"
+echo "-------------------------------------------------------"
+sudo lastb -9
+
+# 최근 마지막 로그인(9)
+echo "-------------------------------------------------------"
+echo " Last 9 Recent Logins"
+echo "-------------------------------------------------------"
+lastlog -t 9
+
+# 최근 로그인과 로그아웃(9)
+echo "-------------------------------------------------------"
+echo " 9 Most Recent Logins and Logouts"
+echo "-------------------------------------------------------"
+last -9
+```
 - . vs. source vs. bash vs. chmod
 ```bash
 $ touch shell.sh 

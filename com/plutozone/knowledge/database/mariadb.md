@@ -6,7 +6,6 @@ C:\%MARIADB%\bin\mysql.exe --version				# cmd
 $ mysql --version									# bash
 SELECT VERSION();									# sql
 ```
-
 - 설치
 ```bash
 # MariaDB 다운로드 및 설치: https://downloads.mariadb.org/mariadb/repositories
@@ -33,3 +32,12 @@ $ sudo pico /etc/mysql/my.cnf							# [참고] MariaDB 버전에 따라 include�
 # bind-address = 127.0.0.1								# 외부 접속 허용(주석 처리 또는 0.0.0.0 또는 ::)
 $ sudo mariadb-secure-installation						# [선택] 필요 시 root 설정
 $ mariadb -u root -p
+> show databases;
+> use mysql;
+> insert into user (host, user, password, ssl_cipher, x509_issuer, x509_subject, authentication_string) \
+    values ('IP', 'root', password('암호'), '', '', '', '');
+> grant all privileges on *.* to 'root'@'IP' identified by '암호' with grant option;
+> flush privileges;
+> exit;
+$ sudo service mysql restart
+```
