@@ -57,7 +57,17 @@
 	- 논리
 	- 삼항
 	- 연산자 우선 순위
+- 템플릿 리터럴
+	- JavaScript에서 backtick(`) 문자를 사용하여 문자열을 표현
+```js
+		var name		= "James";
+		var message	= `Dear ${name} 
+My name is Pluto.
+			I'm ${1+1} years old.`;
+		alert(message);
+```
 
+이렇게 사용하면, 두가지 기능이 있는데 (1)줄바꿈을 쉽게 할수 있고, (2)문자열 내부에 표현식을 포함할 수 있게 된다.
 
 ## 제어문
 ### 조건문(Conditional Statements)
