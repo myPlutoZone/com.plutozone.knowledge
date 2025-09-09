@@ -11,7 +11,6 @@
 	- 172.16.0.0 ~ 172.31.255.255(172.16.0.0/12)
 	- 192.168.0.0 ~ 192.168.255.255(192.168.0.0/16)
 
-
 ## 2. Term, Login and Service
 ### 2-1. Term
 - CIDR(Classless Inter-Domain Routing)
@@ -26,7 +25,7 @@
 - IAM(Identity and Access Management=Account)
 - VPC(Virtual Private Cloud=Network, 최대 5개)
 	- `The generated VPC(=Default VPC) information is not modified at AWS.`
-	- `2A(롯?정보통신/현?정보기술 at 용인 마북리)/2C(L? U+ at 평촌) AZ(Availability Zone) is difference from 2B(K? at 목동)/2D(SK? at 일산) at ap-northeast-2(아시아 태평양-서울)`
+	- `2a(롯?정보통신/현?정보기술 at 용인 마북리)/2c(L? U+ at 평촌) AZ(Availability Zone) is difference from 2B(K? at 목동)/2D(SK? at 일산) at ap-northeast-2(아시아 태평양-서울)`
 - EC2(Elastic Computing Cloud=Host)
 	- Type: Micro(M), Free Tier(T), ...
 	- AMI(Amazon Machine Image): Amazon Linux, Ubuntu, Windows, ...
@@ -57,66 +56,73 @@
 - ECS(Elastic Container Service) vs. EKS(Elastic Kubernetes Service)
 - Lambda(=FaaS and Serverless at Computing or Anonymous functions at Programming)와 Trigger
 - Amazon Rekognition(Recognition=Machine and Deep Learning), Polly(=TTS), Lex(=Chatbot)
-
+- Nework ACL vs. Security Group
+| 항목      | Nework ACL | Security Group    |
+| :-------: |:---------: | :---------------: |
+| 적용 범위 | 서브넷     | 인스턴스 |
+| 분류      | 차단, 허용 | 허용만 |
+| 우선 순위 | 낮은 번호  | - |
+| 상태      | Stateless  | Stateful |
 
 ## 3. Step for Create Network and EC2 Instances
 ### 3-1. Make `VPC`(=전체 인프라 네트워크)
 - Select Region		: ap-northeast-2(=아시아 태평양-서울)
 - Name Tag			: PLZ-PRD-VPC(PRD or STG or DEV)
 - IPv4 CIDR			: 10.0.0.0/16(=2^16=2^8*2^8=256*256=65,563)
-- 참고적으로 VPN 설정에서 DNS 호스트 이름를 활성화할 것
+- VPN 설정에서 DNS 호스트 이름을 활성화
 
 ### 3-2. Make `Subnet`(=서비스별 네트워크) at VPC
-- Select AZ(`Availability Zone`): 2A and 2C(하기는 장애 방지를 위해 Free Tier를 지원하는 2개의 Region에 Subnet을 생성)
+- Select AZ(`Availability Zone`): 2a and 2c(하기는 장애 방지를 위해 Free Tier를 지원하는 2개의 Region에 Subnet을 생성)
 - BST(Bastion)은 선택적으로 생성
-- Name Tag(IPv4 CIDR) for 2C
-	- PLZ-PRD-VPC-2C-PUB(10.0.0.0/24)
-	- PLZ-PRD-VPC-2C-WS (10.0.1.0/24)
-	- PLZ-PRD-VPC-2C-WAS(10.0.2.0/24)
-	- PLZ-PRD-VPC-2C-DB (10.0.3.0/24)
-- Name Tag(IPv4 CIDR) for 2A
-	- PLZ-PRD-VPC-2A-PUB(10.0.10.0/24)
-	- PLZ-PRD-VPC-2A-WS (10.0.11.0/24)
-	- PLZ-PRD-VPC-2A-WAS(10.0.12.0/24)
-	- PLZ-PRD-VPC-2A-DB (10.0.13.0/24)
+- Name Tag(IPv4 CIDR) for 2a
+	- PLZ-PRD-SUB-2a-PUB(10.0.10.0/24)
+	- PLZ-PRD-SUB-2a-WS (10.0.11.0/24)
+	- PLZ-PRD-SUB-2a-WAS(10.0.12.0/24)
+	- PLZ-PRD-SUB-2a-DB (10.0.13.0/24)
+- Name Tag(IPv4 CIDR) for 2c
+	- PLZ-PRD-SUB-2c-PUB(10.0.0.0/24)
+	- PLZ-PRD-SUB-2c-WS (10.0.1.0/24)
+	- PLZ-PRD-SUB-2c-WAS(10.0.2.0/24)
+	- PLZ-PRD-SUB-2c-DB (10.0.3.0/24)
 
 ### 3-3. Make `Routing Table`(=AZ간의 통신을 위한 라우팅 테이블) at VPC
 - Name Tags: PLZ-PRD-RT-PUB, PLZ-PRD-RT-WS, PLZ-PRD-RT-WAS, PLZ-PRD-RT-DB
-- Setting Subnet(PLZ-PRD-VPC-2C-PUB, PLZ-PRD-VPC-2A-PUB) for PLZ-PRD-RT-PUB at `Subnet Connection`
-- Setting Subnet(PLZ-PRD-VPC-2C-WS,  PLZ-PRD-VPC-2A-WS)  for PLZ-PRD-RT-WS  at `Subnet Connection`
-- Setting Subnet(PLZ-PRD-VPC-2C-WAS, PLZ-PRD-VPC-2A-WAS) for PLZ-PRD-RT-WAS at `Subnet Connection`
-- Setting Subnet(PLZ-PRD-VPC-2C-DB,  PLZ-PRD-VPC-2A-DB)  for PLZ-PRD-RT-DB  at `Subnet Connection`
+- Setting Subnet(PLZ-PRD-SUB-2c-PUB, PLZ-PRD-SUB-2a-PUB) for PLZ-PRD-RT-PUB at `Subnet Connection`
+- Setting Subnet(PLZ-PRD-SUB-2c-WS,  PLZ-PRD-SUB-2a-WS)  for PLZ-PRD-RT-WS  at `Subnet Connection`
+- Setting Subnet(PLZ-PRD-SUB-2c-WAS, PLZ-PRD-SUB-2a-WAS) for PLZ-PRD-RT-WAS at `Subnet Connection`
+- Setting Subnet(PLZ-PRD-SUB-2c-DB,  PLZ-PRD-SUB-2a-DB)  for PLZ-PRD-RT-DB  at `Subnet Connection`
 
 ### 3-4. Make `Internet Gateway` for Public Subnet(=Public Subnet을 위한 Outbound 네트워크) at VPC
 - Name Tag: PLZ-PRD-IGW
 - Setting PLZ-PRD-IGW for Internet Gateway at PLZ-PRD-VPC
 
-### 3-5. Make `NAT Gateway` for Private Subnet(=Private Subnet을 위한 Outbound 네트워크, 비용 절감을 위해 2C에만 생성) at VPC
-- Name Tag		: PLZ-PRD-NGW-2C(and 2A)
-- Select Subnet	: PLZ-PRD-VPC-2C-PUB(and 2A-PUB)
+### 3-5. Make `NAT Gateway` for Private Subnet(=Private Subnet을 위한 Outbound 네트워크, 비용 절감을 위해 2c에만 생성) at VPC
+- Name Tag		: PLZ-PRD-NGW-2c(and 2a)
+- Select Subnet	: PLZ-PRD-SUB-2c-PUB(and 2a-PUB)
 - Assign Elastic IP(참고: 최대 5개의 EIP에서 1개 사용됨) and Binding
+- Update Elastic IP Name to WYC-DEV-EIP-NGW-2c
 
 ### 3-6. Setting up Routing(Public/Private Subnet를 위한 Outbound 설정 등) at `Routing Table` at VPC
-- Select PLZ-PRD-RT-PUB and Setting PLZ-PRD-IGW at `Routing`(Insert Outbound for 0.0.0.0)
-- Select PLZ-PRD-RT-WS  and Setting PLZ-PRD-NGW-2C at `Routing`(Insert Outbound for 0.0.0.0)
-- Select PLZ-PRD-RT-WAS and Setting PLZ-PRD-NGW-2C at `Routing`(Insert Outbound for 0.0.0.0)
-- Select PLZ-PRD-RT-DB  and Setting PLZ-PRD-NGW-2C at `Routing`(Insert Outbound for 0.0.0.0)
+- Select PLZ-PRD-RT-PUB and Setting PLZ-PRD-IGW    at `Routing`(Insert Outbound for 0.0.0.0)
+- Select PLZ-PRD-RT-WS  and Setting PLZ-PRD-NGW-2c at `Routing`(Insert Outbound for 0.0.0.0)
+- Select PLZ-PRD-RT-WAS and Setting PLZ-PRD-NGW-2c at `Routing`(Insert Outbound for 0.0.0.0)
+- Select PLZ-PRD-RT-DB  and Setting PLZ-PRD-NGW-2c at `Routing`(Insert Outbound for 0.0.0.0)
 
 ### 3-7. Make SG(`Security Group`) and Binding(Inbound 설정) at VPC or EC2 or ALB
 - Create PLZ-PRD-SG-ALB-WS는  필수 설정(HTTP/0.0.0.0, HTTPS/0.0.0.0 등)
 - Create PLZ-PRD-SG-ALB-WAS는 필수 설정(Tomcat/WS 등)
 
-- Create PLZ-PRD-SG-2C-PUB는 선택적으로 설정(SSH/IP 등)
-- Create PLZ-PRD-SG-2C-WS는  필수 설정(SSH/IP, HTTP/0.0.0.0, HTTPS/0.0.0.0 등)
-- Create PLZ-PRD-SG-2C-WAS는 선택적으로 설정(SSH/IP, Tomcat/WYC-PRD-SG-ALB-WAS 등)
-- Create PLZ-PRD-SG-2C-DB는  선택적으로 설정(SSH/IP, MySQL/WAS 등)
+- Create PLZ-PRD-SG-2c-PUB는 선택적으로 설정(SSH/IP 등)
+- Create PLZ-PRD-SG-2c-WS는  필수 설정(SSH/IP, HTTP/0.0.0.0, HTTPS/0.0.0.0 등)
+- Create PLZ-PRD-SG-2c-WAS는 선택적으로 설정(SSH/IP, Tomcat/WYC-PRD-SG-ALB-WAS 등)
+- Create PLZ-PRD-SG-2c-DB는  선택적으로 설정(SSH/IP, MySQL/WAS 등)
 
-- Create PLZ-PRD-SG-2A-PUB는 선택적으로 설정(SSH/IP 등)
-- Create PLZ-PRD-SG-2A-WS는  필수 설정(SSH/IP, HTTP/0.0.0.0, HTTPS/0.0.0.0 등)
-- Create PLZ-PRD-SG-2A-WAS는 선택적으로 설정(SSH/IP, Tomcat/WYC-PRD-SG-ALB-WAS 등)
-- Create PLZ-PRD-SG-2A-DB는  선택적으로 설정(SSH/IP, MySQL/WAS 등)
+- Create PLZ-PRD-SG-2a-PUB는 선택적으로 설정(SSH/IP 등)
+- Create PLZ-PRD-SG-2a-WS는  필수 설정(SSH/IP, HTTP/0.0.0.0, HTTPS/0.0.0.0 등)
+- Create PLZ-PRD-SG-2a-WAS는 선택적으로 설정(SSH/IP, Tomcat/WYC-PRD-SG-ALB-WAS 등)
+- Create PLZ-PRD-SG-2a-DB는  선택적으로 설정(SSH/IP, MySQL/WAS 등)
 
-### 3-8. Make EC2 for Bastion, WS(예: PLZ-PRD-EC2-2C-PUB-BASTION-001), WAS(예: PLZ-PRD-EC2-2C-PRI-NGNIX-001), DB 등 at EC2
+### 3-8. Make EC2 for Bastion, WS(예: PLZ-PRD-EC2-2c-PUB-BASTION-001), WAS(예: PLZ-PRD-EC2-2c-PRI-NGNIX-001), DB 등 at EC2
 - Configure Hostname
 - Select Amazon Linux2nd(t2.micro)
 - Create or Select Key Pair
@@ -234,10 +240,12 @@ $ */5 * * * * /home/ec2-user/updateIP.sh >> /home/ec2-user/updateIP.log 2>&1
 
 ## 7. 주의, 권장 및 참고 사항
 ### 7-1. 주의
+- **특정 조건 하에 최대 6개월까지 무료**
 - **t2.micro는 720시간 동안만 무료로 사용 가능**
 - **EIP(Elastic IP)를 생성 후 EC2 등에 할당하지 않을 경우 별도 추가 과금 발생**
 
 ### 7-2. 권장
+- Default VPC 삭제(필요 시 Subnet, Routing Table, Internet Gateway, ACL, Security Group 등 포함) for 보안
 - 생성한 VPCs, SGs, EC2s, LBs 등의 삭제는 역순으로
 - 일반적으로 Bastion Server(관제용), NAT Gateway(패치용), EKS Management Server(관리용)만을 Public Zone에 배치
 
