@@ -34,7 +34,11 @@ $ sudo mariadb-secure-installation						# [선택] 필요 시 root 설정
 $ mariadb -u root -p
 > show databases;
 > use mysql;
-> create user 'root'@'아이피' identified by '암호';
+> create user 'root'@'아이피' identified by '암호';		# 10.4 version 이상
+> insert into user \
+ (host, user, password, ssl_cipher, x509_issuer, x509_subject, authentication_string) \
+ values
+ ('아이피', 'root', password('암호'), '', '', '', '');	# 10.4 version 미만
 > grant all privileges on *.* to 'root'@'아이피' identified by '암호' with grant option;
 > flush privileges;
 > exit;
