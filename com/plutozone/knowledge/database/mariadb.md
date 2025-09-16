@@ -44,3 +44,8 @@ $ mariadb -u root -p
 > exit;
 $ sudo systemctl restart mariadb
 ```
+- Slow Query 로깅 설정
+- 백업과 복원
+	- SQL 기반
+	- Binary 기반
+- HA(High Availability) vs. Galera Cluster for MariaDB or MySQL
