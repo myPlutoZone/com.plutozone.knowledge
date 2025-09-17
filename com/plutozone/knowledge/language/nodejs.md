@@ -1,5 +1,8 @@
 # com.plutozone.knowledge.language.NodeJs(Node.js + NestJS)
 
+- == vs. ===
+	- == (느슨한 동등 비교): 자동 형변환 가능
+	- ===(엄격한 동등 비교): 자동 형변환 불가
 
 - Requirements for NestJS(NestJS 11.0.7 requires node version higher than 20.11)
 	- Node.js
