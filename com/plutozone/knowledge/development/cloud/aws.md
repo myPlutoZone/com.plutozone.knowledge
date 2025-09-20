@@ -49,7 +49,7 @@
 - SES(Simple Email Service)
 - ELB(Elastic Load Balancing=L7/4) Options
 	- Network Load Balancer(L4, ...)
-	- Classic Load Balancer(L7/4 + EC2 Instances, ...)
+	- Classic Load Balancer(L4/7 + EC2 Instances, ...)
 	- Application Load Balancer(L7 + Containers, ...)
 - ACM(Amazon Certificate Manager=HTTPS/SSL 인증서 관리)
 	- 상용(com, co.kr 등)이 아닌 개인(store, shop 등) 도메인에 대한 SSL 인증서 발급 무료 지원
@@ -57,6 +57,7 @@
 - Lambda(=FaaS and Serverless at Computing or Anonymous functions at Programming)와 Trigger
 - Amazon Rekognition(Recognition=Machine and Deep Learning), Polly(=TTS), Lex(=Chatbot)
 - Nework ACL vs. Security Group
+
 | 항목      | Nework ACL | Security Group    |
 | :-------: |:---------: | :---------------: |
 | 적용 범위 | 서브넷     | 인스턴스 |
@@ -146,7 +147,8 @@
 - Make Classic(참고: Instance vs. IP/Base on Container) LB(PLZ-PRD-ALB-WAS) and Setting up ...
 
 ### 3-10. Make RDS
-- ...
+- Make Subnet?
+- Select DB Instance Class and DB Type at DS
 
 ### 3-11. Make A Record for Domain Service at Route53
 - Setting up ...
