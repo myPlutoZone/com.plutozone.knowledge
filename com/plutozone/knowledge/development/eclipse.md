@@ -39,13 +39,13 @@ C:\> notepad.exe %ECLIPSE%\configuration\.settings\org.eclipse.ui.ide.prefs
  * File			: ${file_name}
  * Notes		:
  * History		: [NO][Programmer][Description]
- *				: [${currentDateTime:date('yyyyMMddHHmmss')}][pluto#brightsoft.co.kr][CREATE: Initial Release]
+ *				: [${currentDateTime:date('yyyyMMddHHmmss')}][pluto#plutozone.com][CREATE: Initial Release]
  */
 ${package_declaration}
 
 /**
  * @version 1.0.0
- * @author pluto#brightsoft.co.kr
+ * @author pluto#plutozone.com
  * 
  * @since ${currentDate:date('yyyy-MM-dd')}
  * <p>DESCRIPTION:</p>
