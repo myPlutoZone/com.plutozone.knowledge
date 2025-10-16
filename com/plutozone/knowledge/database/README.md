@@ -33,16 +33,16 @@
 
 #### 개발(Development) 시
 - 필요한 Table의 항목만 추출한다.
-	- [X] SELECT * FROM Table1 WHERE …
-	- [O] SELECT FieldName1, FieldName2, … FROM Table1 WHERE …
+	- (X) SELECT * FROM Table1 WHERE …
+	- (O) SELECT FieldName1, FieldName2, … FROM Table1 WHERE …
 - Index가 설정된 항목을 활용한다.
 	- WHERE절에는 Index가 있는 항목조건을 사용한다.
 - 대량의 Data를 처리할 경우 Stored Procedure를 사용한다.
 - 복잡한 조건으로 Data를 추출하는 것보다 SQL문을 나누어서 사용한다.
 	- 일반적으로 4개 이상의 Table을 조인하면 Performance 저하가 발생한다.
 - 전체 Data를 검색할 경우 WHERE절에 Index가 설정된 항목에 결과에 상관없는 조건을 부여한다.
-	- [X] SELECT * FROM Table1
-	- [O] SELECT * FROM Table1 WHERE FieldName_Indexed
+	- (X) SELECT * FROM Table1
+	- (O) SELECT * FROM Table1 WHERE FieldName_Indexed
 - WHERE절에 LIKE '%성' 같은 문장이나 LEFT(FieldName, 2) = '12' 같은 문장은 가급적 사용하지 않는다.
 	- 이러한 경우 Index가 설정되어 있어도 전체 Table Scan을 실행하기 때문이다.
 - 불필요한 문장을 사용하지 않는다.
