@@ -322,15 +322,22 @@ $ docker start jenkins
 ```
 ```bash
 pipeline {
-	agent any
-	triggers { cron('* * * * *') }
-	options { timeout(time: 5) }
+	agent any										// 사용할 에이전트를 any로 선택
+	triggers { cron('* * * * *') }				// 1분 마다 자동으로 실행
+	options { timeout(time: 5) }					// 5분 이상 실행되면 중지
+	// 시작 전에 불린형 입력 파라미터 요청
 	parameters {
 		booleanParam(name: 'DEBUG_BUILD', defaultValue: true, description: 'Is it the debug build?')
 	}
 	stages {
 		stage ('Example') {
-			environment { NAME = 'Rafal' }
+			// NAME 환경 변수에 PlutoZone을 설정
+			environment { NAME = 'PlutoZone' }
+			/*
+			불린형 입력 파라미터가 true인 경우
+			"Testing the chrome browser."를 출력
+			"Testing the firefox browser."를 출력
+			*/
 			when { expression { return params.DEBUG_BUILD}}
 			steps {
 				echo "Hello from $NAME"
@@ -343,6 +350,7 @@ pipeline {
 			}
 		}
 	}
+	// 실행중 오류 발생 여부 또는 관계 없이(always or success or failure) "I will always say Hello again!"룰 출력
 	post { always {echo 'I will always say Hello again!' }}
 }
 ```
