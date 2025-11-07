@@ -249,8 +249,7 @@ System.out.println(clazz_3.getName());
 ### 6-9. 예외(Exception) 처리와 예외 클래스
 - 컴파일 시 에러(Compile Error) = 문법 에러(Syntax Error) vs. 실행 시 에러(Runtime Error) = Bug(버그) 그리고 Debug(디버그)
 - 시스템 에러(Error) = 제어 불가?(예: Static Memory Overflow) vs. 예외(Exception) = 제어 가능(예: File Not Found)
-- try/catch/finally
-- try(withResources)/catch
+- try catch finally vs. try With Resource Statements
 - throw와 다중 예외 처리와 순서
 - 사용자 정의 예외
 - 로그 레벨(log4j: ALL > TRACE > DEBUG > INFO > WARN > ERROR > FATAL > OFF)과 로깅의 중요성 그리고 보안
