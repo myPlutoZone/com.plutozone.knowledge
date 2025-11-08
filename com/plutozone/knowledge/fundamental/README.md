@@ -223,7 +223,8 @@
 	- 다기능(Multi)을 운영할 수 있는 분산 처리 기능 제공
 	- Data의 신뢰성 확보를 위한 동기화 및 동시 처리 보장
 - 부하 분산과 확장성을 위한 Server(WEB + WAS + Database) 설계
-- Web Server, WAS의 설치, 운영 그리고 연동
+- WS(Web Server), WAS의 설치, 운영 그리고 연동
+- DMZ is WS Area for anybody at 3계층 구조(3 Tier- Architecture)
 - WAS vs. CGI(WAS와 CGI의 기본적인 구조는 같으나 Web Server가 Application을 사용하는 방식에 차이가 있다. 또한 Application은 구현 방식에 따라 실행 코드 방식과 Script Code(JSP, ASP, PHP 등) 방식으로 구분)
 
 ![WAS vs. CGI](./image/cgi.png)
@@ -373,4 +374,5 @@
 - [중요] 1) 개념과 목차 그리고 나를 위한 문서화와 용도에 따른 코드화 2) 자동 완성 그리고 3) 검색
 - 6개월간 16개 과목(Network, OS 포함) + Mini Project + Main Project
 - PBL(Project and Problem based Project)
+
 
