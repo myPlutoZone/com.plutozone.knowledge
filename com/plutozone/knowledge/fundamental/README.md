@@ -293,6 +293,7 @@
 
 ### 8-4. Domain
 - https://whois.co.kr/, https://후이즈검색.한국 또는 https://xn--c79as89aj0e29b77z.xn--3e0b707e/
+- https://내도메인.한국(MyDomain.Korea) or https://xn--220b31d95hq8o.xn--3e0b707e/ or https://kro.kr(plutozone.kro.kr: 2024-12-22 ~ 2026-03-22)
 
 ### 8-5. Network
 - Visual Route, Advanced IP Scanner, WinShark
