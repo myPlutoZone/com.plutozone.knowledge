@@ -36,6 +36,7 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # Temporary
+- ISMS-P and https://edu.privacy.go.kr/
 - cmd.exe
 ```cmd
 C:\>netstat -ano | find "80"		# "80" 확인 vs. "LISTEN" 등
