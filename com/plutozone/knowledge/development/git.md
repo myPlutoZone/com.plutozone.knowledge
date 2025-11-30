@@ -31,3 +31,7 @@ $ git revert [ID]				# revert without deleting(=reset) the version
 
 
 ## Collaboration
+
+
+## Tip
+- .gitignore 파일은 1개만 그리고 루트에 있어야 한다.
