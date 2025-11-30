@@ -16,6 +16,17 @@
 	- Tab vs. Space for File Size and Usage
 	- 로컬 개발 환경 설정(Static vs. Dynamic Resouce)
 	- 효율적 기준 정보(예: 코드와 값)와 입력값(예: 로그인 아이디와 암호, 회원 가입 정보) 관리
+- HTML
+	- POST vs. GET
+- CSS
+	- 난독화
+	- 기본적으로 속성들은 스페이스(Space)로 분리하지만 include일 경우 스페이스(Space)를 생략(예: border:1px solid red;text-aling:center;)한다. 특히 min 파일일 경우
+- JavaScript
+	- 난독화
+- JSP
+- Java
+	- Variable Initialization(Primitive vs. Object) at DTO/VO
+	- RESTful(POST, GET, PUT, DELETE, HEAD, ...) API vs. HTTP only POST API
 - Framework for MVC
 	- Dependency for Spring Web(Spring Version + Java Version) vs. Spring Boot(Spring Boot Version + Spring Version + Java Version)
 	- MVC = M(Service + Dao) + V(View) + C(Controller)
@@ -29,17 +40,11 @@
 	- Static and Dynamic Properties
 	- Logging(DEBUG, INFO, ...)
 	- Support Multi Database and Language
-- Java
-	- Variable Initialization(Primitive vs. Object) at DTO/VO
-	- RESTful(POST, GET, PUT, DELETE, HEAD, ...) API vs. HTTP only POST API
-- JSP
-- JavaScript
-	- 난독화
-- HTML
-	- POST vs. GET
-- CSS
-	- 난독화
-	- 기본적으로 속성들은 스페이스(Space)로 분리하지만 include일 경우 스페이스(Space)를 생략(예: border:1px solid red;text-aling:center;)한다. 특히 min 파일일 경우
+
+
+## Architecture and Design for Development
+- 식별(ID) vs. 인증(Password) vs. 인가(Using)
+- MPA(Multiple Page Application = JSP + Data) vs. SPA(Single Page Application = Script + Ajax + JSON)
 
 
 ## Co-Work at Web Development
