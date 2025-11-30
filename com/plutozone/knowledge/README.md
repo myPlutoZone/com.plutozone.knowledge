@@ -1,10 +1,6 @@
 # com.plutozone.knowledge
 
 
-## TODO
-- .gitignore 파일은 루트에 있어야 한다.
-
-
 ## Contents
 01. [Fundamental of IT Education ... 정보기술 교육의 기본](./fundamental/README.md "교육 목표와 네트워크, 운영체제, 프로그래밍 및 데이터베이스에 대한 기본")
 02. [OS ....................................... 운영 체제](#os)
@@ -40,9 +36,6 @@
 
 
 ## Development
-- MPA(Multiple Page Application = JSP + Data) vs. SPA(Single Page Application = Script + Ajax + JSON)
-- 식별(ID) vs. 인증(Password) vs. 인가(Using)
-
 - [Overview of Development](./development/README.md "개발 표준 가이드 등")
 - [AWS](./development/cloud/aws.md)
 - [Eclipse](./development/eclipse.md)
