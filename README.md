@@ -36,6 +36,26 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # Temporary
+- Nexus Repository for Maven(Java), NPM(Node.js), PyPI(Python), ATP/YUM, Raw 등 설치 및 설정 그리고 관리
+- ELK Stack(Elastic search + Logstash + Kibana and Beats)
+	- Overview
+		- Elastic Search(=Storage)
+		- Logstash(=Data Processing)
+		- Kibana(Visualize)
+		- Beats(Data Collection)
+	- Configuration	
+		- *.log > Filebeat(수집) > Logstash(처리) > Elastic Search(저장) > Kibana(전시)
+	- Beats	
+		- Filebeat(Log File)
+		- Metricbeat(CPU, Memory, Disk)
+		- Packetbear(Network Traffic)
+		- Auditbear(Security Event)
+		- Heartbear(Service Health Check)
+- GitHub + AWS CodePipeline + AWS CodeBuild + AWS Elastic Beantalk(무료: 서비스에 대한 배포, 운영, 확장을 지원하는 PaaS)
+- Citrix
+	- Citrix Hypervisor(=XenServer): Citrix의 가상화 Hypervisor
+	- Citrix Xencenter: Xenserver에 연결하여 VM, Storage 등의 Resource를 관리하는 도구
+	- Citrix Virtual Desktop and Apps: Citrix의 가상 데스크톱 또는 가상 앱
 - ISMS-P and https://edu.privacy.go.kr/
 - cmd.exe
 ```cmd
