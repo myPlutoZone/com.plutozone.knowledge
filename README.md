@@ -36,6 +36,7 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # Temporary
+- 요구사항 정의서와 명세서 그리고 차이점
 - Nexus Repository for Maven(Java), NPM(Node.js), PyPI(Python), ATP/YUM, Raw 등 설치 및 설정 그리고 관리
 - ELK Stack(Elastic search + Logstash + Kibana and Beats)
 	- Overview
