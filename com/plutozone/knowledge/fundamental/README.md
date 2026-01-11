@@ -280,7 +280,7 @@
 
 ## 8. Tools
 ### 8-1. Presentation
-- Zoomit, Epic Pen
+- Zoomit, Epic Pen, K Screen Pen(빨간펜)
 - https://codeshare.io
 - https://www.shorturl.at
 
@@ -375,5 +375,3 @@
 - [중요] 1) 개념과 목차 그리고 나를 위한 문서화와 용도에 따른 코드화 2) 자동 완성 그리고 3) 검색
 - 6개월간 16개 과목(Network, OS 포함) + Mini Project + Main Project
 - PBL(Project and Problem based Project)
-
-
