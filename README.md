@@ -47,11 +47,13 @@ tls            on
 tls_trust_file /etc/ssl/certs/ca-bundle.crt
 logfile        ~/.msmtp.log
 
+# Required Enable 2 Step Verification on Google Account
 account gmail
 host smtp.gmail.com
 port 587
 from your_email@gmail.com
 user your_email@gmail.com
+# Required Generate App Password(for SMTP Authentication)
 password your_app_password
 
 account default : gmail
