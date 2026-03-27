@@ -38,9 +38,9 @@ plutozone.com의 지적재산권 침해에 해당된다.
 # Temporary
 - msmtp + Gmail + Shell
 ```bash
-$ sudo yum install -y msmtp   # Redhat(Rocky, Amazon Linux)
+$ sudo yum install -y msmtp   # Redhat(Rocky, Amazon Linux) 필요 시 sudo yum install -y epel-release
 $ sudo apt install -y msmtp   # Ubuntu
-$ cat <<EOF > ~/.msmtprc
+$ nano ~/.msmtprc
 defaults
 auth           on
 tls            on
@@ -51,15 +51,16 @@ logfile        ~/.msmtp.log
 account gmail
 host smtp.gmail.com
 port 587
+# Email Sender
 from your_email@gmail.com
+# SMTP Login User
 user your_email@gmail.com
 # Required Generate App Password(for SMTP Authentication)
 password your_app_password
 
 account default : gmail
-EOF
 $ chmod 600 ~/.msmtprc
-$ vi sendEmail.sh
+$ nano sendEmail.sh
 #!/bin/bash
 
 TO="recipient@example.com"
@@ -68,7 +69,7 @@ BODY="This is a test email sent from Linux Shell using Gmail SMTP."
 
 echo -e "Subject: $SUBJECT\nTo: $TO\n\n$BODY" | msmtp "$TO"
 $ chmod +x sendEmail.sh
-$ ./sendEmail.sh
+$ ~/sendEmail.sh
 ```
 - 요구사항 정의서와 명세서 그리고 차이점
 - Nexus Repository for Maven(Java), NPM(Node.js), PyPI(Python), ATP/YUM, Raw 등 설치 및 설정 그리고 관리
