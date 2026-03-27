@@ -36,7 +36,7 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # Temporary
-- msmtp + Gmail + Shell
+- msmtp + Gmail and Monitor
 ```bash
 $ sudo yum install -y msmtp   # Redhat(Rocky, Amazon Linux) 필요 시 sudo yum install -y epel-release
 $ sudo apt install -y msmtp   # Ubuntu
@@ -45,7 +45,7 @@ defaults
 auth           on
 tls            on
 tls_trust_file /etc/ssl/certs/ca-bundle.crt
-logfile        ~/.msmtp.log
+logfile        ~/msmtp.log
 
 # Required Enable 2 Step Verification on Google Account
 account gmail
@@ -60,16 +60,63 @@ password your_app_password
 
 account default : gmail
 $ chmod 600 ~/.msmtprc
-$ nano sendEmail.sh
+$ nano monitor.sh
 #!/bin/bash
+
+# Configure
+HOSTNAME=$(hostname)
+LOG_FILE="~/monitor.log"
+DATE=$(date '+%Y-%m-%d %H:%M:%S')
+
+# CPU Usage (%)
+USAGE_CPU=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
+
+# Memory Usage (%)
+USAGE_MEMORY=$(free | awk '/Mem/ {printf("%.0f"), $3/$2 * 100}')
+
+# Disk Usage (%)
+USAGE_DISK=$(df / | awk 'NR==2 {gsub("%",""); print $5}')
+
+# Message
+ALERT_TITLE=""
+ALERT_PREFIX="[::: 경고 :::][우연컴퍼니][$HOSTNAME]"
+ALERT_ITEMS=()
+ALERT_MESSAGE=""
+
+# Check
+if (( $(echo "$USAGE_CPU > 30" | bc -l) )); then
+	 ALERT_ITEMS+=("CPU 사용률(30%) 초과")
+    ALERT_MESSAGE+="- CPU 사용률: ${USAGE_CPU}%\n"
+fi
+
+if (( USAGE_MEMORY > 80 )); then
+	 ALERT_ITEMS+=("Memory 사용률(80%) 초과")
+    ALERT_MESSAGE+="- Memory 사용률: ${USAGE_MEMORY}%\n"
+fi
+
+if (( USAGE_DISK > 80 )); then
+	 ALERT_ITEMS+=("Disk 사용률(80%) 초과")
+    ALERT_MESSAGE+="- Disk 사용률: ${USAGE_DISK}%\n"
+fi
+
+ALERT_TITLE="$ALERT_PREFIX"
+if (( ${#ALERT_ITEMS[@]} > 0 )); then
+    ALERT_TITLE+="$(printf "%s + " "${ALERT_ITEMS[@]}" | sed 's/ + $//')"
+fi
+
+# Logging
+if [[ -n "$ALERT_MESSAGE" ]]; then
+    echo -e "$DATE: $ALERT_MESSAGE" >> $LOG_FILE
+fi
 
 TO="recipient@example.com"
 SUBJECT="Test Mail"
-BODY="This is a test email sent from Linux Shell using Gmail SMTP."
+BODY="This is a email sent from Linux Shell using Gmail SMTP."
 
-echo -e "Subject: $SUBJECT\nTo: $TO\n\n$BODY" | msmtp "$TO"
-$ chmod +x sendEmail.sh
-$ ~/sendEmail.sh
+echo -e "Subject: $ALERT_TITLE\nTo: $TO\n\n$ALERT_MESSAGE" | msmtp "$TO"
+# echo -e "Subject: $SUBJECT\nTo: $TO\n\n$BODY" | msmtp "$TO"
+$ chmod +x monitor.sh
+$ ~/monitor.sh
 ```
 - 요구사항 정의서와 명세서 그리고 차이점
 - Nexus Repository for Maven(Java), NPM(Node.js), PyPI(Python), ATP/YUM, Raw 등 설치 및 설정 그리고 관리
