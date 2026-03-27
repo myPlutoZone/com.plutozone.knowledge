@@ -68,34 +68,34 @@ HOSTNAME=$(hostname)
 LOG_FILE="~/monitor.log"
 DATE=$(date '+%Y-%m-%d %H:%M:%S')
 
-# CPU Usage (%)
-USAGE_CPU=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
+# CPU Usage(%)
+USAGE_CPU=$(top -bn1 | awk '/Cpu/ {usage=100-$8; printf("%d", usage)}')
 
-# Memory Usage (%)
+# Memory Usage(%)
 USAGE_MEMORY=$(free | awk '/Mem/ {printf("%.0f"), $3/$2 * 100}')
 
-# Disk Usage (%)
+# Disk Usage(%)
 USAGE_DISK=$(df / | awk 'NR==2 {gsub("%",""); print $5}')
 
 # Message
 ALERT_TITLE=""
-ALERT_PREFIX="[::: 경고 :::][우연컴퍼니][$HOSTNAME]"
+ALERT_PREFIX="[::: 경고 :::][회사명][$HOSTNAME]"
 ALERT_ITEMS=()
 ALERT_MESSAGE=""
 
 # Check
-if (( $(echo "$USAGE_CPU > 30" | bc -l) )); then
-	 ALERT_ITEMS+=("CPU 사용률(30%) 초과")
+if (( USAGE_CPU > 30 )); then
+	ALERT_ITEMS+=("CPU 사용률(30%) 초과")
     ALERT_MESSAGE+="- CPU 사용률: ${USAGE_CPU}%\n"
 fi
 
 if (( USAGE_MEMORY > 80 )); then
-	 ALERT_ITEMS+=("Memory 사용률(80%) 초과")
+	ALERT_ITEMS+=("Memory 사용률(80%) 초과")
     ALERT_MESSAGE+="- Memory 사용률: ${USAGE_MEMORY}%\n"
 fi
 
 if (( USAGE_DISK > 80 )); then
-	 ALERT_ITEMS+=("Disk 사용률(80%) 초과")
+	ALERT_ITEMS+=("Disk 사용률(80%) 초과")
     ALERT_MESSAGE+="- Disk 사용률: ${USAGE_DISK}%\n"
 fi
 
@@ -116,7 +116,10 @@ BODY="This is a email sent from Linux Shell using Gmail SMTP."
 echo -e "Subject: $ALERT_TITLE\nTo: $TO\n\n$ALERT_MESSAGE" | msmtp "$TO"
 # echo -e "Subject: $SUBJECT\nTo: $TO\n\n$BODY" | msmtp "$TO"
 $ chmod +x monitor.sh
+$ touch monitor.log
 $ ~/monitor.sh
+$ crontab -e
+*/10 * * * * /home/user/monitor.sh
 ```
 - 요구사항 정의서와 명세서 그리고 차이점
 - Nexus Repository for Maven(Java), NPM(Node.js), PyPI(Python), ATP/YUM, Raw 등 설치 및 설정 그리고 관리
