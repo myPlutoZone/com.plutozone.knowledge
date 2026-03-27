@@ -79,24 +79,24 @@ USAGE_DISK=$(df / | awk 'NR==2 {gsub("%",""); print $5}')
 
 # Message
 ALERT_TITLE=""
-ALERT_PREFIX="[::: 경고 :::][회사명][$HOSTNAME]"
+ALERT_PREFIX="[::: Warning :::][Name][$HOSTNAME]"
 ALERT_ITEMS=()
 ALERT_MESSAGE=""
 
 # Check
 if (( USAGE_CPU > 30 )); then
-	ALERT_ITEMS+=("CPU 사용률(30%) 초과")
-    ALERT_MESSAGE+="[$DATE] CPU 사용률: ${USAGE_CPU}%\n"
+	ALERT_ITEMS+=("CPU Usage(30%) Over")
+    ALERT_MESSAGE+="[$DATE] CPU Usage: ${USAGE_CPU}%\n"
 fi
 
 if (( USAGE_MEMORY > 80 )); then
-	ALERT_ITEMS+=("Memory 사용률(80%) 초과")
-    ALERT_MESSAGE+="[$DATE] Memory 사용률: ${USAGE_MEMORY}%\n"
+	ALERT_ITEMS+=("Memory Usage(80%) Over")
+    ALERT_MESSAGE+="[$DATE] Memory Usage: ${USAGE_MEMORY}%\n"
 fi
 
 if (( USAGE_DISK > 80 )); then
-	ALERT_ITEMS+=("Disk 사용률(80%) 초과")
-    ALERT_MESSAGE+="[$DATE] Disk 사용률: ${USAGE_DISK}%\n"
+	ALERT_ITEMS+=("Disk Usage(80%) Over")
+    ALERT_MESSAGE+="[$DATE] Disk Usage: ${USAGE_DISK}%\n"
 fi
 
 ALERT_TITLE="$ALERT_PREFIX"
@@ -113,21 +113,10 @@ TO="recipient@example.com"
 SUBJECT="Test Mail"
 BODY="This is a email sent from Linux Shell using Gmail SMTP."
 
-ENCODED_SUBJECT=$(echo -n "$ALERT_TITLE" | iconv -f UTF-8 -t UTF-8 | base64)
-ENCODED_BODY=$(echo -n "$ALERT_MESSAGE" | iconv -f UTF-8 -t UTF-8 | base64)
-# ENCODED_SUBJECT=$(echo -n "$SUBJECT" | iconv -f UTF-8 -t UTF-8 | base64)
-# ENCODED_BODY=$(echo -n "$BODY" | iconv -f UTF-8 -t UTF-8 | base64)
-
-{
-  printf "Subject: =?UTF-8?B?%s?=\n" "$ENCODED_SUBJECT"
-  printf "To: %s\n" "$TO"
-  echo "MIME-Version: 1.0"
-  echo "Content-Type: text/plain; charset=UTF-8"
-  echo "Content-Transfer-Encoding: base64"
-  echo
-  echo "$ENCODED_BODY"
-} | msmtp "$TO"
-# echo -e "Subject: $ALERT_TITLE\nTo: $TO\n\n$ALERT_MESSAGE" | msmtp "$TO"
+# Mailing
+if [[ -n "$ALERT_MESSAGE" ]]; then
+	echo -e "Subject: $ALERT_TITLE\nTo: $TO\n\n$ALERT_MESSAGE" | msmtp "$TO"
+fi
 # echo -e "Subject: $SUBJECT\nTo: $TO\n\n$BODY" | msmtp "$TO"
 $ chmod +x monitor.sh
 $ touch monitor.log
