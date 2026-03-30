@@ -36,16 +36,16 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # Temporary
-- msmtp + Gmail and Monitor
+- msmtp + Gmail for Monitor
 ```bash
 $ sudo yum install -y msmtp   # Redhat(Rocky, Amazon Linux) 필요 시 sudo yum install -y epel-release
 $ sudo apt install -y msmtp   # Ubuntu
 $ nano ~/.msmtprc
 defaults
-auth           on
-tls            on
-tls_trust_file /etc/ssl/certs/ca-bundle.crt
-logfile        ~/msmtp.log
+auth			on
+tls				on
+tls_trust_file	/etc/ssl/certs/ca-bundle.crt
+logfile			~/msmtp.log
 
 # Required Enable 2 Step Verification on Google Account
 account gmail
@@ -79,7 +79,7 @@ USAGE_DISK=$(df / | awk 'NR==2 {gsub("%",""); print $5}')
 
 # Message
 ALERT_TITLE=""
-ALERT_PREFIX="[::: Warning :::][Name][$HOSTNAME]"
+ALERT_PREFIX="[::: Warning :::][$HOSTNAME]"
 ALERT_ITEMS=()
 ALERT_MESSAGE=""
 
