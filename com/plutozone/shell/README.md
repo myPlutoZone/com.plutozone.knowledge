@@ -1,6 +1,5 @@
 # TODO for com.plutozone.shell(crontab + curl + ...) + com.plutozone.monitor(PHP + MySQL + Email)
-- Send CPU, Memory, Disk at com.plutozone.monitor
-	- jwt.php
+- Send CPU, Memory, Disk from monitorSystem.sh to com.plutozone.monitor by API Document
 - monitorService.sh
 - Service Mode: local | development | production
 - Message Type: email | sms
