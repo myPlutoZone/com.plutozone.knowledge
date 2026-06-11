@@ -12,7 +12,8 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # TODO
-- Send CPU, Memory, Disk from monitorSystem.sh to com.plutozone.monitor by API Document
+- `com` vs. `resource` vs. `src + WebContent` at com.plutozone.knowledge
+- Send CPU, Memory, Disk from monitorSystem.sh to com.plutozone.monitor `by API Document`
 - monitorService.sh
 - Service Mode: local | development | production
 - Message Type: email | sms
@@ -28,17 +29,12 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # Reference
-- com.plutozone.shell
-	- shell + crontab + curl
-	- msmtp + Google Gmail
-	- monitorSystem + monitorService
-- com.plutozone.monitor
-	- PHP + MySQL
-	- Email
+- com.plutozone.shell(Command + Msmtp + Gmail + Crontab + Curl) for monitorSystem.sh or monitorService.sh
+- com.plutozone.monitor(PHP + MySQL + Email or SMS)
 
 
 # Installation and Configuration
-- msmtp + Gmail for Monitor
+- msmtp + Gmail
 ```bash
 $ sudo yum install -y msmtp		# for Redhat(Rocky, Amazon Linux) and If necessary, Use $ sudo yum install -y epel-release
 $ sudo apt install -y msmtp		# for Ubuntu
