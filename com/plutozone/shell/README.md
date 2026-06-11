@@ -12,7 +12,6 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # TODO
-- `com` vs. `resource` vs. `src + WebContent` at com.plutozone.knowledge
 - Send CPU, Memory, Disk from monitorSystem.sh to com.plutozone.monitor `by API Document`
 - monitorService.sh
 - Service Mode: local | development | production

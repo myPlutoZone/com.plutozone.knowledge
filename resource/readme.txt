@@ -4,11 +4,11 @@
 	- selenium-java-4.11.0.zip			: Selenium for Java
 + shell
 	+ messenger
-		- runClient.bat
-		- runServer.bat
-		- runServer.sh
-	- runAutoReservation.bat
-- chromedriver.exe
-- Firefox Setup 116.0.3.exe
-- geckodriver.exe
-- google-chrome-114-0-5735-106.zip
+		- runClient.bat				: for Messenger Client
+		- runServer.bat				: for Messenger Server
+		- runServer.sh				: for Messenger Server
+	- runAutoReservation.bat			: for AutoReservation
+- chromedriver.exe					: Chrome Driver for Selenium
+- Firefox Setup 116.0.3.exe				: Firefox 116.0.3 for Windows
+- geckodriver.exe					: Firefox Driver for Selenium
+- google-chrome-114-0-5735-106.zip			: Chrome 114.0.5735.106 for Windows
