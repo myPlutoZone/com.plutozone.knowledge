@@ -28,11 +28,6 @@ plutozone.com의 지적재산권 침해에 해당된다.
 - 2026-05-14 [CREATE] Initial Release
 
 
-# Reference
-- com.plutozone.shell(Command + Msmtp + Gmail + Crontab + Curl) for monitorSystem.sh or monitorService.sh
-- com.plutozone.monitor(PHP + MySQL + Email or SMS)
-
-
 # Installation and Configuration
 - msmtp + Gmail
 ```bash
@@ -52,3 +47,8 @@ $ crontab -e
 $ nano monitorService.sh
 ...
 ```
+
+
+# Reference
+- com.plutozone.shell(Command + Msmtp + Gmail + Crontab + Curl) for monitorSystem.sh or monitorService.sh
+- com.plutozone.monitor(PHP + MySQL + Email or SMS)
