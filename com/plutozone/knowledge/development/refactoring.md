@@ -1,0 +1,3 @@
+- 마틴 파울러(Martin Fowler), "컴퓨터가 이해할 수 있는 코드는 누구나 짤 수 있습니다. 사람이 이해할 수 있는 코드를 짜는 게 훌륭한 프로그래머입니다." at Refactoring 2nd Edition
+	- 수석 과학자 at ThoughtWorks
+	- 제어 역전(Inversion of Control)과 의존성 주입(Dependency Injection) 용어를 대중화
