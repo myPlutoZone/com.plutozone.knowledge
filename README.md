@@ -38,7 +38,7 @@ plutozone.com의 지적재산권 침해에 해당된다.
 # Temporary
 - Vibe Coding
 	- JARVIS(Just a Really Very Intelligent System)
-	- Prompt vs. Context vs .Harness Engineering
+	- Prompt vs. Context vs. Harness Engineering
 	- Cursor + Stitch + Playwright by Vibe Coding
 - 요구사항 정의서와 명세서 그리고 차이점
 - Nexus Repository for Maven(Java), NPM(Node.js), PyPI(Python), ATP/YUM, Raw 등 설치 및 설정 그리고 관리
