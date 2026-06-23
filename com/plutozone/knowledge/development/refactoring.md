@@ -3,7 +3,7 @@
 
 ## Overview
 ### 계획(안)
-- 과정 및 과목 분석(x 시간)
+- 과정 및 과목 분석 그리고 Prior (x 시간)
 	- 강사 소개
 	- 과정 및 교과목
 		- 과정명: *융합* 머신 비전을 활용한 AI 기반의 첨단 제조 분야 제어 SW 개발 과정-2차(2025-12-22 ~ 2026-07-21)
@@ -26,17 +26,26 @@
 	- 데이터와 통신 암호화
 	- CI/CD
 	- Convergence(Web or Mobile or Hybrid)
+	- OpenCV, YOLO 등 고도화(GPU 적용, 버전업, DETR/RT-DETR 등)
 - 과정 마무리 지원(y 시간)
 	- 프로젝트 결과물 및 포트폴리오 개선
+- 참고
+	- [OpenCV + YOLO](./image/refactoring_01.jpg)
+	- [IoT](./image/refactoring_01.jpg)
 
-### Term and Domain
+### Prior Knowledge
 - Information Technology
+	- Domain(도메인=영역) 전문가
+	- 소프트웨어 공학 vs. 이학
 	- Bit, Byte, Tab vs. Space, ASCII vs. Binary, ...
 - Programming
-	- 인라인
-	- 프로그램, 프로그래밍, 프로그래머, 프로그래밍 언어, 컴파일, 컴파일러, 인터프리터, 파서, 런타임, 버그, 디버깅
+	- 표준 개발 가이드 vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩토링
+	- 명명 규칙, 인라인
+	- 프로그램, 프로그래밍, 프로그래머, 프로그래밍 언어 vs. 프레임웍 vs. 플랫폼
+	- GW-BASIC, C/C++, Fortran, COBOL, JavaScript, BASIC, Pascal, PHP, C#, Java, Ruby, Python 등의 권장 코딩 스타일
+	- 컴파일, 컴파일러, 인터프리터, 파서, 런타임, 버그, 디버깅
 	- 객체 지향, 객체 지향 언어 vs. 절차 지향 언어
-	- 클래스, 상속, 수퍼(부모) 클래스, 서브(자식) 클래스
+	- 변수, 함수, 클래스, 상속, 수퍼(부모) 클래스, 서브(자식) 클래스
 	- 오버라이딩, 오버로딩
 	- 멤버 필드/속성, 멤버 함수/메서드
 
@@ -49,7 +58,7 @@
 
 ## 1. 리팩토링 개론(예시 포함) 그리고 원칙
 ### 1-1. 리팩토링이란?
-- 리팩토링=구조 개선 vs. 클린 코드-https://github.com/Yooii-Studios/Clean-Code vs. 리모델링과 재건축 at 건축
+- 리팩토링=구조 개선 vs. 리모델링과 재건축 at 건축
 - 마틴 파울러(Martin Fowler)
 	- "컴퓨터가 이해할 수 있는 코드는 누구나 짤 수 있습니다. 사람이 이해할 수 있는 코드를 짜는 게 훌륭한 프로그래머입니다." at Refactoring 2nd Edition
 	- 수석 과학자 at ThoughtWorks
@@ -75,5 +84,5 @@
 ### 4-3. 로직 간소화
 
 <!--
-![Refactoring 2nd Edition](./refactoring.jpg)
+![Refactoring 2nd Edition](./image/refactoring_book.jpg)
 -->
