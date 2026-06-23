@@ -36,6 +36,7 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # Temporary
+- 프롬프트(잘 묻기) vs. 컨텍스트(자료 제공) vs. 하네스(통합 환경) vs. 에이전트(자체 동작)
 - Vibe Coding
 	- JARVIS(Just a Really Very Intelligent System)
 	- Prompt vs. Context vs. Harness Engineering

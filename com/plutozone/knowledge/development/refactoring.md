@@ -3,10 +3,10 @@
 
 ## Overview
 ### 계획(안)
-- 과정 및 과목 분석 그리고 Prior (x 시간)
+- 과정 및 과목 분석 그리고 Prior Knowledge(x 시간)
 	- 강사 소개
 	- 과정 및 교과목
-		- 과정명: *융합* 머신 비전을 활용한 AI 기반의 첨단 제조 분야 제어 SW 개발 과정-2차(2025-12-22 ~ 2026-07-21)
+		- 과정명: `융합` 머신 비전을 활용한 AI 기반의 첨단 제조 분야 제어 SW 개발 과정-2차(2025-12-22 ~ 2026-07-21)
 		- 교과목: `https://docs.google.com/spreadsheets/...`
 			- ...
 			- **리팩토링과 고도화(120 시간)**
@@ -30,8 +30,9 @@
 - 과정 마무리 지원(y 시간)
 	- 프로젝트 결과물 및 포트폴리오 개선
 - 참고
+	- 온도와 습도 그리고 먼지
 	- [OpenCV + YOLO](./image/refactoring_01.jpg)
-	- [IoT](./image/refactoring_01.jpg)
+	- [IoT](./image/refactoring_02.png)
 
 ### Prior Knowledge
 - Information Technology
@@ -39,6 +40,7 @@
 	- 소프트웨어 공학 vs. 이학
 	- Bit, Byte, Tab vs. Space, ASCII vs. Binary, ...
 - Programming
+	- 컴파일러와 달리 사람은 `코드의 미적 상태`에 대해 민감
 	- 표준 개발 가이드 vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩토링
 	- 명명 규칙, 인라인
 	- 프로그램, 프로그래밍, 프로그래머, 프로그래밍 언어 vs. 프레임웍 vs. 플랫폼
@@ -57,12 +59,24 @@
 
 
 ## 1. 리팩토링 개론(예시 포함) 그리고 원칙
-### 1-1. 리팩토링이란?
-- 리팩토링=구조 개선 vs. 리모델링과 재건축 at 건축
+### 1-1. 개론
+- 리팩토링이란?
+	- 리팩토링은 스몰토크 커뮤니티에서 처음 시작
+	- 겉으로 드러나는 코드의 기능(=겉보기 동작)은 바꾸지 않으면서 내부 구조를 개선하는 방식으로 소프트웨어 시스템을 수정하는 과정
+	- 버그가 생길 가능성을 최소로 줄이면서 정리하는 정제된 방법
+	- 코드를 작성하고 난 뒤에 구조(=설계)를 개선
+	- 리팩토링의 위험성 때문에 계획적이며 체계적으로 수행
+	- 리팩토링은 전문가 필요
+	- **리팩토링(Refactoring)=구조 개선 and 개조/새단장(Remodeling) vs. 재건축(Reconstruction) at 건축**
+	- 예시
+		- 수퍼 클래스를 통한 서브 클래스의 메서드 중복 제거
+		- 일부 코드를 이동하여 별도의 메서드로 생성
+		- 어떤 클래스의 필드를 다른 클래스 이동
 - 마틴 파울러(Martin Fowler)
-	- "컴퓨터가 이해할 수 있는 코드는 누구나 짤 수 있습니다. 사람이 이해할 수 있는 코드를 짜는 게 훌륭한 프로그래머입니다." at Refactoring 2nd Edition
+	- *컴퓨터가 이해할 수 있는 코드는 누구나 짤 수 있습니다. 사람이 이해할 수 있는 코드를 짜는 게 훌륭한 프로그래머입니다.* at Refactoring 2nd Edition
 	- 수석 과학자 at ThoughtWorks
-	- 제어 역전(Inversion of Control)과 의존성 주입(Dependency Injection) 용어를 대중화
+	- 제어 역전(Inversion of Control)과 의존성 주입(Dependency Injection) 용어를 대중화 and 애자일 소프트웨어 개발 선언 공동 작성자
+- `@ 1장 최초 그리고 리팩토링 대상에 따른 예제들`
 
 ### 1-2. 리팩토링 원칙
 
