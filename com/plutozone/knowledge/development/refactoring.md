@@ -41,7 +41,7 @@
 	- Bit, Byte, Tab vs. Space, ASCII vs. Binary, ...
 - Programming
 	- 컴파일러와 달리 사람은 `코드의 미적 상태`에 대해 민감
-	- 표준 개발 가이드 vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩토링
+	- [표준 개발 가이드](../README.md) vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩토링
 	- 명명 규칙, 인라인
 	- 프로그램, 프로그래밍, 프로그래머, 프로그래밍 언어 vs. 프레임웍 vs. 플랫폼
 	- GW-BASIC, C/C++, Fortran, COBOL, JavaScript, BASIC, Pascal, PHP, C#, Java, Ruby, Python 등의 권장 코딩 스타일
@@ -73,7 +73,7 @@
 		- 일부 코드를 이동하여 별도의 메서드로 생성
 		- 어떤 클래스의 필드를 다른 클래스 이동
 - 마틴 파울러(Martin Fowler)
-	- *컴퓨터가 이해할 수 있는 코드는 누구나 짤 수 있습니다. 사람이 이해할 수 있는 코드를 짜는 게 훌륭한 프로그래머입니다.* at Refactoring 2nd Edition
+	- *"컴퓨터가 이해할 수 있는 코드는 누구나 짤 수 있습니다. 사람이 이해할 수 있는 코드를 짜는 게 훌륭한 프로그래머입니다."* at Refactoring 2nd Edition
 	- 수석 과학자 at ThoughtWorks
 	- 제어 역전(Inversion of Control)과 의존성 주입(Dependency Injection) 용어를 대중화 and 애자일 소프트웨어 개발 선언 공동 작성자
 - `@ 1장 최초 그리고 리팩토링 대상에 따른 예제들`
