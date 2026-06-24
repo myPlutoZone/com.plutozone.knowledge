@@ -41,7 +41,7 @@
 	- Bit, Byte, Tab vs. Space, ASCII vs. Binary, ...
 - Programming
 	- 컴파일러와 달리 사람은 `코드의 미적 상태`에 대해 민감
-	- [표준 개발 가이드](../README.md) vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩토링
+	- [표준 개발 가이드](./README.md) vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩토링
 	- 명명 규칙, 인라인
 	- 프로그램, 프로그래밍, 프로그래머, 프로그래밍 언어 vs. 프레임웍 vs. 플랫폼
 	- GW-BASIC, C/C++, Fortran, COBOL, JavaScript, BASIC, Pascal, PHP, C#, Java, Ruby, Python 등의 권장 코딩 스타일
