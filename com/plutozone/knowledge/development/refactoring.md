@@ -41,7 +41,7 @@
 	- Bit, Byte, Tab vs. Space, ASCII vs. Binary, ...
 - Programming
 	- 컴파일러와 달리 사람은 `코드의 미적 상태`에 대해 민감
-	- [표준 개발 가이드](./README.md) vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩토링
+	- [표준 개발 가이드](../README.md) vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩토링
 	- 명명 규칙, 인라인
 	- 프로그램, 프로그래밍, 프로그래머, 프로그래밍 언어 vs. 프레임웍 vs. 플랫폼
 	- GW-BASIC, C/C++, Fortran, COBOL, JavaScript, BASIC, Pascal, PHP, C#, Java, Ruby, Python 등의 권장 코딩 스타일
@@ -78,7 +78,6 @@
 	- 제어 역전(Inversion of Control)과 의존성 주입(Dependency Injection) 용어를 대중화 and 애자일 소프트웨어 개발 선언 공동 작성자
 - [예제] 외주를 전문으로 하는 극단에서 공연할 수 있는 연극의 종류(plays.json)와 공연장(고객) 공연 시 공연료를 계산하는 프로그램(calculate.js)
 	- plays.json
-
 ```json
 {
   "hamlet": {
@@ -96,7 +95,6 @@
 }
 ```
 	- invoices.json
-
 ```json
 [
   {
@@ -119,7 +117,6 @@
 ]
 ```
 	- calculate.js
-
 ```js
 function statement(invoice, plays) {
 	let totalAmount = 0;
@@ -169,7 +166,6 @@ function statement(invoice, plays) {
 module.exports = statement;
 ```
 	- index.js
-
 ```js
 const plays = require("./plays.json");
 const invoices = require("./invoices.json");
