@@ -76,7 +76,105 @@
 	- *"컴퓨터가 이해할 수 있는 코드는 누구나 짤 수 있습니다. 사람이 이해할 수 있는 코드를 짜는 게 훌륭한 프로그래머입니다."* at Refactoring 2nd Edition
 	- 수석 과학자 at ThoughtWorks
 	- 제어 역전(Inversion of Control)과 의존성 주입(Dependency Injection) 용어를 대중화 and 애자일 소프트웨어 개발 선언 공동 작성자
-- `@ 1장 최초 그리고 리팩토링 대상에 따른 예제들`
+- [예제] 외주를 전문으로 하는 극단에서 공연할 수 있는 연극의 종류(plays.json)와 공연장(고객) 공연 시 공연료를 계산하는 프로그램(calculate.js)
+	- plays.json
+```json
+{
+  "hamlet": {
+    "name": "Hamlet",
+    "type": "tragedy"
+  },
+  "as-Like": {
+    "name": "As You Like It",
+    "type": "comedy"
+  },
+  "othello": {
+    "name": "Othello",
+    "type": "tragedy"
+  }
+}
+```
+	- invoices.json
+```json
+[
+  {
+    "customer": "BigCo",
+    "performances": [
+      {
+        "playID": "hamlet",
+        "audience": 55
+      },
+      {
+        "playID": "as-Like",
+        "audience": 35
+      },
+      {
+        "playID": "othello",
+        "audience": 40
+      }
+    ]
+  }
+]
+```
+	- calculate.js
+```js
+function statement(invoice, plays) {
+	let totalAmount = 0;
+	let volumeCredits = 0;
+	let result = `청구 내역(고객명: ${invoice.customer})\n`;
+	const format = new Intl.NumberFormat("en-US",
+						{ style:"currency", currency: "USD"
+							, minimumFractionDigits: 2}).format;
+	
+	for (let perf of invoice.performances) {
+		const play = plays[perf.playID];
+		let thisAmount = 0;
+		
+		switch (play.type) {
+			case "tragedy": // 비극
+				thisAmount = 40000;
+				if (perf.audience > 30) {
+					thisAmount += 1000 * (perf.audience - 30);
+				}
+				break;
+			case "comedy": // 희극
+				thisAmount = 30000;
+				if (perf.audience > 20) {
+					thisAmount += 10000 + 500 * (perf.audience - 20);
+				}
+				thisAmount += 300 * perf.audience;
+				break;
+			default:
+				throw new Error(`알 수 없는 장르: ${play.type}`);
+		}
+		
+		// 포인트를 적립한다.
+		volumeCredits += Math.max(perf.audience - 30, 0);
+		// 희극 관객 5명마다 추가 포인트를 제공한다.
+		if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+		
+		// 청구 내역을 출력한다.
+		result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
+		totalAmount += thisAmount;
+	}
+	
+	result += `총액 ${format(totalAmount/100)}\n`;
+	result += `적립 포인트: ${volumeCredits}점\n`;
+	return result;
+}
+
+module.exports = statement;
+```
+	- index.js
+```js
+const plays = require("./plays.json");
+const invoices = require("./invoices.json");
+const statement = require("./calculate");
+
+console.log(
+    statement(invoices[0], plays)
+);
+```
 
 ### 1-2. 리팩토링 원칙
 
