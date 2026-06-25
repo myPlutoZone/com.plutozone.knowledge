@@ -1,6 +1,11 @@
 # com.plutozone.knowledge.development.Refactoring
 
 
+## TODO
+- Visual Studio 20xx vs. Code 등 + Notepad++ 등
+- Git 및 GitLab 설치
+- 저작권 및 변경 이력 주석
+
 ## Overview
 ### 계획(안)-우선 순위 기준
 - [x 시간] 과정 및 과목 분석 그리고 Prior Knowledge
@@ -77,22 +82,13 @@
 	- 수석 과학자 at ThoughtWorks
 	- 제어 역전(Inversion of Control)과 의존성 주입(Dependency Injection) 용어를 대중화 and 애자일 소프트웨어 개발 선언 공동 작성자
 - [예제] 외주를 전문으로 하는 극단에서 공연할 수 있는 연극의 종류와 공연장(고객) 공연 시 공연료를 계산하는 프로그램
-	- Node 기반 JavaScript 소스들
+	- `Node 기반 JavaScript 소스들`
 		- plays.json(연극 정보)
 		```json
 		{
-			"hamlet": {
-				"name": "Hamlet",
-				"type": "tragedy"
-			},
-			"as-Like": {
-				"name": "As You Like It",
-				"type": "comedy"
-			},
-			"othello": {
-				"name": "Othello",
-				"type": "tragedy"
-			}
+			"hamlet":		{"name": "Hamlet"			, "type": "tragedy"}
+			, "as-Like":	{"name": "As You Like It"	, "type": "comedy"}
+			, "othello":	{"name": "Othello"			, "type": "tragedy"}
 		}
 		```
 		- invoices.json(공연장 정보)
@@ -117,7 +113,7 @@
 			}
 		]
 		```
-		- calculate.js(공연료 계산)
+		- statement.js(공연료 계산)
 		```js
 		function statement(invoice, plays) {
 			let totalAmount = 0;
@@ -149,12 +145,12 @@
 						throw new Error(`알 수 없는 장르: ${play.type}`);
 				}
 				
-				// 포인트를 적립한다.
+				// 포인트 적립
 				volumeCredits += Math.max(perf.audience - 30, 0);
-				// 희극 관객 5명마다 추가 포인트를 제공한다.
+				// 희극 관객 5명마다 추가 포인트 제공
 				if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
 				
-				// 청구 내역을 출력한다.
+				// 청구 내역 출력
 				result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
 				totalAmount += thisAmount;
 			}
@@ -170,21 +166,198 @@
 		```js
 		const plays = require("./plays.json");
 		const invoices = require("./invoices.json");
-		const statement = require("./calculate");
+		const statement = require("./statement");
 		
 		console.log(
 			statement(invoices[0], plays)
 		);
 		```
-	- 예상되는 개선 사항들
+	- `예상되는 개선 사항들`
 		- 청구 내역에 대한 HTML 등 디자인
 		- 연극, 공연장 정보 확장 그리고 정책에 따른 계산 로직 변경
-    	- [참고] 필요 시 브라우저 기반으로 JavaScript를 개선 또는 다른 언어 기반으로 리뉴얼
-  	- 준비
-  		- 리팩토링 전과 후의 기능에 대한 검증 자동화(예: 리팩토링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
-	- Refactorings   	
-		- 함수 추출(로직에서 분리할 수 있는 부분 찾기 예: 연극 타입에 따른 계산을 처리하는 switch)
-    	```
+		- `[참고] 필요 시 브라우저 기반으로 JavaScript를 개선 또는 다른 언어 기반으로 리뉴얼`
+	- [Refactorings] `검증`
+		- 리팩토링 전과 후의 기능에 대한 검증 자동화(예: 리팩토링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
+	- [Refactorings] `함수 추출`(로직 분석을 통해 분리할 수 있는 부분 찾기 예: 연극 타입에 따른 계산을 처리하는 switch)
+		- amountFor.js: 명명(예: 변수, 함수 등) + 유효 범위(예: 변수 등)와 매개 변수
+		```js
+		function amountFor(perf, play) {	// [명명] 함수, 매개변수
+			let thisAmount = 0;			// [유효 범위] 변수 초기화
+			
+			switch (play.type) {
+				case "tragedy": // 비극
+					thisAmount = 40000;
+					if (perf.audience > 30) {
+						thisAmount += 1000 * (perf.audience - 30);
+					}
+					break;
+				case "comedy": // 희극
+					thisAmount = 30000;
+					if (perf.audience > 20) {
+						thisAmount += 10000 + 500 * (perf.audience - 20);
+					}
+					thisAmount += 300 * perf.audience;
+					break;
+				default:
+					throw new Error(`알 수 없는 장르: ${play.type}`);
+			}
+			
+			return thisAmount;		// 값 반환
+		}
+		
+		module.exports = amountFor;
+		```
+		- statement.js
+		```js
+		const amountFor = require("./amountFor");
+		
+		function statement(invoice, plays) {
+			let totalAmount = 0;
+			let volumeCredits = 0;
+			let result = `청구 내역(고객명: ${invoice.customer})\n`;
+			const format = new Intl.NumberFormat("en-US",
+								{ style:"currency", currency: "USD"
+									, minimumFractionDigits: 2}).format;
+			
+			for (let perf of invoice.performances) {
+				const play = plays[perf.playID];
+				
+				let thisAmount = amountFor(perf, play);		// 함수 추출
+				/*
+				let thisAmount = 0;
+				
+				switch (play.type) {
+					case "tragedy": // 비극
+						thisAmount = 40000;
+						if (perf.audience > 30) {
+							thisAmount += 1000 * (perf.audience - 30);
+						}
+						break;
+					case "comedy": // 희극
+						thisAmount = 30000;
+						if (perf.audience > 20) {
+							thisAmount += 10000 + 500 * (perf.audience - 20);
+						}
+						thisAmount += 300 * perf.audience;
+						break;
+					default:
+						throw new Error(`알 수 없는 장르: ${play.type}`);
+				}
+				*/
+				
+				// 포인트 적립
+				volumeCredits += Math.max(perf.audience - 30, 0);
+				// 희극 관객 5명마다 추가 포인트 제공
+				if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+				
+				// 청구 내역 출력
+				result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
+				totalAmount += thisAmount;
+			}
+			
+			result += `총액 ${format(totalAmount/100)}\n`;
+			result += `적립 포인트: ${volumeCredits}점\n`;
+			return result;
+		}
+		
+		module.exports = statement;
+		```
+	- [Refactorings] `단계별 진행 후 수시로 검증 후 commit` + `완료 후 push`
+	- [Refactorings] `함수 추출 by IDE`
+	- [Refactorings] amountFor.js: 재명명(예: 변수, 매개변수 등) for `자료형`(원시, 객체 등 또는 a/an, the 등 관사)
+	```js
+	function amountFor(aPerformance, play) {	// [재명명] aPerformance and JavaScript는 동적 타입 언어
+	//function amountFor(perf, play) {
+		let result		= 0
+		//let thisAmount	= 0;
+				
+		switch (play.type) {
+			case "tragedy": // 비극
+				thisAmount = 40000;
+				if (aPerformance.audience > 30) {
+					thisAmount += 1000 * (aPerformance.audience - 30);
+				}
+				break;
+			case "comedy": // 희극
+				thisAmount = 30000;
+				if (aPerformance.audience > 20) {
+					thisAmount += 10000 + 500 * (aPerformance.audience - 20);
+				}
+				thisAmount += 300 * aPerformance.audience;
+				break;
+			default:
+				throw new Error(`알 수 없는 장르: ${play.type}`);
+		}
+		
+		return result;
+		//return thisAmount;		// 값 반환
+	}
+	
+	module.exports = amountFor;
+	```
+	- [Refactorings] 단계별 진행 후 수시로 검증 후 commit + 완료 후 push
+	- [Refactorings] amountFor.js: `임의 변수를 질의 함수로 바꾸기`
+	```js
+	const plays = require("./plays.json");
+	const amountFor = require("./amountFor");
+	
+	function playFor(aPerformance) {
+		return plays[aPerformance.playID];
+	}
+	
+	function statement(invoice, plays) {
+		let totalAmount = 0;
+		let volumeCredits = 0;
+		let result = `청구 내역(고객명: ${invoice.customer})\n`;
+		const format = new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format;
+		
+		for (let perf of invoice.performances) {
+			
+			const play = playFor(perf);		// [임의 변수를 질의 함수로 변환]
+			//const play = plays[perf.playID];
+			
+			let thisAmount = amountFor(perf, play);
+			/*
+			let thisAmount = 0;
+			
+			switch (play.type) {
+				case "tragedy": // 비극
+					thisAmount = 40000;
+					if (perf.audience > 30) {
+						thisAmount += 1000 * (perf.audience - 30);
+					}
+					break;
+				case "comedy": // 희극
+					thisAmount = 30000;
+					if (perf.audience > 20) {
+						thisAmount += 10000 + 500 * (perf.audience - 20);
+					}
+					thisAmount += 300 * perf.audience;
+					break;
+				default:
+					throw new Error(`알 수 없는 장르: ${play.type}`);
+			}
+			*/
+			
+			// 포인트 적립
+			volumeCredits += Math.max(perf.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+			
+			// 청구 내역 출력
+			result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
+			totalAmount += thisAmount;
+		}
+		
+		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `적립 포인트: ${volumeCredits}점\n`;
+		return result;
+	}
+	
+	module.exports = statement;
+	```
 
 ### 1-2. 리팩토링 원칙
 
