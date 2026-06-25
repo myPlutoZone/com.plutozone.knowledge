@@ -58,7 +58,7 @@
 4. 기능 관리와 데이터 조직화 그리고 로직 간소화
 
 
-## 1. 리팩토링 개론(예시 포함) 그리고 원칙
+## 1. 리팩토링 개론 그리고 원칙
 ### 1-1. 개론
 - 리팩토링이란?
 	- 리팩토링은 스몰토크 커뮤니티에서 처음 시작
@@ -76,9 +76,9 @@
 	- *"컴퓨터가 이해할 수 있는 코드는 누구나 짤 수 있습니다. 사람이 이해할 수 있는 코드를 짜는 게 훌륭한 프로그래머입니다."* at Refactoring 2nd Edition
 	- 수석 과학자 at ThoughtWorks
 	- 제어 역전(Inversion of Control)과 의존성 주입(Dependency Injection) 용어를 대중화 and 애자일 소프트웨어 개발 선언 공동 작성자
-- 외주를 전문으로 하는 극단에서 공연할 수 있는 연극의 종류(plays.json)와 공연장(고객) 공연 시 공연료를 계산하는 프로그램(calculate.js)
-	- ![Generic badge](https://img.shields.io/badge/예제-Node_기반_JavaScript-blue.svg)
-		- plays.json
+- 외주를 전문으로 하는 극단에서 공연할 수 있는 연극의 종류와 공연장(고객) 공연 시 공연료를 계산하는 프로그램
+	- Node 기반 JavaScript 소스들
+		- plays.json(연극 정보)
 		```json
 		{
 			"hamlet": {
@@ -95,7 +95,7 @@
 			}
 		}
 		```
-		- invoices.json
+		- invoices.json(공연장 정보)
 		```json
 		[
 			{
@@ -117,7 +117,7 @@
 			}
 		]
 		```
-		- calculate.js
+		- calculate.js(공연료 계산)
 		```js
 		function statement(invoice, plays) {
 			let totalAmount = 0;
@@ -176,8 +176,12 @@
 			statement(invoices[0], plays)
 		);
 		```
-	- ![Generic badge](https://img.shields.io/badge/문제-브라우저_기반으로_JavaScript를_Refactoring-red.svg)
-	- ![Generic badge](https://img.shields.io/badge/문제-다른_언어_기반으로_Refactoring-red.svg)
+	- 예상되는 개선 사항들
+		- 청구 내역에 대한 HTML 등 디자인
+		- 연극, 공연장 정보 확장 그리고 정책에 따른 계산 로직 변경
+	- Refactoring
+		- ![Generic badge](https://img.shields.io/badge/문제-브라우저_기반으로_JavaScript를_Refactoring-red.svg)
+		- ![Generic badge](https://img.shields.io/badge/문제-다른_언어_기반으로_Refactoring-red.svg)
 	
 
 ### 1-2. 리팩토링 원칙
