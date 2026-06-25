@@ -76,7 +76,7 @@
 	- *"컴퓨터가 이해할 수 있는 코드는 누구나 짤 수 있습니다. 사람이 이해할 수 있는 코드를 짜는 게 훌륭한 프로그래머입니다."* at Refactoring 2nd Edition
 	- 수석 과학자 at ThoughtWorks
 	- 제어 역전(Inversion of Control)과 의존성 주입(Dependency Injection) 용어를 대중화 and 애자일 소프트웨어 개발 선언 공동 작성자
-- 외주를 전문으로 하는 극단에서 공연할 수 있는 연극의 종류와 공연장(고객) 공연 시 공연료를 계산하는 프로그램
+- [예제] 외주를 전문으로 하는 극단에서 공연할 수 있는 연극의 종류와 공연장(고객) 공연 시 공연료를 계산하는 프로그램
 	- Node 기반 JavaScript 소스들
 		- plays.json(연극 정보)
 		```json
@@ -179,10 +179,12 @@
 	- 예상되는 개선 사항들
 		- 청구 내역에 대한 HTML 등 디자인
 		- 연극, 공연장 정보 확장 그리고 정책에 따른 계산 로직 변경
-	- Refactoring
-		- ![Generic badge](https://img.shields.io/badge/문제-브라우저_기반으로_JavaScript를_Refactoring-red.svg)
-		- ![Generic badge](https://img.shields.io/badge/문제-다른_언어_기반으로_Refactoring-red.svg)
-	
+    	- [참고] 필요 시 브라우저 기반으로 JavaScript를 개선 또는 다른 언어 기반으로 리뉴얼
+  	- 준비
+  		- 리팩토링 전과 후의 기능에 대한 검증 자동화(예: 리팩토링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
+	- Refactorings   	
+		- 함수 추출(로직에서 분리할 수 있는 부분 찾기 예: 연극 타입에 따른 계산을 처리하는 switch)
+    	```
 
 ### 1-2. 리팩토링 원칙
 
