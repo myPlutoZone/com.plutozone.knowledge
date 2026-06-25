@@ -2,14 +2,13 @@
 
 
 ## TODO
-- Visual Studio 20xx vs. Code 등 + Notepad++ 등
-- Git 및 GitLab 설치
 - 저작권 및 변경 이력 주석
+
 
 ## Overview
 ### 계획(안)-우선 순위 기준
 - [x 시간] 과정 및 과목 분석 그리고 Prior Knowledge
-	- 강사 소개
+	- 소개
 	- 과정 및 교과목
 		- 과정명: `융합` 머신 비전을 활용한 AI 기반의 첨단 제조 분야 제어 SW 개발 과정-2차(2025-12-22 ~ 2026-07-21)
 		- 교과목: `https://docs.google.com/spreadsheets/...`
@@ -19,6 +18,9 @@
 				- 객체와 일반화 리팩토링
 			- ...
 	- 교육생 및 팀 프로젝트를 참고하여 의견 문의
+	- 환경 설정
+		- Visual Studio 20xx vs. Code 등 + Notepad 등
+		- Git 및 GitLab 설치
 - [y 시간] 과정 마무리 지원
 	- 프로젝트 결과물 및 포트폴리오 개선
 - [60 - x 시간] 리팩토링
@@ -46,8 +48,7 @@
 	- Bit, Byte, Tab vs. Space, ASCII vs. Binary, ...
 - Programming
 	- 컴파일러와 달리 사람은 `코드의 미적 상태`에 대해 민감
-	- [표준 개발 가이드](./README.md) vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩토링
-	- 명명 규칙, 인라인
+	- [표준 개발 가이드](./README.md) vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩토링(this)
 	- 프로그램, 프로그래밍, 프로그래머, 프로그래밍 언어 vs. 프레임웍 vs. 플랫폼
 	- GW-BASIC, C/C++, Fortran, COBOL, JavaScript, BASIC, Pascal, PHP, C#, Java, Ruby, Python 등의 권장 코딩 스타일
 	- 컴파일, 컴파일러, 인터프리터, 파서, 런타임, 버그, 디버깅
@@ -81,7 +82,7 @@
 	- *"컴퓨터가 이해할 수 있는 코드는 누구나 짤 수 있습니다. 사람이 이해할 수 있는 코드를 짜는 게 훌륭한 프로그래머입니다."* at Refactoring 2nd Edition
 	- 수석 과학자 at ThoughtWorks
 	- 제어 역전(Inversion of Control)과 의존성 주입(Dependency Injection) 용어를 대중화 and 애자일 소프트웨어 개발 선언 공동 작성자
-- [예제] 외주를 전문으로 하는 극단에서 공연할 수 있는 연극의 종류와 공연장(고객) 공연 시 공연료를 계산하는 프로그램
+- [실습] 외주를 전문으로 하는 극단에서 공연할 수 있는 연극의 종류와 공연장(고객) 공연 시 공연료를 계산하는 프로그램
 	- `Node 기반 JavaScript 소스들`
 		- plays.json(연극 정보)
 		```json
@@ -273,17 +274,17 @@
 				
 		switch (play.type) {
 			case "tragedy": // 비극
-				thisAmount = 40000;
+				result = 40000;
 				if (aPerformance.audience > 30) {
-					thisAmount += 1000 * (aPerformance.audience - 30);
+					result += 1000 * (aPerformance.audience - 30);
 				}
 				break;
 			case "comedy": // 희극
-				thisAmount = 30000;
+				result = 30000;
 				if (aPerformance.audience > 20) {
-					thisAmount += 10000 + 500 * (aPerformance.audience - 20);
+					result += 10000 + 500 * (aPerformance.audience - 20);
 				}
-				thisAmount += 300 * aPerformance.audience;
+				result += 300 * aPerformance.audience;
 				break;
 			default:
 				throw new Error(`알 수 없는 장르: ${play.type}`);
@@ -296,14 +297,20 @@
 	module.exports = amountFor;
 	```
 	- [Refactorings] 단계별 진행 후 수시로 검증 후 commit + 완료 후 push
-	- [Refactorings] amountFor.js: `임의 변수를 질의 함수로 바꾸기`
+	- [Refactorings] playFor.js: `임의 변수를 질의 함수로 바꾸기(1)`
 	```js
 	const plays = require("./plays.json");
-	const amountFor = require("./amountFor");
-	
+
 	function playFor(aPerformance) {
 		return plays[aPerformance.playID];
 	}
+	
+	module.exports = playFor;
+	```
+	- [Refactorings] statement.js: `임의 변수를 질의 함수로 바꾸기(2)`
+	```js
+	const playFor = require("./playFor");
+	const amountFor = require("./amountFor");
 	
 	function statement(invoice, plays) {
 		let totalAmount = 0;
@@ -315,7 +322,7 @@
 		
 		for (let perf of invoice.performances) {
 			
-			const play = playFor(perf);		// [임의 변수를 질의 함수로 변환]
+			const play = playFor(perf);		// [임의 변수를 질의 함수로 바꾸기(2)]
 			//const play = plays[perf.playID];
 			
 			let thisAmount = amountFor(perf, play);
@@ -349,6 +356,167 @@
 			// 청구 내역 출력
 			result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
 			totalAmount += thisAmount;
+		}
+		
+		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `적립 포인트: ${volumeCredits}점\n`;
+		return result;
+	}
+	
+	module.exports = statement;
+	```
+	- [Refactorings] statement.js and amountFor.js: `변수 인라인` and 지역 변수 vs. 반복적 함수 호출
+	```js
+	const playFor = require("./playFor");
+	const amountFor = require("./amountFor");
+	
+	function statement(invoice, plays) {
+		let totalAmount = 0;
+		let volumeCredits = 0;
+		let result = `청구 내역(고객명: ${invoice.customer})\n`;
+		const format = new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format;
+		
+		for (let perf of invoice.performances) {
+			
+			let thisAmount = amountFor(perf, playFor(perf));					// [변수 인라인]
+			
+			// 포인트 적립
+			volumeCredits += Math.max(perf.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);	// [변수 인라인]
+			//if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+			
+			// 청구 내역 출력
+			result += `${playFor(perf).name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;	// [변수 인라인]
+			//result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
+			totalAmount += thisAmount;
+		}
+		
+		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `적립 포인트: ${volumeCredits}점\n`;
+		return result;
+	}
+	
+	module.exports = statement;
+	```
+	```js
+	const playFor = require("./playFor");
+
+	function amountFor(aPerformance, play) {
+		let result = 0
+				
+		switch (playFor(aPerformance).type) {
+			case "tragedy": // 비극
+				result = 40000;
+				if (aPerformance.audience > 30) {
+					result += 1000 * (aPerformance.audience - 30);
+				}
+				break;
+			case "comedy": // 희극
+				result = 30000;
+				if (aPerformance.audience > 20) {
+					result += 10000 + 500 * (aPerformance.audience - 20);
+				}
+				result += 300 * aPerformance.audience;
+				break;
+			default:
+				throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
+		}
+		
+		return result;
+	}
+	
+	module.exports = amountFor;
+	```
+	- [Refactorings] statement.js and amountFor.js: `함수 선언 바꾸기`
+	```js
+	...
+	let thisAmount = amountFor(perf);
+	//let thisAmount = amountFor(perf, playFor(perf));
+	...
+	```
+	```js
+	...
+	function amountFor(aPerformance) {
+	//function amountFor(aPerformance, play) {
+	...
+	```
+	- [Refactorings] statement.js: `변수 인라인`
+	```js
+	const playFor = require("./playFor");
+	const amountFor = require("./amountFor");
+	
+	function statement(invoice, plays) {
+		let totalAmount = 0;
+		let volumeCredits = 0;
+		let result = `청구 내역(고객명: ${invoice.customer})\n`;
+		const format = new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format;
+		
+		for (let perf of invoice.performances) {
+			
+			// let thisAmount = amountFor(perf);
+			
+			// 포인트 적립
+			volumeCredits += Math.max(perf.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);
+			//if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+			
+			// 청구 내역 출력
+			result += `${playFor(perf).name}: ${format(amountFor(perf)/100)} (${perf.audience}석)\n`;	// [변수 인라인]
+			//result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
+			totalAmount += amountFor(perf);																	// [변수 인라인]
+		}
+		
+		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `적립 포인트: ${volumeCredits}점\n`;
+		return result;
+	}
+	
+	module.exports = statement;
+	```
+	- [Refactorings] volumeCreditsFor.js and statement.js: `함수 추출`(적립 포인트 계산)
+	```js
+	const playFor = require("./playFor");
+
+	function volumeCreditsFor(aPerformance) {
+		
+		let result = 0;
+		
+		// 포인트 적립
+		result += Math.max(aPerformance.audience - 30, 0);
+		// 희극 관객 5명마다 추가 포인트 제공
+		if ("comedy" === playFor(aPerformance).type) result += Math.floor(aPerformance.audience / 5);
+		
+		return result;
+	}
+	
+	module.exports = volumeCreditsFor;
+	```
+	```js
+	const volumeCreditsFor = require("./volumeCreditsFor");
+	const playFor = require("./playFor");
+	const amountFor = require("./amountFor");
+	
+	function statement(invoice, plays) {
+		let totalAmount = 0;
+		let volumeCredits = 0;
+		let result = `청구 내역(고객명: ${invoice.customer})\n`;
+		const format = new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format;
+		
+		for (let perf of invoice.performances) {
+			
+			volumeCredits += volumeCreditsFor(perf)		// [함수 호출]
+			
+			// 청구 내역 출력
+			result += `${playFor(perf).name}: ${format(amountFor(perf)/100)} (${perf.audience}석)\n`;
+			totalAmount += amountFor(perf);
 		}
 		
 		result += `총액 ${format(totalAmount/100)}\n`;
