@@ -62,7 +62,7 @@
 
 ## Troubleshooting
 - Network
-	- 리소스(예: 통신 개체)를 닫지(예: close)하지 않은 상태를 확인하는 방법
+	- 리소스(예: Socket client = serverSocket.accept())를 닫지(예: client.close())하지 않은 상태를 확인하는 방법
 - Database
 	- 선착순 응모 이벤트에서 DB가 다운(단, Network와 Application의 가용성은 문제 없다고 가정함)되어도 응모 정보를 저장할 수 있는 방법(예: P사 Event)
 	- 읽기 전용의 Application이 DB가 다운되어도 Application이 정상 동작하게 하는 방법(예: M사 M/G)

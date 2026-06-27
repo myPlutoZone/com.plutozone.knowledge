@@ -9,6 +9,7 @@
 
 ## Standard Guide for Development
 - Common
+	- 최적의 명명은 쉽지 않으므로 지속적으로 개선
 	- Workspace vs. Project vs. Package vs. Class
 	- 저작권(Copyright)과 주석 at File, Class, Method, Attribute
 	- TODO Comment for 필수, 개선 그리고 향후
