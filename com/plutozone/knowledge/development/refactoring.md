@@ -98,7 +98,7 @@
 		}
 	]
 	```
-	- statement.js(공연료 계산)
+	- statement.js(공연료 계산, 계산 시는 센트 단위)
 	```js
 	function statement(invoice, plays) {
 		let totalAmount = 0;
@@ -164,7 +164,7 @@
 	- ![Generic badge](https://img.shields.io/badge/참고-브라우저_기반으로_JavaScript를_개선_또는_다른_언어_기반으로_리뉴얼-blue.svg)
 - `검증 환경`
 	- 리팩토링 전과 후의 기능에 대한 검증 자동화(예: 리팩토링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
-	- ![Generic badge](https://img.shields.io/badge/참고-현재는_실행_결과를_비교-blue.svg)
+	- ![Generic badge](https://img.shields.io/badge/참고-본_과정에서는_실행_결과를_비교함_필요_시_비교_프로그램_제작_예정임-blue.svg)
 - `추출` 함수(예: 연극 타입에 따른 계산을 처리하는 switch)
 	- statement.js
 	```js
@@ -249,8 +249,8 @@
 	- statement.js
 	```js
 	...
-	function amountFor(aPerformance, play) {	// 1-1. [매개 변수 교체(매개 변수명)]
-		let result = 0;					// 1-2. [변수 교체(변수명)]
+	function amountFor(aPerformance, play) {	// 1-1. [매개 변수 교체]
+		let result = 0;					// 1-2. [변수 교체]
 		
 		switch (play.type) {
 			case "tragedy": // 비극
@@ -288,7 +288,7 @@
 		
 		for (let perf of invoice.performances) {
 			const play = playFor(perf);						// 1-2. [임시 변수를 질의 함수로 교체]
-			//const play = plays[perf.playID];
+			// const play = plays[perf.playID];
 			let thisAmount = amountFor(perf, play);
 			
 			// 포인트 적립
@@ -309,7 +309,7 @@
 		function playFor(aPerformance) {					// 1-1. [임시 변수를 질의 함수로 교체]
 			return plays[aPerformance.playID];
 		}
-	
+		
 		function amountFor(aPerformance, play) {
 			let result = 0;
 			
@@ -356,16 +356,17 @@
 			volumeCredits += Math.max(perf.audience - 30, 0);
 			// 희극 관객 5명마다 추가 포인트 제공
 			if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);	// 1-1. [변수 전개(인라인)]
-			//if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+			// if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
 			
 			// 청구 내역 출력
 			result += `${playFor(perf).name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;	// 1-2. [변수 전개(인라인)]
-			//result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
+			// result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
 			totalAmount += thisAmount;
 		}
 		
 		result += `총액 ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
+		
 		return result;
 		
 		function playFor(aPerformance) {
@@ -426,6 +427,7 @@
 		
 		result += `총액 ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
+		
 		return result;
 		
 		function playFor(aPerformance) {
@@ -436,7 +438,7 @@
 		// function amountFor(aPerformance, play) {
 			let result = 0;
 			
-			switch (playFor(aPerformance).type) {												// 2-1. [함수 호출로]
+			switch (playFor(aPerformance).type) {												// 2-1. [함수 호출로 교체]
 			// switch (play.type) {
 				case "tragedy": // 비극
 					result = 40000;
@@ -452,7 +454,7 @@
 					result += 300 * aPerformance.audience;
 					break;
 				default:
-					throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);			// 2-2. [함수 호출로]
+					throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);			// 2-2. [함수 호출로 교체]
 					// throw new Error(`알 수 없는 장르: ${play.type}`);
 			}
 			
@@ -474,7 +476,7 @@
 								, minimumFractionDigits: 2}).format;
 		
 		for (let perf of invoice.performances) {
-			//let thisAmount = amountFor(perf);																// 1-1. [변수 인라인]
+			// let thisAmount = amountFor(perf);																// 1-1. [변수 인라인]
 			
 			// 포인트 적립
 			volumeCredits += Math.max(perf.audience - 30, 0);
@@ -482,7 +484,7 @@
 			if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);
 			
 			// 청구 내역 출력
-			result += `${playFor(perf).name}: ${format(amountFor(perf)/100)} (${perf.audience}석)\n`;	// 1-2. [변수 인라인] x 2
+			result += `${playFor(perf).name}: ${format(amountFor(perf)/100)} (${perf.audience}석)\n`;	// 1-2. [변수 인라인]
 			totalAmount += amountFor(perf);
 			/*
 			result += `${playFor(perf).name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
@@ -492,6 +494,7 @@
 		
 		result += `총액 ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
+		
 		return result;
 		
 		function playFor(aPerformance) {
@@ -525,6 +528,314 @@
 	
 	module.exports = statement;
 	```
+- `추출` 함수(예: volumeCreditsFor)
+	- statement.js
+	```js
+	function statement(invoice, plays) {
+		let totalAmount = 0;
+		let volumeCredits = 0;
+		let result = `청구 내역(고객명: ${invoice.customer})\n`;
+		const format = new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format;
+		
+		for (let perf of invoice.performances) {
+			
+			// 적립 포인트
+			volumeCredits += volumeCreditsFor(perf)		// [함수 호출]
+			/*
+			volumeCredits += Math.max(perf.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);
+			*/
+			
+			// 청구 내역 출력
+			result += `${playFor(perf).name}: ${format(amountFor(perf)/100)} (${perf.audience}석)\n`;
+			totalAmount += amountFor(perf);
+		}
+		
+		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `적립 포인트: ${volumeCredits}점\n`;
+		
+		return result;
+		
+		function volumeCreditsFor(aPerformance) {		// [함수 추출]
+			let result = 0;
+			
+			// 포인트 적립
+			result += Math.max(aPerformance.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === playFor(aPerformance).type) result += Math.floor(aPerformance.audience / 5);
+			
+			return result;
+		}
+		
+		function playFor(aPerformance) {
+			return plays[aPerformance.playID];
+		}
+		
+		function amountFor(aPerformance) {
+			let result = 0;
+			
+			switch (playFor(aPerformance).type) {
+				case "tragedy": // 비극
+					result = 40000;
+					if (aPerformance.audience > 30) {
+						result += 1000 * (aPerformance.audience - 30);
+					}
+					break;
+				case "comedy": // 희극
+					result = 30000;
+					if (aPerformance.audience > 20) {
+						result += 10000 + 500 * (aPerformance.audience - 20);
+					}
+					result += 300 * aPerformance.audience;
+					break;
+				default:
+					throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
+			}
+			
+			return result;
+		}
+	}
+	
+	module.exports = statement;
+	```
+- `제거` 변수(예: const format) + `교체` 함수명(예: format)
+	- statement.js
+	```js
+	function statement(invoice, plays) {
+		let totalAmount = 0;
+		let volumeCredits = 0;
+		let result = `청구 내역(고객명: ${invoice.customer})\n`;
+		// [변수 제거 및 함수명 교체]
+		/*
+		const format = new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format;
+		*/
+		
+		for (let perf of invoice.performances) {
+			
+			// 적립 포인트
+			volumeCredits += volumeCreditsFor(perf)	
+			
+			// 청구 내역 출력
+			result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience}석)\n`;
+			totalAmount += amountFor(perf);
+		}
+		
+		result += `총액 ${usd(totalAmount)}\n`;
+		result += `적립 포인트: ${volumeCredits}점\n`;
+		
+		return result;
+		
+		function usd(aNumber) {
+			return new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format(aNumber/100);
+		}
+		
+		function volumeCreditsFor(aPerformance) {
+			let result = 0;
+			
+			// 포인트 적립
+			result += Math.max(aPerformance.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === playFor(aPerformance).type) result += Math.floor(aPerformance.audience / 5);
+			
+			return result;
+		}
+		
+		function playFor(aPerformance) {
+			return plays[aPerformance.playID];
+		}
+		
+		function amountFor(aPerformance) {
+			let result = 0;
+			
+			switch (playFor(aPerformance).type) {
+				case "tragedy": // 비극
+					result = 40000;
+					if (aPerformance.audience > 30) {
+						result += 1000 * (aPerformance.audience - 30);
+					}
+					break;
+				case "comedy": // 희극
+					result = 30000;
+					if (aPerformance.audience > 20) {
+						result += 10000 + 500 * (aPerformance.audience - 20);
+					}
+					result += 300 * aPerformance.audience;
+					break;
+				default:
+					throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
+			}
+			
+			return result;
+		}
+	}
+	
+	module.exports = statement;
+	```
+- `제거` 변수(예: const format) + `교체` 함수명(예: format)
+	- statement.js
+	```js
+	function statement(invoice, plays) {
+		let totalAmount = 0;
+		let volumeCredits = 0;
+		let result = `청구 내역(고객명: ${invoice.customer})\n`;
+		// [변수 제거 및 함수명 교체]
+		/*
+		const format = new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format;
+		*/
+		
+		for (let perf of invoice.performances) {
+			
+			// 적립 포인트
+			volumeCredits += volumeCreditsFor(perf)	
+			
+			// 청구 내역 출력
+			result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience}석)\n`;
+			totalAmount += amountFor(perf);
+		}
+		
+		result += `총액 ${usd(totalAmount)}\n`;
+		result += `적립 포인트: ${volumeCredits}점\n`;
+		
+		return result;
+		
+		function usd(aNumber) {
+			return new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format(aNumber/100);
+		}
+		
+		function volumeCreditsFor(aPerformance) {
+			let result = 0;
+			
+			// 포인트 적립
+			result += Math.max(aPerformance.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === playFor(aPerformance).type) result += Math.floor(aPerformance.audience / 5);
+			
+			return result;
+		}
+		
+		function playFor(aPerformance) {
+			return plays[aPerformance.playID];
+		}
+		
+		function amountFor(aPerformance) {
+			let result = 0;
+			
+			switch (playFor(aPerformance).type) {
+				case "tragedy": // 비극
+					result = 40000;
+					if (aPerformance.audience > 30) {
+						result += 1000 * (aPerformance.audience - 30);
+					}
+					break;
+				case "comedy": // 희극
+					result = 30000;
+					if (aPerformance.audience > 20) {
+						result += 10000 + 500 * (aPerformance.audience - 20);
+					}
+					result += 300 * aPerformance.audience;
+					break;
+				default:
+					throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
+			}
+			
+			return result;
+		}
+	}
+	
+	module.exports = statement;
+	```
+- `분할` 반복문(예: for)
+	- statement.js
+	```js
+	function statement(invoice, plays) {
+		let totalAmount = 0;
+		let result = `청구 내역(고객명: ${invoice.customer})\n`;
+		
+		// 청구 내역
+		for (let perf of invoice.performances) {
+			
+			// 적립 포인트
+			// volumeCredits += volumeCreditsFor(perf)												// 1-1. [반복문 분할]
+			
+			result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience}석)\n`;
+			totalAmount += amountFor(perf);
+		}	
+		
+		// 적립 포인트
+		let volumeCredits = 0;																		// 변수 이동
+		for (let perf of invoice.performances) {
+			volumeCredits += volumeCreditsFor(perf)													// 1-2. [반복문 분할]
+		}
+		
+		result += `총액 ${usd(totalAmount)}\n`;
+		result += `적립 포인트: ${volumeCredits}점\n`;
+		
+		return result;
+		
+		function usd(aNumber) {
+			return new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format(aNumber/100);
+		}
+		
+		function volumeCreditsFor(aPerformance) {
+			let result = 0;
+			
+			// 포인트 적립
+			result += Math.max(aPerformance.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === playFor(aPerformance).type) result += Math.floor(aPerformance.audience / 5);
+			
+			return result;
+		}
+	
+		function playFor(aPerformance) {
+			return plays[aPerformance.playID];
+		}
+		
+		function amountFor(aPerformance) {
+			let result = 0;
+			
+			switch (playFor(aPerformance).type) {
+				case "tragedy": // 비극
+					result = 40000;
+					if (aPerformance.audience > 30) {
+						result += 1000 * (aPerformance.audience - 30);
+					}
+					break;
+				case "comedy": // 희극
+					result = 30000;
+					if (aPerformance.audience > 20) {
+						result += 10000 + 500 * (aPerformance.audience - 20);
+					}
+					result += 300 * aPerformance.audience;
+					break;
+				default:
+					throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
+			}
+			
+			return result;
+		}
+	}
+	
+	module.exports = statement;
+	```
+- `추출` 함수 + `교체` 임시 변수를 질의 함수로 후 `전개(인라인)` 변수
+	- statement.js
+	```js
+	```
+
 
 
 ## 2. 개론 그리고 원칙
@@ -584,7 +895,10 @@
 	- [API] 함수를 명령으로 and 명령을 함수로
 	- [API] 오류 코드를 예외로
 	- [API] 예외를 사전 확인으로
-
+- 분할(Splite)
+	- 변수
+	- 반복문
+	- 단계별(기능별)
 
 <!--
 ![Refactoring 2nd Edition](./image/refactoring_book.jpg)
