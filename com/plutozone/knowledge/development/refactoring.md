@@ -160,11 +160,12 @@
 	);
 	```
 - `예상되는 개선 사항들`
-	- 청구 내역에 대한 HTML 등 디자인
+	- 청구 내역에 대한 only Text, HTML 등 디자인
 	- 연극, 공연장 정보 확장 그리고 정책에 따른 계산 로직 변경
-	- `[참고] 필요 시 브라우저 기반으로 JavaScript를 개선 또는 다른 언어 기반으로 리뉴얼`
-- [Refactorings] `검증`
+	- ![Generic badge](https://img.shields.io/badge/참고-브라우저_기반으로_JavaScript를_개선_또는_다른_언어_기반으로_리뉴얼-red.svg)
+- [Refactorings] `검증 환경`
 	- 리팩토링 전과 후의 기능에 대한 검증 자동화(예: 리팩토링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
+	- ![Generic badge](https://img.shields.io/badge/참고-현재는_실행_결과를_비교-red.svg)
 - [Refactorings] `함수 추출`(로직 분석을 통해 분리할 수 있는 부분 찾기 예: 연극 타입에 따른 계산을 처리하는 switch)
 	- amountFor.js: 명명(예: 변수, 함수 등) + 유효 범위(예: 변수 등)와 매개 변수
 	```js
