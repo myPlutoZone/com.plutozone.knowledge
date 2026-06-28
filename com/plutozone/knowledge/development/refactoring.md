@@ -142,6 +142,7 @@
 		
 		result += `총액 ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
+		
 		return result;
 	}
 	
@@ -164,7 +165,7 @@
 - `검증 환경`
 	- 리팩토링 전과 후의 기능에 대한 검증 자동화(예: 리팩토링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
 	- ![Generic badge](https://img.shields.io/badge/참고-현재는_실행_결과를_비교-blue.svg)
-- 함수 `추출`(예: 연극 타입에 따른 계산을 처리하는 switch)
+- `추출` 함수(예: 연극 타입에 따른 계산을 처리하는 switch)
 	- statement.js
 	```js
 	function statement(invoice, plays) {
@@ -177,7 +178,28 @@
 		
 		for (let perf of invoice.performances) {
 			const play = plays[perf.playID];
-			let thisAmount = amountFor(perf, play);		// 1. [함수 추출]
+			let thisAmount = amountFor(perf, play);		// 1-1. [함수 추출]
+			/*
+			let thisAmount = 0;
+			
+			switch (play.type) {
+				case "tragedy": // 비극
+					thisAmount = 40000;
+					if (perf.audience > 30) {
+						thisAmount += 1000 * (perf.audience - 30);
+					}
+					break;
+				case "comedy": // 희극
+					thisAmount = 30000;
+					if (perf.audience > 20) {
+						thisAmount += 10000 + 500 * (perf.audience - 20);
+					}
+					thisAmount += 300 * perf.audience;
+					break;
+				default:
+					throw new Error(`알 수 없는 장르: ${play.type}`);
+			}
+			*/
 			
 			// 포인트 적립
 			volumeCredits += Math.max(perf.audience - 30, 0);
@@ -191,10 +213,11 @@
 		
 		result += `총액 ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
+		
 		return result;
 		
-		function amountFor(perf, play) {				// 2. [중첩 함수, 매개 변수]
-			let thisAmount = 0;							// 3. [유효 범위, 변수 초기화]
+		function amountFor(perf, play) {				// 1-2. [중첩 함수, 매개 변수]
+			let thisAmount = 0;							// 1-3. [유효 범위, 변수 초기화]
 			
 			switch (play.type) {
 				case "tragedy": // 비극
@@ -214,7 +237,7 @@
 					throw new Error(`알 수 없는 장르: ${play.type}`);
 			}
 			
-			return thisAmount;							// 4. [값 반환]
+			return thisAmount;							// 1-4. [값 반환]
 		}
 	}
 	
@@ -222,12 +245,12 @@
 	```
 - ![Generic badge](https://img.shields.io/badge/중요-수시_검증_및_형상_관리-red.svg) `이하 단계별 진행 후 commit` + `완료 후 push`
 - `함수 추출 by IDE`
-- 재명명(예: 변수, 매개 변수 등) for `자료형`(원시, 객체 등 또는 a/an, the 등 관사)
+- `교체` 변수(예: thisAmount), 매개 변수(예: perf) 등 for 자료형(원시, 객체 등 또는 a/an, the 등 관사)
 	- statement.js
 	```js
 	...
-	function amountFor(aPerformance, play) {	// 1-1. [재명명]
-		let result = 0;					// 1-2. [재명명]
+	function amountFor(aPerformance, play) {	// 1-1. [매개 변수 교체(매개 변수명)]
+		let result = 0;					// 1-2. [변수 교체(변수명)]
 		
 		switch (play.type) {
 			case "tragedy": // 비극
@@ -252,7 +275,7 @@
 	...
 	
 	```
-- 교체 `임시 변수를 질의 함수로`
+- `교체` 임시 변수를 질의 함수로(예: const play = playFor(perf))
 	- statement.js
 	```js
 	function statement(invoice, plays) {
@@ -280,13 +303,14 @@
 		
 		result += `총액 ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
+		
 		return result;
 		
-		function playFor(aPerformance) {
+		function playFor(aPerformance) {					// 1-1. [임시 변수를 질의 함수로 교체]
 			return plays[aPerformance.playID];
 		}
 	
-		function amountFor(aPerformance, play) {			// 1-1. [임시 변수를 질의 함수로 교체]
+		function amountFor(aPerformance, play) {
 			let result = 0;
 			
 			switch (play.type) {
@@ -313,7 +337,7 @@
 	
 	module.exports = statement;
 	```
-- 전개(인라인) `변수`
+- `전개(인라인)` 변수(예: const play = playFor(perf))
 	- statement.js
 	```js
 	function statement(invoice, plays) {
@@ -325,20 +349,17 @@
 								, minimumFractionDigits: 2}).format;
 		
 		for (let perf of invoice.performances) {
-			let thisAmount = amountFor(perf, playFor(perf));										// 1-1. [변수 전개(인라인)]
-			/*
-			const play = playFor(perf);
+			// const play = playFor(perf);															// 1-3. [변수 전개(인라인) - 불필요]
 			let thisAmount = amountFor(perf, play);
-			*/
 			
 			// 포인트 적립
 			volumeCredits += Math.max(perf.audience - 30, 0);
 			// 희극 관객 5명마다 추가 포인트 제공
-			if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);	// 1-2. [변수 전개(인라인)]
+			if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);	// 1-1. [변수 전개(인라인)]
 			//if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
 			
 			// 청구 내역 출력
-			result += `${playFor(perf).name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;	// 1-3. [변수 전개(인라인)]
+			result += `${playFor(perf).name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;	// 1-2. [변수 전개(인라인)]
 			//result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
 			totalAmount += thisAmount;
 		}
@@ -378,9 +399,132 @@
 	
 	module.exports = statement;
 	```
-- 지역 변수 vs. 반복적 함수 호출
-- 함수 선언 바꾸기
-- 함수 추출(적립 포인트 계산)
+- `교체` 함수 선언(예: amountFor) + `교체` 함수 호출(예: play.type) 그리고 함수 호출 증가에 따른 성능 확인
+	- statement.js
+	```js
+	function statement(invoice, plays) {
+		let totalAmount = 0;
+		let volumeCredits = 0;
+		let result = `청구 내역(고객명: ${invoice.customer})\n`;
+		const format = new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format;
+		
+		for (let perf of invoice.performances) {
+			let thisAmount = amountFor(perf);													// 1-1. [함수 선언 교체]
+			//let thisAmount = amountFor(perf, playFor(perf));
+			
+			// 포인트 적립
+			volumeCredits += Math.max(perf.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);
+			
+			// 청구 내역 출력
+			result += `${playFor(perf).name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
+			totalAmount += thisAmount;
+		}
+		
+		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `적립 포인트: ${volumeCredits}점\n`;
+		return result;
+		
+		function playFor(aPerformance) {
+			return plays[aPerformance.playID];
+		}
+		
+		function amountFor(aPerformance) {														// 1-1. [함수 선언 교체]
+		// function amountFor(aPerformance, play) {
+			let result = 0;
+			
+			switch (playFor(aPerformance).type) {												// 2-1. [함수 호출로]
+			// switch (play.type) {
+				case "tragedy": // 비극
+					result = 40000;
+					if (aPerformance.audience > 30) {
+						result += 1000 * (aPerformance.audience - 30);
+					}
+					break;
+				case "comedy": // 희극
+					result = 30000;
+					if (aPerformance.audience > 20) {
+						result += 10000 + 500 * (aPerformance.audience - 20);
+					}
+					result += 300 * aPerformance.audience;
+					break;
+				default:
+					throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);			// 2-2. [함수 호출로]
+					// throw new Error(`알 수 없는 장르: ${play.type}`);
+			}
+			
+			return result;
+		}
+	}
+	
+	module.exports = statement;
+	```
+- `전개(인라인)` 변수(예: thisAmount)
+	- statement.js
+	```js
+	function statement(invoice, plays) {
+		let totalAmount = 0;
+		let volumeCredits = 0;
+		let result = `청구 내역(고객명: ${invoice.customer})\n`;
+		const format = new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format;
+		
+		for (let perf of invoice.performances) {
+			//let thisAmount = amountFor(perf);																// 1-1. [변수 인라인]
+			
+			// 포인트 적립
+			volumeCredits += Math.max(perf.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);
+			
+			// 청구 내역 출력
+			result += `${playFor(perf).name}: ${format(amountFor(perf)/100)} (${perf.audience}석)\n`;	// 1-2. [변수 인라인] x 2
+			totalAmount += amountFor(perf);
+			/*
+			result += `${playFor(perf).name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
+			totalAmount += thisAmount;
+			*/
+		}
+		
+		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `적립 포인트: ${volumeCredits}점\n`;
+		return result;
+		
+		function playFor(aPerformance) {
+			return plays[aPerformance.playID];
+		}
+		
+		function amountFor(aPerformance) {
+			let result = 0;
+			
+			switch (playFor(aPerformance).type) {
+				case "tragedy": // 비극
+					result = 40000;
+					if (aPerformance.audience > 30) {
+						result += 1000 * (aPerformance.audience - 30);
+					}
+					break;
+				case "comedy": // 희극
+					result = 30000;
+					if (aPerformance.audience > 20) {
+						result += 10000 + 500 * (aPerformance.audience - 20);
+					}
+					result += 300 * aPerformance.audience;
+					break;
+				default:
+					throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
+			}
+			
+			return result;
+		}
+	}
+	
+	module.exports = statement;
+	```
 
 
 ## 2. 개론 그리고 원칙
@@ -423,10 +567,11 @@
 	- 클래스
 - 교체(Replace)
 	- 변수명
-	- 함수명과 선언
+	- 함수명
+	- 함수 선언
 	- 임시 변수를 질의 함수로
 	- 파생 변수를 질의 함수로
-	- 전개 코드를 함수 호출로
+	- 전개(인라인) 코드를 함수 호출로
 	- 참조를 값으로 and 값을 참조로
 	- 중첩 조건문을 보호 구문으로
 	- 조건문 로직을 다형성으로
