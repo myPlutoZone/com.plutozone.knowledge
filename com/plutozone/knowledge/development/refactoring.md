@@ -28,7 +28,7 @@
 	- 대상과 검증 환경 
 	- 기법
 - [60 - y 시간] 고도화
-	- 요구 사항, 분석, 설계, 구현, 검증 및 상용화 그리고 자동화(기능 및 성능 검증 AI 활용 등)
+	- 요구 사항, 분석, 설계, 구현, 검증(기능과 성능 등) 및 상용화 그리고 자동화(AI 활용 등)
 	- 기능적 또는 비기능적(성능, 보안 등) 요구 사항
 	- 소프트웨어 개발 및 운영 환경(OS + Network + Service + Build + Deploy or Install/Setup 등)
 	- 데이터와 통신 암호화
@@ -140,7 +140,7 @@
 			totalAmount += thisAmount;
 		}
 		
-		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `총액: ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
 		
 		return result;
@@ -211,7 +211,7 @@
 			totalAmount += thisAmount;
 		}
 		
-		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `총액: ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
 		
 		return result;
@@ -301,7 +301,7 @@
 			totalAmount += thisAmount;
 		}
 		
-		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `총액: ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
 		
 		return result;
@@ -364,7 +364,7 @@
 			totalAmount += thisAmount;
 		}
 		
-		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `총액: ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
 		
 		return result;
@@ -425,7 +425,7 @@
 			totalAmount += thisAmount;
 		}
 		
-		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `총액: ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
 		
 		return result;
@@ -492,7 +492,7 @@
 			*/
 		}
 		
-		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `총액: ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
 		
 		return result;
@@ -554,7 +554,7 @@
 			totalAmount += amountFor(perf);
 		}
 		
-		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `총액: ${format(totalAmount/100)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
 		
 		return result;
@@ -625,84 +625,7 @@
 			totalAmount += amountFor(perf);
 		}
 		
-		result += `총액 ${usd(totalAmount)}\n`;
-		result += `적립 포인트: ${volumeCredits}점\n`;
-		
-		return result;
-		
-		function usd(aNumber) {
-			return new Intl.NumberFormat("en-US",
-							{ style:"currency", currency: "USD"
-								, minimumFractionDigits: 2}).format(aNumber/100);
-		}
-		
-		function volumeCreditsFor(aPerformance) {
-			let result = 0;
-			
-			// 포인트 적립
-			result += Math.max(aPerformance.audience - 30, 0);
-			// 희극 관객 5명마다 추가 포인트 제공
-			if ("comedy" === playFor(aPerformance).type) result += Math.floor(aPerformance.audience / 5);
-			
-			return result;
-		}
-		
-		function playFor(aPerformance) {
-			return plays[aPerformance.playID];
-		}
-		
-		function amountFor(aPerformance) {
-			let result = 0;
-			
-			switch (playFor(aPerformance).type) {
-				case "tragedy": // 비극
-					result = 40000;
-					if (aPerformance.audience > 30) {
-						result += 1000 * (aPerformance.audience - 30);
-					}
-					break;
-				case "comedy": // 희극
-					result = 30000;
-					if (aPerformance.audience > 20) {
-						result += 10000 + 500 * (aPerformance.audience - 20);
-					}
-					result += 300 * aPerformance.audience;
-					break;
-				default:
-					throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
-			}
-			
-			return result;
-		}
-	}
-	
-	module.exports = statement;
-	```
-- `제거` 변수(예: const format) + `교체` 함수명(예: format)
-	- statement.js
-	```js
-	function statement(invoice, plays) {
-		let totalAmount = 0;
-		let volumeCredits = 0;
-		let result = `청구 내역(고객명: ${invoice.customer})\n`;
-		// [변수 제거 및 함수명 교체]
-		/*
-		const format = new Intl.NumberFormat("en-US",
-							{ style:"currency", currency: "USD"
-								, minimumFractionDigits: 2}).format;
-		*/
-		
-		for (let perf of invoice.performances) {
-			
-			// 적립 포인트
-			volumeCredits += volumeCreditsFor(perf)	
-			
-			// 청구 내역 출력
-			result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience}석)\n`;
-			totalAmount += amountFor(perf);
-		}
-		
-		result += `총액 ${usd(totalAmount)}\n`;
+		result += `총액: ${usd(totalAmount)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
 		
 		return result;
@@ -778,10 +701,91 @@
 			volumeCredits += volumeCreditsFor(perf)													// 1-2. [반복문 분할]
 		}
 		
-		result += `총액 ${usd(totalAmount)}\n`;
+		result += `총액: ${usd(totalAmount)}\n`;
 		result += `적립 포인트: ${volumeCredits}점\n`;
 		
 		return result;
+		
+		function usd(aNumber) {
+			return new Intl.NumberFormat("en-US",
+							{ style:"currency", currency: "USD"
+								, minimumFractionDigits: 2}).format(aNumber/100);
+		}
+		
+		function volumeCreditsFor(aPerformance) {
+			let result = 0;
+			
+			// 포인트 적립
+			result += Math.max(aPerformance.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === playFor(aPerformance).type) result += Math.floor(aPerformance.audience / 5);
+			
+			return result;
+		}
+		
+		function playFor(aPerformance) {
+			return plays[aPerformance.playID];
+		}
+		
+		function amountFor(aPerformance) {
+			let result = 0;
+			
+			switch (playFor(aPerformance).type) {
+				case "tragedy": // 비극
+					result = 40000;
+					if (aPerformance.audience > 30) {
+						result += 1000 * (aPerformance.audience - 30);
+					}
+					break;
+				case "comedy": // 희극
+					result = 30000;
+					if (aPerformance.audience > 20) {
+						result += 10000 + 500 * (aPerformance.audience - 20);
+					}
+					result += 300 * aPerformance.audience;
+					break;
+				default:
+					throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
+			}
+			
+			return result;
+		}
+	}
+	
+	module.exports = statement;
+	```
+- `추출` 함수(totalVolumeCredits) + `교체` 임시 변수를 질의 함수로 후 `전개(인라인)` 변수
+	- statement.js
+	```js
+	function statement(invoice, plays) {
+		let totalAmount = 0;
+		let result = `청구 내역(고객명: ${invoice.customer})\n`;
+		
+		// 청구 내역
+		for (let perf of invoice.performances) {
+			
+			result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience}석)\n`;
+			totalAmount += amountFor(perf);
+		}
+		
+		// 적립 포인트
+		// let volumeCredits = totalVolumeCredits();					// [임시 변수를 질의 함수로 교체]
+		
+		result += `총액: ${usd(totalAmount)}\n`;
+		result += `적립 포인트: ${totalVolumeCredits()}점\n`;			// [변수 전개(인라인)]
+		// result += `적립 포인트: ${volumeCredits}점\n`;
+		
+		return result;
+		
+		function totalVolumeCredits() {									// [함수 추출]
+			let result = 0;
+			
+			for (let perf of invoice.performances) {
+				result += volumeCreditsFor(perf)
+			}
+			
+			return result;
+		}
 		
 		function usd(aNumber) {
 			return new Intl.NumberFormat("en-US",
@@ -831,11 +835,101 @@
 	
 	module.exports = statement;
 	```
-- `추출` 함수 + `교체` 임시 변수를 질의 함수로 후 `전개(인라인)` 변수
+- 적립 포인트와 동일하게 총액에도 "`추출` 함수(totalAmount) + `교체` 임시 변수를 질의 함수로 후 `전개(인라인)` 변수"를 및 `코드 가독성` 적용
 	- statement.js
 	```js
+	function statement(invoice, plays) {
+		
+		let result = `청구 내역(고객명: ${invoice.customer})\n`;
+		
+		// 청구 내역들
+		for (let perf of invoice.performances) {		
+			result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience}석)\n`;
+		}
+		
+		result += `총액: ${usd(totalAmount())}\n`;
+		result += `적립 포인트: ${totalVolumeCredits()}점\n`;
+		
+		return result;
+		
+		// 총액
+		function totalAmount() {
+			let result = 0;
+			
+			for (let perf of invoice.performances) {
+				result += amountFor(perf)
+			}
+			
+			return result;
+		}
+		
+		// 적립 포인트
+		function totalVolumeCredits() {
+			let result = 0;
+			
+			for (let perf of invoice.performances) {
+				result += volumeCreditsFor(perf)
+			}
+			
+			return result;
+		}
+		
+		// 달러 표시
+		function usd(aNumber) {
+			return new Intl.NumberFormat("en-US",
+							{style:"currency"
+							, currency: "USD"
+							, minimumFractionDigits: 2}).format(aNumber/100);
+		}
+		
+		// 공연별 적립 포인트
+		function volumeCreditsFor(aPerformance) {
+			let result = 0;
+			
+			// 포인트 적립
+			result += Math.max(aPerformance.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === playFor(aPerformance).type) {
+				result += Math.floor(aPerformance.audience / 5);
+			}
+			
+			return result;
+		}
+		
+		// 연극
+		function playFor(aPerformance) {
+			return plays[aPerformance.playID];
+		}
+		
+		// 공연별 금액
+		function amountFor(aPerformance) {
+			let result = 0;
+			
+			switch (playFor(aPerformance).type) {
+				case "tragedy": // 비극
+					result = 40000;
+					if (aPerformance.audience > 30) {
+						result += 1000 * (aPerformance.audience - 30);
+					}
+					break;
+				case "comedy": // 희극
+					result = 30000;
+					if (aPerformance.audience > 20) {
+						result += 10000 + 500 * (aPerformance.audience - 20);
+					}
+					result += 300 * aPerformance.audience;
+					break;
+				default:
+					throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
+			}
+			
+			return result;
+		}
+	}
+	
+	module.exports = statement;
 	```
-
+- `난무하는 중첩 함수들을 해결 방안`
 
 
 ## 2. 개론 그리고 원칙
