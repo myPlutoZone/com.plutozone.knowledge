@@ -19,14 +19,14 @@
 	- 교육생 및 팀 프로젝트를 참고하여 의견 문의
 	- 환경 설정
 		- Visual Studio 20xx vs. Code 등 + Notepad 등
-		- Git 및 GitHub + Web Hook vs. GitLab 설치
+		- Git 및 GitHub + Web Hook(Slack 등) vs. GitLab 설치
 - [y 시간] 과정 마무리 지원
 	- 프로젝트 결과물 및 포트폴리오 개선
 - [60 - x 시간] 리팩토링
-	1. Refactoring Mini-Project
-	2. 개론 그리고 원칙
-	3. 대상과 검증 환경 
-	4. 기법
+	- Refactoring Mini-Project
+	- 개론 그리고 원칙
+	- 대상과 검증 환경 
+	- 기법
 - [60 - y 시간] 고도화
 	- 요구 사항, 분석, 설계, 구현, 검증 및 상용화 그리고 자동화(기능 및 성능 검증 AI 활용 등)
 	- 기능적 또는 비기능적(성능, 보안 등) 요구 사항
@@ -166,39 +166,9 @@
 - [Refactorings] `검증 환경`
 	- 리팩토링 전과 후의 기능에 대한 검증 자동화(예: 리팩토링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
 	- ![Generic badge](https://img.shields.io/badge/참고-현재는_실행_결과를_비교-red.svg)
-- [Refactorings] `함수 추출`(로직 분석을 통해 분리할 수 있는 부분 찾기 예: 연극 타입에 따른 계산을 처리하는 switch)
-	- amountFor.js: 명명(예: 변수, 함수 등) + 유효 범위(예: 변수 등)와 매개 변수
-	```js
-	function amountFor(perf, play) {	// [명명] 함수, 매개변수
-		let thisAmount = 0;			// [유효 범위] 변수 초기화
-		
-		switch (play.type) {
-			case "tragedy": // 비극
-				thisAmount = 40000;
-				if (perf.audience > 30) {
-					thisAmount += 1000 * (perf.audience - 30);
-				}
-				break;
-			case "comedy": // 희극
-				thisAmount = 30000;
-				if (perf.audience > 20) {
-					thisAmount += 10000 + 500 * (perf.audience - 20);
-				}
-				thisAmount += 300 * perf.audience;
-				break;
-			default:
-				throw new Error(`알 수 없는 장르: ${play.type}`);
-		}
-		
-		return thisAmount;		// 값 반환
-	}
-	
-	module.exports = amountFor;
-	```
+- [Refactorings] 함수 `추출`(예: 연극 타입에 따른 계산을 처리하는 switch)
 	- statement.js
 	```js
-	const amountFor = require("./amountFor");
-	
 	function statement(invoice, plays) {
 		let totalAmount = 0;
 		let volumeCredits = 0;
@@ -209,10 +179,24 @@
 		
 		for (let perf of invoice.performances) {
 			const play = plays[perf.playID];
+			let thisAmount = amountFor(perf, play);		// 1. [함수 추출]
 			
-			let thisAmount = amountFor(perf, play);		// 함수 추출
-			/*
-			let thisAmount = 0;
+			// 포인트 적립
+			volumeCredits += Math.max(perf.audience - 30, 0);
+			// 희극 관객 5명마다 추가 포인트 제공
+			if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+			
+			// 청구 내역 출력
+			result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
+			totalAmount += thisAmount;
+		}
+		
+		result += `총액 ${format(totalAmount/100)}\n`;
+		result += `적립 포인트: ${volumeCredits}점\n`;
+		return result;
+		
+		function amountFor(perf, play) {				// 2. [중첩 함수, 매개 변수]
+			let thisAmount = 0;							// 3. [유효 범위, 변수 초기화]
 			
 			switch (play.type) {
 				case "tragedy": // 비극
@@ -231,28 +215,16 @@
 				default:
 					throw new Error(`알 수 없는 장르: ${play.type}`);
 			}
-			*/
 			
-			// 포인트 적립
-			volumeCredits += Math.max(perf.audience - 30, 0);
-			// 희극 관객 5명마다 추가 포인트 제공
-			if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
-			
-			// 청구 내역 출력
-			result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
-			totalAmount += thisAmount;
+			return thisAmount;							// 4. [값 반환]
 		}
-		
-		result += `총액 ${format(totalAmount/100)}\n`;
-		result += `적립 포인트: ${volumeCredits}점\n`;
-		return result;
 	}
 	
 	module.exports = statement;
 	```
 - [Refactorings] `단계별 진행 후 수시로 검증 후 commit` + `완료 후 push`
 - [Refactorings] `함수 추출 by IDE`
-- [Refactorings] amountFor.js: 재명명(예: 변수, 매개변수 등) for `자료형`(원시, 객체 등 또는 a/an, the 등 관사)
+- [Refactorings] 재명명(예: 변수, 매개변수 등) for `자료형`(원시, 객체 등 또는 a/an, the 등 관사)
 ```js
 function amountFor(aPerformance, play) {	// [재명명] aPerformance and JavaScript는 동적 타입 언어
 //function amountFor(perf, play) {
@@ -543,6 +515,9 @@ module.exports = statement;
 
 
 ## 4. 기법
+- 추출
+	- 함수
+- 전개(인라인)
 
 
 <!--
