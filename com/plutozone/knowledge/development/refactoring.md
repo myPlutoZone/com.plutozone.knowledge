@@ -35,6 +35,7 @@
 	- CI/CD
 	- Convergence(Web or Mobile or Hybrid)
 	- OpenCV, YOLO 등 고도화(GPU 적용, 버전업, DETR/RT-DETR 등)
+	- `송장 출력 및 로케이션 최적화 for 출하` vs. `송장 QR 또는 BarCode 인식 for 물류`
 - 참고
 	- 온도와 습도 그리고 먼지
 	- [OpenCV + YOLO](./image/refactoring_01.jpg)
@@ -162,6 +163,7 @@
 	- 청구 내역에 대한 only Text, HTML 등 디자인
 	- 연극, 공연장 정보 확장 그리고 정책에 따른 계산 로직 변경
 	- ![Generic badge](https://img.shields.io/badge/참고-브라우저_기반으로_JavaScript를_개선_또는_다른_언어_기반으로_리뉴얼-blue.svg)
+	- ![Generic badge](https://img.shields.io/badge/참고-객체_비교(instance_of)로_개선-blue.svg)
 - `검증 환경`
 	- 리팩토링 전과 후의 기능에 대한 검증 자동화(예: 리팩토링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
 	- ![Generic badge](https://img.shields.io/badge/참고-본_과정에서는_실행_결과를_비교함_필요_시_비교_프로그램_제작_예정임-blue.svg)
@@ -1450,6 +1452,8 @@
 	
 	module.exports = calculate;
 	```
+
+
 ## 2. 개론 그리고 원칙
 ### 2-1. 개론
 - 리팩토링이란?
