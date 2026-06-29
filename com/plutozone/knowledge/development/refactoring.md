@@ -35,7 +35,7 @@
 	- CI/CD
 	- Convergence(Web or Mobile or Hybrid)
 	- OpenCV, YOLO 등 고도화(GPU 적용, 버전업, DETR/RT-DETR 등)
-	- `송장 출력 및 로케이션 최적화 for 출하` vs. `송장 QR 또는 BarCode 인식 for 물류`
+	- 송장 출력 및 로케이션 최적화 for 출하 vs. 송장 QR 또는 BarCode 인식 for 물류
 - 참고
 	- 온도와 습도 그리고 먼지
 	- [OpenCV + YOLO](./image/refactoring_01.jpg)
