@@ -448,79 +448,17 @@
 			
 			return result;
 		}
-		
-		// 적립 포인트
-		function totalVolumeCredits() {
-			let result = 0;
-			
-			for (let perf of invoice.performances) {
-				result += volumeCreditsFor(perf);
-			}
-			
-			return result;
-		}
-		
-		// 달러 표시
-		function usd(aNumber) {
-			return new Intl.NumberFormat("en-US",
-							{style:"currency"
-							, currency: "USD"
-							, minimumFractionDigits: 2}).format(aNumber/100);
-		}
-		
-		// 공연별 적립 포인트
-		function volumeCreditsFor(aPerformance) {
-			let result = 0;
-			
-			// 포인트 적립
-			result += Math.max(aPerformance.audience - 30, 0);
-			// 희극 관객 5명마다 추가 포인트 제공
-			if ("comedy" === playFor(aPerformance).type) {
-				result += Math.floor(aPerformance.audience / 5);
-			}
-			
-			return result;
-		}
-		
-		// 연극
-		function playFor(aPerformance) {
-			return plays[aPerformance.playID];
-		}
-		
-		// 공연별 금액
-		function amountFor(aPerformance) {
-			let result = 0;
-			
-			switch (playFor(aPerformance).type) {
-				case "tragedy": // 비극
-					result = 40000;
-					if (aPerformance.audience > 30) {
-						result += 1000 * (aPerformance.audience - 30);
-					}
-					break;
-				case "comedy": // 희극
-					result = 30000;
-					if (aPerformance.audience > 20) {
-						result += 10000 + 500 * (aPerformance.audience - 20);
-					}
-					result += 300 * aPerformance.audience;
-					break;
-				default:
-					throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
-			}
-			
-			return result;
-		}
+		...
 	}
 	
 	module.exports = statement;
 	```
-- `추출` 함수 + `분할` 단계별(기능별)(예: 계산과 포맷팅-Text) + 데이터 구조 + `이동` 함수 + `교체` 반복문을 파이프라인으로
+- `추출` 함수 + `분할` 단계별(기능별)(예: 계산과 포맷팅-Text) + 데이터 구조 + `교체` 반복문을 파이프라인으로
 	- statement.js
 	```js
-	function statement(invoice, plays) {						// 1-1. [함수 추출 + 단계별 분할]
+	function statement(invoice, plays) {
 
-		const statementData = {};								// 2. 데이터 구조
+		const statementData = {};								// [데이터 구조]
 		statementData.customer				= invoice.customer;
 		statementData.performances			= invoice.performances.map(enrichPerformance);
 		statementData.totalAmount			= totalAmount(statementData);
@@ -537,10 +475,10 @@
 			return result;
 		}
 		
-		// 총액													// 3-5. [함수 이동(명시적으로 인수 전달 포함)]
+		// 총액													// 명시적으로 인수 전달
 		function totalAmount(data) {
 			
-			return data.performances							// 4-1. 반복문을 파이프라인으로 교체
+			return data.performances							// [반복문을 파이프라인으로 교체]
 				.reduce((total, p) => total + p.amount, 0);
 			/*
 			let result = 0;
@@ -553,10 +491,10 @@
 			*/
 		}
 		
-		// 적립 포인트											// 3-4. [함수 이동(명시적으로 인수 전달 포함)]
+		// 적립 포인트											// 명시적으로 인수 전달
 		function totalVolumeCredits(data) {
 			
-			return data.performances							// 4-2. 반복문을 파이프라인으로 교체
+			return data.performances							// [반복문을 파이프라인으로 교체]
 				.reduce((total, p) => total + p.volumeCredits, 0);
 			/*
 			let result = 0;
@@ -569,7 +507,7 @@
 			*/
 		}
 		
-		// 공연별 적립 포인트									// 3-3. [함수 이동]
+		// 공연별 적립 포인트
 		function volumeCreditsFor(aPerformance) {
 			let result = 0;
 			
@@ -584,7 +522,7 @@
 		}
 		
 		// 공연별 금액
-		function amountFor(aPerformance) {						// 3-2. [함수 이동]
+		function amountFor(aPerformance) {
 			let result = 0;
 			
 			switch (aPerformance.play.type) {
@@ -609,12 +547,12 @@
 		}
 		
 		// 연극
-		function playFor(aPerformance) {						// 3-1. [함수 이동]
+		function playFor(aPerformance) {
 			return plays[aPerformance.playID];
 		}
 	}
 	
-	function renderText(data, plays) {							// 1-2. [함수 추출 + 단계별 분할]
+	function renderText(data, plays) {							// [함수 추출 + 단계별 분할]
 		
 		let result = `청구 내역(고객명: ${data.customer})\n`;
 		
