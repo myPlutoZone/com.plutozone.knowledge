@@ -12,7 +12,7 @@
  *
  * Program		: com.plutozone.knowledge
  * Description	:
- * Environment	: JavaScript
+ * Environment	: .NET Framework x.x
  * File			: statament.cs
  * Notes		:
  * History		: [NO][Programmer][Description]

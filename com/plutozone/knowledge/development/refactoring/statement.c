@@ -12,7 +12,7 @@
  *
  * Program		: com.plutozone.knowledge
  * Description	:
- * Environment	: JavaScript
+ * Environment	: ANSI
  * File			: statament.c
  * Notes		:
  * History		: [NO][Programmer][Description]

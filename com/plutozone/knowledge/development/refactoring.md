@@ -971,7 +971,7 @@
 	module.exports = calculate;
 	```
 - 저작권 및 가독성
-	- [최종 Source for JavaScript](./refactoring/refactoringByJavaScript.zip)
+	- [최종 Source for JavaScript(Git 변경 이력 포함)](./refactoring/refactoringByJavaScript.zip)
 
 
 ## 2. 개론 그리고 원칙
