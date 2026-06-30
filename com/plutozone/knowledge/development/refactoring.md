@@ -1,41 +1,35 @@
 # com.plutozone.knowledge.development.Refactoring
 
 
-## TODO
-- 저작권 및 변경 이력 주석
-
-
 ## Overview
-### 계획(안)-우선 순위 기준
+### 계획(안)
 - [x 시간] 과정 및 과목 분석 그리고 Prior Knowledge
 	- 소개 그리고 과정 및 교과목
 		- 과정명: `융합` 머신 비전을 활용한 AI 기반의 첨단 제조 분야 제어 SW 개발 과정-2차(2025-12-22 ~ 2026-07-21)
 		- 교과목: `https://docs.google.com/spreadsheets/...`
 			- ...
-			- **[120 시간] 리팩토링과 고도화**
-				- 리팩토링 개론과 최적화
-				- 객체와 일반화 리팩토링
+			- **[120 시간] 리팩터링과 고도화**
+				- 리팩터링 개론과 최적화
+				- 객체와 일반화 리팩터링
 			- ...
 	- 교육생 및 팀 프로젝트를 참고하여 의견 문의
 	- 환경 설정
-		- Visual Studio 20xx vs. Code 등 + Notepad 등
-		- Git 및 GitHub + Web Hook(Slack 등) vs. GitLab 설치
+		- Visual Studio 2022 and Code, Git 등
+		- GitHub 등
 - [y 시간] 과정 마무리 지원
 	- 프로젝트 결과물 및 포트폴리오 개선
-- [60 - x 시간] 리팩토링
+- [60 - x 시간] 리팩터링
 	- Refactoring Mini-Project
 	- 개론 그리고 원칙
 	- 대상과 검증 환경 
 	- 기법
-- [60 - y 시간] 고도화
+- [60 - y 시간] 고도화(추가적인 사항은 구들 닥스를 참고)
 	- 요구 사항, 분석, 설계, 구현, 검증(기능과 성능 등) 및 상용화 그리고 자동화(AI 활용 등)
 	- 기능적 또는 비기능적(성능, 보안 등) 요구 사항
-	- 소프트웨어 개발 및 운영 환경(OS + Network + Service + Build + Deploy or Install/Setup 등)
-	- 데이터와 통신 암호화
-	- CI/CD
-	- Convergence(Web or Mobile or Hybrid)
+	- 소프트웨어 개발 및 운영 환경(CI/CD, Install/Setup 등)
+	- Convergence(Web, Mobile 등)
 	- OpenCV, YOLO 등 고도화(GPU 적용, 버전업, DETR/RT-DETR 등)
-	- 송장 출력 및 로케이션 최적화 for 출하 vs. 송장 QR 또는 BarCode 인식 for 물류
+	- 데이터와 통신 암호화 등
 - 참고
 	- 온도와 습도 그리고 먼지
 	- [OpenCV + YOLO](./image/refactoring_01.jpg)
@@ -49,7 +43,7 @@
 - Programming
 	- 프로그램, 프로그래밍, 프로그래머, 프로그래밍 언어 vs. 프레임웍 vs. 플랫폼
 	- GW-BASIC, C/C++, Fortran, COBOL, JavaScript, BASIC, Pascal, PHP, C#, Java, Ruby, Python 등의 권장 코딩 스타일
-	- [표준 개발 가이드](./README.md) vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩토링(this)
+	- [표준 개발 가이드](./README.md) vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩터링(this)
 	- 네이밍 및 네이밍 룰과 명사, 동사, 부사 등 그리고 지속적 개선
 	- 컴파일, 컴파일러, 인터프리터, 파서, 런타임, 버그, 디버깅 그리고 컴파일러와 달리 사람은 `코드의 미적 상태`에 대해 민감
 	- 객체 지향, 객체 지향 언어 vs. 절차 지향 언어
@@ -67,105 +61,34 @@
 4. 기법
 
 ## 1. Refactoring Mini-Project
-외주를 전문으로 하는 극단에서 공연할 수 있는 연극의 종류와 공연장(고객) 공연 시 공연료를 계산하는 프로그램
-- `JavaScript 소스들`
-	- plays.json(연극 정보)
-	```json
-	{
-		"hamlet":		{"name": "Hamlet"			, "type": "tragedy"}
-		, "as-Like":	{"name": "As You Like It"	, "type": "comedy"}
-		, "othello":	{"name": "Othello"			, "type": "tragedy"}
-	}
-	```
-	- invoices.json(공연장 정보)
-	```json
-	[
-		{
-			"customer": "BigCo",
-			"performances": [
-				{
-					"playID": "hamlet",
-					"audience": 55
-				},
-				{
-					"playID": "as-Like",
-					"audience": 35
-				},
-				{
-					"playID": "othello",
-					"audience": 40
-				}
-			]
-		}
-	]
-	```
-	- statement.js(공연료 계산, 계산 시는 센트 단위)
-	```js
-	function statement(invoice, plays) {
-		let totalAmount = 0;
-		let volumeCredits = 0;
-		let result = `청구 내역(고객명: ${invoice.customer})\n`;
-		const format = new Intl.NumberFormat("en-US",
-							{ style:"currency", currency: "USD"
-								, minimumFractionDigits: 2}).format;
+외주를 전문으로 하는 극단에서 공연할 수 있는 연극와 공연 정보를 통해 공연료를 계산하는 프로그램
+- Source
+	- JSON
+		- [plays.json(연극 정보)](./refactoring/plays.json)
+		- [invoices.json(공연 정보)](./refactoring/invoice.json)
+	- JavaScript
+		- [statement.js(공연료 계산)](./refactoring/statement.js)
+		- index.js
+		```js
+		const plays = require("./plays.json");
+		const invoices = require("./invoices.json");
+		const statement = require("./statement");
 		
-		for (let perf of invoice.performances) {
-			const play = plays[perf.playID];
-			let thisAmount = 0;
-			
-			switch (play.type) {
-				case "tragedy": // 비극
-					thisAmount = 40000;
-					if (perf.audience > 30) {
-						thisAmount += 1000 * (perf.audience - 30);
-					}
-					break;
-				case "comedy": // 희극
-					thisAmount = 30000;
-					if (perf.audience > 20) {
-						thisAmount += 10000 + 500 * (perf.audience - 20);
-					}
-					thisAmount += 300 * perf.audience;
-					break;
-				default:
-					throw new Error(`알 수 없는 장르: ${play.type}`);
-			}
-			
-			// 포인트 적립
-			volumeCredits += Math.max(perf.audience - 30, 0);
-			// 희극 관객 5명마다 추가 포인트 제공
-			if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
-			
-			// 청구 내역 출력
-			result += `${play.name}: ${format(thisAmount/100)} (${perf.audience}석)\n`;
-			totalAmount += thisAmount;
-		}
-		
-		result += `총액: ${format(totalAmount/100)}\n`;
-		result += `적립 포인트: ${volumeCredits}점\n`;
-		
-		return result;
-	}
-	
-	module.exports = statement;
-	```
-	- index.js
-	```js
-	const plays = require("./plays.json");
-	const invoices = require("./invoices.json");
-	const statement = require("./statement");
-	
-	console.log(
-		statement(invoices[0], plays)
-	);
-	```
+		console.log(
+			statement(invoices[0], plays)
+		);
+		```
+	- C
+		- [statement.cs(공연료 계산)](./refactoring/statement.c)
+	- C#
+		- [statement.css(공연료 계산)](./refactoring/statement.cs)
 - `예상되는 개선 사항들`
 	- 청구 내역에 대한 only Text, HTML 등 디자인
 	- 연극, 공연장 정보 확장 그리고 정책에 따른 계산 로직 변경
 	- ![Generic badge](https://img.shields.io/badge/참고-브라우저_기반으로_JavaScript를_개선_또는_다른_언어_기반으로_리뉴얼-blue.svg)
 	- ![Generic badge](https://img.shields.io/badge/참고-객체_비교(instance_of)로_개선-blue.svg)
 - `검증 환경`
-	- 리팩토링 전과 후의 기능에 대한 검증 자동화(예: 리팩토링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
+	- 리팩터링 전과 후의 기능에 대한 검증 자동화(예: 리팩터링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
 	- ![Generic badge](https://img.shields.io/badge/참고-본_과정에서는_실행_결과를_비교함_필요_시_비교_프로그램_제작_예정임-blue.svg)
 - `추출` 함수(예: 연극 타입에 따른 계산을 처리하는 switch)
 	- statement.js
@@ -180,29 +103,8 @@
 		
 		for (let perf of invoice.performances) {
 			const play = plays[perf.playID];
-			let thisAmount = amountFor(perf, play);		// 1-1. [함수 추출]
-			/*
-			let thisAmount = 0;
-			
-			switch (play.type) {
-				case "tragedy": // 비극
-					thisAmount = 40000;
-					if (perf.audience > 30) {
-						thisAmount += 1000 * (perf.audience - 30);
-					}
-					break;
-				case "comedy": // 희극
-					thisAmount = 30000;
-					if (perf.audience > 20) {
-						thisAmount += 10000 + 500 * (perf.audience - 20);
-					}
-					thisAmount += 300 * perf.audience;
-					break;
-				default:
-					throw new Error(`알 수 없는 장르: ${play.type}`);
-			}
-			*/
-			
+			let thisAmount = amountFor(perf, play);		// [함수 추출]
+
 			// 포인트 적립
 			volumeCredits += Math.max(perf.audience - 30, 0);
 			// 희극 관객 5명마다 추가 포인트 제공
@@ -218,8 +120,8 @@
 		
 		return result;
 		
-		function amountFor(perf, play) {				// 1-2. [중첩 함수, 매개 변수]
-			let thisAmount = 0;							// 1-3. [유효 범위, 변수 초기화]
+		function amountFor(perf, play) {				// [중첩 함수, 매개 변수]
+			let thisAmount = 0;							// [유효 범위, 변수 초기화]
 			
 			switch (play.type) {
 				case "tragedy": // 비극
@@ -239,7 +141,7 @@
 					throw new Error(`알 수 없는 장르: ${play.type}`);
 			}
 			
-			return thisAmount;							// 1-4. [값 반환]
+			return thisAmount;							// [값 반환]
 		}
 	}
 	
@@ -1456,14 +1358,14 @@
 
 ## 2. 개론 그리고 원칙
 ### 2-1. 개론
-- 리팩토링이란?
-	- 리팩토링은 스몰토크 커뮤니티에서 처음 시작
+- 리팩터링이란?
+	- 리팩터링은 스몰토크 커뮤니티에서 처음 시작
 	- 겉으로 드러나는 코드의 기능(=겉보기 동작)은 바꾸지 않으면서 내부 구조를 개선하는 방식으로 소프트웨어 시스템을 수정하는 과정
 	- 버그가 생길 가능성을 최소로 줄이면서 정리하는 정제된 방법
 	- 코드를 작성하고 난 뒤에 구조(=설계)를 개선
-	- 리팩토링의 위험성 때문에 계획적이며 체계적으로 수행
-	- 리팩토링은 전문가 필요
-	- **리팩토링(Refactoring)=구조 개선 and 개조/새단장(Remodeling) vs. 재건축(Reconstruction) at 건축**
+	- 리팩터링의 위험성 때문에 계획적이며 체계적으로 수행
+	- 리팩터링은 전문가 필요
+	- **리팩터링(Refactoring)=구조 개선 and 개조/새단장(Remodeling) vs. 재건축(Reconstruction) at 건축**
 	- 예시
 		- 수퍼 클래스를 통한 서브 클래스의 메서드 중복 제거
 		- 일부 코드를 이동하여 별도의 메서드로 생성
