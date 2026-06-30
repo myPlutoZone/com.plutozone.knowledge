@@ -89,11 +89,10 @@
 - `검증 환경`
 	- 리팩터링 전과 후의 기능에 대한 검증 자동화(예: 리팩터링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
 	- ![Generic badge](https://img.shields.io/badge/참고-본_과정에서는_실행_결과를_비교함_필요_시_비교_프로그램_제작_예정임-blue.svg)
-- `추출` 함수
+- `추출` 함수(예: 연극 타입에 따른 계산을 처리하는 switch)
 	<details>
-	<summary>- statement.js</summary>
+	<summary>statement.js</summary>
 
-	- 예시) 연극 타입에 따른 계산을 처리하는 switch
 	```js
 	function statement(invoice, plays) {
 		...
@@ -140,7 +139,9 @@
 - ![Generic badge](https://img.shields.io/badge/중요-수시_검증_및_형상_관리-red.svg) `이하 단계별 진행 후 commit` + `완료 후 push`
 - `함수 추출 by IDE`
 - `교체` 변수(예: thisAmount), 매개 변수(예: perf) 등 for 자료형(원시, 객체 등 또는 a/an, the 등 관사)
-	- statement.js
+	<details>
+	<summary>statement.js</summary>
+
 	```js
 	...
 	function amountFor(aPerformance, play) {	// [매개 변수 교체]
@@ -168,8 +169,11 @@
 	}
 	...
 	```
+	</details>
 - `교체` 임시 변수를 질의 함수로(예: const play = playFor(perf))
-	- statement.js
+	<details>
+	<summary>statement.js</summary>
+
 	```js
 	function statement(invoice, plays) {
 		let totalAmount = 0;
@@ -203,8 +207,11 @@
 	
 	module.exports = statement;
 	```
+	</details>
 - `전개(인라인)` 변수(예: const play = playFor(perf))
-	- statement.js
+	<details>
+	<summary>statement.js</summary>
+
 	```js
 	function statement(invoice, plays) {
 		...	
@@ -230,8 +237,11 @@
 	
 	module.exports = statement;
 	```
+	</details>
 - `교체` 함수 선언(예: amountFor) + `교체` 함수 호출(예: play.type) 그리고 함수 호출 증가에 따른 성능 확인
-	- statement.js
+	<details>
+	<summary>statement.js</summary>
+
 	```js
 	function statement(invoice, plays) {
 		...		
@@ -263,8 +273,11 @@
 	
 	module.exports = statement;
 	```
+	</details>
 - `전개` 변수(예: thisAmount)
-	- statement.js
+	<details>
+	<summary>statement.js</summary>
+
 	```js
 	function statement(invoice, plays) {
 		...		
@@ -289,8 +302,11 @@
 	
 	module.exports = statement;
 	```
+	</details>
 - `추출` 함수(예: volumeCreditsFor)
-	- statement.js
+	<details>
+	<summary>statement.js</summary>
+
 	```js
 	function statement(invoice, plays) {
 		...
@@ -329,8 +345,11 @@
 	
 	module.exports = statement;
 	```
+	</details>
 - `제거` 변수(예: const format) + `교체` 함수명(예: format)
-	- statement.js
+	<details>
+	<summary>statement.js</summary>
+
 	```js
 	function statement(invoice, plays) {
 		let totalAmount = 0;
@@ -365,8 +384,11 @@
 	
 	module.exports = statement;
 	```
+	</details>
 - `분할` 반복문(예: for)
-	- statement.js
+	<details>
+	<summary>statement.js</summary>
+
 	```js
 	function statement(invoice, plays) {
 		...
@@ -397,8 +419,11 @@
 	
 	module.exports = statement;
 	```
+	</details>
 - `추출` 함수(totalVolumeCredits) + `교체` 임시 변수를 질의 함수로 후 `전개` 변수
-	- statement.js
+	<details>
+	<summary>statement.js</summary>
+
 	```js
 	function statement(invoice, plays) {
 		...
@@ -425,8 +450,11 @@
 	
 	module.exports = statement;
 	```
+	</details>
 - 적립 포인트와 동일하게 총액에도 "`추출` 함수(totalAmount) + `교체` 임시 변수를 질의 함수로 후 `전개(인라인)` 변수"를 및 `코드 가독성` 적용
-	- statement.js
+	<details>
+	<summary>statement.js</summary>
+
 	```js
 	function statement(invoice, plays) {
 		
@@ -457,8 +485,11 @@
 	
 	module.exports = statement;
 	```
+	</details>
 - `추출` 함수 + `분할` 단계별(기능별)(예: 계산과 포맷팅-Text) + 데이터 구조 + `교체` 반복문을 파이프라인으로
-	- statement.js
+	<details>
+	<summary>statement.js</summary>
+
 	```js
 	function statement(invoice, plays) {
 
@@ -581,8 +612,11 @@
 	
 	module.exports = statement;
 	```
+	</details>
 - 파일 분리와 재명명 및 HTML 버전 추가
-	- statement.js
+	<details>
+	<summary>statement.js</summary>
+
 	```js
 	const calculate = require("./calculate");
 	
@@ -637,7 +671,10 @@
 	
 	module.exports = {text, html};
 	```
-	- calculate.js
+	</details>
+	<details>
+	<summary>calculate.js</summary>
+
 	```js
 	function calculate(invoice, plays) {
 	
@@ -717,7 +754,10 @@
 	
 	module.exports = calculate;
 	```
-	- index.js
+	</details>
+	<details>
+	<summary>index.js</summary>
+
 	```js
 	const plays = require("./plays.json");
 	const invoices = require("./invoices.json");
@@ -730,8 +770,11 @@
 		statement.html(invoices[0], plays)
 	);
 	```
+	</details>
 - 클래스화
-	- calculate.js
+	<details>
+	<summary>calculate.js</summary>
+
 	```js
 	class Calculator {
 		constructor(aPerformance, aPlay) {
@@ -872,9 +915,12 @@
 	}
 	
 	module.exports = calculate;
+	</details>
 	```
 - `교체` 생성자를 팩터리 함수로 + `교체` 타입 코드를 서브 클래스로 + `교체` 조건문 로직을 다형성(상속 포함)으로
-	- calculate.js
+	<details>
+	<summary>calculate.js</summary>
+
 	```js
 	class Calculator {
 		constructor(aPerformance, aPlay) {
@@ -974,6 +1020,7 @@
 	
 	module.exports = calculate;
 	```
+	</details>
 - 저작권 및 가독성
 	- [최종 Source for JavaScript(Git 변경 이력 포함)](./refactoring/refactoringByJavaScript.zip)
 
