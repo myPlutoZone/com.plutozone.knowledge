@@ -89,8 +89,11 @@
 - `검증 환경`
 	- 리팩터링 전과 후의 기능에 대한 검증 자동화(예: 리팩터링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
 	- ![Generic badge](https://img.shields.io/badge/참고-본_과정에서는_실행_결과를_비교함_필요_시_비교_프로그램_제작_예정임-blue.svg)
-- `추출` 함수(예: 연극 타입에 따른 계산을 처리하는 switch)
-	- statement.js
+- `추출` 함수
+	<details>
+	<summary>- statement.js</summary>
+
+	- 예시) 연극 타입에 따른 계산을 처리하는 switch
 	```js
 	function statement(invoice, plays) {
 		...
@@ -133,6 +136,7 @@
 	
 	module.exports = statement;
 	```
+	</details>
 - ![Generic badge](https://img.shields.io/badge/중요-수시_검증_및_형상_관리-red.svg) `이하 단계별 진행 후 commit` + `완료 후 push`
 - `함수 추출 by IDE`
 - `교체` 변수(예: thisAmount), 매개 변수(예: perf) 등 for 자료형(원시, 객체 등 또는 a/an, the 등 관사)
@@ -994,6 +998,11 @@
 	- 제어 역전(Inversion of Control)과 의존성 주입(Dependency Injection) 용어를 대중화 and 애자일 소프트웨어 개발 선언 공동 작성자
 
 ### 1-2. 원칙
+- 기능은 유지하되 구조를 개선하고 리팩터링기법 적용을 통해 소프트웨어를 재구성한다.
+- 기능 추가와 리팩터링은 다른 업무다.
+- 리팩터링을 해야 할 시점은 없으나 기능 추가 문제, 개선된 코드에 대한 소유자 및 권한, 소스 브랜치 관리, 검증 방안, 레거시 연동, 데이터베이스, 외부 환경 등을 고려하여 결정해야 한다.
+- 리팩터링이 곧 성능 개선을 의미하지는 않는다. 다만 지속적 개선이 필요할 수 있다.
+- 리팩터링 자동화 지원 도구도 활용한다.
 
 
 ## 3. 대상과 검증 환경
