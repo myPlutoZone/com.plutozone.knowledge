@@ -62,7 +62,7 @@
 
 ## 1. Refactoring Mini-Project
 외주를 전문으로 하는 극단에서 공연할 수 있는 연극와 공연 정보를 통해 공연료를 계산하는 프로그램
-- Source
+- 최초 Source
 	- JSON
 		- [plays.json(연극 정보)](./refactoring/plays.json)
 		- [invoices.json(공연 정보)](./refactoring/invoice.json)
@@ -656,14 +656,12 @@
 		
 		// 총액
 		function totalAmount(data) {
-			
 			return data.performances
 				.reduce((total, p) => total + p.amount, 0);
 		}
 		
 		// 적립 포인트
 		function totalVolumeCredits(data) {
-			
 			return data.performances
 				.reduce((total, p) => total + p.volumeCredits, 0);
 		}
@@ -726,7 +724,7 @@
 	);
 	console.log(
 		statement.html(invoices[0], plays)
-	);	
+	);
 	```
 - 클래스화
 	- calculate.js
@@ -803,15 +801,13 @@
 		}
 		
 		// 총액
-		function totalAmount(data) {
-			
+		function totalAmount(data) {			
 			return data.performances
 				.reduce((total, p) => total + p.amount, 0);
 		}
 		
 		// 적립 포인트
-		function totalVolumeCredits(data) {
-			
+		function totalVolumeCredits(data) {			
 			return data.performances
 				.reduce((total, p) => total + p.volumeCredits, 0);
 		}
@@ -942,7 +938,7 @@
 			return result;
 		}
 		
-		// 타입 코드를 서브 클래스로 교체
+		// [타입 코드를 서브 클래스로 교체]
 		function createCalculator(aPerformance, aPlay) {
 			switch (aPlay.type) {
 				case "tragedy"	: return new TragedyCalculator(aPerformance, aPlay);
@@ -974,6 +970,8 @@
 	
 	module.exports = calculate;
 	```
+- 저작권 및 가독성
+	- [최종 Source for JavaScript](./refactoring/refactoringByJavaScript.zip)
 
 
 ## 2. 개론 그리고 원칙
