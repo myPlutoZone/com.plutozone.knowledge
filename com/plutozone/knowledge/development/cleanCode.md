@@ -9,8 +9,10 @@
 ## Contents
 - [클린 코드](#클린-코드)
 - [의미 있는 이름](#의미-있는-이름)
-- 함수
-
+- [함수](#함수)
+- [주석](#주석)
+- [형식 맞추기](#형식-맞추기))
+- 객체와 자료 구조
 
 ## 클린 코드
 - 컴퓨터 언어의 추상화(고급 또는 저급 언어의 관점) 레벨이 높아지고 도메인에 특화된 언어일지라도 코드(Code)는 사라지지 않는다.
@@ -191,30 +193,211 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 
 ## 함수
 - 작게 만들어라!
-함수를 만들 때 최대한 ‘작게!’ 만들어라.
-	- 블록과 들여쓰기
-	중첩구조(if/else, while문 등)에 들어가는 블록은 한 줄이어야 한다. 각 함수별 들여쓰기 수준이 2단을 넘어서지 않고 각 함수가 명백하다면 함수는 더욱 읽고 이해하기 쉬워진다.
+- 블록과 들여쓰기
+	- 중첩 구조(if/else, while문 등)에 들어가는 블록은 한 줄이어야 한다.
+	- 각 함수별 들여쓰기 수준이 2단을 넘어서지 않고 각 함수가 명백하다면 함수는 더욱 읽고 이해하기 쉬워진다.
 - 한 가지만 해라!
-	- 함수 내 섹션
-- 함수 당 추상화 수준은 하나로!
-	- 위에서 아래로 코드 읽기 : 내려가기 규칙
-- Switch문
-- 서술적인 이름을 사용하라!
-- 함수 인수
-	- 많이 쓰는 단항 형식
-	- 플래그 인수
-	- 이항 함수
-	- 삼항 함수
-	- 인수 객체
-	- 인수 목록
-	- 동사와 키워드
-- 부수 효과를 일으키지 마라!
-	- 출력 인수
-- 명령과 조회를 분리하라!
-- 오류코드보다 예외를 사용하라!
-	- Try/Catch 블록 뽑아내기
-	- 오류 처리도 한 가지 직업이다
-	- Error.java의 의존성 자석
-- 반복하지마라!
-- 구조적 프로그래밍
-- 함수를 어떻게 짜죠?
+	- 함수를 여러 섹션으로 나눌 수 있다면 그 함수는 여러 작업을 하는 것이다.
+- 서술적인 이름(=동사)을 사용하라!
+- 함수 인수는 단항 또는 객체 인수로 변경하여 단순화한다.
+- 한 가지만 해야 하므로 부수 효과를 일으키지 마라!
+- 명령과 조회를 분리(예: list, writeFrom, writeProc 등)하라!
+- 오류 코드보다 예외를 사용하라!(API도 고려할 것)
+```java
+if (deletePage(page) == E_OK) {
+	if (registry.deleteReference(page.name) == E_OK) {
+		if (configKeys.deleteKey(page.name.makeKey()) == E_OK) {
+			logger.log("page deleted");
+		}
+		else {
+			logger.log("configKey not deleted");
+		}
+	}
+	else {
+		logger.log("deleteReference from registry failed"); 
+	} 
+}
+else {
+	logger.log("delete failed"); return E_ERROR;
+}
+```
+```java
+// try/catch를 사용하면 오류 처리 코드가 원래 코드에서 분리되므로 코드가 깔끔해 진다.
+public void delete(Page page) {
+	try {
+		deletePageAndAllReferences(page);
+	}
+	catch (Exception e) {
+		logError(e);
+	}
+}
+
+private void deletePageAndAllReferences(Page page) throws Exception { 
+	deletePage(page);
+	registry.deleteReference(page.name); 
+	configKeys.deleteKey(page.name.makeKey());
+}
+private void logError(Exception e) { 
+	logger.log(e.getMessage());
+}
+```
+- 반복(=중복 코드) 하지마라!
+- 구조적 프로그래밍에서 함수는 하나의 리턴만 있어야 하며 break나 continue는 지양하고 goto는 절대 사용하지 않는다.
+
+## 주석
+- 주석은 나쁜 코드를 보완하지 못한다
+- 주석이 아닌 코드로 의도를 표현하라
+- 좋은 주석
+	- 법적인(=저작권 등) 주석
+	- 정보를 제공하는 주석
+	- 의미를 설명하는 주석
+	- 의미를 명료하게 밝히는 주석
+	- 결과를 경고하는 주석
+	- TODO 주석
+	- 중요성을 강조하는 주석
+	- 공개 API에서 Java Docs
+- 나쁜 주석
+	- 주절거리는 주석
+	- 같은 이야기를 중복하는 주석
+	- 오해할 여지가 있는 주석
+	- 의무적으로 다는 주석
+	```java
+	/**
+	 *
+	 * @param title CD 제목
+	 * @param author CD 저자
+	 * @param tracks CD 트랙 숫자
+	 * @param durationInMinutes CD 길이(단위: 분)
+	 */
+	public void addCD(String title, String author, int tracks, int durationInMinutes) {
+		CD cd = new CD();
+		cd.title = title;
+		cd.author = author;
+		cd.tracks = tracks;
+		cd.duration = durationInMinutes;
+		cdList.add(cd);
+	}
+	```
+	- 이력을 기록하는 주석(소스 코드 관리 시스템의 기록 vs. 인라인 주석)
+	- 있으나 마나 한 주석
+	```java
+	/*
+	 * 기본 생성자
+	 */
+	protected AnnualDateRule() {
+
+	}
+	```
+	- 무서운 잡음
+	```java
+	// UnNice
+	// KOLO? 멍청한 개발자
+	```
+	- 함수나 변수로 표현할 수 있다면 주석을 달지 마라
+	```java
+	// 전역 목록 <smodule>에 속하는 모듈이 우리가 속한 하위 시스템에 의존하는가?
+	if (module.getDependSubsystems().contains(subSysMod.getSubSystem()))
+	```
+	```java
+	ArrayList moduleDependees	= smodule.getDependSubsystems();
+	String ourSubSystem			= subSysMod.getSubSystem();
+	if (moduleDependees.contains(ourSubSystem))
+	```
+	- 위치를 표시하는 주석
+	```java
+	// Actions /////////////////////////////////////////////
+	```
+	- 닫는 괄호에 다는 주석
+	- 공로를 돌리거나 저자를 표시하는 주석
+	- 주석으로 처리한 코드
+	```java
+	this.bytePos = writeBytes(pngIdBytes, 0);
+	//hdrPos = bytePos;
+	writeHeader();
+	writeResolution();
+	//dataPos = bytePos;
+	if (writeImageData()) {
+		wirteEnd();
+		this.pngBytes = resizeByteArray(this.pngBytes, this.maxPos);
+	} else {
+		this.pngBytes = null;
+	}
+	return this.pngBytes;
+	```
+	- HTML 주석
+	- 너무 많은 정보
+	- 비공개 코드에서 Java Docs
+
+
+## 형식 맞추기
+- 형식을 맞추는 목적
+- 적절한 행 길이(=코드의 세로 길이)를 유지하라
+	- 신문 기사(제목, 요약 등)처럼 작성하라
+	- 개념은 빈 행으로 분리하라
+	```java
+	// 빈 행을 넣지 않을 경우
+	package fitnesse.wikitext.widgets;
+	import java.util.regex.*;
+	public class BoldWidget extends ParentWidget {
+		public static final String REGEXP = "'''.+?'''";
+		private static final Pattern pattern = Pattern.compile("'''(.+?)'''",
+			Pattern.MULTILINE + Pattern.DOTALL);
+		public BoldWidget(ParentWidget parent, String text) throws Exception {
+			super(parent);
+			Matcher match = pattern.matcher(text); match.find(); 
+			addChildWidgets(match.group(1));}
+		public String render() throws Exception { 
+			StringBuffer html = new StringBuffer("<b>"); 		
+			html.append(childHtml()).append("</b>"); 
+			return html.toString();
+		} 
+	}
+	```
+	```java
+	// 빈 행을 넣을 경우
+	package fitnesse.wikitext.widgets;
+
+	import java.util.regex.*;
+
+	public class BoldWidget extends ParentWidget {
+		public static final String REGEXP = "'''.+?'''";
+		private static final Pattern pattern = Pattern.compile("'''(.+?)'''", 
+			Pattern.MULTILINE + Pattern.DOTALL
+		);
+		
+		public BoldWidget(ParentWidget parent, String text) throws Exception { 
+			super(parent);
+			Matcher match = pattern.matcher(text);
+			match.find();
+			addChildWidgets(match.group(1)); 
+		}
+		
+		public String render() throws Exception { 
+			StringBuffer html = new StringBuffer("<b>"); 
+			html.append(childHtml()).append("</b>"); 
+			return html.toString();
+		} 
+	}
+	```
+	- 세로 밀집도와 거리
+	- 세로 순서
+- 가로 형식(=코드의 가로 길이) 맞추기
+	- 들여쓰기
+	- 가로 밀집도와 공백
+	- 가로 정렬
+	```java
+	// Code Formatter 대부분들은 이렇게 해놔봤자 무시하고 원래대로 돌려놓는다. vs. 선언문과 할당문을 별도로 정렬할 필요가 없다.
+	public class FitNesseExpediter implements ResponseSender {
+	private		Socket			socket;
+	private 	InputStream		input;
+	private 	OutputStream 	output;
+	private 	Reques			request; 		
+	private 	Response 		response;	
+	private 	FitNesseContex	context; 
+	protected 	long			requestParsingTimeLimit;
+	private 	long			requestProgress;
+	private 	long			requestParsingDeadline;
+	private 	boolean			hasError;
+	... 
+	```
+- 팀 규칙
