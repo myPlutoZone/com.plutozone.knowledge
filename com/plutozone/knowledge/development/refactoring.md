@@ -45,7 +45,7 @@
 - Programming
 	- 프로그램, 프로그래밍, 프로그래머, 프로그래밍 언어 vs. 프레임웍 vs. 플랫폼
 	- GW-BASIC, C/C++, Fortran, COBOL, JavaScript, BASIC, Pascal, PHP, C#, Java, Ruby, Python 등의 권장 코딩 스타일
-	- [표준 개발 가이드](./README.md) vs. 클린 코드(https://github.com/Yooii-Studios/Clean-Code) vs. 리팩터링(this)
+	- [표준 개발 가이드](./README.md) vs. [클린 코드](./cleanCode.md) vs. 리팩터링(this)
 	- 네이밍 및 네이밍 룰과 명사, 동사, 부사 등 그리고 지속적 개선
 	- 컴파일, 컴파일러, 인터프리터, 파서, 런타임, 버그, 디버깅 그리고 컴파일러와 달리 사람은 `코드의 미적 상태`에 대해 민감
 	- 객체 지향, 객체 지향 언어 vs. 절차 지향 언어
