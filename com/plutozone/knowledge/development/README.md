@@ -9,7 +9,7 @@
 
 ## Standard Guide for Development
 - Common
-	- 최적의 명명은 쉽지 않으므로 지속적으로 개선
+	- 개발 시 쉽지 않은 2가지 문제는 1) 네이밍(최적의 명명은 쉽지 않으므로 지속적으로 개선) 2) 캐쉬(삭제 자동화)
 	- Workspace vs. Project vs. Package vs. Class
 	- 저작권(Copyright)과 주석 at File, Class, Method, Attribute
 	- TODO Comment for 필수, 개선 그리고 향후
