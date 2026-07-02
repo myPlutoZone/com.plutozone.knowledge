@@ -20,17 +20,17 @@
 - 빨리 가기 위한 단 하나의 방법은 "최대한 깨끗한 코드를 항상 유지하는 것"이다.
 - 클린 코드란?
 	- “Big” Dave Thomas, founder of OTI, godfather of the Eclipse strategy
-		- 다른 이가 수정하기 쉬워야 한다.
-		- 테스트를 해야 한다.
-		- 코드는 간결할수록 좋다.(Smaller is better)
-		- 코드는 세련되어야 한다.
-	- Michael Feathers, author of Working Effectively with Legacy Code
-		- 코드를 Care하라.(=주의와 관심을 가지고 작성하라.)
+		- *다른 이가 수정하기 쉬워야 한다.*
+		- *테스트를 해야 한다.*
+		- *코드는 간결할수록 좋다.(Smaller is better)*
+		- *코드는 세련되어야 한다.*
+	- Michael Feathers, author of Working Effectively with Legacy Code*
+		- *코드를 Care하라.(=주의와 관심을 가지고 작성하라.)*
 	- Ron Jeffries, author of Extreme Programming Installed and Extreme Programming Adventures in C#
-		- 중복을 없애라.
-		- 클래스/메서드는 한 가지 일만 하게 하라.
-		- 메서드의 이름 등으로 코드가 하는 일을 명시하라.
-		- (메서드 등을) 일찍 추상화해서 프로젝트를 빠르게 진행할 수 있게 하라.
+		- *중복을 없애라.*
+		- *클래스/메서드는 한 가지 일만 하게 하라.*
+		- *메서드의 이름 등으로 코드가 하는 일을 명시하라.*
+		- *(메서드 등을) 일찍 추상화해서 프로젝트를 빠르게 진행할 수 있게 하라.*
 - 프로그래머는 작가다. 코드는 글과 같다.
 	- 실제로 읽기와 쓰기에 들이는 시간은 대략 10:1 정도이다. 새 코드를 작성하기 위해서는 옛 코드들을 읽어야 하기 때문이다.
 	- 그러므로 빨리 가고 싶다면! 쉽게 코드를 작성하고 싶다면! "읽기 쉽게 작성하라".
@@ -362,76 +362,87 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 - 적절한 행 길이(=코드의 세로 길이)를 유지하라
 	- 신문 기사(제목, 요약 등)처럼 작성하라
 	- 개념은 빈 행으로 분리하라
-	```java
-	// 빈 행을 넣지 않을 경우
-	package fitnesse.wikitext.widgets;
-	import java.util.regex.*;
-	public class BoldWidget extends ParentWidget {
-		public static final String REGEXP = "'''.+?'''";
-		private static final Pattern pattern = Pattern.compile("'''(.+?)'''",
-			Pattern.MULTILINE + Pattern.DOTALL);
-		public BoldWidget(ParentWidget parent, String text) throws Exception {
-			super(parent);
-			Matcher match = pattern.matcher(text); match.find(); 
-			addChildWidgets(match.group(1));}
-		public String render() throws Exception { 
-			StringBuffer html = new StringBuffer("<b>"); 		
-			html.append(childHtml()).append("</b>"); 
-			return html.toString();
-		} 
-	}
-	```
-	```java
-	// 빈 행을 넣을 경우
-	package fitnesse.wikitext.widgets;
+		<details>
+		<summary>예제</summary>
 
-	import java.util.regex.*;
-
-	public class BoldWidget extends ParentWidget {
-		public static final String REGEXP = "'''.+?'''";
-		private static final Pattern pattern = Pattern.compile("'''(.+?)'''", 
-			Pattern.MULTILINE + Pattern.DOTALL
-		);
-		
-		public BoldWidget(ParentWidget parent, String text) throws Exception { 
-			super(parent);
-			Matcher match = pattern.matcher(text);
-			match.find();
-			addChildWidgets(match.group(1)); 
+		```java
+		// 빈 행을 넣지 않을 경우
+		package fitnesse.wikitext.widgets;
+		import java.util.regex.*;
+		public class BoldWidget extends ParentWidget {
+			public static final String REGEXP = "'''.+?'''";
+			private static final Pattern pattern = Pattern.compile("'''(.+?)'''",
+				Pattern.MULTILINE + Pattern.DOTALL);
+			public BoldWidget(ParentWidget parent, String text) throws Exception {
+				super(parent);
+				Matcher match = pattern.matcher(text); match.find(); 
+				addChildWidgets(match.group(1));}
+			public String render() throws Exception { 
+				StringBuffer html = new StringBuffer("<b>"); 		
+				html.append(childHtml()).append("</b>"); 
+				return html.toString();
+			} 
 		}
-		
-		public String render() throws Exception { 
-			StringBuffer html = new StringBuffer("<b>"); 
-			html.append(childHtml()).append("</b>"); 
-			return html.toString();
-		} 
-	}
-	```
+		```
+		```java
+		// 빈 행을 넣을 경우
+		package fitnesse.wikitext.widgets;
+
+		import java.util.regex.*;
+
+		public class BoldWidget extends ParentWidget {
+			public static final String REGEXP = "'''.+?'''";
+			private static final Pattern pattern = Pattern.compile("'''(.+?)'''", 
+				Pattern.MULTILINE + Pattern.DOTALL
+			);
+			
+			public BoldWidget(ParentWidget parent, String text) throws Exception { 
+				super(parent);
+				Matcher match = pattern.matcher(text);
+				match.find();
+				addChildWidgets(match.group(1)); 
+			}
+			
+			public String render() throws Exception { 
+				StringBuffer html = new StringBuffer("<b>"); 
+				html.append(childHtml()).append("</b>"); 
+				return html.toString();
+			} 
+		}
+		```
+		</details>
 	- 세로 밀집도와 거리
 	- 세로 순서
 - 가로 형식(=코드의 가로 길이) 맞추기
 	- 들여쓰기
 	- 가로 밀집도와 공백
 	- 가로 정렬
-	```java
-	// Code Formatter 대부분들은 이렇게 해놔봤자 무시하고 원래대로 돌려놓는다. vs. 선언문과 할당문을 별도로 정렬할 필요가 없다.
-	public class FitNesseExpediter implements ResponseSender {
-	private		Socket			socket;
-	private 	InputStream		input;
-	private 	OutputStream 	output;
-	private 	Reques			request; 		
-	private 	Response 		response;	
-	private 	FitNesseContex	context; 
-	protected 	long			requestParsingTimeLimit;
-	private 	long			requestProgress;
-	private 	long			requestParsingDeadline;
-	private 	boolean			hasError;
-	... 
-	```
+		<details>
+		<summary>예제</summary>
+
+		```java
+		// Code Formatter 대부분들은 이렇게 해놔봤자 무시하고 원래대로 돌려놓는다. vs. 선언문과 할당문을 별도로 정렬할 필요가 없다.
+		public class FitNesseExpediter implements ResponseSender {
+		private		Socket			socket;
+		private 	InputStream		input;
+		private 	OutputStream 	output;
+		private 	Reques			request; 		
+		private 	Response 		response;	
+		private 	FitNesseContex	context; 
+		protected 	long			requestParsingTimeLimit;
+		private 	long			requestProgress;
+		private 	long			requestParsingDeadline;
+		private 	boolean			hasError;
+		... 
+		```
+		</details>
 - 팀 규칙
 
 
 ## Summary
+<details>
+<summary>예제</summary>
+
 ```java
 /**
  * YOU ARE STRICTLY PROHIBITED TO COPY, DISCLOSE, DISTRIBUTE, MODIFY OR USE THIS PROGRAM
@@ -472,3 +483,4 @@ public class Hello {
 
 }
 ```
+</details>
