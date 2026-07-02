@@ -422,7 +422,7 @@
 	module.exports = statement;
 	```
 	</details>
-- `추출` 함수(totalVolumeCredits) + `교체` 임시 변수를 질의 함수로 후 `전개` 변수
+- `추출` 함수(예: totalVolumeCredits()) + `교체` 임시 변수를 질의 함수(예: volumeCredits)로 후 `전개` 변수(예: totalVolumeCredits())
 	<details>
 	<summary>statement.js</summary>
 
@@ -453,7 +453,7 @@
 	module.exports = statement;
 	```
 	</details>
-- 적립 포인트와 동일하게 총액에도 "`추출` 함수(totalAmount) + `교체` 임시 변수를 질의 함수로 후 `전개(인라인)` 변수"를 및 `코드 가독성` 적용
+- 적립 포인트와 동일하게 총액에도 "`추출` 함수(예: totalAmount) + `교체` 임시 변수를 질의 함수로 후 `전개(인라인)` 변수"를 및 `코드 가독성` 적용
 	<details>
 	<summary>statement.js</summary>
 

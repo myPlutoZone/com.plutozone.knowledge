@@ -12,7 +12,7 @@
 - [함수](#함수)
 - [주석](#주석)
 - [형식 맞추기](#형식-맞추기)
-- 객체와 자료 구조
+- [자료 구조와 객체형](#자료-구조와-객체형)
 - Summary
 
 ## 클린 코드
@@ -336,7 +336,7 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 	- 주석으로 처리한 코드
 		<details>
 		<summary>예제</summary>
-	
+
 		```java
 		this.bytePos = writeBytes(pngIdBytes, 0);
 		//hdrPos = bytePos;
@@ -437,6 +437,99 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 		```
 		</details>
 - 팀 규칙
+
+
+## 자료 구조와 객체형
+- 절차 지향적 객체 and 다형 지향적 객체
+	<details>
+	<summary>절차 지향적 객체</summary>
+		
+	```java
+	public class Square { 
+		public Point topLeft; 
+		public double side;
+	}
+
+	public class Rectangle { 
+		public Point topLeft; 
+		public double height; 
+		public double width;
+	}
+
+	public class Circle { 
+		public Point center; 
+		public double radius;
+	}
+
+	public class Geometry {
+		public final double PI = 3.141592653589793;
+		
+		public double area(Object shape) throws NoSuchShapeException {
+			if (shape instanceof Square) { 
+				Square s = (Square)shape; 
+				return s.side * s.side;
+			} else if (shape instanceof Rectangle) { 
+				Rectangle r = (Rectangle)shape; 
+				return r.height * r.width;
+			} else if (shape instanceof Circle) {
+				Circle c = (Circle)shape;
+				return PI * c.radius * c.radius; 
+			}
+			throw new NoSuchShapeException(); 
+		}
+	}
+	```
+	</details>
+	<details>
+	<summary>다형 지향적 객체</summary>
+
+	```java
+	public class Square implements Shape { 
+		private Point topLeft;
+		private double side;
+		
+		public double area() { 
+			return side * side;
+		} 
+	}
+
+	public class Rectangle implements Shape { 
+		private Point topLeft;
+		private double height;
+		private double width;
+
+		public double area() { 
+			return height * width;
+		} 
+	}
+
+	public class Circle implements Shape { 
+		private Point center;
+		private double radius;
+		public final double PI = 3.141592653589793;
+
+		public double area() {
+			return PI * radius * radius;
+		} 
+	}
+	```
+	</details>
+- 절차 지향적 객체 vs. 다형 지향적 객체
+	- 도형의 둘레(method)를 추가할 경우
+		- 절차 지향적 객체: 1) Geometry에 perimeter()만 추가
+		- 다형 지향적 객체: 1) 도형(class) 추가 2) `모든 도형 클래스에 perimeter()를 추가`
+	- 도형을 추가(class)할 경우
+		- 절차 지향적 객체: 1) 도형(class) 추가 2) `Geometry의 모든 method 수정`
+		- 다형 지향적 객체: 1) 도형(class)만 추가
+- DTO vs. VO
+
+| 구분 | DTO (Data Transfer Object) | VO (Value Object) |
+|------|----------------------------|-------------------|
+| 목적 | 계층 간 데이터 전달 | 값을 표현하는 객체 |
+| 식별자(ID) | 있을 수도 있고 없을 수도 있음 | 식별자가 없음 |
+| 변경 가능성 | 보통 변경 가능(Mutable) | 일반적으로 불변(Immutable) |
+| 비교 기준 | 객체의 참조 또는 ID | 객체가 가진 값 자체 |
+| 비즈니스 로직 | 거의 없음 | 값과 관련된 간단한 로직 포함 가능 |
 
 
 ## Summary
