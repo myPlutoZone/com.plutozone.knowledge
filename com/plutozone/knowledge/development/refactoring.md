@@ -1107,51 +1107,51 @@
 	- @전개(인라인) 코드를 함수 호출로
 	- 참조를 값으로 and 값을 참조로
 	- 중첩 조건문을 보호 구문으로
-		<details>
-		<summary>예제</summary>
+	<details>
+	<summary>예제</summary>
 
-		```java
-		// 중첩된 if 문을 예외 상황이나 종료 조건을 먼저 처리하는 보호 구문(Guard Clause)으로 변경하여 코드의 가독성 향상
-		// 보호 구문은 조건을 만족하지 않는 경우를 먼저 처리하고 즉시 함수나 메서드를 종료(return, throw, continue 등)하는 코드
+	```java
+	// 중첩된 if 문을 예외 상황이나 종료 조건을 먼저 처리하는 보호 구문(Guard Clause)으로 변경하여 코드의 가독성 향상
+	// 보호 구문은 조건을 만족하지 않는 경우를 먼저 처리하고 즉시 함수나 메서드를 종료(return, throw, continue 등)하는 코드
 
-		// Before
-		double getPayAmount() {
-			if (isAlive) {
-				if (isSeparated) {
-					return separatedAmount();
-				}
-				else {
-					if (isRetired) {
-						return retiredAmount();
-					}
-					else {
-						return normalPayAmount();
-					}
-				}
-			}
-			else {
-				return deadAmount();
-			}
-		}
-		
-		// After
-		double getPayAmount() {
-			if (!isAlive) {
-				return deadAmount();
-			}
-
+	// Before
+	double getPayAmount() {
+		if (isAlive) {
 			if (isSeparated) {
 				return separatedAmount();
 			}
-
-			if (isRetired) {
-				return retiredAmount();
+			else {
+				if (isRetired) {
+					return retiredAmount();
+				}
+				else {
+					return normalPayAmount();
+				}
 			}
-
-			return normalPayAmount();
 		}
-		```
-		</details>
+		else {
+			return deadAmount();
+		}
+	}
+	
+	// After
+	double getPayAmount() {
+		if (!isAlive) {
+			return deadAmount();
+		}
+
+		if (isSeparated) {
+			return separatedAmount();
+		}
+
+		if (isRetired) {
+			return retiredAmount();
+		}
+
+		return normalPayAmount();
+	}
+	```
+	</details>
 	- @조건문 로직을 다형성으로
 	- @반복문을 파이프라인으로
 	- @기본(원시) 데이터 타입(형)을 객체로
