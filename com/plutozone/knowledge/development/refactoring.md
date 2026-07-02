@@ -919,7 +919,7 @@
 	module.exports = calculate;
 	</details>
 	```
-- `교체` 생성자를 팩터리 함수로 + `교체` 타입 코드를 서브 클래스로 + `교체` 조건문 로직을 다형성(상속 포함)으로
+- `교체` 생성자를 팩터리 함수로 + `교체` 타입 코드를 서브 클래스로 + `교체` 조건문 로직을 다형성으로
 	<details>
 	<summary>calculate.js</summary>
 
@@ -943,6 +943,7 @@
 		
 		get amount() {
 			let result = 40000;
+			// [조건문 로직을 다형성으로]
 			if (this.performance.audience > 30) {
 				result += 1000 * (this.performance.audience - 30);
 			}
@@ -955,6 +956,7 @@
 		
 		get amount() {
 			let result = 30000;
+			// [조건문 로직을 다형성으로]
 			if (this.performance.audience > 20) {
 				result += 10000 + 500 * (this.performance.audience - 20);
 			}
@@ -1035,8 +1037,8 @@
 	- 버그가 생길 가능성을 최소로 줄이면서 정리하는 정제된 방법
 	- 코드를 작성하고 난 뒤에 구조(=설계)를 개선
 	- 리팩터링의 위험성 때문에 계획적이며 체계적으로 수행
-	- 리팩터링은 전문가 필요
-	- **리팩터링(Refactoring)=구조 개선 and 개조/새단장(Remodeling) vs. 재건축(Reconstruction) at 건축**
+	- **리팩터링(Refactoring)=구조 개선 vs. 개조/새단장(Remodeling) or 재건축(Reconstruction) at 건축**
+	- **리팩터링은 경험에 의해 체계화** + **리팩터링은 전문가 필요**
 	- 예시
 		- 수퍼 클래스를 통한 서브 클래스의 메서드 중복 제거
 		- 일부 코드를 이동하여 별도의 메서드로 생성
@@ -1100,21 +1102,67 @@
 	- @함수명
 	- @함수 선언
 	- @임시 변수를 질의 함수로
+	- 매개 변수를 질의 함수로 and 질의 함수를 매개 변수로
 	- 파생 변수를 질의 함수로
 	- @전개(인라인) 코드를 함수 호출로
 	- 참조를 값으로 and 값을 참조로
 	- 중첩 조건문을 보호 구문으로
+		- 중첩된 if 문을 예외 상황이나 종료 조건을 먼저 처리하는 보호 구문(Guard Clause)으로 변경하여 코드의 가독성 향상
+		- 보호 구문은 조건을 만족하지 않는 경우를 먼저 처리하고 즉시 함수나 메서드를 종료(return, throw, continue 등)하는 코드
+	<details>
+	<summary>예제</summary>
+
+	```java
+	// Before
+	double getPayAmount() {
+		if (isAlive) {
+			if (isSeparated) {
+				return separatedAmount();
+			}
+			else {
+				if (isRetired) {
+					return retiredAmount();
+				}
+				else {
+					return normalPayAmount();
+				}
+			}
+		}
+		else {
+			return deadAmount();
+		}
+	}
+
+	// After
+	double getPayAmount() {
+		if (!isAlive) {
+			return deadAmount();
+		}
+
+		if (isSeparated) {
+			return separatedAmount();
+		}
+
+		if (isRetired) {
+			return retiredAmount();
+		}
+
+		return normalPayAmount();
+	}
+	```
+	</details>
 	- @조건문 로직을 다형성으로
 	- @반복문을 파이프라인으로
-	- @기본형을 객체로
+	- @기본(원시) 데이터 타입(형)을 객체로
 	- @변수들을 객체로
 	- @타입 코드를 서브 클래스로
+	- 매직 리터럴(의미를 설명하지 않고 코드에 직접 작성된 리터럴 값)
 	- 서브 클래스를 위임으로
 	- 수퍼 클래스를 위임으로
-	- [API] 매개 변수를 질의 함수로 and 질의 함수를 매개 변수로
-	- [API] 함수를 명령으로 and 명령을 함수로
-	- [API] 오류 코드를 예외로
-	- [API] 예외를 사전 확인으로
+	- 함수를 명령으로 and 명령을 함수로
+	- 오류 코드를 예외로
+	- 예외를 사전 확인으로
+	- 알고리즘
 - 분할(Split)
 	- 변수
 	- @반복문
@@ -1125,20 +1173,30 @@
 	- 문장을 함수로
 	- 문장을 호출한 곳으로
 - 제거(Remove)
-	- ...
-- 묶기(Combine)
-	- ...
+	- @죽은 코드
+	- @서브 클래스
+	- 중개자(객체, 시스템 또는 컴포넌트 등이 직접 통신하지 않고 그 사이에서 연결과 조정을 담당하는 역할자)
+	- 플래그 인수(boolean형 단항 매개 변수)
+	- 세터(setter: setter를 제거 또는 접근을 제한하여 객체의 불변성과 캡슐화 강화)
 - 숨김(Hide)
-	- ...
-- 분해(Decompose) and 통합(Consolidate)
+	- 위임
+- 통합(Combine, Consolidate)
+	- 여러 함수를 클래스로
+	- 여러 함수를 변환 함수로
+	- 조건문
+- 분해(Decompose)
 	- 조건문
 - 분리(Separate)
-	- ...
+	- 질의 함수와 변경 함수
 - 올림(Pull Up) and 내림(Push Down)
 	- 필드
 	- 메서드
-- 캡슐화(Encapsulate)
-	- ...
+	- 생성자(only 올림)
+- 캡슐화(Encapsulate, 정보와 구현을 은익 + 데이터와 기능의 묶음 + 접근 제어를 통한 객체 보호)
+	- 변수
+	- 레코드
+	- 컬렉션
+
 
 <!--
 ![Refactoring 2nd Edition](./image/refactoring_book.jpg)
