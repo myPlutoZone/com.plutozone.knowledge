@@ -38,12 +38,16 @@
 
 ## 의미 있는 이름
 - 의도를 분명히 밝혀라
-```java
-// Bad
-int d; // elapsed time in days
-// Good
-int elapsedTimeInDays;
-```
+	<details>
+	<summary>예제</summary>
+
+	```java
+	// Bad
+	int d; // elapsed time in days
+	// Good
+	int elapsedTimeInDays;
+	```
+	</details>
 - 그릇된 정보를 피하라
 	- 중의적으로 해석될 수 있는 이름 지양하기.
 	- 특수한 의미를 가지는 단어(List 등)는 실제 컨테이너가 List가 아닌 이상 accountList와 같이 변수명에 붙이지 말자. accountGroup, bunchOfAccounts, accounts 등으로 명명하자.
@@ -56,20 +60,24 @@ int elapsedTimeInDays;
 		- money vs. moneyAmount
 		- message vs. theMessage
 - 발음하기 쉬운 이름을 사용하라
-```java
-// Bad
-class DtaRcrd102 {
-	private Date genymdhms;
-	private Date modymdhms;
-	private final String pszqint = "102";
-}
-// Good
-class Customer {
-	private Date generationTimestamp;
-	private Date modificationTimestamp;
-	private final String recordId = "102";
-}
-```
+	<details>
+	<summary>예제</summary>
+	
+	```java
+	// Bad
+	class DtaRcrd102 {
+		private Date genymdhms;
+		private Date modymdhms;
+		private final String pszqint = "102";
+	}
+	// Good
+	class Customer {
+		private Date generationTimestamp;
+		private Date modificationTimestamp;
+		private final String recordId = "102";
+	}
+	```
+	</details>
 - 검색하기 쉬운 이름을 사용하라
 	- 상수는 static final과 같이 정의해 쓰자.
 	- 변수 이름의 길이는 변수의 범위에 비례해서 길어진다.
@@ -124,6 +132,9 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 - 의미 있는 맥락을 추가하라
 	- 클래스, 함수, namespace 등으로 감싸서 맥락(Context)을 표현하라.
 	- 그래도 불분명하다면 접두어를 사용하자.
+	<details>
+	<summary>예제</summary>
+		
 	```java
 	// Bad
 	private void printGuessStatistics(char candidate, int count) {
@@ -188,6 +199,7 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 		}
 	}
 	```
+	</details>
 - 불필요한 맥락을 없애라
 	- Gas Station Delux이라는 어플리케이션을 작성한다고 해서 클래스 이름의 앞에 GSD를 붙이지는 말자. G를 입력하고 자동완성을 누를 경우 모든 클래스가 나타나는 등 효율적이지 못하다. Gas Station Delux의 주소일 경우 GSDAccountAddress 대신 Address라고만 해도 충분하다.
 
@@ -204,44 +216,48 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 - 한 가지만 해야 하므로 부수 효과를 일으키지 마라!
 - 명령과 조회를 분리(예: list, writeFrom, writeProc 등)하라!
 - 오류 코드보다 예외를 사용하라!(API도 고려할 것)
-```java
-if (deletePage(page) == E_OK) {
-	if (registry.deleteReference(page.name) == E_OK) {
-		if (configKeys.deleteKey(page.name.makeKey()) == E_OK) {
-			logger.log("page deleted");
+	<details>
+	<summary>예제</summary>
+	
+	```java
+	if (deletePage(page) == E_OK) {
+		if (registry.deleteReference(page.name) == E_OK) {
+			if (configKeys.deleteKey(page.name.makeKey()) == E_OK) {
+				logger.log("page deleted");
+			}
+			else {
+				logger.log("configKey not deleted");
+			}
 		}
 		else {
-			logger.log("configKey not deleted");
-		}
+			logger.log("deleteReference from registry failed"); 
+		} 
 	}
 	else {
-		logger.log("deleteReference from registry failed"); 
-	} 
-}
-else {
-	logger.log("delete failed"); return E_ERROR;
-}
-```
-```java
-// try/catch를 사용하면 오류 처리 코드가 원래 코드에서 분리되므로 코드가 깔끔해 진다.
-public void delete(Page page) {
-	try {
-		deletePageAndAllReferences(page);
+		logger.log("delete failed"); return E_ERROR;
 	}
-	catch (Exception e) {
-		logError(e);
+	```
+	```java
+	// try/catch를 사용하면 오류 처리 코드가 원래 코드에서 분리되므로 코드가 깔끔해 진다.
+	public void delete(Page page) {
+		try {
+			deletePageAndAllReferences(page);
+		}
+		catch (Exception e) {
+			logError(e);
+		}
 	}
-}
 
-private void deletePageAndAllReferences(Page page) throws Exception { 
-	deletePage(page);
-	registry.deleteReference(page.name); 
-	configKeys.deleteKey(page.name.makeKey());
-}
-private void logError(Exception e) { 
-	logger.log(e.getMessage());
-}
-```
+	private void deletePageAndAllReferences(Page page) throws Exception { 
+		deletePage(page);
+		registry.deleteReference(page.name); 
+		configKeys.deleteKey(page.name.makeKey());
+	}
+	private void logError(Exception e) { 
+		logger.log(e.getMessage());
+	}
+	```
+	</details>
 - 반복(=중복 코드) 하지마라!
 - 구조적 프로그래밍에서 함수는 하나의 리턴만 있어야 하며 break나 continue는 지양하고 goto는 절대 사용하지 않는다.
 
@@ -262,33 +278,40 @@ private void logError(Exception e) {
 	- 같은 이야기를 중복하는 주석
 	- 오해할 여지가 있는 주석
 	- 의무적으로 다는 주석
-	```java
-	/**
-	 *
-	 * @param title CD 제목
-	 * @param author CD 저자
-	 * @param tracks CD 트랙 숫자
-	 * @param durationInMinutes CD 길이(단위: 분)
-	 */
-	public void addCD(String title, String author, int tracks, int durationInMinutes) {
-		CD cd = new CD();
-		cd.title = title;
-		cd.author = author;
-		cd.tracks = tracks;
-		cd.duration = durationInMinutes;
-		cdList.add(cd);
-	}
-	```
+			<details>
+			<summary>예제</summary>
+	
+			```java
+			/**
+			 *
+			* @param title CD 제목
+			* @param author CD 저자
+			* @param tracks CD 트랙 숫자
+			* @param durationInMinutes CD 길이(단위: 분)
+			*/
+			public void addCD(String title, String author, int tracks, int durationInMinutes) {
+				CD cd = new CD();
+				cd.title = title;
+				cd.author = author;
+				cd.tracks = tracks;
+				cd.duration = durationInMinutes;
+				cdList.add(cd);
+			}
+			```
+			</details>
 	- 이력을 기록하는 주석(소스 코드 관리 시스템의 기록 vs. 인라인 주석)
 	- 있으나 마나 한 주석
-	```java
-	/*
-	 * 기본 생성자
-	 */
-	protected AnnualDateRule() {
+			<details>
+			<summary>예제</summary>
+	
+			```java
+			/*
+			* 기본 생성자
+			*/
+			protected AnnualDateRule() {
 
-	}
-	```
+			}
+			</details>
 	- 무서운 잡음
 	```java
 	// UnNice
@@ -311,20 +334,24 @@ private void logError(Exception e) {
 	- 닫는 괄호에 다는 주석
 	- 공로를 돌리거나 저자를 표시하는 주석
 	- 주석으로 처리한 코드
-	```java
-	this.bytePos = writeBytes(pngIdBytes, 0);
-	//hdrPos = bytePos;
-	writeHeader();
-	writeResolution();
-	//dataPos = bytePos;
-	if (writeImageData()) {
-		wirteEnd();
-		this.pngBytes = resizeByteArray(this.pngBytes, this.maxPos);
-	} else {
-		this.pngBytes = null;
-	}
-	return this.pngBytes;
-	```
+		<details>
+		<summary>예제</summary>
+	
+		```java
+		this.bytePos = writeBytes(pngIdBytes, 0);
+		//hdrPos = bytePos;
+		writeHeader();
+		writeResolution();
+		//dataPos = bytePos;
+		if (writeImageData()) {
+			wirteEnd();
+			this.pngBytes = resizeByteArray(this.pngBytes, this.maxPos);
+		} else {
+			this.pngBytes = null;
+		}
+		return this.pngBytes;
+		```
+		</details>
 	- HTML 주석
 	- 너무 많은 정보
 	- 비공개 코드에서 Java Docs
