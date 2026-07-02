@@ -1037,8 +1037,8 @@
 	- 버그가 생길 가능성을 최소로 줄이면서 정리하는 정제된 방법
 	- 코드를 작성하고 난 뒤에 구조(=설계)를 개선
 	- 리팩터링의 위험성 때문에 계획적이며 체계적으로 수행
+	- **리팩터링은 경험에 의한 체계화** or **리팩터링은 전문가 필요**
 	- **리팩터링(Refactoring)=구조 개선 vs. 개조/새단장(Remodeling) or 재건축(Reconstruction) at 건축**
-	- **리팩터링은 경험에 의해 체계화** + **리팩터링은 전문가 필요**
 	- 예시
 		- 수퍼 클래스를 통한 서브 클래스의 메서드 중복 제거
 		- 일부 코드를 이동하여 별도의 메서드로 생성
@@ -1108,6 +1108,49 @@
 - 파생 변수를 질의 함수로
 - @전개(인라인) 코드를 함수 호출로
 - 참조를 값으로 and 값을 참조로
+- 제어 플래그를 탈출문으로(반복문이나 함수의 실행을 제어하기 위해 사용하는 불필요한 제어 플래그 변수를 제거하고 break, continue, return 같은 탈출문을 사용)
+	<details>
+	<summary>예제</summary>
+
+	```java
+	// Before
+	boolean found = false;	// 제어 플래그
+
+	for (int i = 0; i < list.size() && !found; i++) {
+		if (list.get(i).equals(target)) {
+			found = true;
+		}
+	}
+
+	if (found) {
+		System.out.println("찾음");
+	}
+
+	// After
+	boolean found = false;
+
+	for (String item : list) {
+		if (item.equals(target)) {
+			found = true;
+			break;
+		}
+	}
+
+	if (found) {
+		System.out.println("찾음");
+	}
+
+	// 또는
+	boolean contains(List<String> list, String target) {
+		for (String item : list) {
+			if (item.equals(target)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	```
+	</details>
 - 중첩 조건문을 보호 구문으로
 	<details>
 	<summary>예제</summary>
@@ -1168,9 +1211,9 @@
 - 알고리즘
 
 ### 4-4. 분할(Split)
-	- 변수
-	- @반복문
-	- @단계별(기능별)
+- 변수
+- @반복문
+- @단계별(기능별)
 
 ### 4-5. 이동(Move)
 - 필드
@@ -1204,7 +1247,65 @@
 - 메서드
 - 생성자(only 올림)
 
-### 4-12. 캡슐화(Encapsulate, 정보와 구현을 은익 + 데이터와 기능의 묶음 + 접근 제어를 통한 객체 보호)
+### 4-12 추가(Insert)
+- 특이 케이스(반복되는 예외 처리 로직을 별도의 객체나 클래스로 캡슐화하여 조건문을 줄이고 일반 로직과 동일한 방식으로 다룰 수 있게 하는 기법)
+	<details>
+	<summary>예제</summary>
+
+	```java
+	// [대표적인 예외 상황들] 고객이 없는 경우(null), 미등록 사용자, 존재하지 않는 주문, 데이터가 비어 있는 경우
+	
+	// Before
+	if (member == null) {
+		System.out.println("비회원은 대출할 수 없습니다.");
+	} else {
+		member.borrow(book);
+	}
+
+	// After
+	// null 대신 특이 케이스 객체(Special Case Object)
+	Member member = findMember(id);
+
+	// DB 조회를 통하여 findMember(id)에서 비회원일 경우 member에는 GuestMember가 할당되어 null 확인 없이 "비회원은 대출할 수 없습니다." 메시지가 표시됨
+	member.borrow(book);
+	...
+	class GuestMember extends Member {
+		@Override
+		public void borrow(Book book) {
+				System.out.println("비회원은 대출할 수 없습니다.");
+		}
+		...
+	}
+	```
+	</details>
+- 어서션(assertion, 반드시 참이어야 하는 조건을 코드로 명시하는 것)
+	<details>
+	<summary>예제</summary>
+
+	```java
+	double applyDiscount(double price, double discountRate) {
+		assert discountRate >= 0 && discountRate <= 1;
+		return price * (1 - discountRate);
+	}
+
+	String upper(String name) {
+		assert name != null;
+		return name.toUpperCase();
+	}
+
+	double average(List<Integer> numbers) {
+		assert !numbers.isEmpty();
+
+		int sum = 0;
+		for (int n : numbers) {
+			sum += n;
+		}
+		return (double) sum / numbers.size();
+	}
+	```
+	</details>
+
+### 4-12. 캡슐화(Encapsulate = 정보와 구현을 은익 + 데이터와 기능의 묶음 + 접근 제어를 통한 객체 보호)
 - 변수
 - 레코드
 - 컬렉션
