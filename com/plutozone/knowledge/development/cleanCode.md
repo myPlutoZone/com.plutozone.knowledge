@@ -1,6 +1,11 @@
 # com.plutozone.knowledge.development.CleanCode
 
 
+## TODO
+- 현재의 개발 관점으로 현행화
+- 사유와 실무 예제를 추가
+
+
 ## Overview
 ### 출처
 - https://github.com/Yooii-Studios/Clean-Code

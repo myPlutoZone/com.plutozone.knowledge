@@ -1,43 +1,52 @@
 # com.plutozone.knowledge.development.Refactoring
 
 
-## Overview
-### 계획(안)
-- [x 시간] 과정 및 교과목 그리고 Prior Knowledge
-	- 소개 그리고 과정 및 교과목
-		- 과정명: `융합` 머신 비전을 활용한 AI 기반의 첨단 제조 분야 제어 SW 개발 과정-2차(2025-12-22 ~ 2026-07-21)
-		- 교과목: `https://docs.google.com/spreadsheets/...`
-			- ...
-			- **[120 시간] 리팩터링과 고도화**
-				- 리팩터링 개론과 최적화
-				- 객체와 일반화 리팩터링
-			- ...
-	- 교육생 및 팀 프로젝트를 참고하여 의견 문의
-	- 환경 설정
-		- Visual Studio Code and 2022, Git 등
-		- GitHub 등
-- [y 시간] 과정 마무리 지원
-	- 프로젝트 결과물 및 포트폴리오 개선
-- [60 - x 시간] 리팩터링
-	- Refactoring Mini-Project
-	- 개론 그리고 원칙
-	- 대상과 검증 환경 
-	- 기법
-- [60 - y 시간] 고도화
-	- 분석, 설계, 구현, 검증(기능 등) 및 상용화에 대한 자동화(AI 활용 등)
-	- 기능적 또는 비기능적(성능, 보안 등) 요구 사항
-	- `AI Agent 연동 및 기본적 사용법(for 프로그래밍 스터디 등) at Visual Studio 2022 or Code`
-	- 소프트웨어 개발 및 운영 환경(VS2k22에서 솔루션 및 프로젝트 관리, InstallShield, CI/CD 등)
-	- 데이터와 통신 암호화(참고: 해쉬, 대칭키, 키페어)
-	- 통신 or 데이터베이스 장애, 에러, 지연 시(참고: 프로그램 > 네트워크 > 데이터베이스 or 디바이스 구조)
-	- 비상 정지 시 원격 알림 by Slack
-	- OpenCV, YOLO 등(GPU 적용, 버전업, DETR/RT-DETR 등)
-	- On-Premise LLM(예: Ollama) 활용
-- 참고
-	- 온도와 습도 그리고 먼지
-	- [OpenCV + YOLO](./image/refactoring_01.jpg)
-	- [IoT](./image/refactoring_02.png)
+## TODO
+- 기법들에 대한 예제, 목적, 유의 사항 등 추가
 
+
+## "리팩터링과 고도화" 교과목 계획(안)
+### [x 시간] 과정 및 교과목 그리고 Prior Knowledge
+- 소개 그리고 과정 및 교과목
+	- 과정명: `융합` 머신 비전을 활용한 AI 기반의 첨단 제조 분야 제어 SW 개발 과정-2차(2025-12-22 ~ 2026-07-21)
+	- 교과목: `https://docs.google.com/spreadsheets/...`
+		- ...
+		- **[120 시간] 리팩터링과 고도화**
+			- 리팩터링 개론과 최적화
+			- 객체와 일반화 리팩터링
+		- ...
+- 교육생 및 팀 프로젝트를 참고하여 의견 문의
+- 환경 설정
+	- Visual Studio Code and 2022, Git 등
+	- GitHub 등
+
+### [60 - x 시간] 리팩터링
+- Refactoring Mini-Project
+- 개론 그리고 원칙
+- 대상과 검증 환경 
+- 기법
+
+### [y 시간] 과정 마무리 지원
+- 프로젝트 결과물 및 포트폴리오 개선
+
+### [60 - y 시간] 고도화
+- 분석, 설계, 구현, 검증(기능 등) 및 상용화에 대한 자동화(AI 활용 등)
+- 기능적 또는 비기능적(성능, 보안 등) 요구 사항
+- `AI Agent 연동 및 기본적 사용법(for 프로그래밍 스터디 등) at Visual Studio 2022 or Code`
+- 소프트웨어 개발 및 운영 환경(VS2k22에서 솔루션 및 프로젝트 관리, InstallShield, CI/CD 등)
+- 데이터와 통신 암호화(참고: 해쉬, 대칭키, 키페어)
+- 통신 or 데이터베이스 장애, 에러, 지연 시(참고: 프로그램 > 네트워크 > 데이터베이스 or 디바이스 구조)
+- 비상 정지 시 원격 알림 by Slack
+- OpenCV, YOLO 등(GPU 적용, 버전업, DETR/RT-DETR 등)
+- On-Premise LLM(예: Ollama) 활용
+
+### 참고
+- 온도와 습도 그리고 먼지
+- [OpenCV + YOLO](./image/refactoring_01.jpg)
+- [IoT](./image/refactoring_02.png)
+
+
+## Overview
 ### Prior Knowledge
 - Information Technology
 	- Domain(도메인=영역) 전문가
@@ -56,6 +65,10 @@
 	- 예외, 오버라이딩, 오버로딩
 	- 멤버 필드/속성, 멤버 함수/메서드
 	- 오류 코드 vs. 예외 처리
+
+### 출처
+- Refactoring: Improving the Design of Existing Code 2nd Edition by Martin Fowler
+
 
 ## Contents
 1. [Refactoring Mini-Project](#1-refactoring-mini-project)
