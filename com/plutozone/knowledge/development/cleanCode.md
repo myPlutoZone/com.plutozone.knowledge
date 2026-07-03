@@ -13,7 +13,8 @@
 - [주석](#주석)
 - [형식 맞추기](#형식-맞추기)
 - [자료 구조와 객체형](#자료-구조와-객체형)
-- Summary
+- [Summary](#summary)
+
 
 ## 클린 코드
 - 컴퓨터 언어의 추상화(고급 또는 저급 언어의 관점) 레벨이 높아지고 도메인에 특화된 언어일지라도 코드(Code)는 사라지지 않는다.
@@ -84,8 +85,8 @@
 - 인코딩(변수에 부가 정보를 덧붙여 표기하는 것)을 피하라
 	- 헝가리안 표기법
 		- 변수명에 해당 변수의 타입(String, Int 등)을 적지 말자
-	- 맴버 변수 접두어
-		- 맴버 변수 접두어를 붙이지 말자.
+	- 멤버 변수 접두어
+		- 멤버 변수 접두어를 붙이지 말자.
 	- 인터페이스와 구현
 		- 인터페이스 클래스와 구현 클래스를 나눠야 한다면 구현 클래스의 이름에 정보를 인코딩하자.
 
@@ -106,11 +107,11 @@
 	- 동사 혹은 동사구를 사용하라.(postPayment, deletePayment, deletePage, save 등)
 	- 접근자, 변경자, 조건자는 get, set, is로 시작하자.(추가: should, has 등도 가능)
 	- 생성자를 오버로드할 경우 정적 팩토리 메서드를 사용하고 해당 생성자를 private으로 선언한다.
-```java
-// 첫번째 보다 두 번째 방법이 더 좋다.
-Complex fulcrumPoint = new Complex(23.0);  
-Complex fulcrumPoint = Complex.FromRealNumber(23.0);  
-```
+	```java
+	// 첫번째 보다 두 번째 방법이 더 좋다.
+	Complex fulcrumPoint = new Complex(23.0);  
+	Complex fulcrumPoint = Complex.FromRealNumber(23.0);  
+	```
 - 기발한 이름은 피하라
 	- 특정 문화에서만 사용되는 재미있는 이름보다 의도를 분명히 표현하는 이름을 사용하라
 		- HolyHandGrenade → DeleteItems
@@ -159,6 +160,7 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 
 		print(guessMessage);
 	}
+
 	// Good
 	public class GuessStatisticsMessage {
 		private String number;
@@ -220,6 +222,7 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 	<summary>예제</summary>
 	
 	```java
+	// Before
 	if (deletePage(page) == E_OK) {
 		if (registry.deleteReference(page.name) == E_OK) {
 			if (configKeys.deleteKey(page.name.makeKey()) == E_OK) {
@@ -236,8 +239,8 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 	else {
 		logger.log("delete failed"); return E_ERROR;
 	}
-	```
-	```java
+	
+	// After
 	// try/catch를 사용하면 오류 처리 코드가 원래 코드에서 분리되므로 코드가 깔끔해 진다.
 	public void delete(Page page) {
 		try {
@@ -260,6 +263,7 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 	</details>
 - 반복(=중복 코드) 하지마라!
 - 구조적 프로그래밍에서 함수는 하나의 리턴만 있어야 하며 break나 continue는 지양하고 goto는 절대 사용하지 않는다.
+
 
 ## 주석
 - 주석은 나쁜 코드를 보완하지 못한다
@@ -299,7 +303,7 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 			}
 			```
 			</details>
-	- 이력을 기록하는 주석(소스 코드 관리 시스템의 기록 vs. 인라인 주석)
+	- 이력을 기록하는 주석(소스 코드 관리 시스템의 이력 vs. 인라인 주석의 이력)
 	- 있으나 마나 한 주석
 			<details>
 			<summary>예제</summary>
@@ -319,10 +323,11 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 	```
 	- 함수나 변수로 표현할 수 있다면 주석을 달지 마라
 	```java
+	// Bad
 	// 전역 목록 <smodule>에 속하는 모듈이 우리가 속한 하위 시스템에 의존하는가?
 	if (module.getDependSubsystems().contains(subSysMod.getSubSystem()))
-	```
-	```java
+	
+	// Good
 	ArrayList moduleDependees	= smodule.getDependSubsystems();
 	String ourSubSystem			= subSysMod.getSubSystem();
 	if (moduleDependees.contains(ourSubSystem))
@@ -333,7 +338,7 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 	```
 	- 닫는 괄호에 다는 주석
 	- 공로를 돌리거나 저자를 표시하는 주석
-	- 주석으로 처리한 코드
+	- 주석으로 처리한 코드(참고: 필요한 주석 vs. 불필요한 주석)
 		<details>
 		<summary>예제</summary>
 
@@ -360,7 +365,7 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 ## 형식 맞추기
 - 형식을 맞추는 목적
 - 적절한 행 길이(=코드의 세로 길이)를 유지하라
-	- 신문 기사(제목, 요약 등)처럼 작성하라
+	- 신문 기사(제목, 개요, 목차 등)처럼 작성하라
 	- 개념은 빈 행으로 분리하라
 		<details>
 		<summary>예제</summary>
@@ -497,7 +502,7 @@ Complex fulcrumPoint = Complex.FromRealNumber(23.0);
 		private Point topLeft;
 		private double height;
 		private double width;
-
+		
 		public double area() { 
 			return height * width;
 		} 

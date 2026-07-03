@@ -3,7 +3,7 @@
 
 ## Overview
 ### 계획(안)
-- [x 시간] 과정 및 과목 분석 그리고 Prior Knowledge
+- [x 시간] 과정 및 교과목 그리고 Prior Knowledge
 	- 소개 그리고 과정 및 교과목
 		- 과정명: `융합` 머신 비전을 활용한 AI 기반의 첨단 제조 분야 제어 SW 개발 과정-2차(2025-12-22 ~ 2026-07-21)
 		- 교과목: `https://docs.google.com/spreadsheets/...`
@@ -26,6 +26,7 @@
 - [60 - y 시간] 고도화
 	- 분석, 설계, 구현, 검증(기능 등) 및 상용화에 대한 자동화(AI 활용 등)
 	- 기능적 또는 비기능적(성능, 보안 등) 요구 사항
+	- `AI Agent 연동 및 기본적 사용법(for 프로그래밍 스터디 등) at Visual Studio 2022 or Code`
 	- 소프트웨어 개발 및 운영 환경(VS2k22에서 솔루션 및 프로젝트 관리, InstallShield, CI/CD 등)
 	- 데이터와 통신 암호화(참고: 해쉬, 대칭키, 키페어)
 	- 통신 or 데이터베이스 장애, 에러, 지연 시(참고: 프로그램 > 네트워크 > 데이터베이스 or 디바이스 구조)
@@ -47,46 +48,46 @@
 	- GW-BASIC, C/C++, Fortran, COBOL, JavaScript, BASIC, Pascal, PHP, C#, Java, Ruby, Python 등의 권장 코딩 스타일
 	- [표준 개발 가이드](./README.md) vs. [클린 코드](./cleanCode.md) vs. 리팩터링(this)
 	- 네이밍 및 네이밍 룰과 명사, 동사, 부사 등 그리고 지속적 개선
-	- 컴파일, 컴파일러, 인터프리터, 파서, 런타임, 버그, 디버깅 그리고 컴파일러와 달리 사람은 `코드의 미적 상태`에 대해 민감
+	- 컴파일, 컴파일러, 인터프리터, 파서, 런타임, 버그, 디버깅 그리고 `컴파일러와 달리 사람은 코드의 미적 상태에 대해 민감`
 	- 객체 지향, 객체 지향 언어 vs. 절차 지향 언어
-	- 변수, 매개 변수, 임시 변수, 파생 변수, 함수, 변환 함수, 질의 함수, 참조 vs. 값
+	- 변수, 매개변수, 임시 변수, 파생 변수, 함수, 변환 함수, 질의 함수, 참조 vs. 값
 	- 제어문, 조건문, 반복문, 파이프라인
 	- 기본형, 클래스, 객체, 상속, 수퍼(부모) 클래스, 서브(자식) 클래스, 생성자, 위임, 다형성
 	- 예외, 오버라이딩, 오버로딩
 	- 멤버 필드/속성, 멤버 함수/메서드
-	- 오류 코드 vs. Exceptions 처리
+	- 오류 코드 vs. 예외 처리
 
 ## Contents
-1. Refactoring Mini-Project
-2. 개론 그리고 원칙
-3. 대상과 검증 환경 
-4. 기법
+1. [Refactoring Mini-Project](#1-refactoring-mini-project)
+2. [개론 그리고 원칙](#2-개론-그리고-원칙)
+3. [대상과 검증 환경 ](#3-대상과-검증-환경)
+4. [기법](#4-기법)
 
 ## 1. Refactoring Mini-Project
-외주를 전문으로 하는 극단에서 공연할 수 있는 연극와 공연 정보를 통해 공연료를 계산하는 프로그램
+외주를 전문으로 하는 극단에서 공연할 수 있는 연극와 공연 정보를 통해 청구 내역를 계산하는 프로그램
 - 최초 Source
 	- JSON
 		- [plays.json(연극 정보)](./refactoring/plays.json)
 		- [invoices.json(공연 정보)](./refactoring/invoice.json)
 	- JavaScript
-		- [statement.js(공연료 계산)](./refactoring/statement.js)
+		- [statement.js(청구 내역 계산)](./refactoring/statement.js)
 		- index.js
 		```js
-		const plays = require("./plays.json");
-		const invoices = require("./invoices.json");
-		const statement = require("./statement");
+		const plays		= require("./plays.json");
+		const invoices	= require("./invoices.json");
+		const statement	= require("./statement");
 		
 		console.log(
 			statement(invoices[0], plays)
 		);
 		```
 	- C
-		- [statement.cs(공연료 계산)](./refactoring/statement.c)
+		- [statement.cs(청구 내역 계산)](./refactoring/statement.c)
 	- C#
-		- [statement.css(공연료 계산)](./refactoring/statement.cs)
-- `예상되는 개선 사항들`
-	- 청구 내역에 대한 only Text, HTML 등 디자인
-	- 연극, 공연장 정보 확장 그리고 정책에 따른 계산 로직 변경
+		- [statement.css(청구 내역 계산)](./refactoring/statement.cs)
+- `예상되는 기능적 개선 사항들(리팩터링 제외)`
+	- 청구 내역에 대한 HTML 등 디자인
+	- 연극, 공연 정보 확장 그리고 정책에 따른 계산 로직 변경
 	- ![Generic badge](https://img.shields.io/badge/참고-객체_비교(instance_of)로_개선-blue.svg)
 - `검증 환경`
 	- 리팩터링 전과 후의 기능에 대한 검증 자동화(예: 리팩터링 전과 후의 청구 내역 문자열 자동 비교 프로그램 제작)
@@ -110,7 +111,7 @@
 		return result;
 		
 		// [함수 추출]
-		function amountFor(perf, play) {				// [중첩 함수, 매개 변수]
+		function amountFor(perf, play) {				// [중첩 함수, 매개변수]
 			let thisAmount = 0;							// [유효 범위, 변수 초기화]
 			
 			switch (play.type) {
@@ -140,13 +141,13 @@
 	</details>
 - ![Generic badge](https://img.shields.io/badge/중요-수시_검증_및_형상_관리-red.svg) `이하 단계별 진행 후 commit` + `완료 후 push`
 - `함수 추출 by IDE`
-- `교체` 변수(예: thisAmount), 매개 변수(예: perf) 등 for 자료형(원시, 객체 등 또는 a/an, the 등 관사)
+- `교체` 변수(예: thisAmount), 매개변수(예: perf) 등 for 자료형(원시, 객체 등 또는 a/an, the 등 관사)
 	<details>
 	<summary>statement.js</summary>
 
 	```js
 	...
-	function amountFor(aPerformance, play) {	// [매개 변수 교체]
+	function amountFor(aPerformance, play) {	// [매개변수 교체]
 		let result = 0;							// [변수 교체]
 		
 		switch (play.type) {
@@ -240,7 +241,7 @@
 	module.exports = statement;
 	```
 	</details>
-- `교체` 함수 선언(예: amountFor) + `교체` 함수 호출(예: play.type) 그리고 함수 호출 증가에 따른 성능 확인
+- `교체` 함수 선언(예: amountFor) + `교체` 함수 호출(예: play.type) 그리고 `함수 호출 증가에 따른 성능`
 	<details>
 	<summary>statement.js</summary>
 
@@ -761,9 +762,9 @@
 	<summary>index.js</summary>
 
 	```js
-	const plays = require("./plays.json");
-	const invoices = require("./invoices.json");
-	const statement = require("./statement");
+	const plays		= require("./plays.json");
+	const invoices	= require("./invoices.json");
+	const statement	= require("./statement");
 	
 	console.log(
 		statement.text(invoices[0], plays)
@@ -1060,10 +1061,10 @@
 ### 3-1. 대상
 - @기이한 이름(Mysterious Name): 교체(변수명, 필드명, 함수명, 함수 선언)
 - @중복 코드(Duplicated Code): 추출(함수), 올림(메서드)
-- @긴 함수(Long Function): 추출(함수, 매개 변수 객체), 교체(임의 변수를 질의 함수로, 변수들을 객체로, 함수를 명령으로, 조건문 로직을 다형성으로), 분해(조건문), 분할(반복문)
+- @긴 함수(Long Function): 추출(함수, 매개변수 객체), 교체(임의 변수를 질의 함수로, 변수들을 객체로, 함수를 명령으로, 조건문 로직을 다형성으로), 분해(조건문), 분할(반복문)
 - @긴 매개변수 목록
-- @전역 데이터
-- @가변 데이터
+- @전역 데이터: 캡슐화
+- @가변 데이터: 캡슐화
 - 뒤엉킨 변경
 - 산탄총 수술
 - 기능 편애
@@ -1090,7 +1091,7 @@
 ### 4-1. 추출(Extract)
 - 변수
 - @함수
-- 매개 변수 객체
+- @매개변수 객체
 - @클래스
 - @수퍼 클래스
 
@@ -1104,7 +1105,7 @@
 - @함수명
 - @함수 선언
 - @임시 변수를 질의 함수로
-- 매개 변수를 질의 함수로 and 질의 함수를 매개 변수로
+- 매개변수를 질의 함수로 and 질의 함수를 매개변수로
 - 파생 변수를 질의 함수로
 - @전개(인라인) 코드를 함수 호출로
 - 참조를 값으로 and 값을 참조로
@@ -1202,7 +1203,7 @@
 - @기본(원시) 데이터 타입(형)을 객체로
 - @변수들을 객체로
 - @타입 코드를 서브 클래스로
-- 매직 리터럴(의미를 설명하지 않고 코드에 직접 작성된 리터럴 값)
+- 매직 리터럴(주석 등으로 의미를 설명하지 않고 코드에 직접 작성된 리터럴 값)
 - 서브 클래스를 위임으로
 - 수퍼 클래스를 위임으로
 - 함수를 명령으로 and 명령을 함수로
@@ -1225,7 +1226,7 @@
 - @죽은 코드
 - @서브 클래스
 - 중개자(객체, 시스템 또는 컴포넌트 등이 직접 통신하지 않고 그 사이에서 연결과 조정을 담당하는 역할자)
-- 플래그 인수(boolean형 단항 매개 변수)
+- 플래그 인수(Flag Argument, boolean형 단항 매개변수)
 - 세터(setter: setter를 제거 또는 접근을 제한하여 객체의 불변성과 캡슐화 강화)
 
 ### 4-7. 숨김(Hide)
