@@ -2,15 +2,16 @@
 
 
 ## Contents
-- Database 주요 업무
-- 성능(Performance)
-- SQL
-- MariaDB
-- SQL Example
+1. Database 주요 업무
+2. DBMS(DataBase Management System)
+3. 성능(Performance)
+4. SQL(Structure Query Language)
+5. 주요 Query
+6. 주요 Command
 
 
-## Database 주요 업무
-- 서비스 관리 그리고 점검 및 모니터링
+## 1. Database 주요 업무
+- 서비스 상태(성능, 보안 등)와 점검 및 모니터링
 - 장애
 - Backup & Recovery
 - 사용자 및 권한
@@ -19,7 +20,11 @@
 - Index
 
 
-## 성능(Performance)
+## 2. DBMS(DataBase Management System)
+- Data vs. DB(DataBase) vs. DBMS(DataBase Management System) vs. RDBMS(Relational DataBase Management System)
+
+
+## 3. 성능(Performance)
 ### 최적화를 위한 권장 사항
 #### 설계(Design) 시
 - 반복률이 높은 Column은 Code Table로 작성한다.
@@ -58,7 +63,7 @@
 		- [권장] SELECT ENAME FROM EMP WHERE SAL > 10000 AND DEPTNO = 20;
 
 
-## SQL
+## 4. SQL(Structure Query Language)
 ### Overview of SQL Joins
 - (Inner) Join은 내부 조인으로 테이블을 조인할 때 모든 테이블의 지정된 열에 데이터가 있어야 한다.
 - Left/Right/Full (Outer) Join은 외부 조인으로 1개의 테이블에만 데이터가 있어도 조인한다.
@@ -67,21 +72,7 @@
 - Natural Join은 등가 조인으로 두 테이블 간의 동일한 이름을 갖는 모든 컬럼들에 대해 조인한다.
 
 
-## MariaDB
-```sql
--- 데이터베이스 생성
-CREATE DATABASE backoffice DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-
--- Connection Pool 최대 허용 수
-SHOW VARIABLES LIKE '%max_connection%';
--- Connection Pool 최대 접속 수
-SHOW STATUS LIKE 'Max_used_connections';
--- Connection Pool 현재 접속 수
-SHOW STATUS LIKE 'Threads_connected';
-```
-
-
-## SQL Example
+## 5. 주요 Query
 ### Recursive Query for Oracle and ANSI
 ```sql
 /*******************************
@@ -164,4 +155,19 @@ WHERE
 	FLG_USE = 'Y'
 ORDER BY
 	LVL, SEQ_CTG_PARENT, ORDER_DISPLAY;
+```
+
+
+## 6. 주요 Command
+### MariaDB
+```sql
+-- 데이터베이스 생성
+CREATE DATABASE backoffice DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+-- Connection Pool 최대 허용 수
+SHOW VARIABLES LIKE '%max_connection%';
+-- Connection Pool 최대 접속 수
+SHOW STATUS LIKE 'Max_used_connections';
+-- Connection Pool 현재 접속 수
+SHOW STATUS LIKE 'Threads_connected';
 ```
