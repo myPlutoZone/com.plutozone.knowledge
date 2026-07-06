@@ -1,6 +1,14 @@
 # com.plutozone.knowledge.ai
 
 
+## Overview
+- 프롬프트(잘 묻기) vs. 컨텍스트(자료 제공) vs. 하네스(통합 환경) vs. 에이전트(자체 동작)
+- Vibe Coding
+	- JARVIS(Just a Really Very Intelligent System)
+	- Prompt vs. Context vs. Harness Engineering
+	- Cursor + Stitch + Playwright by Vibe Coding
+
+
 ## Fundamental
 - 분류와 예측 그리고 생성(Generative)이란?
 - Colab(코랩: https://colab.research.google.com)이란?

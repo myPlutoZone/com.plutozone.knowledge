@@ -12,3 +12,7 @@ NIC 1:           MAC: 080027C96441, Attachment: Host-only...
 $ arp -a | grep 08:00:27:c9:64:41
 ? (192.168.56.51) at 08:00:27:c9:64:41 [ether] on vboxnet0
 ```
+- Citrix
+	- Citrix Hypervisor(=XenServer): Citrix의 가상화 Hypervisor
+	- Citrix Xencenter: Xenserver에 연결하여 VM, Storage 등의 Resource를 관리하는 도구
+	- Citrix Virtual Desktop and Apps: Citrix의 가상 데스크톱 또는 가상 앱

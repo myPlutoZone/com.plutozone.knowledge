@@ -1,0 +1,53 @@
+# com.plutozone.knowledge.development.SolutionByOpenSources
+
+- Open Source
+	- copyright(Apache 2.0) vs. copyleft(GPL 3.0)
+	- Copyright
+		- 콘텐츠는 저작권 표시가 없어도 원칙적으로 저작권 보호를 받는다. 단, 구글 검색 등은 제외될 수도 있다.
+		- 침해의 기준은 복사가 아닌 손해가 실제 발생한 경우에 적용될 수도 있다.
+		- 소스 저작권 vs. 오픈 소스 저작권
+	- 지식(지적) 재산권의 분류와 관할 기관 및 기한 in Korea
+- Nexus Repository for Maven(Java), NPM(Node.js), PyPI(Python), ATP/YUM, Raw 등 설치 및 설정 그리고 관리
+- ELK Stack(Elastic search + Logstash + Kibana and Beats)
+	- Overview
+		- Elastic Search(=Storage)
+		- Logstash(=Data Processing)
+		- Kibana(Visualize)
+		- Beats(Data Collection)
+	- Configuration	
+		- *.log > Filebeat(수집) > Logstash(처리) > Elastic Search(저장) > Kibana(전시)
+	- Beats	
+		- Filebeat(Log File)
+		- Metricbeat(CPU, Memory, Disk)
+		- Packetbear(Network Traffic)
+		- Auditbear(Security Event)
+		- Heartbear(Service Health Check)
+- GitHub + AWS CodePipeline + AWS CodeBuild + AWS Elastic Beantalk(무료: 서비스에 대한 배포, 운영, 확장을 지원하는 PaaS)
+- Builder(Ant, Maven, Gradle 등) + CI(GitLab, GitHub 등) + CD(Jenkins 등) + WAS(Tomcat 등)
+	- Common
+		- Eclipse Maven Project(Spring Web at mavenForMoon.zip)
+			- 디렉토리 구조를 Maven 형태로 변경하고 Source(*.java), Output(*.class) 등을 설정(참조 Library는 추후 설정)
+			- Java 또는 Dynamic Web Project를 Maven Project로 변경
+			- pom.xml 설정(dependacy 등 포함)
+			- GitLab에 Maven-Wrapper 및 Project 업로드
+	- Git Client + Shell을 통한 Build and Deploy
+		- Install Git and Clone Repository
+		- Build & Deploy by run.sh
+	- Jenkins을 통한 Build(mvnw.sh 및 pom.xml을 통해 *.war 생성 등) and Deploy
+		- Jenkins(Build Server)에서 GitLab의 Project 다운로드 후 빌드
+		- Jenkins(Deploy Server)를 통하여 Tomat(Application Server)에 배포
+- Slack
+	- Slack + GitLab
+		- Slack
+			- Add Channel for **GitLab** Repository
+			- Add Apps
+			- Add "Incoming WebHooks"
+			- Select Channel and Copy Webhook URL(예: https://hooks.slack.com/services/...) for GitLab
+		- GitLab
+			- Go settins > Integrations > Slack notificatios and Paste Webook URL(예: https://hooks.slack.com/services/...)
+	- Slack + GitHub
+		- Slack
+			- Add a Channel for **GitHub** Repository
+			- Add Apps at Slack
+			- Add "GitHub"
+			- Select a Channel and Write command(/github subscribe [Owner/Repository] or /github unsubscribe [Owner/Repository])

@@ -15,13 +15,6 @@
 
 
 ## OS
-| Linux                                     | Windows                               | 설명 |
-| :---------------------------------------- | :------------------------------------ | :--- |
-| pluto@UbuntuS24:~$ export                 | C:\Users\pluto>set	                  | 모든 환경 변수 확인 |
-| pluto@UbuntuS24:~$ export MY_ENV=hello    | C:\Users\pluto>set MY_ENV=hello       | 환경 변수 설정(export를 생략하면 local 환경 변수 at Linux) |
-| pluto@UbuntuS24:~$ echo $MY_ENV           | C:\Users\pluto>echo %MY_ENV%	        | 환경 변수 확인 |
-| pluto@UbuntuS24:~$ echo $PATH             | C:\Users\pluto>PATH	                  | 개별 환경 변수 확인(예: PATH) |
-
 - [Linux](./os/linux.md)
 - [Rocky](./os/rocky.md)
 - [Ubuntu](./os/ubuntu.md)
@@ -66,4 +59,3 @@
 - Database
 	- 선착순 응모 이벤트에서 DB가 다운(단, Network와 Application의 가용성은 문제 없다고 가정함)되어도 응모 정보를 저장할 수 있는 방법(예: P사 Event)
 	- 읽기 전용의 Application이 DB가 다운되어도 Application이 정상 동작하게 하는 방법(예: M사 M/G)
-
