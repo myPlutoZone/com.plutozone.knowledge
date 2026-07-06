@@ -1,10 +1,10 @@
 # com.plutozone.knowledge.development.CleanCode
 
-
+<!--
 ## TODO
-- 현재의 개발 관점으로 현행화
-- 사유와 실무 예제를 추가
-
+- 지속적으로 현재의 개발 관점으로 현행화
+- 지속적으로 예제 등을 추가
+-->
 
 ## Overview
 ### 출처

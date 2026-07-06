@@ -1,3 +1,8 @@
+<!--
+- ![Generic badge](https://img.shields.io/badge/IMPORTANT-comment_...-red.svg)
+- ![Generic badge](https://img.shields.io/badge/CONFIRM-comment_...-green.svg)
+- ![Generic badge](https://img.shields.io/badge/REFERENCE-comment_...-blue.svg)
+-->
 > YOU ARE STRICTLY PROHIBITED TO COPY, DISCLOSE, DISTRIBUTE, MODIFY OR USE THIS
 DOCUMENT IN PART OR AS A WHOLE WITHOUT THE PRIOR WRITTEN CONSENT OF
 PLUTOZONE.COM.
@@ -11,12 +16,6 @@ plutozone.com의 지적재산권 침해에 해당된다.
 > Copyright © 2005 plutozone.com All Rights Reserved
 
 ![정보기술-개발](./IT-development.png )
-
-<!--
-- ![Generic badge](https://img.shields.io/badge/IMPORTANT-comment_...-red.svg)
-- ![Generic badge](https://img.shields.io/badge/CONFIRM-comment_...-green.svg)
-- ![Generic badge](https://img.shields.io/badge/REFERENCE-comment_...-blue.svg)
--->
 
 # Overview
 - Our knowledge and wisdom are learned from someone and should be given to the next person.
@@ -36,5 +35,5 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # Reference
-- 2023-08-24 [INSERT] Comment in only 개선(BETTER), 추가(INSERT), 결함(FAULT), 수정(UPDATE), 삭제(DELETE), 참고(REPORT) for Push
-- 2023-08-24 [REPORT] Generate a token for an Eclipse Password(Profile > Settings > Developer Settings > Personal access tokens (classic) at GitHub)
+- Comment in only ..., 개선(BETTER), 추가(INSERT), 결함(FAULT), 수정(UPDATE), 삭제(DELETE), 참고(REPORT) for Push
+- Generate a token for an Eclipse Password(Profile > Settings > Developer Settings > Personal access tokens (classic) at GitHub)
