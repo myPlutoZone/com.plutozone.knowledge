@@ -2,29 +2,92 @@
 
 
 ## Contents
-1. Database 주요 업무
-2. DBMS(DataBase Management System)
-3. 성능(Performance)
-4. SQL(Structure Query Language)
-5. 주요 Query
-6. 주요 Command
+1. [개요](#1-개요)
+2. [설계](#2-설계)
+3. [데이터 정규화](#3-데이터-정규화)
+4. [SQL 기본](#4-sql-기본)
+5. [SQL 확장](#5-sql-확장)
+6. [데이터 조작 및 관리](#6-데이터-조작-및-관리)
+7. [객체](#7-객체)
+8. [성능(Performance)](#8-성능performance)
+9. [데이터 무결성과 보안](#9-데이터-무결성과-보안)
+10. [운영](#10-운영)
+11. [주요 Query](#11-주요-query)
+12. [주요 Command](#12-주요-command)
+13. [프로젝트](#13-프로젝트)
 
 
-## 1. Database 주요 업무
-- 서비스 상태(성능, 보안 등)와 점검 및 모니터링
-- 장애
-- Backup & Recovery
-- 사용자 및 권한
-- System 및 User Database
-- Database 저장 공간
-- Index
+## 1. 개요
+> Data vs. DB(DataBase) vs. DBMS(DataBase Management System) vs. RDBMS(Relational DataBase Management System)
+### 데이터(Data)와 정보(Information)
+### DB(DataBase)란?
+### DBMS(DataBase Management System)
+### 관계형 데이터베이스(RDBMS, Relational DataBase Management System)
 
 
-## 2. DBMS(DataBase Management System)
-- Data vs. DB(DataBase) vs. DBMS(DataBase Management System) vs. RDBMS(Relational DataBase Management System)
+## 2. 설계
+### 데이터 모델링 개념
+### ERD(Entity Relationship Diagram)
+### 엔터티(Entity)와 속성(Attribute)
+### 관계(Relationship)
+### 기본키(Primary Key)와 외래키(Foreign Key)
 
 
-## 3. 성능(Performance)
+## 3. 데이터 정규화
+### 정규화의 필요성
+### 제1정규형(1NF)
+### 제2정규형(2NF)
+### 제3정규형(3NF)
+### 반정규화
+
+
+## 4. SQL 기본
+### SQL 개요
+- DDL(Data Definition Language) vs. DML(Data Manipulation Language) and DCL(Data Control Language)
+
+### 조회(SELECT)
+### 조건(WHERE)
+### 정렬(ORDER BY)
+### 그룹(GROUP BY)
+### 집계(HAVING)
+### 구분(DISTINCT)
+
+
+## 5. SQL 고급
+### Overview of SQL Joins
+- (Inner) Join은 내부 조인으로 테이블을 조인할 때 모든 테이블의 지정된 열에 데이터가 있어야 한다.
+- Left/Right/Full (Outer) Join은 외부 조인으로 1개의 테이블에만 데이터가 있어도 조인한다.
+- Self Join은 자체 조인으로 자신이 자신과 조인하며 1개의 테이블을 사용한다.
+- Cross Join은 상호 조인으로 한 쪽 테이블의 모든 행과 다른 쪽 테이블의 모든 행을 조인한다.
+- Natural Join은 등가 조인으로 두 테이블 간의 동일한 이름을 갖는 모든 컬럼들에 대해 조인한다.
+
+### Subquery
+### UNION
+### 제어문(IF, CASE, ...)
+### 함수(집계, 문자열, 날짜, ...)
+
+
+## 6. 데이터 조작 및 관리
+### INSERT
+### UPDATE
+### DELETE
+### MERGE
+### 트랜잭션(Transaction)
+### COMMIT vs. ROLLBACK
+
+
+## 7. 객체
+### Table
+### View
+### Index
+### Sequence
+### Synonym
+### Stored Procedure
+### Function
+### Trigger
+
+
+## 8. 성능(Performance)
 ### 최적화를 위한 권장 사항
 #### 설계(Design) 시
 - 반복률이 높은 Column은 Code Table로 작성한다.
@@ -62,17 +125,37 @@
 		- SELECT ENAME FROM VIEW_EMP WHERE DEPTNO = 20;
 		- [권장] SELECT ENAME FROM EMP WHERE SAL > 10000 AND DEPTNO = 20;
 
-
-## 4. SQL(Structure Query Language)
-### Overview of SQL Joins
-- (Inner) Join은 내부 조인으로 테이블을 조인할 때 모든 테이블의 지정된 열에 데이터가 있어야 한다.
-- Left/Right/Full (Outer) Join은 외부 조인으로 1개의 테이블에만 데이터가 있어도 조인한다.
-- Self Join은 자체 조인으로 자신이 자신과 조인하며 1개의 테이블을 사용한다.
-- Cross Join은 상호 조인으로 한 쪽 테이블의 모든 행과 다른 쪽 테이블의 모든 행을 조인한다.
-- Natural Join은 등가 조인으로 두 테이블 간의 동일한 이름을 갖는 모든 컬럼들에 대해 조인한다.
+### 인덱스 활용
+### 실행 계획(Execution Plan)
+### SQL 튜닝
+### 성능 저하 원인 분석
 
 
-## 5. 주요 Query
+## 9. 데이터 무결성과 보안
+### 데이터 무결성
+### 제약조건(Constraint)
+### 사용자 및 권한 관리
+### 백업과 복구(Backup & Recovery)
+### 데이터 암호화
+
+## 10. 운영
+### 주요 운영 업무
+- 유지보수
+- 장애 대응과 모니터링
+- 사용자 및 권한 관리
+- 백업과 복구(Backup & Recovery)
+
+### 데이터베이스 운영 프로세스
+### 유지보수
+- 성능 및 데이터 무결성과 보안
+- System 및 User Database
+- 저장 공간과 인덱스
+- 로그
+### 장애 대응
+### 모니터링
+
+
+## 11. 주요 Query
 ### Recursive Query for Oracle and ANSI
 ```sql
 /*******************************
@@ -158,7 +241,7 @@ ORDER BY
 ```
 
 
-## 6. 주요 Command
+## 12. 주요 Command
 ### MariaDB
 ```sql
 -- 데이터베이스 생성
@@ -171,3 +254,13 @@ SHOW STATUS LIKE 'Max_used_connections';
 -- Connection Pool 현재 접속 수
 SHOW STATUS LIKE 'Threads_connected';
 ```
+
+
+## 13. 프로젝트
+### 요구사항 분석
+### 데이터 모델링
+### 테이블 생성
+### SQL 작성
+### 데이터 입력
+### 조회 및 분석
+### 검증 및 개선
