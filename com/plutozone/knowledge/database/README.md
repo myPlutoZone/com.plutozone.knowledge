@@ -1,12 +1,19 @@
 # com.plutozone.knowledge.database
 
+<!--
+## TODO
+- 정리
+- 다이어그램 for join by MarkDown
+- 기존 문서들 추가
+- NCS 20 페이지부터 재시작
+-->
 
 ## Contents
 1. [개요](#1-개요)
 2. [설계](#2-설계)
 3. [데이터 정규화](#3-데이터-정규화)
-4. [SQL 기본](#4-sql-기본)
-5. [SQL 확장](#5-sql-확장)
+4. [SQL(Structure Query Language) 기본](#4-sqlstructure-query-language-기본)
+5. [SQL(Structure Query Language) 확장](#5-sqlstructure-query-language-고급)
 6. [데이터 조작 및 관리](#6-데이터-조작-및-관리)
 7. [객체](#7-객체)
 8. [성능(Performance)](#8-성능performance)
@@ -15,14 +22,20 @@
 11. [주요 Query](#11-주요-query)
 12. [주요 Command](#12-주요-command)
 13. [프로젝트](#13-프로젝트)
-
+14. Tips
 
 ## 1. 개요
-> Data vs. DB(DataBase) vs. DBMS(DataBase Management System) vs. RDBMS(Relational DataBase Management System)
+> Data and Information vs. DB(DataBase) vs. DBMS(DataBase Management System) vs. RDBMS(Relational DataBase Management System)
 ### 데이터(Data)와 정보(Information)
 ### DB(DataBase)란?
 ### DBMS(DataBase Management System)
 ### 관계형 데이터베이스(RDBMS, Relational DataBase Management System)
+- Oracle
+- Microsoft SQL Server
+- MySQL
+- MariaDB
+- PostgreSQL
+- ...
 
 
 ## 2. 설계
@@ -41,9 +54,71 @@
 ### 반정규화
 
 
-## 4. SQL 기본
+## 4. SQL(Structure Query Language) 기본
+> DDL(Data Definition Language) vs. DML(Data Manipulation Language) and DCL(Data Control Language)/TCL(Transaction Control Language)
 ### SQL 개요
-- DDL(Data Definition Language) vs. DML(Data Manipulation Language) and DCL(Data Control Language)
+- 구조적 질의 언어
+
+### SQL 분류
+#### DDL(Data Definition Language, 데이터 정의 언어) 
+- 주요 대상
+	- 스키마(Schema, DBMS의 특징과 구축 환경에 기반한 데이터 구조로 이루어진 하나의 데이터베이스)
+	- 도메인(Domain, 개체 속성의 데이터 타입과 범위, 제약 조건 등을 설정한 정보 예: 주소를 varchar(256)로 정의)
+	- 테이블(Table, 데이터 저장 공간)
+	- 뷰(View, 1개 이상의 물리 테이블을 통해서 만드는 가상의 논리 테이블)
+	- 인덱스(Index, 빠른 검색을 위한 데이터 구조)
+	- ...
+- 주요 유형
+	- 생성(CREATE)
+	- 변경(ALTER)
+	- 삭제(DROP)
+	- 비움(TRUNCATE, 로깅하지 않고 데이터 삭제)
+	- ...
+- 주요 제약 조건(Constraint)
+	- PRIMARY KEY(PK, 테이블의 기본 키를 정의하며 기본적으로 NOT NULL, UNIQUE 제약 사항이 설정됨)
+	- FOREIGN KEY(FK, 테이블에 외래 키를 정의하며 참조 대상을 테이블명(칼럼명) 형식으로 작성해야 하며 참조 무결성이 위배되는 상황 발생 시 옵션(CASCADE, NO ACTION, SET NULL, SET DEFAULT)으로 처리 가능)
+	- UNIQUE(UI, 테이블에서 해당하는 열값은 유일해야 함을 의미하며 테이블에서 모든 값이 다르게 적재되어야 하는 열에 설정됨)
+	- NOT NULL(NN, 테이블에서 해당하는 열의 값은 NULL 불가능하며 필수적으로 입력해야 하는 항목에 설정함)
+	- CHECK(CK, 사용자가 직접 정의하는 제약 조건으로 발생 가능한 상황에 따라 여러 가지 조건을 설정 가능)
+
+#### DML(Data Manipulation Language)
+- 조회(SELECT), 추가(INSERT), 수정(UPDATE), 삭제(DELETE)
+- 다중 테이블 조회(SELECT)
+	- 조인(JOIN, 두 개의 테이블을 결합하여 데이터를 추출하는 기법)
+	- 서브쿼리(Subquery, SQL문 안에 포함된 SQL문 형태의 사용 기법)
+	- 집합(UNION, 연산자 테이블을 집합 개념으로 조작하는 기법)
+
+#### DCL(Data Control Language)/TCL(Transcation Control Language)
+- 대상과 오브젝트 유형(목적)
+	- 사용자 권한(접근 통제, DBMS에 접근할 사용자를 등록하고 특정 사용자에게 데이터베이스의 사용 권한을 부여하는 작업)
+	- 트랜잭션(안전하고 무결한 거래 보장, 동시 다발적으로 발생하는 다수 작업을 독립적이고 안전하게 처리하기 위한 데이터베이스 작업 단위)
+- 유형에 따른 명령
+	- DCL
+		- GRANT: 데이터베이스 사용자 권한 부여
+		- REVOKE: 데이터베이스 사용자 권한 회수
+	- TCL
+		- COMMIT: 트랜잭션 확정
+		- ROLLBACK: 트랜잭션 취소
+		- CHECKPOINT: 복귀지점 설정
+- 권한 유형과 명령
+	- 시스템
+		- CREATE USER: 계정 생성
+		- DROP USER: 계정 삭제
+		- DROP ANY TABLE: 테이블 삭제
+		- CREATE SESSION: 데이터베이스 접속
+		- CREATE TABLE: 테이블 생성
+		- CREATE VIEW: 뷰 생성
+		- CREATE SEQUENCE: 시퀀스 생성
+		- CREATE PROCEDURE: 함수 생성
+		- ...
+	- 객체
+		- ALTER: 변경
+		- INSERT: 추가
+		- DELETE: 삭제
+		- SELECT: 조회
+		- UPDATE: 수정
+		- EXECUTE PROCEDURE: 실행
+		- ...
 
 ### 조회(SELECT)
 ### 조건(WHERE)
@@ -53,16 +128,136 @@
 ### 구분(DISTINCT)
 
 
-## 5. SQL 고급
-### Overview of SQL Joins
-- (Inner) Join은 내부 조인으로 테이블을 조인할 때 모든 테이블의 지정된 열에 데이터가 있어야 한다.
-- Left/Right/Full (Outer) Join은 외부 조인으로 1개의 테이블에만 데이터가 있어도 조인한다.
-- Self Join은 자체 조인으로 자신이 자신과 조인하며 1개의 테이블을 사용한다.
-- Cross Join은 상호 조인으로 한 쪽 테이블의 모든 행과 다른 쪽 테이블의 모든 행을 조인한다.
-- Natural Join은 등가 조인으로 두 테이블 간의 동일한 이름을 갖는 모든 컬럼들에 대해 조인한다.
+## 5. SQL(Structure Query Language) 고급
+### JOINS 분류
+- emp
+| eid | name | did |
+| ------ | ---- | ------- |
+| 1      | Kim  | 1      |
+| 2      | Lee  | 2      |
+| 3      | Park | 3      |
+| 4      | Choi | NULL    |
+
+- dpt
+| did | name |
+| ------- | --------- |
+| 1      | Sales     |
+| 2      | HR        |
+| 4      | IT        |
+
+| JOIN 종류                           | 반환되는 데이터                 |
+| --------------------------------- | ------------------------ |
+| `INNER JOIN`                      | 양쪽 모두 일치하는 데이터만          |
+| `LEFT OUTER JOIN` (`LEFT JOIN`)   | 왼쪽 테이블 전체 + 일치하는 오른쪽 데이터 |
+| `RIGHT OUTER JOIN` (`RIGHT JOIN`) | 오른쪽 테이블 전체 + 일치하는 왼쪽 데이터 |
+| `FULL OUTER JOIN`                 | 양쪽 테이블 전체                |
+
+- INNER JOIN: 두 테이블 모두에 존재하는 데이터만 필요한 경우(예: 주문과 고객 정보가 모두 있는 주문 조회)
+- LEFT JOIN: 기준 테이블의 모든 데이터를 유지하면서 관련 정보가 있으면 함께 조회하는 경우(예: 모든 직원과 부서 정보 조회)
+- RIGHT JOIN: 오른쪽 테이블을 기준으로 모든 데이터를 조회해야 하는 경우(실무에서는 LEFT JOIN으로 테이블 순서를 바꿔 작성하는 경우가 더 많음)
+- FULL OUTER JOIN: 두 테이블 간 불일치 데이터까지 모두 확인해야 하는 경우(예: 데이터 정합성 검증, 누락 데이터 확인)
+
+- 논리적 조인(사용자가 작성한 SQL문에 의해서 표현한 테이블 결합 방식)
+	- 내부 조인(Inner Join, 일치하는 데이터만 조회)
+	```sql
+	SELECT e.emp_id,
+       e.name,
+       d.dept_name
+FROM Employee e
+INNER JOIN Department d
+ON e.dept_id = d.dept_id;
+	```
+| emp_id | name | dept_name |
+| ------ | ---- | --------- |
+| 1      | Kim  | Sales     |
+| 2      | Lee  | HR        |
+
+- dept_id가 같은 행만 조회됩니다.
+- Park(30)는 Department에 없으므로 제외됩니다.
+- Choi(NULL)도 제외됩니다.
+
+		- 동등 조인(Equi Join, 공통으로 있는 칼럼 값이 같은 경우에 레코드 추출)
+		- 자연 조인(Natural Join, 두 테이블에 있는 동일한 칼럼명을 기준으로 모든 칼럼 값이 같은 경우에 레코드 추출)
+		- 교차 조인(Cross Join, 조인 조건이 없는 모든 데이터의 조합을 추출)
+		- 자체 조인(Self Join, 자신이 자신과 조인하며 1개의 테이블을 사용)
+	- 외부 조인(Outer Join, 특정한 테이블의 모든 데이터를 기준으로 다른 테이블의 정보와 비교하여 추출(단, 다른 테이블에 동일한 값이 없어도 특정한 테이블은 출력됨)
+		- 왼쪽 외부 조인(Left Outer Join, 왼쪽 테이블의 모든 데이터를 조회 + 일치하는 데이터가 없으면 오른쪽 컬럼은 NULL)
+		```sql
+		SELECT e.emp_id,
+       e.name,
+       d.dept_name
+FROM Employee e
+LEFT JOIN Department d
+-- LEFT OUTER JOIN Department d
+ON e.dept_id = d.dept_id;
+		```
+| emp_id | name | dept_name |
+| ------ | ---- | --------- |
+| 1      | Kim  | Sales     |
+| 2      | Lee  | HR        |
+| 3      | Park | NULL      |
+| 4      | Choi | NULL      |
+- Employee의 모든 데이터가 출력됩니다.
+- Department가 없으면 NULL이 출력됩니다.
+		- 오른쪽 외부 조인(Right Outer Join, 오른쪽 테이블의 모든 데이터를 조회)
+		```sql
+		SELECT e.emp_id,
+       e.name,
+       d.dept_name
+FROM Employee e
+RIGHT OUTER JOIN Department d
+ON e.dept_id = d.dept_id;
+		```
+| emp_id | name | dept_name |
+| ------ | ---- | --------- |
+| 1      | Kim  | Sales     |
+| 2      | Lee  | HR        |
+| NULL   | NULL | IT        |
+- Department의 모든 데이터가 출력됩니다.
+- IT 부서는 직원이 없으므로 Employee 컬럼은 NULL입니다.
+		- 완전 외부 조인(Full Outer Join, 양쪽 테이블의 모든 데이터를 조회 + 일치하지 않는 데이터는 NULL로 표시)
+		```sql
+		SELECT e.emp_id,
+       e.name,
+       d.dept_name
+FROM Employee e
+FULL OUTER JOIN Department d
+ON e.dept_id = d.dept_id;
+		```
+| emp_id | name | dept_name |
+| ------ | ---- | --------- |
+| 1      | Kim  | Sales     |
+| 2      | Lee  | HR        |
+| 3      | Park | NULL      |
+| 4      | Choi | NULL      |
+| NULL   | NULL | IT        |
+- Employee의 모든 행
+- Department의 모든 행
+- 둘 다 포함됩니다
+
+- FULL OUTER JOIN은 데이터베이스마다 지원 여부가 다릅니다. 예를 들어 PostgreSQL과 SQL Server는 지원하지만, MySQL은 직접 지원하지 않아 LEFT JOIN과 RIGHT JOIN 결과를 UNION으로 결합하는 방식 등을 사용합니다.
+
+- 물리적 조인: 데이터베이스 관리시스템(DBMS)의 옵티마이저 엔진에 의해 발생하는 테이블 결합 방식
+	- Nested Loop Join
+	- Merge Join
+	- Hash Join
 
 ### Subquery
+- 동작하는 방식에 따른 서브쿼리의 종류
+	- 비연관(Un-Correlated) 서브쿼리: 서브쿼리 안에 메인쿼리의 칼럼 정보를 가지고 있지 않은 형태(서브쿼리는 메인쿼리 없이 독자적으로 실행)
+	- 연관(Correlated) 서브쿼리: 서브쿼리 안에 메인쿼리의 칼럼 정보를 가지고 있는 형태(메인쿼리의 실행된 결과를 통해서 서브쿼리의 조건이 맞는지 확인)
+- 반환되는 데이터 형태에 따른 서브쿼리의 종류
+	- Single Row(단일 행) 서브쿼리: 서브쿼리의 결과가 항상 1건 이하인 서브쿼리로 단일 행의 비교 연산자에는 =, <, <=, >, >=, <> 등이 사용
+	- Multiple Row(다중 행) 서브쿼리: 서브쿼리 실행 결과가 여러 건인 서브쿼리로 다중 행의 비교 연산자에는 IN, EXISTS, ALL, ANY 등이 사용
+	- Multiple Column(다중 칼럼) 서브쿼리: 서브쿼리의 실행 결과가 2개 이상 칼럼으로 반환되는 쿼리로 메인쿼리의 조건절에 다수 칼럼을 비교할 때 서브쿼리와메인쿼리에서 비교하는 칼럼 개수, 위치가 동일해야 함
+
 ### UNION
+- 집합 연산자 유형
+	- UNION: 2개 이상 SQL문의 실행 결과에 대한 중복을 제거한 합집합
+	- UNION ALL: 2개 이상 SQL문의 실행 결과에 대한 중복을 제거하지 않은 합집합
+	- INTERSECTION: 2개 이상 SQL문의 실행 결과에 대한 중복을 제거한 교집합
+	- EXCEPT(MINUS): 선행 SQL문의 실행 결과와 후행 SQL문의 실행 결과 사이의 중복을 제거한 차집합(일부 DBMS는 MINUS로 사용)
+
 ### 제어문(IF, CASE, ...)
 ### 함수(집계, 문자열, 날짜, ...)
 
@@ -133,7 +328,7 @@
 
 ## 9. 데이터 무결성과 보안
 ### 데이터 무결성
-### 제약조건(Constraint)
+### 제약 조건(Constraint)
 ### 사용자 및 권한 관리
 ### 백업과 복구(Backup & Recovery)
 ### 데이터 암호화
@@ -264,3 +459,25 @@ SHOW STATUS LIKE 'Threads_connected';
 ### 데이터 입력
 ### 조회 및 분석
 ### 검증 및 개선
+
+
+## 14. Tips
+### PostgreSQL
+	- 설치 시
+		- Stack Builder: Disable
+		- Locale: Korean, Korea
+	- 설치 확인
+	```cmd
+	C:\> netstat -ano | findstr 5432
+	```
+	- DB 생성
+	```cmd
+	C:\> cd C:\Program Files\PostgreSQL\18\bin
+	C:\Program Files\PostgreSQL\18\bin> psql -U postgres
+	...
+	postgres=# \l							# DB 목록 조회
+	postgres=# CREATE DATABASE "PlutoZone";	# DB 생성
+	postgres=# \l
+	```
+	- Connect by DBeaver
+	- ...
