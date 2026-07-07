@@ -130,29 +130,30 @@
 
 ## 5. SQL(Structure Query Language) 고급
 ### JOINS 분류
-- emp
-| eid | name | did |
-| ------ | ---- | ------- |
-| 1      | Kim  | 1      |
-| 2      | Lee  | 2      |
-| 3      | Park | 3      |
-| 4      | Choi | NULL    |
+- emp for Employee 테이블
 
-- dpt
-| did | name |
-| ------- | --------- |
-| 1      | Sales     |
-| 2      | HR        |
-| 4      | IT        |
+| eid | name | did  |
+| --- | ---- | ---- |
+| 1   | Kim  | 1    |
+| 2   | Lee  | 2    |
+| 3   | Park | 3    |
+| 4   | Choi | NULL |
 
-| JOIN 종류                           | 반환되는 데이터                 |
-| --------------------------------- | ------------------------ |
-| `INNER JOIN`                      | 양쪽 모두 일치하는 데이터만          |
-| `LEFT OUTER JOIN` (`LEFT JOIN`)   | 왼쪽 테이블 전체 + 일치하는 오른쪽 데이터 |
-| `RIGHT OUTER JOIN` (`RIGHT JOIN`) | 오른쪽 테이블 전체 + 일치하는 왼쪽 데이터 |
-| `FULL OUTER JOIN`                 | 양쪽 테이블 전체                |
+- dpt for Department 테이블
+| did | name  |
+| --- | ----- |
+| 1   | Sales |
+| 2   | HR    |
+| 4   | IT    |
 
-- INNER JOIN: 두 테이블 모두에 존재하는 데이터만 필요한 경우(예: 주문과 고객 정보가 모두 있는 주문 조회)
+|                              | Result |
+| ---------------------------- | ------ |
+| INNER JOIN                   | 모두 일치하는 데이터만 |
+| LEFT OUTER JOIN(LEFT JOIN)   | 왼쪽 테이블 전체 + 일치하는 오른쪽 데이터 |
+| RIGHT OUTER JOIN(RIGHT JOIN) | 오른쪽 테이블 전체 + 일치하는 왼쪽 데이터 |
+| FULL OUTER JOIN              | 전체 데이터 |
+
+- INNER JOIN: 모든에 존재하는 데이터만 필요한 경우(예: 주문과 고객 정보가 모두 있는 주문 조회)
 - LEFT JOIN: 기준 테이블의 모든 데이터를 유지하면서 관련 정보가 있으면 함께 조회하는 경우(예: 모든 직원과 부서 정보 조회)
 - RIGHT JOIN: 오른쪽 테이블을 기준으로 모든 데이터를 조회해야 하는 경우(실무에서는 LEFT JOIN으로 테이블 순서를 바꿔 작성하는 경우가 더 많음)
 - FULL OUTER JOIN: 두 테이블 간 불일치 데이터까지 모두 확인해야 하는 경우(예: 데이터 정합성 검증, 누락 데이터 확인)
