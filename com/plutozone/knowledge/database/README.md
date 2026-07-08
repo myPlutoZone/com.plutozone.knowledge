@@ -41,12 +41,12 @@
 	- 설치 등
 	- Client Tool
 		- SQL Developer
-			- GUI 기반 Client Tool for Oracle
+			- GUI 기반 Client Tool at Oracle
 			- Data Modeler 등
 		- SQL*Plus
-			- Text 기반 Client Tool for Oracle
+			- Text 기반 Client Tool at Oracle
 		- Oracle Application Express
-			-  Web 기반 Client Tool for Oracle
+			-  Web 기반 Client Tool at Oracle
 - Microsoft SQL Server
 - MySQL
 - MariaDB
@@ -67,7 +67,7 @@
 - Execution Plan
 
 #### 백업과 복원
-- exp.exe 그리고 imp.exe for Oracle
+- exp.exe 그리고 imp.exe at Oracle
 
 #### 응용 프로그램과 연동
 - Java(Spring), .NET, PHP(Laravel) 등
@@ -88,7 +88,6 @@
 - Data Modeler at Oracle SQL Developer
 - ER Modeler at MySQL Workbench
 - ERwin, exERD 등
-
 
 #### 데이터 모델링 절차
 - 업무 분석
@@ -117,7 +116,21 @@
 ### 2-3. 엔터티(Entity)와 속성(Attribute)
 ### 2-4. 관계(Relationship)
 ### 2-5. 기본키(Primary Key)와 외래키(Foreign Key)
+### 2-6. 데이터 타입(Data Type)
+#### ANSI
+| Oracle     | ANSI     | 범위(크기)      | Range |
+|------------|----------|----------------|-------|
+| NUMBER(3)  | tinyint  | 2^8  (1 바이트) | -2^7(-128) ~ 2^7-1(127) 또는 0 ~ 255 |
+| NUMBER(5)  | smallint | 2^16 (2 바이트) | -2^15(-32,768) ~ 2^15-1(32,767) 또는 0 ~ 65,535 |
+| NUMBER(10) | int      | 2^32 (4 바이트) | -2^31(-2,147,483,648) ~ 2^31-1(2,147,483,647) 또는 0 ~ 4,294,967,295 |
+| NUMBER(19) | bigint   | 2^64 (8 바이트) | -2^63 ~ 2^63-1 |
 
+#### Oracle
+- 명시적 변환(Explicit Conversion) vs. 암시적 변환(Implicit Conversion)
+- NUMBER
+- CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB, NCLOB
+- BLOB
+- DATE
 
 ## 3. 데이터 정규화
 ### 정규화의 필요성
@@ -130,12 +143,12 @@
 ## 4. SQL(Structure Query Language) 기본
 > DDL(Data Definition Language) vs. DML(Data Manipulation Language) and DCL(Data Control Language)/TCL(Transaction Control Language)
 
-### SQL 개요
+### 4-1. SQL 개요
 - SQL(구조적 질의 언어)이란?
 - 특징
 - ANSI SQL vs. PL/SQL vs. T-SQL
 
-### SQL 분류
+### 4-2. SQL 분류
 #### DDL(Data Definition Language, 데이터 정의 언어) 
 - 주요 대상
 	- 스키마(Schema, DBMS의 특징과 구축 환경에 기반한 데이터 구조로 이루어진 하나의 데이터베이스)
@@ -196,28 +209,48 @@
 		- EXECUTE PROCEDURE: 실행
 		- ...
 
-### 조회(SELECT)
+### 4-3. 조회(SELECT)
 - FROM과 owner, column, alias
 - CREATE TABLE … AS SELECT
 
-### 조건(WHERE)
-- WHERE과 operator 그리고 BETWEEN, IN, LIKE, ANY, ALL 및 Sub Query
+### 4-4. 조건(WHERE)
+- WHERE과 operator 그리고 BETWEEN, IN/NOT IN, LIKE, ANY, ALL 및 Sub Query
 
-### 정렬(ORDER BY)
+### 4-5. 정렬(ORDER BY)
 - ORDER BY
 - ROWNUM, SAMPLE
 
-### 그룹(GROUP BY) and 집계(HAVING) and 구분(DISTINCT)
+### 4-6. 그룹(GROUP BY) and 집계(HAVING) and 구분(DISTINCT)
 - GROUP BY, HAVING 그리고 Aggregate Function
 - DISTINCT
 
-### 기타
+### 4-7. 기타
 - ROLLUP(), GROUPING_ID(), CUBE()
 - WITH와 CTE
 
 
 ## 5. SQL(Structure Query Language) 고급
-### 테이블 정보
+### 5-1. JOIN 분류
+```mermaid
+flowchart TD
+JOIN[JOIN]
+
+JOIN --> INNER[INNER JOIN]
+JOIN --> SELF[SELF JOIN]
+JOIN --> CROSS[CROSS JOIN]
+JOIN --> OUTER[OUTER JOIN]
+
+INNER --> EQUI[EQUI JOIN: =]
+INNER --> THETA[THETA JOIN: =, >, <, >=, <=, !=]
+
+OUTER --> LEFT[LEFT OUTER JOIN]
+OUTER --> RIGHT[RIGHT OUTER JOIN]
+OUTER --> FULL[FULL OUTER JOIN]
+```
+
+<details>
+	<summary>테이블 정보</summary>
+
 - EMP 테이블 for Employee
 	| EID | NAME | DID  | MID  |
 	| --- | ---- | ---- | ---- |
@@ -232,23 +265,9 @@
 	| 1   | Sales |
 	| 2   | HR    |
 	| 4   | IT    |
+</details>
 
-### JOINS 분류
-# SQL JOIN 종류 다이어그램
-
-```mermaid
-flowchart TD
-    JOIN[SQL JOIN]
-
-    JOIN --> INNER[INNER JOIN]
-    JOIN --> LEFT[LEFT OUTER JOIN]
-    JOIN --> RIGHT[RIGHT OUTER JOIN]
-    JOIN --> FULL[FULL OUTER JOIN]
-    JOIN --> CROSS[CROSS JOIN]
-    JOIN --> SELF[SELF JOIN]
-```
-
-#### 논리적 조인
+#### 논리적 조인(JOIN)
 > 사용자가 작성한 SQL문에 의해서 표현한 테이블 결합 방식
 - **내부 조인(`INNER JOIN,` 일치하는 데이터를 기준으로 조회)**
 	- 동등 조인(EQUI JOIN): 모두에 존재하는 데이터만 필요한 경우(예: 고객과 주문 정보가 모두 있는 고객의 주문 조회)
@@ -258,6 +277,7 @@ flowchart TD
 		INNER JOIN DPT d
 		ON e.DID = d.DID;
 		/* = SELECT e.EID, e.NAME, d.NAME FROM EMP e, DPT d WHERE e.DID = d.DID; */
+		/* , for INNER, (+) for OUTER */
 		```
 		| EID    | NAME | NAME      |
 		| ------ | ---- | --------- |
@@ -289,40 +309,40 @@ flowchart TD
 		NATURAL JOIN DPT;
 		/* = SELECT * FROM EMP e JOIN DPT d ON e.DID = d.DID; */
 		```
-	- 교차 조인(CROSS JOIN): 조인 조건이 없는 모든 데이터의 조합을 추출
-		```sql
-		SELECT *
-		FROM EMP e 
-		CROSS JOIN DPT d ;
-		/* = SELECT * FROM EMP, DPT; */
-		```
-		```mermaid
-		flowchart TD
-			A[Table A<br/>3 rows]
-			B[Table B<br/>4 rows]
+- **자체 조인(SELF JOIN): 자신이 자신과 조인하며 1개의 테이블을 사용(예: 조직도/직원-관리자, 댓글, 카테고리 등 계층 구조)**
+	```sql
+	SELECT
+		e.name AS employee,
+		m.name AS manager
+	FROM EMP e
+	JOIN EMP m
+	-- LEFT JOIN EMP m
+		ON e.MID = m.EID;
+	```
+	```mermaid
+	flowchart LR
+	T1[Employee AS e1]
+	T2[Employee AS e2]
 
-			C["Result<br/>3 × 4 = 12 rows"]
+	T1 -->|manager_id = id| T2
+	```
+- **교차 조인(CROSS JOIN): 조인 조건이 없는 모든 데이터의 조합을 추출**
+	```sql
+	SELECT *
+	FROM EMP e 
+	CROSS JOIN DPT d ;
+	/* = SELECT * FROM EMP, DPT; */
+	```
+	```mermaid
+	flowchart TD
+		A[Table A<br/>3 rows]
+		B[Table B<br/>4 rows]
 
-			A --> C
-			B --> C
-		```	
-	- 자체 조인(SELF JOIN): 자신이 자신과 조인하며 1개의 테이블을 사용(예: 조직도/직원-관리자, 댓글, 카테고리 등 계층 구조)
-		```sql
-		SELECT
-			e.name AS employee,
-			m.name AS manager
-		FROM EMP e
-		JOIN EMP m
-		-- LEFT JOIN EMP m
-			ON e.MID = m.EID;
-		```
-		```mermaid
-		flowchart LR
-		T1[Employee AS e1]
-		T2[Employee AS e2]
+		C["Result<br/>3 × 4 = 12 rows"]
 
-		T1 -->|manager_id = id| T2
-		```
+		A --> C
+		B --> C
+	```	
 - **외부 조인(`OUTER JOIN`, 일치하지 않는 데이터도 포함하여 조회)**
 	- 왼쪽 외부 조인(`LEFT OUTER JOIN`=LEFT JOIN): 왼쪽 테이블의 모든 데이터를 유지하면서 관련 정보가 있으면 함께 조회하는 경우(예: 모든 부서에 따른 직원 정보 조회)
 		```sql
@@ -405,13 +425,13 @@ flowchart TD
 		style J fill:#66cc66,color:#000
 		style B fill:#66cc66,color:#000
 		```
-#### 물리적 조인
+#### 물리적 조인(JOIN)
 > 데이터베이스 관리시스템의 옵티마이저 엔진에 의해 발생하는 테이블 결합 방식
 - Nested Loop Join
 - Merge Join
 - Hash Join
 
-### 조인 문법
+### 5-2. 조인(JOIN) 문법
 | 구분 | INNER JOIN | 쉼표(,) + WHERE |
 |------|------------|-----------------|
 | 문법 | ANSI 표준 | 구식 문법 |
@@ -420,8 +440,32 @@ flowchart TD
 | 가독성 | 높음 | 낮음 |
 | 유지 보수 | 쉬움 | 어려움 |
 | 권장 여부 | 권장 | 기존 코드에서 주로 사용 |
+<details>
+	<summary>예제</summary>
 
-### Subquery
+```sql
+SELECT
+	e.EID
+	, e.NAME
+	, d.NAME
+FROM
+	EMP e INNER JOIN DPT d ON e.DID = d.DID
+WHERE
+	1 = 1;
+
+SELECT
+	e.EID
+	, e.NAME
+	, d.NAME
+FROM
+	EMP e
+	, DPT d
+WHERE
+	e.DID = d.DID;
+```
+</details>
+
+### 5-3. Subquery
 - 동작하는 방식에 따른 서브쿼리의 종류
 	- 비연관(Un-Correlated) 서브쿼리: 서브쿼리 안에 메인쿼리의 칼럼 정보를 가지고 있지 않은 형태(서브쿼리는 메인쿼리 없이 독자적으로 실행)
 	- 연관(Correlated) 서브쿼리: 서브쿼리 안에 메인쿼리의 칼럼 정보를 가지고 있는 형태(메인쿼리의 실행된 결과를 통해서 서브쿼리의 조건이 맞는지 확인)
@@ -430,15 +474,12 @@ flowchart TD
 	- Multiple Row(다중 행) 서브쿼리: 서브쿼리 실행 결과가 여러 건인 서브쿼리로 다중 행의 비교 연산자에는 IN, EXISTS, ALL, ANY 등이 사용
 	- Multiple Column(다중 칼럼) 서브쿼리: 서브쿼리의 실행 결과가 2개 이상 칼럼으로 반환되는 쿼리로 메인쿼리의 조건절에 다수 칼럼을 비교할 때 서브쿼리와메인쿼리에서 비교하는 칼럼 개수, 위치가 동일해야 함
 
-### UNION
+### 5-4. UNION
 - 집합 연산자 유형
 	- UNION: 2개 이상 SQL문의 실행 결과에 대한 중복을 제거한 합집합
 	- UNION ALL: 2개 이상 SQL문의 실행 결과에 대한 중복을 제거하지 않은 합집합
 	- INTERSECTION: 2개 이상 SQL문의 실행 결과에 대한 중복을 제거한 교집합
 	- EXCEPT(MINUS): 선행 SQL문의 실행 결과와 후행 SQL문의 실행 결과 사이의 중복을 제거한 차집합(일부 DBMS는 MINUS로 사용)
-
-### 제어문(IF, CASE, ...)
-### 함수(집계, 문자열, 날짜, ...)
 
 
 ## 6. 데이터 조작 및 관리
@@ -451,14 +492,54 @@ flowchart TD
 
 
 ## 7. 객체
+### Programming
+#### PL/SQL at Oracle
+- Oracle에서 제공하는 SQL Programming(Stored Procedure, Function, Trigger에도 적용 가능)
+- DECLARE … BEGIN … END
+- Control Statement: IF, CASE
+- Loop Statement: WHILE LOOP, FOR LOOP, CONTINUE, EXIT, GOTO
+- DBMS_LOCK.SLEEP()
+- EXCEPTION
+- Dynamic SQL
+
+### (Built-in) Function
+- 명시적 변환(Explicit Conversion) vs. 암시적 변환(Implicit Conversion)
+#### 문자 및 문자열
+#### 숫자
+#### 수학
+#### 날짜 및 시간
+#### 변환
+- Oracle
+	- CAST(), TO_CHAR, TO_NUMBER(), TO_DATE()
+
+#### 분석 및 순위
+#### 피벗 함수
+####  ...
+
 ### Table
+- GUI vs. SQL
+- Constraint: PK, FK, UNIQUE(NULL allow), CHECK, DEFAULT, NULL 그리고 CK(Composite Key)
+- Temporary Table과 DROP, ALTER
+
 ### View
+- 보안, 쿼리 단순화 등
+- 읽기 전용 설정과 Material View at Oracle
+
 ### Index
+- 장점 vs. 단점 그리고 종류
+- PK와 UNIQUE vs. CREATE/ALTER/DROP INDEX
+- INDEX의 효과적 사용 방안
+
 ### Sequence
 ### Synonym
 ### Stored Procedure
+- Stored Procedure(In/Out Parameter, EXECUTE) vs. Function(only In Parameter, required Return Value and in SQL)
+
 ### Function
+- only In Parameter, required Return Value and in SQL
+
 ### Trigger
+- 종류와 주의 사항 등
 
 
 ## 8. 성능(Performance)
@@ -513,24 +594,28 @@ flowchart TD
 ### 데이터 암호화
 
 ## 10. 운영
-### 주요 운영 업무
+### 10-1. 주요 운영 업무
 - 유지보수
 - 장애 대응과 모니터링
 - 사용자 및 권한 관리
 - 백업과 복구(Backup & Recovery)
 
-### 데이터베이스 운영 프로세스
-### 유지보수
+### 10-2. 데이터베이스 운영 프로세스
+### 10-3. 유지보수
 - 성능 및 데이터 무결성과 보안
 - System 및 User Database
 - 저장 공간과 인덱스
 - 로그
-### 장애 대응
-### 모니터링
+
+### 10-4. 장애 대응
+### 10-5. 모니터링
 
 
 ## 11. 주요 Query
-### Recursive Query for Oracle and ANSI
+### Recursive Query at Oracle and ANSI
+<details>
+	<summary>소스</summary>
+
 ```sql
 /*******************************
 1. 재귀 쿼리를 위한 테이블 생성과 데이터 적재	
@@ -613,10 +698,13 @@ WHERE
 ORDER BY
 	LVL, SEQ_CTG_PARENT, ORDER_DISPLAY;
 ```
-
+</details>
 
 ## 12. 주요 Command
 ### MariaDB
+<details>
+	<summary>최대 허용 및 접속 그리고 현재 접속</summary>
+
 ```sql
 -- 데이터베이스 생성
 CREATE DATABASE backoffice DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -628,16 +716,20 @@ SHOW STATUS LIKE 'Max_used_connections';
 -- Connection Pool 현재 접속 수
 SHOW STATUS LIKE 'Threads_connected';
 ```
+</details>
 
 ### PostgreSQL
-	- 설치 시
-		- Stack Builder: Disable
-		- Locale: Korean, Korea
-	- 설치 확인
+<details>
+	<summary>설치 등</summary>
+
+- 설치 시
+	- Stack Builder: Disable
+	- Locale: Korean, Korea
+- 설치 확인
 	```cmd
 	C:\> netstat -ano | findstr 5432
 	```
-	- DB 생성
+- DB 생성
 	```cmd
 	C:\> cd C:\Program Files\PostgreSQL\18\bin
 	C:\Program Files\PostgreSQL\18\bin> psql -U postgres
@@ -646,14 +738,15 @@ SHOW STATUS LIKE 'Threads_connected';
 	postgres=# CREATE DATABASE "PlutoZone";	# DB 생성
 	postgres=# \l
 	```
-	- Connect by DBeaver
-	- ...
+- Connect by DBeaver
+- ...
+</details>
 
 ## 13. 프로젝트
-### 요구사항 분석
-### 데이터 모델링
-### 테이블 생성
-### SQL 작성
-### 데이터 입력
-### 조회 및 분석
-### 검증 및 개선
+### 13-1. 요구사항 분석
+### 13-2. 데이터 모델링
+### 13-3. 테이블 생성
+### 13-4. SQL 작성
+### 13-5. 데이터 입력
+### 13-6. 조회 및 분석
+### 13-7. 검증 및 개선
