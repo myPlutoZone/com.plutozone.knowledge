@@ -2,7 +2,6 @@
 
 <!--
 ## TODO
-- 정리
 - 다이어그램 for join by MarkDown
 - 기존 문서들 추가
 - NCS 20 페이지부터 재시작
@@ -131,109 +130,207 @@
 ## 5. SQL(Structure Query Language) 고급
 ### 테이블 정보
 - EMP 테이블 for Employee
-
-| EID | NAME | DID  |
-| --- | ---- | ---- |
-| 1   | Kim  | 1    |
-| 2   | Lee  | 2    |
-| 3   | Park | 3    |
-| 4   | Choi | NULL |
+	| EID | NAME | DID  | MID  |
+	| --- | ---- | ---- | ---- |
+	| 1   | Kim  | 1    | NULL |
+	| 2   | Lee  | 2    | 1    |
+	| 3   | Park | 3    | 1    |
+	| 4   | Choi | NULL | 2    |
 
 - DPT 테이블 for Department
-
-| DID | NAME  |
-| --- | ----- |
-| 1   | Sales |
-| 2   | HR    |
-| 4   | IT    |
+	| DID | NAME  |
+	| --- | ----- |
+	| 1   | Sales |
+	| 2   | HR    |
+	| 4   | IT    |
 
 ### JOINS 분류
-| 분류 | 설명 |
-| ----------------------------- | --- |
-| LEFT OUTER JOIN(=LEFT JOIN)   | 왼쪽 테이블의 모든 데이터를 유지하면서 관련 정보가 있으면 함께 조회하는 경우(예: 모든 부서에 따른 직원 정보 조회) |
-| RIGHT OUTER JOIN(=RIGHT JOIN) | 오른쪽 테이블을 기준으로 모든 데이터를 조회해야 하는 경우(실무에서는 대부분 LEFT JOIN으로 테이블 순서를 변경하여 확인) |
-| FULL OUTER JOIN               | 전체 데이터=두 테이블 간 불일치 데이터까지 모두 확인해야 하는 경우(예: 데이터 정합성 검증, 누락 데이터 확인) |
+# SQL JOIN 종류 다이어그램
 
-- 논리적 조인(사용자가 작성한 SQL문에 의해서 표현한 테이블 결합 방식)
-	- 내부 조인(INNER JOIN): 모두에 존재하는 데이터만 필요한 경우(예: 고객과 주문 정보가 모두 있는 고객의 주문 조회)
-	```sql
-	SELECT e.EID, e.NAME, d.NAME
-	FROM EMP e
-	INNER JOIN DPT d
-	ON e.DID = d.DID;
-	```
-	| EID    | NAME | NAME      |
-	| ------ | ---- | --------- |
-	| 1      | Kim  | Sales     |
-	| 2      | Lee  | HR        |
-		- DID가 같은 행만 조회됨
+```mermaid
+flowchart TD
+    JOIN[SQL JOIN]
+
+    JOIN --> INNER[INNER JOIN]
+    JOIN --> LEFT[LEFT OUTER JOIN]
+    JOIN --> RIGHT[RIGHT OUTER JOIN]
+    JOIN --> FULL[FULL OUTER JOIN]
+    JOIN --> CROSS[CROSS JOIN]
+    JOIN --> SELF[SELF JOIN]
+```
+
+#### 논리적 조인
+> 사용자가 작성한 SQL문에 의해서 표현한 테이블 결합 방식
+- **내부 조인(`INNER JOIN,` 일치하는 데이터를 기준으로 조회)**
+	- 동등 조인(EQUI JOIN): 모두에 존재하는 데이터만 필요한 경우(예: 고객과 주문 정보가 모두 있는 고객의 주문 조회)
+		```sql
+		SELECT e.EID, e.NAME, d.NAME
+		FROM EMP e
+		INNER JOIN DPT d
+		ON e.DID = d.DID;
+		/* = SELECT e.EID, e.NAME, d.NAME FROM EMP e, DPT d WHERE e.DID = d.DID; */
+		```
+		| EID    | NAME | NAME      |
+		| ------ | ---- | --------- |
+		| 1      | Kim  | Sales     |
+		| 2      | Lee  | HR        |
+		- DID가 같은 행(ON e.DID = d.DID)만 조회됨
 		- Park(30)는 Department에 없으므로 제외 + Choi(NULL)도 제외
-	- 동등 조인(Equi Join, 공통으로 있는 칼럼 값이 같은 경우에 레코드 추출)
-	- 자연 조인(Natural Join, 두 테이블에 있는 동일한 칼럼명을 기준으로 모든 칼럼 값이 같은 경우에 레코드 추출)
-	- 교차 조인(Cross Join, 조인 조건이 없는 모든 데이터의 조합을 추출)
-	- 자체 조인(Self Join, 자신이 자신과 조인하며 1개의 테이블을 사용)
+		```mermaid
+		flowchart LR
+		subgraph A[Table A]
+		A1(( ))
+		end
 
-- 외부 조인(Outer Join, 특정한 테이블의 모든 데이터를 기준으로 다른 테이블의 정보와 비교하여 추출(단, 다른 테이블에 동일한 값이 없어도 특정한 테이블은 출력됨)
-	- 왼쪽 외부 조인(Left Outer Join, 왼쪽 테이블의 모든 데이터를 조회 + 일치하는 데이터가 없으면 오른쪽 컬럼은 NULL)
-		```sql
-		SELECT e.emp_id,
-       e.name,
-       d.dept_name
-FROM Employee e
-LEFT JOIN Department d
--- LEFT OUTER JOIN Department d
-ON e.dept_id = d.dept_id;
-		```
-| emp_id | name | dept_name |
-| ------ | ---- | --------- |
-| 1      | Kim  | Sales     |
-| 2      | Lee  | HR        |
-| 3      | Park | NULL      |
-| 4      | Choi | NULL      |
-- Employee의 모든 데이터가 출력됩니다.
-- Department가 없으면 NULL이 출력됩니다.
-		- 오른쪽 외부 조인(Right Outer Join, 오른쪽 테이블의 모든 데이터를 조회)
-		```sql
-		SELECT e.emp_id,
-       e.name,
-       d.dept_name
-FROM Employee e
-RIGHT OUTER JOIN Department d
-ON e.dept_id = d.dept_id;
-		```
-| emp_id | name | dept_name |
-| ------ | ---- | --------- |
-| 1      | Kim  | Sales     |
-| 2      | Lee  | HR        |
-| NULL   | NULL | IT        |
-- Department의 모든 데이터가 출력됩니다.
-- IT 부서는 직원이 없으므로 Employee 컬럼은 NULL입니다.
-		- 완전 외부 조인(Full Outer Join, 양쪽 테이블의 모든 데이터를 조회 + 일치하지 않는 데이터는 NULL로 표시)
-		```sql
-		SELECT e.emp_id,
-       e.name,
-       d.dept_name
-FROM Employee e
-FULL OUTER JOIN Department d
-ON e.dept_id = d.dept_id;
-		```
-| emp_id | name | dept_name |
-| ------ | ---- | --------- |
-| 1      | Kim  | Sales     |
-| 2      | Lee  | HR        |
-| 3      | Park | NULL      |
-| 4      | Choi | NULL      |
-| NULL   | NULL | IT        |
-- Employee의 모든 행
-- Department의 모든 행
-- 둘 다 포함됩니다
+		subgraph B[Table B]
+		B1(( ))
+		end
 
-- FULL OUTER JOIN은 데이터베이스마다 지원 여부가 다릅니다. 예를 들어 PostgreSQL과 SQL Server는 지원하지만, MySQL은 직접 지원하지 않아 LEFT JOIN과 RIGHT JOIN 결과를 UNION으로 결합하는 방식 등을 사용합니다.
+		I((A ∩ B))
 
-- 물리적 조인: 데이터베이스 관리시스템(DBMS)의 옵티마이저 엔진에 의해 발생하는 테이블 결합 방식
-	- Nested Loop Join
-	- Merge Join
-	- Hash Join
+		A1 --- I
+		I --- B1
+
+		style I fill:#66cc66,color:#000
+		```
+	- 자연 조인(NATURAL JOIN): 이름이 같은 컬럼을 자동으로 찾아 조인(주의: 의도하지 않은 결과가 발생할 수 있어 실무에서는 미권장)
+		```sql
+		SELECT *
+		FROM EMP
+		NATURAL JOIN DPT;
+		/* = SELECT * FROM EMP e JOIN DPT d ON e.DID = d.DID; */
+		```
+	- 교차 조인(CROSS JOIN): 조인 조건이 없는 모든 데이터의 조합을 추출
+		```sql
+		SELECT *
+		FROM EMP e 
+		CROSS JOIN DPT d ;
+		/* = SELECT * FROM EMP, DPT; */
+		```
+		```mermaid
+		flowchart TD
+			A[Table A<br/>3 rows]
+			B[Table B<br/>4 rows]
+
+			C["Result<br/>3 × 4 = 12 rows"]
+
+			A --> C
+			B --> C
+		```	
+	- 자체 조인(SELF JOIN): 자신이 자신과 조인하며 1개의 테이블을 사용(예: 조직도/직원-관리자, 댓글, 카테고리 등 계층 구조)
+		```sql
+		SELECT
+			e.name AS employee,
+			m.name AS manager
+		FROM EMP e
+		JOIN EMP m
+		-- LEFT JOIN EMP m
+			ON e.MID = m.EID;
+		```
+		```mermaid
+		flowchart LR
+		T1[Employee AS e1]
+		T2[Employee AS e2]
+
+		T1 -->|manager_id = id| T2
+		```
+- **외부 조인(`OUTER JOIN`, 일치하지 않는 데이터도 포함하여 조회)**
+	- 왼쪽 외부 조인(`LEFT OUTER JOIN`=LEFT JOIN): 왼쪽 테이블의 모든 데이터를 유지하면서 관련 정보가 있으면 함께 조회하는 경우(예: 모든 부서에 따른 직원 정보 조회)
+		```sql
+		SELECT e.EID, e.NAME, d.NAME
+		FROM EMP e
+		LEFT OUTER JOIN DPT d
+		-- LEFT JOIN DPT d
+		ON e.DID = d.DID;
+		```
+		| EID | NAME | NAME |
+		| --- | ---- | --------- |
+		| 1   | Kim  | Sales     |
+		| 2   | Lee  | HR        |
+		| 3   | Park | NULL      |
+		| 4   | Choi | NULL      |
+		- Employee의 모든 데이터가 출력
+		- Department가 없으면 NULL이 출력
+		```mermaid
+		flowchart LR
+		A((Table A))
+		J((A ∩ B))
+		B((Table B))
+
+		A --- J --- B
+
+		style A fill:#66cc66,color:#000
+		style J fill:#66cc66,color:#000
+		```
+	- 오른쪽 외부 조인(`RIGHT OUTER JOIN`=RIGHT JOIN): 오른쪽 테이블을 기준으로 모든 데이터를 조회해야 하는 경우(실무에서는 대부분 LEFT JOIN으로 테이블 순서를 변경하여 확인
+		```sql
+		SELECT e.EID, e.NAME, d.NAME
+		FROM EMP e
+		RIGHT OUTER JOIN DPT d
+		-- RIGHT JOIN DPT d
+		ON e.DIP = d.DID;
+		```
+		| EID  | NAME | NAME |
+		| ---- | ---- | --------- |
+		| 1    | Kim  | Sales     |
+		| 2    | Lee  | HR        |
+		| NULL | NULL | IT        |
+		- Department의 모든 데이터가 출력
+		- IT 부서는 직원이 없으므로 Employee 컬럼은 NULL
+		```mermaid
+		flowchart LR
+		A((Table A))
+		J((A ∩ B))
+		B((Table B))
+
+		A --- J --- B
+
+		style J fill:#66cc66,color:#000
+		style B fill:#66cc66,color:#000
+		```
+	- 완전 외부 조인(`FULL OUTER JOIN`): 전체 데이터=두 테이블 간 불일치 데이터까지 모두 확인해야 하는 경우(예: 데이터 정합성 검증, 누락 데이터 확인)
+		```sql
+		SELECT e.EID, e.NAME, d.NAME
+		FROM EMP e
+		FULL OUTER JOIN DPT d
+		ON e.DIP = d.DID;
+		```
+		| EID  | NAME | NAME |
+		| ---- | ---- | --------- |
+		| 1    | Kim  | Sales     |
+		| 2    | Lee  | HR        |
+		| 3    | Park | NULL      |
+		| 4    | Choi | NULL      |
+		| NULL | NULL | IT        |
+		- Employee의 모든 행 + Department의 모든 행
+		- FULL OUTER JOIN 지원 여부 확인(PostgreSQL과 SQL Server는 지원하지만 MySQL은 직접 지원하지 않아 LEFT JOIN과 RIGHT JOIN 결과를 UNION으로 결합하는 방식 등을 사용)
+		```mermaid
+		flowchart LR
+		A((Table A))
+		J((A ∩ B))
+		B((Table B))
+
+		A --- J --- B
+
+		style A fill:#66cc66,color:#000
+		style J fill:#66cc66,color:#000
+		style B fill:#66cc66,color:#000
+		```
+#### 물리적 조인
+> 데이터베이스 관리시스템의 옵티마이저 엔진에 의해 발생하는 테이블 결합 방식
+- Nested Loop Join
+- Merge Join
+- Hash Join
+
+### 조인 문법
+| 구분 | INNER JOIN | 쉼표(,) + WHERE |
+|------|------------|-----------------|
+| 문법 | ANSI 표준 | 구식 문법 |
+| 결과 | 동일 | 동일 |
+| 조인 조건 | `ON` 절 | `WHERE` 절 |
+| 가독성 | 높음 | 낮음 |
+| 유지 보수 | 쉬움 | 어려움 |
+| 권장 여부 | 권장 | 기존 코드에서 주로 사용 |
 
 ### Subquery
 - 동작하는 방식에 따른 서브쿼리의 종류
