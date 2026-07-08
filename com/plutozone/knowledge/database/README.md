@@ -130,7 +130,7 @@
 
 ## 5. SQL(Structure Query Language) 고급
 ### JOINS 분류
-- emp for Employee 테이블
+- emp 테이블 for Employee
 
 | eid | name | did  |
 | --- | ---- | ---- |
@@ -139,7 +139,8 @@
 | 3   | Park | 3    |
 | 4   | Choi | NULL |
 
-- dpt for Department 테이블
+- dpt 테이블 for Department
+
 | did | name  |
 | --- | ----- |
 | 1   | Sales |
