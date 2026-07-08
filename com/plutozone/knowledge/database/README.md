@@ -28,13 +28,94 @@
 > Database for Programmer vs. DBA(Database Administrator) 
 
 ### 1-1. 데이터(Data)와 정보(Information)
+```mermaid
+flowchart LR
+subgraph D[" "]
+	A1["Data 1"]
+	A2["Data 2"]
+	A3["Data ..."]
+end
+
+DB[(Database)]
+
+subgraph I[" "]
+	I1["Information"]
+end
+
+D -- "체계적 저장" --> DB
+DB <-- "효율적인 검색/처리" --> I
+
+style D fill:#ffffff,stroke:#ffffff
+style I fill:#ffffff,stroke:#ffffff
+```
+
 ### 1-2. DB(DataBase)란?
+데이터베이스는 체계(구조와 형식)적으로 저장된 자료(Data)의 집합체이며 이들 자료(Data)들은 효율적인 검색/처리가 가능하다. 그러므로 체계적으로 저장되지 못한 자료(Data)는 데이터베이스라고 할 수 없으며 정보(Information)로써의 가치가 전혀 없다. 정보의 정확성과 신속성이 요구되는 현대 사회에서 자료를 체계적으로 관리/이용하기 위한 데이터베이스의 중요성은 더해 가고 있다.
+
+예: 단순 형식으로 저장된 자료의 집합체: *.csv(Comma Separated Value)
+
+- Database의 이점
+	- Data의 중복 통제와 일관성 유지
+	- Data 취득 용이와 응답 시간의 단축
+	- 표준화의 용이성
+	- Programmer의 생산성 향상
+	- 일관성 있는 Data 관리
+
+
 ### 1-3. DBMS(DataBase Management System)
+DBMS(데이터베이스 관리 시스템)는 Database의 구성, Access 방법, 관리 유지에 대한 모든 Role을 지고 있는 Software System
+
 - 개요
 - 특징(무결성, 독립성, 보안, 중복 최소화, 안정성 등)
-- 분류(관계형, 객체형, 계층형, 망형 등)
+- 구조/형식에 따른 분류(관계형, 객체 지향형, 계층형, 네트워크형, 망형 등)
 
 ### 1-4. 관계형 데이터베이스(RDBMS, Relational DataBase Management System)
+관계형 데이터베이스는 ...
+또한 데이터베이스에 포함되는 이러한 테이블이 서로 어떤 관련이 있는가를 Relationship이라고 한다. 또한 RDB(*.csv, *.xls, *.mdb, RDBMS) 계열은 상호 변환이 용이하다.
+
+```mermaid
+flowchart LR
+    A["매출 전표 TABLE<br/>────────────<br/>전표번호 | 년월 | 거래처코드"]
+    B["거래처 TABLE<br/>────────────<br/>거래처코드 | 거래처명"]
+    C["주문 TABLE<br/>────────────<br/>전표번호 | 주문번호 | 상품코드 | 수량"]
+    D["상품 TABLE<br/>────────────<br/>상품코드 | 상품명 | 단가"]
+
+    B -. 거래처코드 .-> A
+    A -. 전표번호 .-> C
+    D -. 상품코드 .-> C
+```
+```mermaid
+erDiagram
+	매출전표 {
+		int 전표번호 PK
+		string 년월
+		string 거래처코드 FK
+	}
+
+	거래처 {
+		string 거래처코드 PK
+		string 거래처명
+	}
+
+	주문 {
+		int 전표번호 FK
+		int 주문번호 PK
+		string 상품코드 FK
+		int 수량
+	}
+
+	상품 {
+		string 상품코드 PK
+		string 상품명
+		int 단가
+	}
+
+	거래처 ||--o{ 매출전표 : "거래처코드"
+	매출전표 ||--o{ 주문 : "전표번호"
+	상품 ||--o{ 주문 : "상품코드"
+```
+
+- DBF, Clipper, Foxplus
 - Oracle
 	- 역사
 	- 에디션(Personal, Standard One, Standard, Enterprise 그리고 [Express](./oracle.md))
@@ -47,10 +128,11 @@
 			- Text 기반 Client Tool at Oracle
 		- Oracle Application Express
 			-  Web 기반 Client Tool at Oracle
-- Microsoft SQL Server
+- Microsoft Access, Microsoft SQL Server
 - MySQL
 - MariaDB
 - PostgreSQL
+- IBM DB2
 - ...
 
 ### 1-5. 데이터베이스 관련 업무 at 프로젝트
@@ -70,7 +152,21 @@
 - exp.exe 그리고 imp.exe at Oracle
 
 #### 응용 프로그램과 연동
+데이터베이스 프로그래밍이란 데이터베이스에 접속하여 레코드 셋을 취득하거나 레코드의 추가/갱신/삭제 작업을 하는 프로그래밍이다.
 - Java(Spring), .NET, PHP(Laravel) 등
+```mermaid
+flowchart TD
+	A[DB 개체 생성]
+	B[DB 접속]
+	C["Recordset<br/>개체 생성 및 취득"]
+	D["표시, 편집, 삭제, 찾기 등"]
+	E[모든 개체 해제]
+
+	A --> B
+	B --> C
+	C --> D
+	D --> E
+```
 
 
 ## 2. 설계
@@ -115,8 +211,19 @@
 ### 2-2. ERD(Entity Relationship Diagram)
 ### 2-3. 엔터티(Entity)와 속성(Attribute)
 ### 2-4. 관계(Relationship)
+- 3가지 형태의 Relationship(관계)
+	- 一 對 多: 한 쪽 테이블의 레코드 하나가 또 다른 쪽 테이블의 여러 레코드와 대응하는 릴레이션십으로 데이터를 효율적으로 축적/추출할 수 있어 가장 많이 사용된다.
+	- 一 對 一: 구조는 간단하나 근본적으로 하나의 테이블과 같다.
+	- 多 對 多: 구조가 복합하며 두 테이블 사이에 새로운 테이블을 설계하는 것에 의해 두 개의 一對多 또는 多對一의 릴레이션십으로 교체할 수 있다.
+
 ### 2-5. 기본키(Primary Key)와 외래키(Foreign Key)
+기본 키와 외부 키는 릴레이션십을 작성할 때 사용하는 필드이다. 기본키는 등록한 데이터를 식별하기 위해 사용되므로 반드시 입력되어야 하며 자동 인덱스되며 중복될 수 없다. 외부키는 다른 테이블의 기본키와 일치하는 값을 갖고 있으며 반드시 입력되어야 한다. 기본키와 외부키를 설정할 때 필드명은 동일할 필요는 없으나 데이터형은 동일하게 할 필요가 있다.
+- Primary Key: 매출 전표 TABLE의 전표번호 필드, 상품 TABLE의 상품코드 필드
+- Foreign Key: 주문 TABLE의 전표번호 필드 등
+
 ### 2-6. 데이터 타입(Data Type)
+- 명시적 변환(Explicit Conversion) vs. 암시적 변환(Implicit Conversion)
+
 #### ANSI
 | Oracle     | ANSI     | 범위(크기)      | Range |
 |------------|----------|----------------|-------|
@@ -126,14 +233,22 @@
 | NUMBER(19) | bigint   | 2^64 (8 바이트) | -2^63 ~ 2^63-1 |
 
 #### Oracle
-- 명시적 변환(Explicit Conversion) vs. 암시적 변환(Implicit Conversion)
 - NUMBER
 - CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB, NCLOB
 - BLOB
 - DATE
 
 ## 3. 데이터 정규화
+정규화는 테이블의 정규화라고 볼 수 있으며 이는 데이터를 보호하고 정규화 규칙을 사용하여 테이블 사이의 관계를 정립하는 것이다. 논리적 DB 디자인을 정규화하는 것은 형식적인 방법을 사용하여 데이터를 여러 개의 관련된 테이블(1:多 또는 多:1)로 저장하는 것이다.
+
 ### 정규화의 필요성
+- 정규화의 장점(성능 향상)
+	- 보다 빠른 정렬과 인덱스 작성 가능- SELECT문 향상
+	- INSERT, UPDATE, DELETE문 향상
+	- NULL 값이 줄어들고, 불일치 가능성(참조 정합성) 감소
+- 정규화의 단점
+	- 정규화가 많이 될수록 데이터를 검색하는데 필요한 JOIN의 복잡화로 인해 성능 문제 발생
+
 ### 제1정규형(1NF)
 ### 제2정규형(2NF)
 ### 제3정규형(3NF)
@@ -151,7 +266,7 @@
 ### 4-2. SQL 분류
 #### DDL(Data Definition Language, 데이터 정의 언어) 
 - 주요 대상
-	- 스키마(Schema, DBMS의 특징과 구축 환경에 기반한 데이터 구조로 이루어진 하나의 데이터베이스)
+	- 스키마(Schema, DBMS의 특징과 구축 환경에 기반한 데이터베이스의 구조, 제약 조건, 개체, 속성, 관계 및 데이터 조작에 대한 총칭)
 	- 도메인(Domain, 개체 속성의 데이터 타입과 범위, 제약 조건 등을 설정한 정보 예: 주소를 varchar(256)로 정의)
 	- 테이블(Table, 데이터 저장 공간)
 	- 뷰(View, 1개 이상의 물리 테이블을 통해서 만드는 가상의 논리 테이블)
@@ -526,7 +641,8 @@ WHERE
 - 읽기 전용 설정과 Material View at Oracle
 
 ### Index
-- 장점 vs. 단점 그리고 종류
+ 인덱스를 시스템에서 재구축하는 시간과 Load로 인하여 인덱스의 장점인 고속 검색에 반하여 레코드의 증감이나 데이터의 갱신이 많은 테이블에서는 인덱스의 작성을 신중하게 할 필요가 있다.
+ - 장점 vs. 단점 그리고 종류
 - PK와 UNIQUE vs. CREATE/ALTER/DROP INDEX
 - INDEX의 효과적 사용 방안
 
