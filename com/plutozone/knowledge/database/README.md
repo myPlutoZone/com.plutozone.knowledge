@@ -129,61 +129,52 @@
 
 
 ## 5. SQL(Structure Query Language) 고급
-### JOINS 분류
-- emp 테이블 for Employee
+### 테이블 정보
+- EMP 테이블 for Employee
 
-| eid | name | did  |
+| EID | NAME | DID  |
 | --- | ---- | ---- |
 | 1   | Kim  | 1    |
 | 2   | Lee  | 2    |
 | 3   | Park | 3    |
 | 4   | Choi | NULL |
 
-- dpt 테이블 for Department
+- DPT 테이블 for Department
 
-| did | name  |
+| DID | NAME  |
 | --- | ----- |
 | 1   | Sales |
 | 2   | HR    |
 | 4   | IT    |
 
-|                              | Result |
-| ---------------------------- | ------ |
-| INNER JOIN                   | 모두 일치하는 데이터만 |
-| LEFT OUTER JOIN(LEFT JOIN)   | 왼쪽 테이블 전체 + 일치하는 오른쪽 데이터 |
-| RIGHT OUTER JOIN(RIGHT JOIN) | 오른쪽 테이블 전체 + 일치하는 왼쪽 데이터 |
-| FULL OUTER JOIN              | 전체 데이터 |
-
-- INNER JOIN: 모든에 존재하는 데이터만 필요한 경우(예: 주문과 고객 정보가 모두 있는 주문 조회)
-- LEFT JOIN: 기준 테이블의 모든 데이터를 유지하면서 관련 정보가 있으면 함께 조회하는 경우(예: 모든 직원과 부서 정보 조회)
-- RIGHT JOIN: 오른쪽 테이블을 기준으로 모든 데이터를 조회해야 하는 경우(실무에서는 LEFT JOIN으로 테이블 순서를 바꿔 작성하는 경우가 더 많음)
-- FULL OUTER JOIN: 두 테이블 간 불일치 데이터까지 모두 확인해야 하는 경우(예: 데이터 정합성 검증, 누락 데이터 확인)
+### JOINS 분류
+| 분류 | 설명 |
+| ----------------------------- | --- |
+| LEFT OUTER JOIN(=LEFT JOIN)   | 왼쪽 테이블의 모든 데이터를 유지하면서 관련 정보가 있으면 함께 조회하는 경우(예: 모든 부서에 따른 직원 정보 조회) |
+| RIGHT OUTER JOIN(=RIGHT JOIN) | 오른쪽 테이블을 기준으로 모든 데이터를 조회해야 하는 경우(실무에서는 대부분 LEFT JOIN으로 테이블 순서를 변경하여 확인) |
+| FULL OUTER JOIN               | 전체 데이터=두 테이블 간 불일치 데이터까지 모두 확인해야 하는 경우(예: 데이터 정합성 검증, 누락 데이터 확인) |
 
 - 논리적 조인(사용자가 작성한 SQL문에 의해서 표현한 테이블 결합 방식)
-	- 내부 조인(Inner Join, 일치하는 데이터만 조회)
+	- 내부 조인(INNER JOIN): 모두에 존재하는 데이터만 필요한 경우(예: 고객과 주문 정보가 모두 있는 고객의 주문 조회)
 	```sql
-	SELECT e.emp_id,
-       e.name,
-       d.dept_name
-FROM Employee e
-INNER JOIN Department d
-ON e.dept_id = d.dept_id;
+	SELECT e.EID, e.NAME, d.NAME
+	FROM EMP e
+	INNER JOIN DPT d
+	ON e.DID = d.DID;
 	```
-| emp_id | name | dept_name |
-| ------ | ---- | --------- |
-| 1      | Kim  | Sales     |
-| 2      | Lee  | HR        |
+	| EID    | NAME | NAME      |
+	| ------ | ---- | --------- |
+	| 1      | Kim  | Sales     |
+	| 2      | Lee  | HR        |
+		- DID가 같은 행만 조회됨
+		- Park(30)는 Department에 없으므로 제외 + Choi(NULL)도 제외
+	- 동등 조인(Equi Join, 공통으로 있는 칼럼 값이 같은 경우에 레코드 추출)
+	- 자연 조인(Natural Join, 두 테이블에 있는 동일한 칼럼명을 기준으로 모든 칼럼 값이 같은 경우에 레코드 추출)
+	- 교차 조인(Cross Join, 조인 조건이 없는 모든 데이터의 조합을 추출)
+	- 자체 조인(Self Join, 자신이 자신과 조인하며 1개의 테이블을 사용)
 
-- dept_id가 같은 행만 조회됩니다.
-- Park(30)는 Department에 없으므로 제외됩니다.
-- Choi(NULL)도 제외됩니다.
-
-		- 동등 조인(Equi Join, 공통으로 있는 칼럼 값이 같은 경우에 레코드 추출)
-		- 자연 조인(Natural Join, 두 테이블에 있는 동일한 칼럼명을 기준으로 모든 칼럼 값이 같은 경우에 레코드 추출)
-		- 교차 조인(Cross Join, 조인 조건이 없는 모든 데이터의 조합을 추출)
-		- 자체 조인(Self Join, 자신이 자신과 조인하며 1개의 테이블을 사용)
-	- 외부 조인(Outer Join, 특정한 테이블의 모든 데이터를 기준으로 다른 테이블의 정보와 비교하여 추출(단, 다른 테이블에 동일한 값이 없어도 특정한 테이블은 출력됨)
-		- 왼쪽 외부 조인(Left Outer Join, 왼쪽 테이블의 모든 데이터를 조회 + 일치하는 데이터가 없으면 오른쪽 컬럼은 NULL)
+- 외부 조인(Outer Join, 특정한 테이블의 모든 데이터를 기준으로 다른 테이블의 정보와 비교하여 추출(단, 다른 테이블에 동일한 값이 없어도 특정한 테이블은 출력됨)
+	- 왼쪽 외부 조인(Left Outer Join, 왼쪽 테이블의 모든 데이터를 조회 + 일치하는 데이터가 없으면 오른쪽 컬럼은 NULL)
 		```sql
 		SELECT e.emp_id,
        e.name,
