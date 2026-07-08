@@ -2,47 +2,121 @@
 
 <!--
 ## TODO
-- 다이어그램 for join by MarkDown
 - 기존 문서들 추가
 - NCS 20 페이지부터 재시작
 -->
 
 ## Contents
-1. [개요](#1-개요)
-2. [설계](#2-설계)
-3. [데이터 정규화](#3-데이터-정규화)
-4. [SQL(Structure Query Language) 기본](#4-sqlstructure-query-language-기본)
-5. [SQL(Structure Query Language) 확장](#5-sqlstructure-query-language-고급)
-6. [데이터 조작 및 관리](#6-데이터-조작-및-관리)
-7. [객체](#7-객체)
-8. [성능(Performance)](#8-성능performance)
-9. [데이터 무결성과 보안](#9-데이터-무결성과-보안)
+01. [개요](#1-개요)
+02. [설계](#2-설계)
+03. [데이터 정규화](#3-데이터-정규화)
+04. [SQL(Structure Query Language) 기본](#4-sqlstructure-query-language-기본)
+05. [SQL(Structure Query Language) 확장](#5-sqlstructure-query-language-고급)
+06. [데이터 조작 및 관리](#6-데이터-조작-및-관리)
+07. [객체](#7-객체)
+08. [성능(Performance)](#8-성능performance)
+09. [데이터 무결성과 보안](#9-데이터-무결성과-보안)
 10. [운영](#10-운영)
 11. [주요 Query](#11-주요-query)
 12. [주요 Command](#12-주요-command)
 13. [프로젝트](#13-프로젝트)
-14. Tips
+
 
 ## 1. 개요
 > Data and Information vs. DB(DataBase) vs. DBMS(DataBase Management System) vs. RDBMS(Relational DataBase Management System)
-### 데이터(Data)와 정보(Information)
-### DB(DataBase)란?
-### DBMS(DataBase Management System)
-### 관계형 데이터베이스(RDBMS, Relational DataBase Management System)
+
+> Database for Programmer vs. DBA(Database Administrator) 
+
+### 1-1. 데이터(Data)와 정보(Information)
+### 1-2. DB(DataBase)란?
+### 1-3. DBMS(DataBase Management System)
+- 개요
+- 특징(무결성, 독립성, 보안, 중복 최소화, 안정성 등)
+- 분류(관계형, 객체형, 계층형, 망형 등)
+
+### 1-4. 관계형 데이터베이스(RDBMS, Relational DataBase Management System)
 - Oracle
+	- 역사
+	- 에디션(Personal, Standard One, Standard, Enterprise 그리고 [Express](./oracle.md))
+	- 설치 등
+	- Client Tool
+		- SQL Developer
+			- GUI 기반 Client Tool for Oracle
+			- Data Modeler 등
+		- SQL*Plus
+			- Text 기반 Client Tool for Oracle
+		- Oracle Application Express
+			-  Web 기반 Client Tool for Oracle
 - Microsoft SQL Server
 - MySQL
 - MariaDB
 - PostgreSQL
 - ...
 
+### 1-5. 데이터베이스 관련 업무 at 프로젝트
+#### 정보 시스템 구축 그리고 모델링
+- 구축 절차(요구사항 분석, 설계, 구현, 검증 그리고 유지보수)
+- 데이터 모델링과 용어(데이터와 데이터베이스, 테이블과 스키마, DMBS, 열, 데이터 유형, 기본키와 외래키, SQL 등)
+
+#### DB 설치 및 구축
+- 스키마(Table Space, User 등) 생성
+- Table 생성 및 데이터 입력, 조회 등
+
+#### DB 성능과 모니터링
+- Index(속도 등), View(가상과 보안 등), Stored Procedure(프로그래밍 등), Trigger(주의)
+- Execution Plan
+
+#### 백업과 복원
+- exp.exe 그리고 imp.exe for Oracle
+
+#### 응용 프로그램과 연동
+- Java(Spring), .NET, PHP(Laravel) 등
+
 
 ## 2. 설계
-### 데이터 모델링 개념
-### ERD(Entity Relationship Diagram)
-### 엔터티(Entity)와 속성(Attribute)
-### 관계(Relationship)
-### 기본키(Primary Key)와 외래키(Foreign Key)
+### 2-1. 데이터 모델링
+#### 소프트웨어 개발 방법론
+- Waterfall(폭포수), 애자일(Agile) 등
+
+#### 데이터 모델링이란?
+- 데이터 모델링은 프로젝트 목표를 데이터베이스 개체로 표현한 것
+- 데이터 모델링은 일반적으로 프로젝트 경험이 많고 관련 지식이 많은 PM이 담당
+- 데이터 모델링은 개념적, 논리적 그리고 물리적 모델링 단계를 거친다.
+- 데이터 모델링과 정규화, 관계, 기본키, 외래키, 컬럼, 데이터 형식, 필수 여부 등
+
+#### 데이터 모델링 툴(Tool)
+- Data Modeler at Oracle SQL Developer
+- ER Modeler at MySQL Workbench
+- ERwin, exERD 등
+
+
+#### 데이터 모델링 절차
+- 업무 분석
+- 개념적 DB 모델링 with ER Diagram
+	- Entity
+	- Attribute
+	- Identity
+	- Relation
+	- Dimension
+- 논리적 DB 모델링 with Case Tool
+	- ER Diagram
+	- Mapping Rule
+	- Normalization
+	- Data Type and Size
+- 물리적 DB 모델링 with Case Tool
+	- DBMS
+	- Data Type and Size
+	- 데이터 사용 및 업무 프로세스 분석
+	- Denormalization
+	- Index
+	- Constraint
+	- Stored Procedure, Function, View, Trigger, ...
+	- Create DB
+
+### 2-2. ERD(Entity Relationship Diagram)
+### 2-3. 엔터티(Entity)와 속성(Attribute)
+### 2-4. 관계(Relationship)
+### 2-5. 기본키(Primary Key)와 외래키(Foreign Key)
 
 
 ## 3. 데이터 정규화
@@ -55,8 +129,11 @@
 
 ## 4. SQL(Structure Query Language) 기본
 > DDL(Data Definition Language) vs. DML(Data Manipulation Language) and DCL(Data Control Language)/TCL(Transaction Control Language)
+
 ### SQL 개요
-- 구조적 질의 언어
+- SQL(구조적 질의 언어)이란?
+- 특징
+- ANSI SQL vs. PL/SQL vs. T-SQL
 
 ### SQL 분류
 #### DDL(Data Definition Language, 데이터 정의 언어) 
@@ -120,11 +197,23 @@
 		- ...
 
 ### 조회(SELECT)
+- FROM과 owner, column, alias
+- CREATE TABLE … AS SELECT
+
 ### 조건(WHERE)
+- WHERE과 operator 그리고 BETWEEN, IN, LIKE, ANY, ALL 및 Sub Query
+
 ### 정렬(ORDER BY)
-### 그룹(GROUP BY)
-### 집계(HAVING)
-### 구분(DISTINCT)
+- ORDER BY
+- ROWNUM, SAMPLE
+
+### 그룹(GROUP BY) and 집계(HAVING) and 구분(DISTINCT)
+- GROUP BY, HAVING 그리고 Aggregate Function
+- DISTINCT
+
+### 기타
+- ROLLUP(), GROUPING_ID(), CUBE()
+- WITH와 CTE
 
 
 ## 5. SQL(Structure Query Language) 고급
@@ -353,12 +442,12 @@ flowchart TD
 
 
 ## 6. 데이터 조작 및 관리
-### INSERT
-### UPDATE
-### DELETE
-### MERGE
-### 트랜잭션(Transaction)
-### COMMIT vs. ROLLBACK
+### 6-1. INSERT and UPDATE and DELETE 그리고 MERGE
+- SEQUENCE, DUAL, MERGE 등 포함
+- DELETE(TR Logging) vs. TRUNCATE(TR Not Logging) vs. DROP(Table delete)
+
+### 6-2. 트랜잭션(Transaction)
+### 6-3. COMMIT vs. ROLLBACK
 
 
 ## 7. 객체
@@ -540,18 +629,6 @@ SHOW STATUS LIKE 'Max_used_connections';
 SHOW STATUS LIKE 'Threads_connected';
 ```
 
-
-## 13. 프로젝트
-### 요구사항 분석
-### 데이터 모델링
-### 테이블 생성
-### SQL 작성
-### 데이터 입력
-### 조회 및 분석
-### 검증 및 개선
-
-
-## 14. Tips
 ### PostgreSQL
 	- 설치 시
 		- Stack Builder: Disable
@@ -571,3 +648,12 @@ SHOW STATUS LIKE 'Threads_connected';
 	```
 	- Connect by DBeaver
 	- ...
+
+## 13. 프로젝트
+### 요구사항 분석
+### 데이터 모델링
+### 테이블 생성
+### SQL 작성
+### 데이터 입력
+### 조회 및 분석
+### 검증 및 개선
