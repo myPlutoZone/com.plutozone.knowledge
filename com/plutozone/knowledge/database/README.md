@@ -2,7 +2,7 @@
 
 <!--
 ## TODO
-- NCS 20 페이지부터 재시작
+- 지속적 개선
 -->
 
 ## Contents
@@ -452,19 +452,55 @@ OUTER --> FULL[FULL OUTER JOIN]
 	<summary>테이블 정보</summary>
 
 - EMP 테이블 for Employee
-	| EID | NAME | DID  | MID  |
-	| --- | ---- | ---- | ---- |
-	| 1   | Kim  | 1    | NULL |
-	| 2   | Lee  | 2    | 1    |
-	| 3   | Park | 3    | 1    |
-	| 4   | Choi | NULL | 2    |
+	| IDX_EMP | NAME | IDX_DPT | IDX_MNG |
+	| ------- | ---- | ------- | ------- |
+	| 1       | Kim  | 1       | NULL    |
+	| 2       | Lee  | 2       | 1       |
+	| 3       | Park | 3       | 1       |
+	| 4       | Choi | NULL    | 2       |
 
 - DPT 테이블 for Department
-	| DID | NAME  |
-	| --- | ----- |
-	| 1   | Sales |
-	| 2   | HR    |
-	| 4   | IT    |
+	| IDX_DPT | NAME  |
+	| ------- | ----- |
+	| 1       | Sales |
+	| 2       | HR    |
+	| 4       | IT    |
+
+- DDL for PostgreSQL
+	```sql
+	CREATE TABLE EMP (
+		IDX_EMP int NOT NULL, -- 사원 일련번호
+		NAME varchar(32) NOT NULL, -- 성명
+		IDX_DPT int NULL, -- 부서 일련번호
+		IDX_MNG int NULL, -- 직속 관리자 일련번호
+		CONSTRAINT PK_EMP PRIMARY KEY (IDX_EMP)
+	);
+	COMMENT ON COLUMN EMP.IDX_EMP IS '사원 일련번호';
+	COMMENT ON COLUMN EMP.NAME IS '성명';
+	COMMENT ON COLUMN EMP.IDX_DPT IS '부서 일련번호';
+	COMMENT ON COLUMN EMP.IDX_MNG IS '직속 관리자 일련번호';
+
+	CREATE TABLE dpt (
+		IDX_DPT int NOT NULL, -- 부서 일련번호
+		NAME varchar(32) NULL, -- 부서명
+		CONSTRAINT PK_DPT PRIMARY KEY (IDX_DPT)
+	);
+	COMMENT ON COLUMN DPT.IDX_DPT IS '부서 일련번호';
+	COMMENT ON COLUMN DPT.NAME IS '부서명';
+	```
+- DML for 
+	```sql
+	INSERT INTO DPT (IDX_DPT, NAME) VALUES
+	 (1,'Sales'),
+	 (2,'HR'),
+	 (4,'IT');
+
+	INSERT INTO EMP (IDX_EMP, NAME, IDX_DPT, IDX_MNG) VALUES
+	 (1,'Kim',1,NULL),
+	 (2,'Lee',2,1),
+	 (3,'Park',3,1),
+	 (4,'Choi',NULL,2);
+	```
 </details>
 
 #### 논리적 조인(JOIN)
@@ -472,18 +508,18 @@ OUTER --> FULL[FULL OUTER JOIN]
 - **내부 조인(`INNER JOIN,` 일치하는 데이터를 기준으로 조회)**
 	- 동등 조인(EQUI JOIN): 모두에 존재하는 데이터만 필요한 경우(예: 고객과 주문 정보가 모두 있는 고객의 주문 조회)
 		```sql
-		SELECT e.EID, e.NAME, d.NAME
+		SELECT e.IDX_EMP, e.NAME, d.NAME
 		FROM EMP e
 		INNER JOIN DPT d
-		ON e.DID = d.DID;
-		/* = SELECT e.EID, e.NAME, d.NAME FROM EMP e, DPT d WHERE e.DID = d.DID; */
+		ON e.IDX_DPT = d.IDX_DPT;
+		/* = SELECT e.IDX_EMP, e.NAME, d.NAME FROM EMP e, DPT d WHERE e.IDX_DPT = d.IDX_DPT; */
 		/* , for INNER, (+) for OUTER */
 		```
-		| EID    | NAME | NAME      |
+		| IDX_EMP    | NAME | NAME      |
 		| ------ | ---- | --------- |
 		| 1      | Kim  | Sales     |
 		| 2      | Lee  | HR        |
-		- DID가 같은 행(ON e.DID = d.DID)만 조회됨
+		- IDX_DPT가 같은 행(ON e.IDX_DPT = d.IDX_DPT)만 조회됨
 		- Park(30)는 Department에 없으므로 제외 + Choi(NULL)도 제외
 		```mermaid
 		flowchart LR
@@ -507,7 +543,7 @@ OUTER --> FULL[FULL OUTER JOIN]
 		SELECT *
 		FROM EMP
 		NATURAL JOIN DPT;
-		/* = SELECT * FROM EMP e JOIN DPT d ON e.DID = d.DID; */
+		/* = SELECT * FROM EMP e JOIN DPT d ON e.IDX_DPT = d.IDX_DPT; */
 		```
 - **자체 조인(SELF JOIN): 자신이 자신과 조인하며 1개의 테이블을 사용(예: 조직도/직원-관리자, 댓글, 카테고리 등 계층 구조)**
 	```sql
@@ -517,7 +553,7 @@ OUTER --> FULL[FULL OUTER JOIN]
 	FROM EMP e
 	JOIN EMP m
 	-- LEFT JOIN EMP m
-		ON e.MID = m.EID;
+		ON e.IDX_MNG = m.IDX_EMP;
 	```
 	```mermaid
 	flowchart LR
@@ -546,13 +582,13 @@ OUTER --> FULL[FULL OUTER JOIN]
 - **외부 조인(`OUTER JOIN`, 일치하지 않는 데이터도 포함하여 조회)**
 	- 왼쪽 외부 조인(`LEFT OUTER JOIN`=LEFT JOIN): 왼쪽 테이블의 모든 데이터를 유지하면서 관련 정보가 있으면 함께 조회하는 경우(예: 모든 부서에 따른 직원 정보 조회)
 		```sql
-		SELECT e.EID, e.NAME, d.NAME
+		SELECT e.IDX_EMP, e.NAME, d.NAME
 		FROM EMP e
 		LEFT OUTER JOIN DPT d
 		-- LEFT JOIN DPT d
-		ON e.DID = d.DID;
+		ON e.IDX_DPT = d.IDX_DPT;
 		```
-		| EID | NAME | NAME |
+		| IDX_EMP | NAME | NAME |
 		| --- | ---- | --------- |
 		| 1   | Kim  | Sales     |
 		| 2   | Lee  | HR        |
@@ -573,13 +609,13 @@ OUTER --> FULL[FULL OUTER JOIN]
 		```
 	- 오른쪽 외부 조인(`RIGHT OUTER JOIN`=RIGHT JOIN): 오른쪽 테이블을 기준으로 모든 데이터를 조회해야 하는 경우(실무에서는 대부분 LEFT JOIN으로 테이블 순서를 변경하여 확인
 		```sql
-		SELECT e.EID, e.NAME, d.NAME
+		SELECT e.IDX_EMP, e.NAME, d.NAME
 		FROM EMP e
 		RIGHT OUTER JOIN DPT d
 		-- RIGHT JOIN DPT d
-		ON e.DIP = d.DID;
+		ON e.IDX_DPT = d.IDX_DPT;
 		```
-		| EID  | NAME | NAME |
+		| IDX_EMP  | NAME | NAME |
 		| ---- | ---- | --------- |
 		| 1    | Kim  | Sales     |
 		| 2    | Lee  | HR        |
@@ -599,12 +635,12 @@ OUTER --> FULL[FULL OUTER JOIN]
 		```
 	- 완전 외부 조인(`FULL OUTER JOIN`): 전체 데이터=두 테이블 간 불일치 데이터까지 모두 확인해야 하는 경우(예: 데이터 정합성 검증, 누락 데이터 확인)
 		```sql
-		SELECT e.EID, e.NAME, d.NAME
+		SELECT e.IDX_EMP, e.NAME, d.NAME
 		FROM EMP e
 		FULL OUTER JOIN DPT d
-		ON e.DIP = d.DID;
+		ON e.IDX_DPT = d.IDX_DPT;
 		```
-		| EID  | NAME | NAME |
+		| IDX_EMP  | NAME | NAME |
 		| ---- | ---- | --------- |
 		| 1    | Kim  | Sales     |
 		| 2    | Lee  | HR        |
@@ -645,23 +681,23 @@ OUTER --> FULL[FULL OUTER JOIN]
 
 ```sql
 SELECT
-	e.EID
+	e.IDX_EMP
 	, e.NAME
 	, d.NAME
 FROM
-	EMP e INNER JOIN DPT d ON e.DID = d.DID
+	EMP e INNER JOIN DPT d ON e.IDX_DPT = d.IDX_DPT
 WHERE
 	1 = 1;
 
 SELECT
-	e.EID
+	e.IDX_EMP
 	, e.NAME
 	, d.NAME
 FROM
 	EMP e
 	, DPT d
 WHERE
-	e.DID = d.DID;
+	e.IDX_DPT = d.IDX_DPT;
 ```
 </details>
 
@@ -692,7 +728,7 @@ WHERE
 
 
 ## 7. 객체
-### Programming
+### 7-1. Programming
 #### PL/SQL at Oracle
 - Oracle에서 제공하는 SQL Programming(Stored Procedure, Function, Trigger에도 적용 가능)
 - DECLARE … BEGIN … END
@@ -702,7 +738,7 @@ WHERE
 - EXCEPTION
 - Dynamic SQL
 
-### (Built-in) Function
+### 7-2. (Built-in) Function
 - 명시적 변환(Explicit Conversion) vs. 암시적 변환(Implicit Conversion)
 #### 문자 및 문자열
 #### 숫자
@@ -716,31 +752,100 @@ WHERE
 #### 피벗 함수
 ####  ...
 
-### Table
+### 7-3. Table
 - GUI vs. SQL
 - Constraint: PK, FK, UNIQUE(NULL allow), CHECK, DEFAULT, NULL 그리고 CK(Composite Key)
 - Temporary Table과 DROP, ALTER
 
-### View
-- 보안, 쿼리 단순화 등
-- 읽기 전용 설정과 Material View at Oracle
+### 7-4. View
+- 장점
+	- 논리적 독립성 제공(논리 테이블이므로 물리 테이블의 구조가 변경되더라도 뷰를 활용하는 응용프로그램도 항상 수정할 필요는 없음)
+	- 사용자 데이터 관리 용이(쿼리 단순화=다수 테이블에 있는 다양한 데이터에 대해 단순한 질의어 활용 가능)
+	- 데이터 보안(중요한 보안 데이터가 있는 테이블은 접근하지 못하도록 설정하고 접근이 가능한 일부 데이터만을 조회할 수 있도록 뷰를 생성)
+- 단점
+	- 뷰 인덱스 사용 불가(논리적 생성한 뷰에는 인덱스를 만들 수 없음)
+	- 뷰 구조 변경 불가(뷰는 삭제 후 재생성을 통해서 뷰의 구조 변경이 가능함)
+	- 데이터 변경 제약 존재(뷰로 조회된 데이터에 대한 삽입, 변경, 삭제 제약이 있음)
+- 참고
+	- 읽기 전용 설정과 Material View at Oracle
 
-### Index
- 인덱스를 시스템에서 재구축하는 시간과 Load로 인하여 인덱스의 장점인 고속 검색에 반하여 레코드의 증감이나 데이터의 갱신이 많은 테이블에서는 인덱스의 작성을 신중하게 할 필요가 있다.
- - 장점 vs. 단점 그리고 종류
-- PK와 UNIQUE vs. CREATE/ALTER/DROP INDEX
-- INDEX의 효과적 사용 방안
+### 7-5. Index
+인덱스를 시스템에서 재구축하는 시간과 Load로 인하여 인덱스의 장점인 고속 검색에 반하여 레코드의 증감이나 데이터의 갱신이 많은 테이블에서는 인덱스의 작성을 신중하게 할 필요가 있다.
 
-### Sequence
-### Synonym
-### Stored Procedure
+- 장점과 단점
+- Index vs. Unique 그리고 PK 차이점
+- CREATE/ALTER/DROP Index
+
+#### 인덱스 설계 과정
+1. 접근 경로(=검색 조건) 수집
+	- 접근 경로는 테이블에서 데이터를 찾는 방법을 의미
+	- 수집 방법에는 테이블 스캔과 인덱스 스캔이 있음
+	- 접근 경로 수집 의미는 SQL이 최적화되었을 때 인덱스 스캔을 해야 하는 검색 조건들을 수집하는 것
+2. 분포도 조사를 통한 후보 칼럼 선정
+	- 수집된 접근 경로에 대해 분포도 조사
+	- 분포도 = 데이터별 평균 로 수 / 테이블의 총 로 수
+	- 일반적으로 분포도가 10~15% 정도이면 인덱스 칼럼 후보로 사용
+3. 접근 경로 결정
+	- 인덱스 후보 목록을 이용하여 접근 유형에 따라 어떤 인덱스 후보를 사용할 것인가를 결정
+	- 만약 누락된 접근 경로가 있다면 분포도 조사를 실시하고 인덱스 후보 목록에 추가 작업을 반복
+4. 칼럼 조합 및 순서 결정
+	- 단일 칼럼의 분포도가 양호하면 단일 칼럼 인덱스로 확정
+	- 하지만 하나 이상의 칼럼 조합이 필요한 경우는 추가 고려하여 인덱스 칼럼 순서를 결정
+5. 적용 시험
+	- 설계된 인덱스를 적용하고 접근 경로별로 인덱스가 사용되는지 시험해야 함
+	- 여러 개의 접근 경로가 존재하는 테이블은 여러 개의 인덱스가 만들어지므로 의도한 실행 계획으로 동작하는지 확인해야 함
+
+#### 접근 경로(=검색 조건) 유형(=인덱스 대상)
+##### - 반복 수행되는 접근 경로
+대표적으로 조인 칼럼을 후보로 선택(주문 1건당 평균 50개의 주문 내역을 가진다면 주문 테이블과 주문 내역 테이블을 이용하여 주문서를 작성하는 SQL은 조인을 위해 평균 50번의 주문 내역 테이블을 반복 액세스하기 때문)
+
+##### - 분포도가 양호한 칼럼
+주문 번호, 청구 번호, 주민 번호 등은 단일 칼럼 인덱스로도 충분한 수행 속도를 보장받을 수 있는 후보임
+
+##### - 조회 조건에 사용되는 칼럼
+성명, 상품명, 고객명 등 명칭이나 주문 일자, 판매일, 입고일 등 일자와 같은 칼럼은 조회 조건으로 많이 이용되는 칼럼
+
+##### - 자주 결합되어 사용되는 칼럼
+판매일 + 판매 부서, 급여일 + 급여 부서와 같이 조합에 의해 사용되는 칼럼
+
+##### - 데이터 정렬 순서와 그룹핑 칼럼
+조건뿐만 아니라 순방향, 역방향 등의 정렬 순서 고려(인덱스는 구성 칼럼 값들이 정렬되어 있어 인덱스를 이용하면 별도의 ORDER BY, 정렬 작업이 불필요함) 동일한 원리로 그룹핑 단위(GROUP BY)로 사용된 칼럼도 조사
+
+##### - 일련번호를 부여한 칼럼
+이력을 관리하기 위해서 일련번호를 부여한 칼럼에 대해서도 조사(마지막 일련번호를 찾는 경우가 빈번히 발생하므로 효과적인 액세스를 위해 필요)
+
+##### - 통계 자료 추출 조건
+통계 자료는 결과를 추출하기 위해서 넓은 범위의 데이터가 필요.(다양한 추출 조건을 사전에 확보하여 인덱스 생성에 반영)
+
+##### - 조회 조건이나 조인 조건 연산자
+위에 제시되는 유형의 칼럼과 함께 적용된 =, between, like 등의 비교 연산자를 병행 조사하여 인덱스 결합 순서를 결정할 때중요한 정보로 사용하도록 함
+
+#### 칼럼 조합 및 순서 결정(선두 칼럼 요건)
+복수 개의 칼럼(결합 칼럼)에 대해 인덱스를 사용할 때 순서가 중요하다. 인덱스 칼럼의 순서를 결정할 때 선두에 두어야 할 칼럼을 선택하는 판단 기준은 다음과 같다.
+
+##### - 항상 사용되는 칼럼
+칼럼 A, B가 인덱스로 사용될 때 칼럼 A에는 항상 값이 있어야 함(인덱스로 사용될 때 선행되는 칼럼값이 Nulll인 경우 인덱스를 이용하지 못함)
+
+##### - 등치(=) 조건으로 사용되는 칼럼
+부등호나 범위 연산(<, >, <=, >=, BETWEEN, LIKE)보다는 등호(=) 연산을 사용하는 칼럼을 선두에 배치하는 것이 좋음.
+
+##### - 분포도가 좋은 칼럼
+분포도가 좋다는 의미는 데이터값의 중복이 적은 것을 의미함 즉, 값의 중복이 적은 칼럼을 선두로 사용하는 것이 좋음
+
+##### - ORDER BY, GROUP BY 순서
+ORDER BY나 GROUP BY 절에 사용되는 칼럼 순으로 인덱스를 생성하는 것이 좋음
+
+### 7-6. Sequence
+### 7-7. Synonym
+### 7-8. Stored Procedure
 - Stored Procedure(In/Out Parameter, EXECUTE) vs. Function(only In Parameter, required Return Value and in SQL)
 
-### Function
+### 7-9. Function
 - only In Parameter, required Return Value and in SQL
 
-### Trigger
+### 7-10. Trigger
 - 종류와 주의 사항 등
+
 
 
 ## 8. 성능(Performance)
@@ -765,6 +870,20 @@ WHERE
 	- 약어 접두어를 한다. 예) DT_LOGIN, FLG_TOP
 	- 문자열, 숫자 등은 Default Size를 사용하는 것이 대부분 Load 측면에서 유리하며 일반적으로 숫자 정보를 숫자 Data Type으로 저장하고 검색하는 것이 더 좋은 성능을 나타낸다. 예) 생년월일: VARCHAR(8)보다 SMALLDATETIME(4 Byte)가 공간 절약 및 날짜 연산에 유리하다.
 	- 설명(Comment) 항목을 통한 Field에 대한 자세한 정보 표기한다.
+- 객체(제약 조건)에 따른 권장 접두어
+
+	| 객체 | 접두어 | 예 | 비고 |
+	| :--- | :-----: | :------------------------ | :------------------------ |
+	| Primary Key           | `PK_`  | PK_USER                     | 기본 키 |
+	| Foreign Key           | `FK_`  | FK_ORDER_USER               | 외래 키 |
+	| Index                 | `IX_`  | IX_USER_NAME                | 일반 인덱스(IDX_도 사용) |
+	| Composite Index       | IX_    | IX_ORDER_STATUS_CREATED_AT  | 컬럼명을 순서대로 작성 |
+	| Composite Index       | CIX_   | CIX_ORDER_STATUS_CREATED_AT | 복합 인덱스를 구분할 때 |
+	| Unique Index          | `UX_`  | UX_USER_EMAIL               | 유일 인덱스(가장 많이 사용하는 관례) |
+	| Unique Index          | UIX_   | UIX_USER_EMAIL              | 유일 인덱스를 구분할때(일부 프로젝트에서 사용) |
+	| Unique Constraint     | `UQ_`  | UQ_USER_EMAIL               | 유일 제약 조건 |
+	| Check Constraint      | `CK_`  | CK_USER_AGE                 | 체크 제약 조건 |
+	| Default Constraint    | DF_    | DF_USER_CREATED_AT          | 기본 제약 조건 |
 
 #### 개발(Development) 시
 - 필요한 Table의 항목만 추출한다.
