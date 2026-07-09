@@ -10,17 +10,17 @@
 02. [Container and Docker ............................ 컨테이너와 도커](#2-container-and-docker)
 03. [Environments ..................................... 환경 for 실습](#3-environments)
 04. [Install Docker and Configuration ................... 설치와 구성](#4-install-docker-and-configuration)
-05. ...
+05. LifeCycle of Docker Container ............도커 컨테이너의 생명주기
 
 
 ## 1. Overview
-- `Docker(=Container)는 충분히 검증되었지만 Host 또는 Virtual Machine이 제공하는 OS 기반 격리보다는 덜 안전하고 비효율적이다고 여겨지기도 한다.`
+> `Docker(=Container)는 충분히 검증되었지만 Host 또는 Virtual Machine이 제공하는 OS 기반 격리보다는 덜 안전하고 비효율적이다고 여겨지기도 한다.`
 - docker [build, commit, diff, images, info, inspect, logs, network, port, ps , rm, rmi, run, search, start, stop, pause, unpause]
 
 
 ## 2. Container and Docker
 - What's Container
-	- Process at Source + Runtime + Environment
+	- Process at Source(Dockerfile, ...) + Runtime + Environment
 	- Isolation
 	- Containerization by Container Engine(=Docker) vs. Virtualization(base on OS) by Hypervisor
 - Docker
@@ -52,155 +52,143 @@
 
 ## 4. Install Docker and Configuration
 - Install by root(#) at Rocky 9.5(https://docs.rockylinux.org/gemstones/containers/docker/)
-```bash
-# CE(Community Edition)
-$ curl -fsSL https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
-$ yum install -y docker-ce
-$ systemctl status docker
-$ docker version								# Only Client Version
-$ systemctl start docker						# Server Start
-$ systemctl status docker
-$ docker version                              	# Client and Server Version
-$ systemctl enable docker	          			# Server Start on Boot
-$ docker images
-$ docker run hello-world		        		# Download hello-world and Print "Hello from Docker!"
-$ docker images
-$ docker run ubuntu /bin/echo 'Hello World'		# Download ubuntu and Print "Hello World"
-$ docker images
-$ docker ps -a
-```
+	```bash
+	# CE(Community Edition)
+	$ curl -fsSL https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
+	$ yum install -y docker-ce
+	$ systemctl status docker
+	$ docker version							# Only Client Version
+	$ systemctl start docker					# Server Start
+	$ systemctl status docker
+	$ docker version							# Client and Server Version
+	$ systemctl enable docker					# Server Start on Boot
+	$ docker images
+	$ docker run hello-world					# Download hello-world and Print "Hello from Docker!"
+	$ docker images
+	$ docker run ubuntu /bin/echo 'Hello World'	# [선택] Download Ubuntu and Print "Hello World"
+	$ docker images
+	$ docker ps -a
+	```
 - Install at Ubuntu 24.04.1(https://docs.docker.com/engine/install/ubuntu/)
-```bash
-$ sudo apt update																								# Update
-$ sudo apt install apt-transport-https ca-certificates curl														# Install requried package
-$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -									# Docker official GPG Key
-$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"	# Docker Repository
-$ sudo apt update																								# Update
-$ sudo apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.i								# Install Docker
-$ sudo systemctl status docker
-$ sudo docker version						# Only Client Version
-$ sudo systemctl start docker				# Server Start
-$ sudo systemctl status docker
-$ sudo docker version						# Client and Server Version
-$ sudo systemctl enable docker				# Server Start on Boot
-$ sudo docker images
-$ sudo docker run hello-world				# Download hello-world and Print "Hello from Docker!"
-$ sudo docker version
-# Run without sudo for Docker
-$ sudo usermod -aG docker ${USER}
-$ sudo shutdown -r now
-$ groups
-$ docker ps -a
-```
+	```bash
+	$ sudo apt update																								# Update
+	$ sudo apt install apt-transport-https ca-certificates curl														# Install requried package
+	$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -									# Docker official GPG Key
+	$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"	# Docker Repository
+	$ sudo apt update																								# Update
+	$ sudo apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.i								# Install Docker
+	$ sudo systemctl status docker
+	$ sudo docker version						# Only Client Version
+	$ sudo systemctl start docker				# Server Start
+	$ sudo systemctl status docker
+	$ sudo docker version						# Client and Server Version
+	$ sudo systemctl enable docker				# Server Start on Boot
+	$ sudo docker images
+	$ sudo docker run hello-world				# Download hello-world and Print "Hello from Docker!"
+	$ sudo docker version
+	# Run without sudo for Docker
+	$ sudo usermod -aG docker ${USER}
+	$ sudo shutdown -r now
+	$ groups
+	$ docker ps -a
+	```
 - Docker Host(=Server/Daemon) 구성
-	- Containers(Thin Read/Write)
 	- Images(Read Only + Version 및 Source, Runtime 등으로 구분됨)
+	- Containers(Thin Read/Write)
 	- Registry(Default: hub.docker.com)
 - docker는 Client Tool이므로 Localhost 통신이 기본 vs. Kubernetes는 Server Tool이므로 Remote Host 통신이 기본
-```bash
-$ docker -H 172.16.0.102:2375      # Remote Host 접속 시
-```
+	```bash
+	$ docker -H 172.16.0.102:2375	# Remote Host 접속 시
+	```
 
 
-## LifeCycle of Docker Container
+## 5. LifeCycle of Docker Container
+`도커 컨테이너의 생명주기` = build(빌드) > push(올리기) > pull(내리기) > `run(실행 = create + start) > ...`
 ```bash
-# build > push/ship > pull > (create) > run
-$ docker run [IMAGE_NAME]                                                                   # 실행(run = create + start)
-$ docker create [IMAGE_NAME]                                                                # 생성(대문자 사용 불가)
-$ docker start [CONTAINTER_NAME or CONTAINTER_ID%]                                          # 시작
-$ docker stats [CONTAINTER_NAME or CONTAINTER_ID%]                                          # 통계(자원 사용량 정보)
-$ docker restart [CONTAINTER_NAME or CONTAINTER_ID%]                                        # 재시작
-$ docker stop [CONTAINTER_NAME or CONTAINTER_ID%]                                           # SIGTERM(15)에 해당하는 안전 종료(참고: kill -l)
-$ docker kill [CONTAINTER_NAME or CONTAINTER_ID%]                                           # SIGTERM(9)에 해당하는 강제 종료
+# IMAGE_NAME		: 원격 레지스트리 또는 로컬에 저장된 이미지명
+# CONTAINTER_NAME	: 이미지로부터 생성된 컨테이너명
+# CONTAINTER_ID		: 이미지로부터 생성된 컨테이너의 고유 ID
+$ docker run [IMAGE_NAME]																	# 실행(run = create + start)
+$ docker create [IMAGE_NAME]																# 생성(대문자 사용 불가)
+$ docker start [CONTAINTER_NAME or CONTAINTER_ID%]											# 시작
+$ docker stats [CONTAINTER_NAME or CONTAINTER_ID%]											# 통계(자원 사용량 정보)
+$ docker restart [CONTAINTER_NAME or CONTAINTER_ID%]										# 재시작
+$ docker stop [CONTAINTER_NAME or CONTAINTER_ID%]											# 종료, SIGTERM(15)에 해당하는 안전 종료(참고: kill -l)
+$ docker kill [CONTAINTER_NAME or CONTAINTER_ID%]											# 종료, SIGTERM(9)에 해당하는 강제 종료
 $ docker logs -f [CONTAINTER_ID%]
 $ docker inspect [CONTAINTER_NAME or CONTAINTER_ID%]
-$ docker inspect -f '{{ .NetworkSettings.IPAddress }}' [CONTAINTER_NAME or CONTAINTER_ID%]  # IP 확인
-$ docker rm [CONTAINTER_ID%]                                                                # 종료(stop or kill)되어 있어야 삭제 가능
-$ docker run --rm                                                                           # 실행 후 즉시 삭제
-$ docker rm -f $(docker container ls -a -q)                                                 # 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
-$ docker rmi [IMAGE_NAME]                                                                   # 이미지 삭제(=docker image rm [IMAGE_NAME], 해당 컨테이너가 삭제되어야 이미지 삭제 가능, -f 시 강제 삭제)
+$ docker inspect -f '{{ .NetworkSettings.IPAddress }}' [CONTAINTER_NAME or CONTAINTER_ID%]	# IP 확인
+$ docker rm [CONTAINTER_ID%]																# 삭제, 해당 컨테이너가 종료(stop or kill)되어 있어야 삭제 가능
+$ docker run --rm																			# 실행 후 즉시 삭제
+$ docker rm -f $(docker container ls -a -q)													# 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
+$ docker rmi [IMAGE_NAME]																	# 이미지 삭제(=docker image rm [IMAGE_NAME], 해당 컨테이너가 삭제되어야 이미지 삭제 가능, -f 시 강제 삭제)
 ```
 
 
-## Commands
+## 6. Commands
 - Search Image at Registry and Image at Localhost
-```bash
-$ docker search nginx			# Default Registry(hub.docker.com)에서 nginx Image를 검색 = https://hub.docker.com/에서 nginx를 검색
-$ docker search quay.io/nginx		# quay.io Registry에서 nginx Image를 검색
-$ docker images				# Localhost의 Image 확인
-```
+	```bash
+	$ docker search nginx				# Default Registry(hub.docker.com)에서 nginx Image를 검색 = https://hub.docker.com/에서 nginx를 검색
+	$ docker search quay.io/nginx		# quay.io Registry에서 nginx Image를 검색
+	$ docker images						# Localhost의 Image 확인
+	```
 
 - System Information
-```bash
-$ docker system info			# 실행 환경
-$ docker system df			# 디스크 사용량
-```
+	```bash
+	$ docker system info		# 도커 환경
+	$ docker system df			# 도커 디스크 사용량(이미지, 컨테이너 등)
+	```
 
 - Pull
-```bash
-# [중요] 하나의 공인 IP에 대해 6시간동안 100건?으로 제한 vs. 로그인 후에는 150건? at hub.docker.com
-$ docker images
-$ docker pull nginx                                        # Default(hub.docker.com) + nginx + Tag 생략 시 latest
-$ docker pull openjdk                                      # Default(hub.docker.com) + openjdk + Tag 생략 시 latest
-$ docker pull openjdk:8-alpine                             # Default(hub.docker.com) + openjdk + 8-apline
-$ docker pull plutomsw/demo-nginx                          # hub.docker.com/plutomsw/demo-nginx(Registry/Owner/Repository, Tag 생략 시 latest)
-$ docker pull plutomsw/cicd_guestbook:20240107064001_24    # [UPDATE for demo-springboot from openjdk:8-alpine] hub.docker.com/plutomsw/cicd_guestbook:20240107064001_24(Registry/Owner/Repository:Tag)
-$ docker pull quay.io/uvelyster/nginx                      # quay.io/uvelyster/nginx(Registry/Owner/Repository, Tag 생략 시 latest)
-$ docker images
-```
+	```bash
+	# [중요] 하나의 공인 IP에 대해 6시간동안 100건?으로 제한 vs. 로그인 후에는 150건? at hub.docker.com
+	$ docker images
+	$ docker pull nginx							# Default(hub.docker.com) + nginx + Tag 생략 시 latest
+	$ docker pull openjdk						# Default(hub.docker.com) + openjdk + Tag 생략 시 latest
+	$ docker pull openjdk:8-alpine				# Default(hub.docker.com) + openjdk + 8-apline
+	$ docker pull plutomsw/demo-nginx			# hub.docker.com/plutomsw/demo-nginx(Registry/Owner/Repository, Tag 생략 시 latest)
+	$ docker pull plutomsw/demo-springboot:v1	# hub.docker.com/plutomsw/demo-springboot:v1(Registry/Owner/Repository:Tag)
+	$ docker pull quay.io/uvelyster/nginx		# quay.io/uvelyster/nginx(Registry/Owner/Repository, Tag 생략 시 latest)
+	$ docker images
+	```
 
 - Run
-```bash
-$ docker images
-$ docker run nginx                                               # Forground(stdout + stderr) Mode
-$ docker run openjdk
-$ docker run openjdk:8-alpine
-$ docker run plutomsw/demo-nginx
-$ docker run quay.io/uvelyster/nginx
-$ docker ps
-$ docker ps -a
+	```bash
+	# Forground		= stdout + stderr
+	# Background	= stdout is none
+	# Interactive	= stdin + stdout + stderr
+	$ docker images
+	$ docker run nginx								# Forground
+	$ docker run openjdk:8-alpine
+	$ docker ps
+	$ docker ps -a
 
-$ docker run -d nginx                                            # Background(stdout is none) Mode
-$ docker run -d openjdk
-$ docker run -d openjdk:8-alpine
-$ docker run -d plutomsw/demo-nginx
-$ docker run -d quay.io/uvelyster/nginx
-$ docker ps
-$ docker ps -a
+	$ docker run -d nginx							# Background
+	$ docker run -d openjdk:8-alpine
+	$ docker ps
+	$ docker ps -a
 
-$ docker run -i nginx                                            # Interactive(stdin + stdout + stderr) Mode
-$ docker run -i openjdk
-$ docker run -i openjdk:8-alpine
-$ docker run -i plutomsw/demo-nginx
-$ docker run -i quay.io/uvelyster/nginx
-$ docker ps
-$ docker ps -a
-$ curl 172.17.0.2                                                # [중요] Default Container Network=172.17.0.0/16(Default: Container Host에서만 접속 가능)
+	$ docker run -i nginx							# Interactive
+	$ docker run -i openjdk:8-alpine
+	$ docker ps
+	$ docker ps -a
+	$ curl 172.17.0.2 								# [중요] Default Container Network=172.17.0.0/16(Default: Container Host에서만 접속 가능)
 
-$ docker run nginx echo helloworld                               # Forground(stdout + stderr) Mode + Command Parameter(echo helloworld)
-$ docker run openjdk echo helloworld
-$ docker run openjdk:8-alpine echo helloworld
-$ docker run plutomsw/demo-nginx echo helloworld
-$ docker run quay.io/uvelyster/nginx echo helloworld
-$ docker ps
-$ docker ps -a
+	$ docker run nginx echo helloworld				# Forground + Command Parameter(echo helloworld)
+	$ docker run openjdk:8-alpine echo helloworld
+	$ docker ps
+	$ docker ps -a
 
-$ docker run -d --name demoNginx-1 nginx                         # Background Mode(stdout is none) + Alias Name(--name)
-$ docker run -d --name demoOpenJdk-1 openjdk
-$ docker run -d --name demoOpenJdk8-1 openjdk:8-alpine
-$ docker run -d --name myDemoNginx-1 plutomsw/demo-nginx
-$ docker run -d --name demoApp-1 quay.io/uvelyster/nginx
-$ docker ps
-$ docker ps -a
+	$ docker run -d --name demoNginx-1 nginx		# Background + Alias(--name)
+	$ docker run -d --name demoOpenJdk8-1 openjdk:8-alpine
+	$ docker ps
+	$ docker ps -a
 
-$ docker run -it --name demoNginx-2 nginx                        # Forground Mode(stdin + stdout + stderr) / Interactive + TTY Mode(=-i -t) + Alias Name(--name)
-$ docker run -it --name demoOpenJdk-2 openjdk
-$ docker run -it --name demoOpenJdk8-2 openjdk:8-alpine
-$ docker run -it --name myDemoNginx-2 plutomsw/demo-nginx
-$ docker run -it --name demoApp-2 quay.io/uvelyster/nginx
-$ docker ps
-$ docker ps -a
-```
+	$ docker run -it --name demoNginx-2 nginx		# Forground / Interactive + TTY Mode(=-i -t) + Alias(--name)
+	$ docker run -it --name demoOpenJdk8-2 openjdk:8-alpine
+	$ docker ps
+	$ docker ps -a
+	```
 
 - Stop vs. kill
 ```bash
@@ -587,6 +575,5 @@ $ docker run -e NAME=$NAME python_hello_with_env
 ```
 
 ## Reference
-- Naming
-	- 이미지명에 대문자 사용 불가(영문자와 숫자, -, _, ., /)
-- https://github.com/google/cadvisor
+- 이미지(Image), 컨테이너(Container) 그리고 태그(Tag)명에 대문자 사용 불가(영문자와 숫자, '-', '_', '.', '/' 만 허용)
+- https://github.com/google/cadvisor (Docker, Kubernetes 등의 리소스 사용량과 성능을 모니터링하는 오픈소스 프로젝트)

@@ -1,4 +1,4 @@
-# com.plutozone.knowledge.database
+# com.plutozone.knowledge.Database
 
 <!--
 ## TODO
