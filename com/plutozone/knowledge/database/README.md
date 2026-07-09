@@ -76,7 +76,7 @@ DBMS(데이터베이스 관리 시스템)는 Database의 구성, Access 방법, 
 flowchart LR
     A["매출 전표 TABLE<br/>────────────<br/>전표번호 | 년월 | 거래처코드"]
     B["거래처 TABLE<br/>────────────<br/>거래처코드 | 거래처명"]
-    C["주문 TABLE<br/>────────────<br/>전표번호 | 주문번호 | 상품코드 | 수량"]
+    C["주문 TABLE<br/>────────────<br/>주문번호 | 전표번호 | 상품코드 | 수량"]
     D["상품 TABLE<br/>────────────<br/>상품코드 | 상품명 | 단가"]
 
     B -. 거래처코드 .-> A
@@ -97,8 +97,8 @@ erDiagram
 	}
 
 	주문 {
-		int 전표번호 FK
 		int 주문번호 PK
+		int 전표번호 FK
 		string 상품코드 FK
 		int 수량
 	}
@@ -245,11 +245,11 @@ flowchart TD
     C --> D(4. 개체 유형 확인)
     D --> E(5. 개체 관계 확인)
 
-    A -.-> A1("DB에서 수행할 작업에 대한 이해를 필요로 한다.")
-    B -.-> B1("DB가 관리할 유형·무형 항목의 주요 Entity를 확인하고,<br/>각 Entity에 필요한 개체를 확인한다.")
-    C -.-> C1("DB 디자이너와 같은 시각적 디자인 도구를 이용하여<br/>시스템에서 실제로 표현될 개체를 모델링한다.")
-    D -.-> D1("각 개체 테이블 컬럼에 저장할 정보의 유형을 확인한다.")
-    E -.-> E1("DB의 여러 항목 정보 간 연관관계를 확인하고,<br/>관련 컬럼을 추가한다.")
+    A -.- A1("DB에서 수행할 작업에 대한 이해를 필요로 한다.")
+    B -.- B1("DB가 관리할 유형·무형 항목의 주요 Entity를 확인하고,<br/>각 Entity에 필요한 개체를 확인한다.")
+    C -.- C1("DB 디자이너와 같은 시각적 디자인 도구를 이용하여<br/>시스템에서 실제로 표현될 개체를 모델링한다.")
+    D -.- D1("각 개체 테이블 컬럼에 저장할 정보의 유형을 확인한다.")
+    E -.- E1("DB의 여러 항목 정보 간 연관관계를 확인하고,<br/>관련 컬럼을 추가한다.")
 ```
 
 ```mermaid
@@ -488,7 +488,7 @@ OUTER --> FULL[FULL OUTER JOIN]
 	COMMENT ON COLUMN DPT.IDX_DPT IS '부서 일련번호';
 	COMMENT ON COLUMN DPT.NAME IS '부서명';
 	```
-- DML for 
+- DML for PostgreSQL
 	```sql
 	INSERT INTO DPT (IDX_DPT, NAME) VALUES
 	 (1,'Sales'),
