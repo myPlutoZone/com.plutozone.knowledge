@@ -10,7 +10,8 @@
 02. [Container and Docker ............................ 컨테이너와 도커](#2-container-and-docker)
 03. [Environments ..................................... 환경 for 실습](#3-environments)
 04. [Install Docker and Configuration ................... 설치와 구성](#4-install-docker-and-configuration)
-05. LifeCycle of Docker Container ............도커 컨테이너의 생명주기
+05. [LifeCycle of Docker Container ........... 도커 컨테이너의 생명주기](#5-lifecycle-of-docker-container)
+06. [Commands ............................................... 명령어](#6-commands)
 
 
 ## 1. Overview
