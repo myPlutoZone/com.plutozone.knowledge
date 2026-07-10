@@ -1,9 +1,5 @@
 # com.plutozone.knowledge.Database
 
-<!--
-## TODO
-- 지속적 개선
--->
 
 ## Contents
 01. [개요](#1-개요)

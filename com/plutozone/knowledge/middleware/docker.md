@@ -1,9 +1,5 @@
 # com.plutozone.knowledge.middleware.Docker
 
-<!--
-## TODO
-- 정리
--->
 
 ## Contents
 01. [Overview .................................................. 개요](#1-overview)

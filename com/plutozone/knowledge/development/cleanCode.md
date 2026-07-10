@@ -1,10 +1,5 @@
 # com.plutozone.knowledge.development.CleanCode
 
-<!--
-## TODO
-- 지속적으로 현. 시점의 클린 코드로 현행화
-- 지속적으로 예제 등을 추가
--->
 
 ## Overview
 ### 출처

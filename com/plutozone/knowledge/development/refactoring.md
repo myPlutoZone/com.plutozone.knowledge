@@ -1,9 +1,5 @@
 # com.plutozone.knowledge.development.Refactoring
 
-<!--
-## TODO
-- 지속적으로 대상 및 기법에 설명, 예제, 유의 사항 등을 추가
--->
 
 ## "리팩터링과 고도화" 교과목 계획(안)
 ### [x 시간] 과정 및 교과목 그리고 Prior Knowledge
