@@ -1,4 +1,5 @@
-## TODO
+## TODO-개선
+- yaml 파일은 스페이스만 가능(참고: 탭 사용 시 에러 발생)
 - IP, Domain 변경
 - Account Group and UID
 

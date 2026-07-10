@@ -129,26 +129,23 @@ $ docker rmi [IMAGE_NAME]																	# 이미지 삭제(=docker image rm [I
 	$ docker search quay.io/nginx		# quay.io Registry에서 nginx Image를 검색
 	$ docker images						# Localhost의 Image 확인
 	```
-
 - System Information
 	```bash
 	$ docker system info		# 도커 환경
 	$ docker system df			# 도커 디스크 사용량(이미지, 컨테이너 등)
 	```
-
 - Pull
 	```bash
 	# [중요] 하나의 공인 IP에 대해 6시간동안 100건?으로 제한 vs. 로그인 후에는 150건? at hub.docker.com
 	$ docker images
 	$ docker pull nginx							# Default(hub.docker.com) + nginx + Tag 생략 시 latest
 	$ docker pull openjdk						# Default(hub.docker.com) + openjdk + Tag 생략 시 latest
-	$ docker pull openjdk:8-alpine				# Default(hub.docker.com) + openjdk + 8-apline
+	$ docker pull eclipse-temurin:8-jdk			# Default(hub.docker.com) + eclipse-temurin(openjdk에서는 JDK 이전 버전은 지원 중단) + 8-jdk
 	$ docker pull plutomsw/demo-nginx			# hub.docker.com/plutomsw/demo-nginx(Registry/Owner/Repository, Tag 생략 시 latest)
 	$ docker pull plutomsw/demo-springboot:v1	# hub.docker.com/plutomsw/demo-springboot:v1(Registry/Owner/Repository:Tag)
 	$ docker pull quay.io/uvelyster/nginx		# quay.io/uvelyster/nginx(Registry/Owner/Repository, Tag 생략 시 latest)
 	$ docker images
 	```
-
 - Run
 	```bash
 	# Forground		= stdout + stderr
@@ -156,90 +153,84 @@ $ docker rmi [IMAGE_NAME]																	# 이미지 삭제(=docker image rm [I
 	# Interactive	= stdin + stdout + stderr
 	$ docker images
 	$ docker run nginx								# Forground
-	$ docker run openjdk:8-alpine
+	$ docker run eclipse-temurin:8-jdk
 	$ docker ps
 	$ docker ps -a
 
 	$ docker run -d nginx							# Background
-	$ docker run -d openjdk:8-alpine
+	$ docker run -d eclipse-temurin:8-jdk
 	$ docker ps
 	$ docker ps -a
 
 	$ docker run -i nginx							# Interactive
-	$ docker run -i openjdk:8-alpine
+	$ docker run -i eclipse-temurin:8-jdk
 	$ docker ps
 	$ docker ps -a
 	$ curl 172.17.0.2 								# [중요] Default Container Network=172.17.0.0/16(Default: Container Host에서만 접속 가능)
 
 	$ docker run nginx echo helloworld				# Forground + Command Parameter(echo helloworld)
-	$ docker run openjdk:8-alpine echo helloworld
+	$ docker run eclipse-temurin:8-jdk echo helloworld
 	$ docker ps
 	$ docker ps -a
 
 	$ docker run -d --name demoNginx-1 nginx		# Background + Alias(--name)
-	$ docker run -d --name demoOpenJdk8-1 openjdk:8-alpine
+	$ docker run -d --name demoJdk8-1 eclipse-temurin:8-jdk
 	$ docker ps
 	$ docker ps -a
 
 	$ docker run -it --name demoNginx-2 nginx		# Forground / Interactive + TTY Mode(=-i -t) + Alias(--name)
-	$ docker run -it --name demoOpenJdk8-2 openjdk:8-alpine
+	$ docker run -it --name demoJdk8-2 eclipse-temurin:8-jdk
 	$ docker ps
 	$ docker ps -a
 	```
-
-- Stop vs. kill
-```bash
-# docker run -d --name web1 nginx
-# docker run -d --name web2 nginx
-# docker ps -a
-# docker top web1
-# docker top web2
-# ps -ef | grep nginx
-# docker stop web1
-# docker ps -a						# web1 is Exited(0)
-# docker kill web2					# kill is SIGKILL(9)
-# docker ps -a						# web2 is Exited(137)
-# docker start web2
-# docker kill -s 15 web2			# 15(=docker stop) is SIGTERM
-# docker ps -a						# web2 is Exited(0)
-```
-
+- Stop vs. Kill
+	```bash
+	$ docker run -d --name web1 nginx
+	$ docker run -d --name web2 nginx
+	$ docker ps -a
+	$ docker top web1					# top command at linux
+	$ docker top web2
+	$ ps -ef | grep nginx
+	$ docker stop web1					# stop is SIGKILL(15)
+	$ docker ps -a						# web1 is Exited(0) = SIGKILL(15)
+	$ docker kill web2					# kill is SIGKILL(9)
+	$ docker ps -a						# web2 is Exited(137) = SIGKILL(9)
+	$ docker start web2
+	$ docker kill -s 15 web2			# SIGTERM(-s) is 15(=docker stop)
+	$ docker ps -a						# web2 is Exited(0) = SIGKILL(15)
+	```
 - Inspect
-```bash
-$ docker inspect demoNginx-1                                      # Backgroud Mode and Service
-$ docker inspect demoNginx-2                                      # Forground Mode
-$ docker inspect demoOpenJdk-1                                    # Backgroud Mode and Non Service
-$ docker inspect demoOpenJdk-2                                    # Forground Mode
-$ docker inspect demoOpenJdk8-1                                   # Backgroud Mode and Non Service
-$ docker inspect demoOpenJdk8-2                                   # Forground Mode
-$ docker inspect myDemoNginx-1                                    # Backgroud Mode and Service
-$ docker inspect myDemoNginx-2                                    # Forground Mode
-$ docker rm -f $(docker ps -aq)
-```
-
+	```bash
+	$ docker inspect demoNginx-1									# Backgroud Mode and Service
+	$ docker inspect demoNginx-2 									# Forground Mode
+	$ docker inspect demoJdk8-1										# Backgroud Mode and Non Service
+	$ docker inspect demoJdk8-2										# Forground Mode
+	$ docker run -d --name demoJdk8-3 eclipse-temurin:8-jdk bash	# Backgroud Mode and Non Service + bash
+	$ docker run -it --name demoJdk8-4 eclipse-temurin:8-jdk bash	# Forground Mode + bash
+	$ docker rm -f $(docker ps -aq)
+	```
 - Top, Port, Rename, Copy
-```bash
-$ docker run --name web1 -d nginx
-$ docker run --name web2 -d -p 8080:80 nginx
-$ docker top web1			# web1 컨테이너에 실행중인 프로세스 정보를 ps -ef 형식으로 출력(=docker container top web1)
-$ docker top web1 aux		# web1 컨테이너에 실행중인 프로세스 정보를 ps -aux 형식으로 출력
-$ docker port web1			# web1 컨테이너에 사용중인 포트 정보(=docker container port web1)
-$ docker port web2			# web2 컨테이너에 사용중인 포트 정보
-$ docker stop web1
-$ docker ps -a
-$ docker rename web1 www1						# 컨테이너명 변경(=docker container rename web1 www1)
-$ docker rename web2 www2
-$ docker container ls -a
-$ docker cp www1:/usr/share/nginx/html/index.html .			# 컨테이너 파일을 로컬(.)로 복사(=docker container cp www1:/usr/share/nginx/html/index.html .) [참고] www2 is a only live!!!
-$ nano index.html
-$ docker cp ./index.html www1:/usr/share/nginx/html/index.html		# 로컬 파일을 컨테이너 파일로 복사
-$ docker cp ./index.html www2:/usr/share/nginx/html/index.html		# 로컬 파일을 컨테이너 파일로 복사
-$ docker exec -it www2 /bin/bash					# [중요] 해당 컨테이너에 접근=exec addtional process(i: Interactive, t: TTY) after run
-$ cat /usr/share/nginx/html/index.html
-$ exit									# 해당 컨테이너에서 나가기
-$ docker rm -f $(docker ps -aq)
-```
-
+	```bash
+	$ docker run --name web1 -d nginx
+	$ docker run --name web2 -d -p 8080:80 nginx
+	$ docker top web1			# web1 컨테이너에 실행중인 프로세스 정보를 ps -ef 형식으로 출력(=docker container top web1)
+	$ docker top web1 aux		# web1 컨테이너에 실행중인 프로세스 정보를 ps -aux 형식으로 출력
+	$ docker port web1			# web1 컨테이너에 사용중인 포트 정보(=docker container port web1)
+	$ docker port web2			# web2 컨테이너에 사용중인 포트 정보
+	$ docker stop web1
+	$ docker ps -a
+	$ docker rename web1 www1								# 컨테이너명 변경(=docker container rename web1 www1)
+	$ docker rename web2 www2
+	$ docker container ls -a
+	$ docker cp www1:/usr/share/nginx/html/index.html .		# 컨테이너 파일을 로컬(.)로 복사(=docker container cp www1:/usr/share/nginx/html/index.html .) [참고] www2 is a only live!!!
+	$ nano index.html
+	$ docker cp ./index.html www1:/usr/share/nginx/html/index.html		# 로컬 파일을 컨테이너 파일로 복사
+	$ docker cp ./index.html www2:/usr/share/nginx/html/index.html		# 로컬 파일을 컨테이너 파일로 복사
+	$ docker exec -it www2 /bin/bash						# [중요] 해당 컨테이너에 접근=exec addtional process(i: Interactive, t: TTY) after run
+	$ cat /usr/share/nginx/html/index.html
+	$ exit													# 해당 컨테이너에서 나가기
+	$ docker rm -f $(docker ps -aq)
+	```
 - Diff, Attach
 ```bash
 $ docker run --name web1 -d -p 8080:80 nginx
@@ -308,7 +299,7 @@ $ docker volume ls
 $ docker volume prune                                                                   	# 생성된 모든 볼륨을 삭제
 ```
 
-	
+
 ## Network for Container
 ```bash
 $ docker network ls                                			# Network(Default:bridge=호스트에 브릿지 네트워크 추가, host=호스트 네트워크 자체, none=없음) for Container
@@ -369,7 +360,7 @@ $ docker exec -it demoNginx /bin/bash		# docker attach demoNginx
 # 수동 빌드(docker commit)
 $ docker images
 $ docker ps -a
-$ docker run -d --name demoSpringboot -p 1000:8080 openjdk:8-alpine                     # 베이스 이미지(openjdk:8-alpine)를 이용하여 demoSpringBoot로 실행
+$ docker run -d --name demoSpringboot -p 1000:8080 eclipse-temurin:8-jdk                # 베이스 이미지(eclipse-temurin:8-jdk)를 이용하여 demoSpringBoot로 실행
 $ docker ps -a
 $ docker commit demoSpringboot demo-springboot                                          # 실행중인 컨테이너(demoSpringboot)를 demo-springboot:latest 이미지로 생성(이미지명에 대문자 사용 불가, 이하 동일)
 $ docker images
