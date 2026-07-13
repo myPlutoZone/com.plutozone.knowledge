@@ -8,18 +8,18 @@
 04. [Install Docker and Configuration ................... 설치와 구성](#4-install-docker-and-configuration)
 05. [LifeCycle of Docker Container ......................... 생명주기](#5-lifecycle-of-docker-container)
 06. [Commands ............................................... 명령어](#6-commands)
-07. [Volume(Storage) for Container ........................... 볼륨](#7-volumestorage-for-container)
-08. [Network for Container ................................ 네트워크](#8-network-for-container)
+07. [Network for Container ................................ 네트워크](#7-network-for-container)
+08. [Volume(Storage) for Container ........................... 볼륨](#8-volumestorage-for-container)
 09. [Summary ................................................. 요약](#9-summary)
 10. [Build for Container ..................................... 빌드](#10-build-for-container)
 11. [Docker File Instruction ............................... 지시어](#11-docker-file-instruction)
 12. [Compose for Container ................................. 컴포즈](#12-compose-for-container)
 13. [Example ................................................. 예제](#13-example)
-13-1. [WordPress(웹 페이지 제작 및 관리용 CMS) + MySQL](#13-1-wordpress웹-페이지-제작-및-관리용-cms--mysql)
-13-2. [Make Image(Ubuntu + Git + JDK) by docker commit](#13-2-make-imageubuntu--git--jdk-by-docker-commit)
-13-3. [Make Image(Ubuntu + Python) by docker file](#13-3-make-imageubuntu--python-by-docker-file)
-13-4. [Make Image(Ubuntu + Python + hello.py) by docker file](#13-4-make-imageubuntu--python--hellopy-by-docker-file)
-13-5. [Make Image(Ubuntu + Python + hello.py + 환경 변수) by docker file](#13-5-make-imageubuntu--python--hellopy--환경-변수-by-docker-file)
+ - [13-1. WordPress(웹 페이지 제작 및 관리용 CMS) + MySQL](#13-1-wordpress웹-페이지-제작-및-관리용-cms--mysql)
+ - [13-2. Make Image(Ubuntu + Git + JDK) by docker commit](#13-2-make-imageubuntu--git--jdk-by-docker-commit)
+ - [13-3. Make Image(Ubuntu + Python) by docker file](#13-3-make-imageubuntu--python-by-docker-file)
+ - [13-4. Make Image(Ubuntu + Python + hello.py) by docker file](#13-4-make-imageubuntu--python--hellopy-by-docker-file)
+ - [13-5. Make Image(Ubuntu + Python + hello.py + 환경 변수) by docker file](#13-5-make-imageubuntu--python--hellopy--환경-변수-by-docker-file)
 14. [Reference ............................................... 참고](#14-reference)
 
 
@@ -277,7 +277,39 @@ $ docker rmi [IMAGE_NAME]																	# 이미지 삭제(=docker image rm [I
 	```
 
 
-## 7. Volume(Storage) for Container
+## 7. Network for Container
+```bash
+$ docker network ls										# Network(Default:bridge=호스트에 브릿지 네트워크 추가, host=호스트 네트워크 자체, none=없음) for Container
+$ docker pull plutomsw/demo-busybox
+$ docker tag plutomsw/demo-busybox demo-busybox2nd		# plutomsw/demo-busybox를 demo-busybox2nd로 설정(tag)
+$ docker images
+$ docker run --rm demo-busybox2nd ip a					# 실행 후 즉시 삭제(--rm), IP 확인(ip a = ip addr show): 172.17.0.2 from 172.17.0.0 ~ 172.17.255.255
+$ docker run --rm --network host demo-busybox2nd ip a	# 실행 후 즉시 삭제(--rm), 네트워크 선택(--network), IP 확인(ip a = ip addr show)
+$ docker run --rm --network none demo-busybox2nd ip a	# 실행 후 즉시 삭제(--rm), 네트워크 선택(--network), IP 확인(ip a = ip addr show)
+$ docker network inspect bridge							# bridge detail
+$ docker run -d demo-busybox2nd sleep 1d				# sleep 1d로 해당 컨테이너를 실행
+$ docker network inspect bridge							# bridge detail
+$ docker exec -it [Name or ID%] sh						# sh로 해당 컨테이너로 접근
+$ docker network create -d brigde demoNet									# 기본이 brigde이므로 -d(driver) brigde 옵션 생략 가능
+$ docker network ls
+$ docker network rm demoNet
+$ docker network create demoNet --subnet 172.20.0.0/24						# 사용자 정의 네트워크 생성
+$ docker network ls
+$ docker pull plutomsw/demo-nginx											# [참고] latest는 하기 10. Build에서 v1 > v2 이후의 결과임
+$ docker tag plutomsw/demo-nginx demo-nginx2nd								# tag 설정
+$ docker run -d --network demoNet --name demoApp demo-nginx2nd				# 사용자 정의 네트워크로 컨테이너 실행
+$ docker inspect demoApp | grep IP											# IP 확인
+$ docker run -d --network demoNet --name demoApp2 -p 1000:80 demo-nginx2nd	# 사용자 정의 네트워크로 컨테이너 실행(-p: 포트 포워딩, 요청 포트:응답 포트)
+# http://172.16.0.101:1000 at Host
+$ docker rm -f $(docker container ls -a -q)									# 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
+$ docker network rm demoNet
+# 기타 옵션: --add-host(/etc/hosts 설정), --dns(/etc/resolv.conf 설정), --mac-address(MAC 설정), --hostname(/etc/hostname 설정), --ip(IP 지정)
+$ docker container run --rm -it --hostname www.test.com --add-host node1.test.com:172.17.0.10 --dns 192.168.10.2 centos # hotname, ip addr, ip route, cat /etc/hosts, cat /etc/hostname, df -hT, cat /etc/resolv.conf 등으로 확인
+# 컨테이너 통신 방법 (1) /etc/hosts (2) --link (3) 자동 이름 검색 서비스 in 사용자 정의 네트워크
+```
+
+
+## 8. Volume(Storage) for Container
 - EFK(Elastic Search + Fluentd + Kibana) vs. PLG(Promtail + Loki + Grafana) for Logging
 - Storage Type
 	- /var/lib/docker/volumes by Docker(volume mount)
@@ -287,61 +319,30 @@ $ docker rmi [IMAGE_NAME]																	# 이미지 삭제(=docker image rm [I
 $ docker volume ls
 $ docker volume create demoVol1
 $ docker volume inspect demoVol1
-$ docker run -d --name demoApp3 -p 1235:80 -v demoVol1:/usr/share/nginx/html nginx2nd
-$ curl 172.17.0.1:1235
+$ docker run -d --name demoApp1 -p 1234:80 demo-nginx2nd
+$ docker run -d --name demoApp2 -p 1235:80 -v demoVol1:/usr/share/nginx/html demo-nginx2nd
 $ curl 172.17.0.1:1234
 $ curl localhost:1234
+$ curl 172.17.0.1:1235
 $ docker volume inspect demoVol1
 $ nano /var/lib/docker/volumes/demoVol1/_data/index.html
-$ curl 172.17.0.1:1235															   	# demoVol1 저장된 index.html(예: 동적 소스, 설정 등)
+$ curl 172.17.0.1:1235																			# demoVol1 저장된 index.html(예: 동적 소스, 설정 등)
 $ curl 172.17.0.1:1234
-$ docker run -d --name demoApp4 -p 1236:80 -v demoVol1:/usr/share/nginx/html nginx2nd
-$ curl 172.17.0.1:1236    																				  	# demoVol1
-$ docker run -d --name demoApp5 -p 1237:80 -v /demoVol2:/usr/share/nginx/html nginx2nd  	# "/"로 시작할 경우 by 사용자(bind mount)
-$ docker run -d --name demoApp6 -p 1236:80 -v  demoVol1:/usr/share/nginx/html:ro nginx2nd	# 읽기 전용 volume mount
-$ docker run -d --name demoApp7 -p 1237:80 -v /demoVol3:/usr/share/nginx/html:ro nginx2nd	# 읽기 전용 bind mount
+$ docker run -d --name demoApp3 -p 1236:80 -v demoVol1:/usr/share/nginx/html demo-nginx2nd
+$ curl 172.17.0.1:1236																			# demoVol1
+$ docker run -d --name demoApp4 -p 1237:80 -v /demoVol2:/usr/share/nginx/html demo-nginx2nd		# "/"로 시작할 경우 by 사용자(bind mount)
+$ docker run -d --name demoApp5 -p 1236:80 -v  demoVol1:/usr/share/nginx/html:ro demo-nginx2nd	# 읽기 전용 volume mount
+$ docker run -d --name demoApp6 -p 1237:80 -v /demoVol3:/usr/share/nginx/html:ro demo-nginx2nd	# 읽기 전용 bind mount
 $ ls /
-$ docker run -d -e MYSQL_ROOT_PASSWORD=root mysql	                                    	# MySQL 설치 시 1) 볼륨을 지장하지 않을 경우 자동 생성 2) 암호 설정(-e)
+$ docker run -d -e MYSQL_ROOT_PASSWORD=root mysql		# MySQL 설치 시 1) 볼륨을 지장하지 않을 경우 자동 생성 2) 암호 설정(-e)
 $ docker volume ls
-$ docker rm -f $(docker container ls -a -q)                                             	# 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
-$ docker rm -vf [Name or ID%]                                                           	# 컨테이너 삭제 시 볼륨 자동 삭제
+$ docker rm -f $(docker container ls -a -q)				# 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
+$ docker rm -vf [Name or ID%]							# 컨테이너 삭제 시 볼륨 자동 삭제
 $ docker volume ls
-$ docker volume rm demoVol1                                                             	# 볼륨 수동 삭제
-$ docker volume rm -f $(docker vloume ls -q)							# 모든 볼륨 삭제
+$ docker volume rm demoVol1								# 볼륨 수동 삭제
+$ docker volume rm -f $(docker vloume ls -q)			# 모든 볼륨 삭제
 $ docker volume ls
-$ docker volume prune                                                                   	# 생성된 모든 볼륨을 삭제
-```
-
-
-## 8. Network for Container
-```bash
-$ docker network ls                                			# Network(Default:bridge=호스트에 브릿지 네트워크 추가, host=호스트 네트워크 자체, none=없음) for Container
-$ docker pull quay.io/uvelyster/busybox
-$ docker tag quay.io/uvelyster/busybox busybox2nd  			# quay.io/uvelyster/busybox를 busybox2nd로 설정(tag)
-$ docker images
-$ docker run --rm busybox2nd ip a                  			# 실행 후 즉시 삭제(--rm), 이미지, IP 확인(ip a): 172.17.0.2 from 172.17.0.0 ~ 172.17.255.255
-$ docker run --rm --network host busybox2nd ip a   			# 실행 후 즉시 삭제(--rm), 네트워크 선택(--network), 이미지(=docker.io/library/busybox:latest), IP 확인(ip a = ip addr show)
-$ docker run --rm --network none busybox2nd ip a   			# 실행 후 즉시 삭제(--rm), 네트워크 선택(--network), 이미지(=docker.io/library/busybox:latest), IP 확인(ip a = ip addr show)
-$ docker network inspect bridge                    			# bridge detail
-$ docker tag quay.io/uvelyster/nginx nginx2nd      			# tag 설정
-$ docker images
-$ docker run -d busybox2nd sleep 1d                			# sleep 1d로 해당 컨테이너를 실행
-$ docker network inspect bridge                    			# bridge detail
-$ docker exec -it [Name or ID%] bash               			# bash로 해당 컨테이너로 접근
-$ docker network create -d brigde demoNet				# 기본이 brigde이므로 -d(driver) brigde 옵션 생략 가능
-$ docker network ls
-$ docker network rm demoNet
-$ docker network create demoNet --subnet 172.20.0.0/24                  # 사용자 정의 네트워크 생성
-$ docker network ls
-$ docker run -d --network demoNet --name demoApp nginx2nd               # 사용자 정의 네트워크로 컨테이너 실행
-$ docker inspect demoApp | grep IP                                      # IP 확인
-$ docker run -d --network demoNet --name demoApp2 -p 1000:80 nginx2nd   # 사용자 정의 네트워크로 컨테이너 실행(-p: 포트 포워딩, 요청 포트:응답 포트)
-                                                                        # http://172.16.0.101:1000
-$ docker rm -f $(docker container ls -a -q)                             # 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
-$ docker network rm demoNet
-# 기타 옵션: --add-host(/etc/hosts 설정), --dns(/etc/resolv.conf 설정), --mac-address(MAC 설정), --hostname(/etc/hostname 설정), --ip(IP 지정)
-$ docker container run --rm -it --hostname www.test.com --add-host node1.test.com:172.17.0.10 --dns 192.168.10.2 centos # hotname, ip addr, ip route, cat /etc/hosts, cat /etc/hostname, df -hT, cat /etc/resolv.conf 등으로 확인
-# 컨테이너 통신 방법 (1) /etc/hots (2) --link (3) 자동 이름 검색 서비스 in 사용자 정의 네트워크
+$ docker volume prune									# 생성된 모든 볼륨을 삭제
 ```
 
 
@@ -438,7 +439,7 @@ $ docker images
 # 자동 빌드(docker build)
 $ mkdir buildTest
 $ vi buildTest/Dockerfile                     # [참고] Docker File Instruction
-FROM busybox2nd                               # 로컬에 해당 베이스 이미지가 다운로드되어 있어야 함
+FROM demo-busybox2nd                               # 로컬에 해당 베이스 이미지가 다운로드되어 있어야 함
 CMD echo helloworld                           # CMD ["echo", "hello", "world"]
 $ docker build buildTest                      # 이미지 빌드
 $ docker images
