@@ -4,10 +4,23 @@
 ## Contents
 01. [Overview .................................................. 개요](#1-overview)
 02. [Container and Docker ............................ 컨테이너와 도커](#2-container-and-docker)
-03. [Environments ..................................... 환경 for 실습](#3-environments)
+03. [Environments .............................................. 환경](#3-environments)
 04. [Install Docker and Configuration ................... 설치와 구성](#4-install-docker-and-configuration)
-05. [LifeCycle of Docker Container ........... 도커 컨테이너의 생명주기](#5-lifecycle-of-docker-container)
+05. [LifeCycle of Docker Container ......................... 생명주기](#5-lifecycle-of-docker-container)
 06. [Commands ............................................... 명령어](#6-commands)
+07. [Volume(Storage) for Container ........................... 볼륨](#7-volumestorage-for-container)
+08. [Network for Container ................................ 네트워크](#8-network-for-container)
+09. [Summary ................................................. 요약](#9-summary)
+10. [Build for Container ..................................... 빌드](#10-build-for-container)
+11. [Docker File Instruction ............................... 지시어](#11-docker-file-instruction)
+12. [Compose for Container ................................. 컴포즈](#12-compose-for-container)
+13. [Example ................................................. 예제](#13-example)
+13-1. [WordPress(웹 페이지 제작 및 관리용 CMS) + MySQL](#13-1-wordpress웹-페이지-제작-및-관리용-cms--mysql)
+13-2. [Make Image(Ubuntu + Git + JDK) by docker commit](#13-2-make-imageubuntu--git--jdk-by-docker-commit)
+13-3. [Make Image(Ubuntu + Python) by docker file](#13-3-make-imageubuntu--python-by-docker-file)
+13-4. [Make Image(Ubuntu + Python + hello.py) by docker file](#13-4-make-imageubuntu--python--hellopy-by-docker-file)
+13-5. [Make Image(Ubuntu + Python + hello.py + 환경 변수) by docker file](#13-5-make-imageubuntu--python--hellopy--환경-변수-by-docker-file)
+14. [Reference ............................................... 참고](#14-reference)
 
 
 ## 1. Overview
@@ -16,15 +29,17 @@
 
 
 ## 2. Container and Docker
-- What's Container
+- What's Container(= 경량화된 서버 가상화 기술)
+	- Image vs. Container and Image Build vs. Source Build
 	- Process at Source(Dockerfile, ...) + Runtime + Environment
 	- Isolation
 	- Containerization by Container Engine(=Docker) vs. Virtualization(base on OS) by Hypervisor
+	- Bare-Metal 가상화 vs. Host 기반 가상화
 - Docker
-	- Containerization and Container Basic Life-cycle
-	- Image Build vs. Source Build
-	- Network and Storage
-	- Docker Compose vs. Kubernetes(Orchestrator=Server Cluster Tool, Multi-host 등)
+	- Build, Push and Run(Containerization and Container Basic Life-cycle)
+	- Docker Component = Engine(Client + API + Daemon) + Object + Registry + Compose + Swarm
+	- Object(Image, Container, Network, Volumes, Plugins)
+	- Docker Compose(컨테이너 관리) or Docker Swarm(클러스터 관리) vs. Kubernetes(Orchestrator=Server Cluster Tool, Multi-host 등)
 - Run VM vs. Container(OCI, Open Container Initiative)
 	- vdi for Oracle VirtualBox
 	- vmdk for VMware
@@ -232,39 +247,37 @@ $ docker rmi [IMAGE_NAME]																	# 이미지 삭제(=docker image rm [I
 	$ docker rm -f $(docker ps -aq)
 	```
 - Diff, Attach
-```bash
-$ docker run --name web1 -d -p 8080:80 nginx
-$ docker diff web1		# 이미지와 컨테이너 차이점 확인(=docker container diff web1): A(Add) , C(Change), D(Delete)
-$ docker stop web1
-$ docker diff web1
-$ docker run --name ubuntu1 -it -d ubuntu
-$ docker diff ubuntu1
-$ docker attach ubuntu1
-# useradd user1
-# passwd user1
-...				# [Ctrl] + [p] + [q]
-$ docker diff ubuntu1
-$ docker rm -f $(docker ps -aq)
-```
-
+	```bash
+	$ docker run --name web1 -d -p 8080:80 nginx
+	$ docker diff web1			# 이미지와 컨테이너 차이점 확인(=docker container diff web1): A(Add) , C(Change), D(Delete)
+	$ docker stop web1
+	$ docker diff web1
+	$ docker run --name ubuntu1 -it -d ubuntu
+	$ docker diff ubuntu1
+	$ docker attach ubuntu1		# 실행 중인 컨테이너의 연결(기존 프로세스) vs. docker exec(신규 프로세스)
+	# useradd user1
+	# passwd user1
+	...				# [Ctrl] + [p] + [q]
+	$ docker diff ubuntu1
+	$ docker rm -f $(docker ps -aq)
+	```
 - Log
-```bash
-$ docker run --name web1 -d -p 8080:80 nginx
-$ docker logs web1							# 컨테이너 로그 확인(=docker container logs web1)
-$ docker inspect -f "{{.LogPath}}" web1		# 로그 파일 위치 확인
-$ docker logs -f web1						# 컨테이너 로그 계속(--follow) 확인
-$ docker logs -n 5 web1						# 컨테이너 로그의 마지막 5줄 확인
-$ docker logs -t web1						# 컨테이너 로그 타임스템프도 확인
-$ docker rm -f $(docker ps -aq)
-```
-
+	```bash
+	$ docker run --name web1 -d -p 8080:80 nginx
+	$ docker logs web1							# 로그 확인(=docker container logs web1)
+	$ docker inspect -f "{{.LogPath}}" web1		# 로그 파일 위치 확인
+	$ docker logs -f web1						# 로그 계속(--follow) 확인
+	$ docker logs -n 5 web1						# 로그 마지막 5줄 확인
+	$ docker logs -t web1						# 로그 타임스템프도 확인
+	$ docker rm -f $(docker ps -aq)
+	```
 - Resource and Monitoring
-```bash
-$ docker run -d -m 512m --oom-kill-disable=true nginx	# 메모리를 512MB로 제한하지만 초과해도 프로세스 강제 미종료(기본값: 초과하면 강세 종료)
-```
+	```bash
+	$ docker run -d -m 512m --oom-kill-disable=true nginx	# 메모리를 512MB로 제한하지만 초과해도 프로세스 강제 미종료(기본값: 초과하면 강세 종료)
+	```
 
 
-## Storage(Volume) for Container
+## 7. Volume(Storage) for Container
 - EFK(Elastic Search + Fluentd + Kibana) vs. PLG(Promtail + Loki + Grafana) for Logging
 - Storage Type
 	- /var/lib/docker/volumes by Docker(volume mount)
@@ -300,7 +313,7 @@ $ docker volume prune                                                           
 ```
 
 
-## Network for Container
+## 8. Network for Container
 ```bash
 $ docker network ls                                			# Network(Default:bridge=호스트에 브릿지 네트워크 추가, host=호스트 네트워크 자체, none=없음) for Container
 $ docker pull quay.io/uvelyster/busybox
@@ -332,7 +345,7 @@ $ docker container run --rm -it --hostname www.test.com --add-host node1.test.co
 ```
 
 
-## Summary
+## 9. Summary
 ```bash
 # Image는 myRegistry.com/hello-py:latest이며 로컬에 없을 경우 다운로드되어 백그라운드 모드로 실행(-d)
 # 로컬의 /source 폴더를 컨테이너의 /data에 바인딩(-v /source:/data)
@@ -352,7 +365,7 @@ $ docker exec -it demoNginx /bin/bash		# docker attach demoNginx
 ```
 
 
-## Build for Container
+## 10. Build for Container
 - Build Type
   - 수동 빌드(=docker commit): 명령어(commit)로 생성 또는 실행중인 컨테이너를 기반으로 이미지 빌드
   - **자동 빌드(=docker build)**: Dockerfile을 기반으로 대부분 신규 이미지를 빌드(**베이스 이미지 선택 또는 설정이 가장 중요**)
@@ -434,7 +447,7 @@ $ docker run testimage
 ```
 
 
-## Docker File Instruction
+## 11. Docker File Instruction
 ```bash
 RUN commandl ; command2 ; command3      # 실패 여부에 관계없이 모두 실행
 RUN commandl ; \
@@ -445,7 +458,7 @@ RUN commandl || command2 || command3    # 앞 부분이 실패해야 다음 실�
 RUN commandl | command2 | command3      # 파이프 라인 실행
 ```
 
-## Compose for Container
+## 12. Compose for Container
 ```bash
 # Compose(Build 이후에 Build 자동화 툴, 예시: GitLab)
 $ mkdir compose
@@ -476,8 +489,8 @@ services:
 $ docker compose up -d
 ```
 
-## Example
-- WordPress(웹 페이지 제작 및 관리용 CMS) + MySQL
+## 13. Example
+### 13-1. WordPress(웹 페이지 제작 및 관리용 CMS) + MySQL
 ```bash
 $ docker run -d --name mysql -v /db:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_PASSWORD=wordpress mysql:5.7
 $ docker run -d --name wordpress --link mysql:mysql -e WORDPRESS_DB_PASSWORD=wordpress -p 80:80 wordpress:4
@@ -487,7 +500,7 @@ $ docker rm -f $(docker ps -aq)
 $ rm -rf /db
 ```
 
-- Make Image(Ubuntu + Git + JDK) by docker commit
+### 13-2. Make Image(Ubuntu + Git + JDK) by docker commit
 ```bash
 $ docker run --name myUbuntu -i -t ubuntu:20.04 /bin/bash
 root@myUbuntu:/# apt update
@@ -518,7 +531,7 @@ root@myUbuntu:/# exit
 $ docker rm myUbuntu
 ```
 
-- Make Image(Ubuntu + Python) by docker file
+### 13-3. Make Image(Ubuntu + Python) by docker file
 ```bash
 $ mkdir build
 $ cd build
@@ -530,7 +543,7 @@ $ docker build -t ubuntu_with_python .
 $ docker images
 ```
 
-- Make Image(Ubuntu + Python + hello.py) by docker file
+### 13-4. Make Image(Ubuntu + Python + hello.py) by docker file
 ```bash
 $ mkdir build
 $ cd build
@@ -547,7 +560,7 @@ $ docker images
 $ docker run python_hello
 ```
 
-- Make Image(Ubuntu + Python + hello.py + 환경 변수) by docker file
+### 13-5. Make Image(Ubuntu + Python + hello.py + 환경 변수) by docker file
 ```bash
 # 환경 변수와 도커 파일과 커맨드 모두에 있을 경우 커맨드가 우선 순위
 $ ...
@@ -562,6 +575,7 @@ $ export NAME=PlutoZone2nd
 $ docker run -e NAME=$NAME python_hello_with_env
 ```
 
-## Reference
+
+## 14. Reference
 - 이미지(Image), 컨테이너(Container) 그리고 태그(Tag)명에 대문자 사용 불가(영문자와 숫자, '-', '_', '.', '/' 만 허용)
 - https://github.com/google/cadvisor (Docker, Kubernetes 등의 리소스 사용량과 성능을 모니터링하는 오픈소스 프로젝트)
