@@ -351,8 +351,8 @@ $ curl 172.17.0.1:1234
 $ docker run -d --name demoApp3 -p 1236:80 -v demoVol1:/usr/share/nginx/html demo-nginx2nd
 $ curl 172.17.0.1:1236																			# demoVol1
 $ docker run -d --name demoApp4 -p 1237:80 -v /demoVol2:/usr/share/nginx/html demo-nginx2nd		# "/"로 시작할 경우 by 사용자(bind mount)
-$ docker run -d --name demoApp5 -p 1236:80 -v  demoVol1:/usr/share/nginx/html:ro demo-nginx2nd	# 읽기 전용 volume mount
-$ docker run -d --name demoApp6 -p 1237:80 -v /demoVol3:/usr/share/nginx/html:ro demo-nginx2nd	# 읽기 전용 bind mount
+$ docker run -d --name demoApp5 -p 1238:80 -v  demoVol1:/usr/share/nginx/html:ro demo-nginx2nd	# 읽기 전용 volume mount
+$ docker run -d --name demoApp6 -p 1239:80 -v /demoVol3:/usr/share/nginx/html:ro demo-nginx2nd	# 읽기 전용 bind mount
 $ ls /
 $ docker run -d -e MYSQL_ROOT_PASSWORD=root mysql		# MySQL 설치 시 1) 볼륨을 지장하지 않을 경우 자동 생성 2) 암호 설정(-e)
 $ docker volume ls
@@ -367,95 +367,100 @@ $ docker volume prune									# 생성된 모든 볼륨을 삭제
 
 
 ## 9. Build for Container
-- Build Type
-  - 수동 빌드(=docker commit): 명령어(commit)로 생성 또는 실행중인 컨테이너를 기반으로 이미지 빌드
-  - **자동 빌드(=docker build)**: Dockerfile을 기반으로 대부분 신규 이미지를 빌드(**베이스 이미지 선택 또는 설정이 가장 중요**)
+### Build 유형
+- 수동 빌드(=docker commit): 명령어(commit)로 생성 또는 실행중인 컨테이너를 기반으로 이미지 빌드
+- 자동 빌드(=docker build): Dockerfile을 기반으로 이미지를 빌드(**베이스 이미지 선택 또는 설정이 가장 중요**)
+
+### 수동 빌드(docker commit)
 ```bash
-# 수동 빌드(docker commit)
 $ docker images
 $ docker ps -a
-$ docker run -d --name demoSpringboot -p 1000:8080 eclipse-temurin:8-jdk                # 베이스 이미지(eclipse-temurin:8-jdk)를 이용하여 demoSpringBoot로 실행
+$ docker run -it --name demoSpringboot eclipse-temurin:18-jdk bash		# 베이스 이미지(eclipse-temurin:18-jdk)를 이용하여 demoSpringBoot로 실행
 $ docker ps -a
-$ docker commit demoSpringboot demo-springboot                                          # 실행중인 컨테이너(demoSpringboot)를 demo-springboot:latest 이미지로 생성(이미지명에 대문자 사용 불가, 이하 동일)
+$ docker commit demoSpringboot demo-springboot							# 실행중인 컨테이너(demoSpringboot)를 demo-springboot:latest 이미지로 생성(이미지명에 대문자 사용 불가, 이하 동일)
 $ docker images
-$ docker tag demo-springboot:latest myRegistry.com/ID/demo-springboot                   # 태그 설정(latest 생략 가능) [참고] hug.docker.com일 경우는 도메인 생략(myRegistry.com/, 이하 동일)
+$ docker tag demo-springboot:latest myRegistry.com/ID/demo-springboot	# 태그 설정(latest 생략 가능, hug.docker.com일 경우는 도메인 생략, 이하 동일)
 $ docker images
-$ docker login -u ID                                                                    # [참고] docker.io(hub.docker.com)을 사용할 경우 로그인(이하 동일)
-$ docker push myRegistry.com/ID/demo-springboot                                         # [Registry] latest(=Open JDK 8 원본) 최초 등록
+$ docker login -u ID													# docker.io(hub.docker.com)을 사용할 경우 로그인(이하 동일)
+$ docker push myRegistry.com/ID/demo-springboot							# latest(=Open JDK 18 원본) 최초 등록 at Registry
 $ docker images
 $ docker rmi demo-springboot
 $ docker images
-$ docker tag myRegistry.com/ID/demo-springboot myRegistry.com/ID/demo-springboot:v1     # 최종 이미지를 버전 업하기 전에 태그(demo-springboot:v1) 변경
+$ docker tag myRegistry.com/ID/demo-springboot myRegistry.com/ID/demo-springboot:v1	# 최종 이미지를 버전 업하기 전에 태그(demo-springboot:v1) 변경
 $ docker images
-$ docker push myRegistry.com/ID/demo-springboot:v1                                      # [Registry] v1(=latest=Open JDK 8 원본) 등록
-
+$ docker push myRegistry.com/ID/demo-springboot:v1						# v1(=Open JDK 18 원본) 등록 at Registry
 $ docker rm -f $(docker container ls -a -q)
+
 $ docker images
 $ docker ps -a
-$ docker run -d --name demoNginx -p 1000:80 nginx                             # 베이스 이미지(nginx)를 이용하여 demoNginx로 실행
-$ docker ps -a                                                                
-$ docker commit demoNginx demo-nginx                                          # 실행중인 컨테이너(demoNginx)를 demo-nginx:latest 이미지로 생성
+$ docker run -d --name demoNginx -p 1000:80 nginx							# 베이스 이미지(nginx)를 이용하여 demoNginx로 실행
+$ docker ps -a
+$ docker commit demoNginx demo-nginx										# 실행중인 컨테이너(demoNginx)를 demo-nginx:latest 이미지로 생성
 $ docker images
-$ docker tag demo-nginx myRegistry.com/ID/demo-nginx                          # 태그 설정(latest)
+$ docker tag demo-nginx myRegistry.com/ID/demo-nginx						# 태그 설정(latest)
 $ docker images
 $ docker login -u ID
-$ docker push myRegistry.com/ID/demo-nginx                                    # [Registry] latest(=Nginx 원본) 최초 등록
+$ docker push myRegistry.com/ID/demo-nginx									# latest(=Nginx 원본) 최초 등록 at Registry
 $ docker images
 $ docker rmi demo-nginx
 $ docker images
-$ docker tag myRegistry.com/ID/demo-nginx myRegistry.com/ID/demo-nginx:v1     # 최종 이미지를 버전 업하기 전에 태그(demo-nginx:v1) 변경
+$ docker tag myRegistry.com/ID/demo-nginx myRegistry.com/ID/demo-nginx:v1	# 최종 이미지를 버전 업하기 전에 태그(demo-nginx:v1) 변경
 $ docker images
-$ docker push myRegistry.com/ID/demo-nginx:v1                                 # [Registry] v1(=latest=Nginx 원본) 등록
+$ docker push myRegistry.com/ID/demo-nginx:v1								# v1(=Nginx 원본) 등록 at Registry
 $ echo "hello world, First Update" > index.html
 $ docker cp index.html demoNginx:/usr/share/nginx/html/index.html
-$ docker commit demoNginx myRegistry.com/ID/demo-nginx                        # 1차 변경되어 실행중인 컨테이너(demoNginx)를 demo-nginx:latest 이미지로 생성
+$ docker commit demoNginx myRegistry.com/ID/demo-nginx						# 1차 변경되어 실행중인 컨테이너(demoNginx)를 demo-nginx:latest 이미지로 생성
 $ docker images
 $ docker history nginx
 $ docker history myRegistry.com/ID/demo-nginx
 $ docker history myRegistry.com/ID/demo-nginx:v1
 $ docker history myRegistry.com/ID/demo-nginx:v1 | wc -l
-$ docker push myRegistry.com/ID/demo-nginx                                    # [Registry] latest 1차 변경 등록
+$ docker push myRegistry.com/ID/demo-nginx									# latest 1차 변경 등록 at Registry
 $ docker ps -a
-$ docker tag myRegistry.com/ID/demo-nginx myRegistry.com/ID/demo-nginx:v2     # 최종 이미지를 버전 업하기 전에 태그(demo-nginx:v2) 변경
+$ docker tag myRegistry.com/ID/demo-nginx myRegistry.com/ID/demo-nginx:v2	# 최종 이미지를 버전 업하기 전에 태그(demo-nginx:v2) 변경
 $ docker images
-$ docker push myRegistry.com/ID/demo-nginx:v2                                 # [Registry] v2 등록
+$ docker push myRegistry.com/ID/demo-nginx:v2								# v2 등록 at Registry
 $ echo "hello world, Second Update" > index.html
 $ docker cp index.html demoNginx:/usr/share/nginx/html/index.html
-$ docker commit demoNginx myRegistry.com/ID/demo-nginx                        # 2차 변경되어 실행중인 컨테이너(demoNginx)를 demo-nginx:latest 이미지로 생성
+$ docker commit demoNginx myRegistry.com/ID/demo-nginx						# 2차 변경되어 실행중인 컨테이너(demoNginx)를 demo-nginx:latest 이미지로 생성
 $ docker images
-$ docker push myRegistry.com/ID/demo-nginx                                    # [Registry] latest 2차 변경 등록
+$ docker push myRegistry.com/ID/demo-nginx									# latest 2차 변경 등록 at Registry
 $ docker ps -a
-$ docker rm -f demoNginx                                                      # 컨테이너(demoNginx) 삭제(-f: 강제 중지 후 삭제)
-$ docker rmi myRegistry.com/ID/demo-nginx:v1                                  # 모든 이미지(demo-nginx*) 삭제
+$ docker rm -f demoNginx													# 컨테이너(demoNginx) 삭제(-f: 강제 중지 후 삭제)
+$ docker rmi myRegistry.com/ID/demo-nginx:v1								# 모든 이미지(demo-nginx*) 삭제
 $ docker rmi myRegistry.com/ID/demo-nginx:v2
 $ docker rmi myRegistry.com/ID/demo-nginx
 $ docker images
-$ docker run -d --name demoNginx -p 1000:80 myRegistry.com/ID/demo-nginx      # demo-nginx:latest pull 및 run
-$ docker run -d --name demoNginxV2 -p 1001:80 myRegistry.com/ID/demo-nginx:v2 # demo-nginx:v2 pull 및 run
-$ docker run -d --name demoNginxV1 -p 1001:80 myRegistry.com/ID/demo-nginx:v1 # demo-nginx:v1 pull 및 run
+$ docker run -d --name demoNginx -p 1000:80 myRegistry.com/ID/demo-nginx		# demo-nginx:latest pull 및 run
+$ docker run -d --name demoNginxV2 -p 1001:80 myRegistry.com/ID/demo-nginx:v2	# demo-nginx:v2 pull 및 run
+$ docker run -d --name demoNginxV1 -p 1001:80 myRegistry.com/ID/demo-nginx:v1	# demo-nginx:v1 pull 및 run
 $ docker ps -a
 $ docker images
+```
 
-# 자동 빌드(docker build)
+### 자동 빌드(docker build)
+```bash
 $ mkdir buildTest
-$ vi buildTest/Dockerfile                     # [참고] Docker File Instruction
-FROM demo-busybox2nd                               # 로컬에 해당 베이스 이미지가 다운로드되어 있어야 함
-CMD echo helloworld                           # CMD ["echo", "hello", "world"]
-$ docker build buildTest                      # 이미지 빌드
+$ vi buildTest/Dockerfile				# [참고] Docker File Instruction
+FROM demo-busybox2nd					# 로컬에 해당 베이스 이미지가 다운로드되어 있어야 함
+CMD echo helloworld						# CMD ["echo", "hello", "world"]
+$ docker build buildTest				# 이미지 빌드
 $ docker images
-$ docker tag [ID%] testimage                  # 네임 부여(대문자 제외)
+$ docker tag [ID%] testimage			# 네임 부여(대문자 제외)
 $ docker run testimage
 ```
-- Docker File Instruction
+
+### Docker File Instruction
 ```bash
-RUN commandl ; command2 ; command3      # 실패 여부에 관계없이 모두 실행
+RUN commandl ; command2 ; command3		# 실패 여부에 관계없이 모두 실행
 RUN commandl ; \
-    command2 ; \
-    command3                            # 실패 여부에 관계없이 모두 실행 + 가독성(\)
-RUN commandl && command2 && command3    # 앞 부분이 성공해야 다음 실행
-RUN commandl || command2 || command3    # 앞 부분이 실패해야 다음 실행
-RUN commandl | command2 | command3      # 파이프 라인 실행
+	command2 ; \
+	command3							# 실패 여부에 관계없이 모두 실행 + 가독성(\)
+RUN commandl && command2 && command3	# 앞 부분이 성공해야 다음 실행
+RUN commandl || command2 || command3	# 앞 부분이 실패해야 다음 실행
+RUN commandl | command2 | command3		# 파이프 라인 실행
 ```
+
 
 ## 10. Compose for Container
 ```bash
@@ -500,7 +505,7 @@ $ docker rm -f $(docker ps -aq)
 $ rm -rf /db
 ```
 
-### 11-2. Make Image(Ubuntu + Git + JDK) by docker commit
+### 11-2. Make Image(Ubuntu + Git + Open JDK 8) by docker commit
 ```bash
 $ docker run --name myUbuntu -i -t ubuntu:20.04 /bin/bash
 root@myUbuntu:/# apt update
@@ -573,6 +578,10 @@ $ docker run -e NAME=PlutoZone1st python_hello_with_env
 ...
 $ export NAME=PlutoZone2nd
 $ docker run -e NAME=$NAME python_hello_with_env
+```
+
+### 11-6. Make Image(Open JDK 18 + Spring Boot Source at GitHub) by docker file
+```bash
 ```
 
 
