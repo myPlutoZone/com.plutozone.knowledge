@@ -18,6 +18,7 @@
  - [11-3. Make Image(Ubuntu + Python) by docker file](#11-3-make-imageubuntu--python-by-docker-file)
  - [11-4. Make Image(Ubuntu + Python + hello.py) by docker file](#11-4-make-imageubuntu--python--hellopy-by-docker-file)
  - [11-5. Make Image(Ubuntu + Python + hello.py + 환경 변수) by docker file](#11-5-make-imageubuntu--python--hellopy--환경-변수-by-docker-file)
+ - [11-6. Make Image(Open JDK 18 + Spring Boot Project at GitHub) by docker file](#11-6-make-imageopen-jdk-18--spring-boot-project-at-github-by-docker-file)
 12. [Reference ............................................... 참고](#12-reference)
 
 
@@ -580,9 +581,8 @@ $ export NAME=PlutoZone2nd
 $ docker run -e NAME=$NAME python_hello_with_env
 ```
 
-### 11-6. Make Image(Open JDK 18 + Spring Boot Source at GitHub) by docker file
-```bash
-```
+### 11-6. Make Image(Open JDK 18 + Spring Boot Project at GitHub) by docker file
+- [com.plutozone.demo.springBoot](https://github.com/myPlutoZone/com.plutozone.demo.springBoot)
 
 
 ## 12. Reference
