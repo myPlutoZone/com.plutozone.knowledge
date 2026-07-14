@@ -442,13 +442,12 @@ $ docker images
 ### 자동 빌드(docker build)
 ```bash
 $ mkdir buildTest
-$ vi buildTest/Dockerfile				# [참고] Docker File Instruction
-FROM demo-busybox2nd					# 로컬에 해당 베이스 이미지가 다운로드되어 있어야 함
-CMD echo helloworld						# CMD ["echo", "hello", "world"]
-$ docker build buildTest				# 이미지 빌드
+$ vi buildTest/Dockerfile						# [참고] Docker File Instruction
+FROM demo-busybox2nd							# 로컬에 해당 베이스 이미지가 다운로드되어 있어야 함
+CMD echo helloworld								# CMD ["echo", "hello", "world"]
+$ docker build buildTest -t testBuild:renewal	# 이미지 빌드
 $ docker images
-$ docker tag [ID%] testimage			# 네임 부여(대문자 제외)
-$ docker run testimage
+$ docker run testBuild:renewal
 ```
 
 ### Docker File Instruction
