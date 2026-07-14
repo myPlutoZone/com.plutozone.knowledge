@@ -29,8 +29,41 @@
 - Java Standard/Enterprise/Micro Edition 그리고 JDK(Java Development Kit) vs. JRE(Java Runtime Environment)
 - Open JDK vs. Oracle JDK and LTS(Long Term Support, 장기 지원 서비스)
 - Software Version: Major.Minor.Patch(예: 1.0.0) and 안정화 버전(=Even Number Version)
-- JDK 다운로드와 설치
-- 환경 설정(JAVA_HOME과 PATH 등)
+- JDK 다운로드와 설치 그리고 환경 설정(JAVA_HOME과 PATH 등)
+	```bash
+	$ tar zxvf jdk-21.0.10_linux-x64_bin.tar.gz							# 다운로드 후 압축 해제
+	$ sudo mkdir /usr/local/java										# [권장] Java 폴더 생성
+	$ sudo mv jdk-21.0.10/ /usr/local/java/								# [권장] 이동 후 전역 사용
+	$ ln -s /usr/local/java/jdk-21.0.10 java							# [옵션] 심볼릭 링크
+	$ nano ~/.profile													# [권장] 해당 계정 프로파일 설정
+	# [참고] 등록된 정보(예: update-alternatives)를 통한 환경변수 설정 예) export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+	...
+	export JAVA_HOME=/usr/local/java/jdk-21.0.10
+	export JRE_HOME=$JAVA_HOME
+	export CLASSPATH=.:$JAVA_HOME/lib
+	export PATH=$PATH:$JAVA_HOME/bin
+	# export JAVA_HOME=/usr/local/java/jdk1.8.0_201
+	# export JRE_HOME=$JAVA_HOME/jre
+	# export CLASSPATH=.:$JAVA_HOME/jre/lib/ext:$JAVA_HOME/lib/tools.jar
+	# export PATH=$PATH:$JAVA_HOME/bin
+
+	# echo $JAVA_HOME
+	# echo $PATH
+	# java -version
+
+	$ source ~/.profile													# 해당 계정 프로파일 즉시 반영
+	$ java –version														# 설치된 자바 버전 확인
+	# [옵션] 필요 시 시스템 환경 파일 설정
+	$ sudo nano /etc/environment
+	...
+	PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/java/jdk-21.0.10/bin"
+	JAVA_HOME="/usr/local/java/jdk-21.0.10"
+	JRE_HOME="/usr/local/java/jdk-21.0.10"
+	CLASSPATH=".:/usr/local/java/jdk-21.0.10/lib"
+	...
+	# [옵션] 시스템 환경 파일 즉시 반영
+	$ sudo /etc/environment
+	```
 - System.out.println("Hello, World!");
 
 ### 1-2. 이클립스(Eclipse)
