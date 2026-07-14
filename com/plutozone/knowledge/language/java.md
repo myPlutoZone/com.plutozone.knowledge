@@ -1,34 +1,46 @@
 # com.plutozone.knowledge.language.Java
 
 
-## Overview
-- Programming Language vs. Program vs. Programming vs. Programmer
-- Programming Language(Java vs. C/C++ 등)의 종류와 특성
-- Program(Stand-alone vs. OS 기반 Server/Client vs. Web 기반 Server/Client 등)의 종류와 특성
-- Web Program(Static vs. Dynamic)의 종류와 특성
-- Eclipse vs. STS(Spring Tool Suite)
+## Preview
+> 호랑이는 죽어서 가죽을 남기고 사람은 죽어서 이름을 남기고 개발자는 죽어서 코드(네트워크와 서버에)를 남긴다.
+- Program(=Software) vs. Programming vs. Programming Language vs. Programmer
+- Program 종류와 특성
+	- Stand-alone
+	- 운영체제 또는 웹 기반 Server, Client 그리고 API 등
+- Programming Language 종류와 특성
+	- Java
+	- C/C++ 등
+- Web Program 종류와 특성(Static vs. Dynamic)
 - Framework(Struts, Spring 등)
-- 개발 툴의 Text, Syntax, Compile 그리고 Runtime 에러를 1) 이해하고 2) 활용하여야 한다.
-- **호랑이는 죽어서 가죽을 남기고 사람은 죽어서 이름을 남기고 개발자는 죽어서 코드(네트워크와 서버에)를 남긴다.**
-- [학습 목표] 1) 관리자 구현 2) API 구현
+- Eclipse vs. STS(Spring Tool Suite)
+- 통합 개발 툴(IDE)에서 Text, Syntax, Compile를 구분하고 Runtime 에러를 이해하고 활용(예: 데이터베이스 또는 네트워크 장애 발생 시)
+- 특수 문자와 아스키 코드
+	```
+	~!@#$%^&*()_+{}|:"<>?`-=[]\;',./	 
+	```
+- [클린 코드](../development/cleanCode.md) vs. [개발 표준 가이드](../development/README.md) vs. [리팩터링](../development/refactoring.md)
 
 
 ## Contents
-1. 개발 환경
-2. 특징 및 기본 문법 그리고 배열
-3. 클래스와 객체
-4. 상속과 다형성
-5. 추상 클래스와 인터페이스
-6. 주요 클래스와 예외 처리
-7. 입출력과 스트림
-8. 자바 응용 소프트웨어 개발을 위한 설계 및 구현 그리고 고객 편의성
+01. [개발 환경](#1-개발-환경)
+02. [특징 및 기본 문법 그리고 배열](#2-특징-및-기본-문법-그리고-배열)
+03. [클래스와 객체](#3-클래스와-객체)
+04. [상속과 다형성](#4-상속과-다형성)
+05. [추상 클래스와 인터페이스](#5-추상-클래스와-인터페이스)
+06. [주요 클래스와 예외 처리](#6-주요-클래스와-예외-처리)
+07. [입출력과 스트림](#7-입출력과-스트림)
+08. [소프트웨어 개발을 위한 설계 및 구현 그리고 고객 편의성](#8-소프트웨어-개발을-위한-설계-및-구현-그리고-고객-편의성)
 
 
 ## 1. 개발 환경
 ### 1-1. 자바(Java) 개발 환경
-- Java Standard/Enterprise/Micro Edition 그리고 JDK(Java Development Kit) vs. JRE(Java Runtime Environment)
-- Open JDK vs. Oracle JDK and LTS(Long Term Support, 장기 지원 서비스)
-- Software Version: Major.Minor.Patch(예: 1.0.0) and 안정화 버전(=Even Number Version)
+- Java Standard/Enterprise/Micro Edition
+- JDK(Java Development Kit) vs. JRE(Java Runtime Environment)
+- Open JDK vs. Oracle JDK
+- Software Version
+	- Major.Minor.Patch.Build(예: 1.0.0.0)
+	- 안정화 버전(=Even Number Version)
+	- LTS(Long Term Support, 장기 지원 서비스)
 - JDK 다운로드와 설치 그리고 환경 설정(JAVA_HOME과 PATH 등)
 	```bash
 	$ tar zxvf jdk-21.0.10_linux-x64_bin.tar.gz							# 다운로드 후 압축 해제
@@ -84,12 +96,12 @@
 ### 1-4. To be continue
 
 
-## 2. 특징 및 기본 문법
+## 2. 특징 및 기본 문법 그리고 배열
 ### 2-1. About Java
-- Java history
+- Java History
 	- Copyright 1990s © Sun Microsystems, James Gosling
 	- Base language는 UCSD Pascal, C++
-	- Netscape Navigator 2.0 + Java Applet on Internet
+	- Netscape Navigator 2.0 and Java Applet on Internet
 - Java Program
 	- Java Applet(Web Browser에서 실행되며 Windows의 ActiveX와 유사)
 	- Java Application-AWT/Swing(Console 또는 Window 형태로 Local에서 실행되며 Windows의 EXE와 유사)
@@ -98,19 +110,18 @@
 	- Java Beans(Java에서 재사용이 가능한 Software Object를 만드는 기술의 결과로 만들어진 Component로서 각종 다양한 목적을 위한 소형 Module로 Windows의 DLL과 유사)
 	- EJB(Enterprise Java Beans, EJB는 확장성 있는 Application Server Component들을 지원하는 여러 Service들을 제공함으로써 Business Application들을 Component 단위로 쉽게 작성할 수 지원하며 Windows의 .NET과 유사)
 - Java Characteristic
-	- Scalability(From enterprise system to small device)
+	- Scalability(From Enterprise System to Small Device)
 	- Light and easy code + Real OOP(But OOP is not easy)
 	- Independent platform(Byte code at JVM: Write once, run everywhere)
 	- Source Charset support UTF-16 vs. UTF-8 vs. ANSI
-
-![JRE](./image/java/jre.png)
 - Java vs. C++ and procedure, structured programming
 	- Remove pointer, structure, union
 	- All code in class
-- Java Folder
-
-![JDK](./image/java/jdk.png)
-- Class library Source: C:\jdk*\src.jar vs. C:\Program Files\Java\jdk*\src.zip
+- JRE(Java Runtime Environment) anf JVM(Java Virtual Machine)
+	![JRE](./image/java/jre.png)
+- JDK(Java Development Kit) and Foler
+	![JDK](./image/java/jdk.png)
+	- Class library Source: C:\jdk*\src.jar vs. C:\Program Files\Java\jdk*\src.zip
 
 ### 2-2. Compile and Run
 - For Beginner: 99%(Text + Syntax + Compile)
@@ -120,12 +131,12 @@
 	- [ERROR] Runtime
 - Compile
 	- C:\Example\javac HelloWorld.java
-
-![Compile](./image/java/compile.png)
+	![Compile](./image/java/compile.png)
 - Run
 	- C:\Example\java HelloWorld
 	- C:\Example\appletviewer ExApplet.html
 - Error vs. Warning
+- Compile Error vs. Runtime Error
 
 ### 2-3. 주석과 문장 그리고 변수와 상수 및 자료형
 - 주석
@@ -133,9 +144,12 @@
 	- /* … */
 	- /** … * /
 	- 주석 for Java Doc
-- 문장(sentence or statement, ;)
-- 변수 선언(예약어 등 제약 사항, 카멜 표기법)과 상수(final), 자료형(정수, 실수, 문자, 문자열, 논리형 등) 그리고 초기화(initialize) 또는 대입(assign)
-- 자동(묵시적) 형 변환 vs. 강제(명시적) 형 변환, 산술 연산 시 자동 형 변환(피연산자들이 리터럴 또는 long이 아닌 경우 변수의 형은 int로 자동 변환됨) 그리고 문자열을 자료형으로 강제 타입 변환(parse)
+- 문장(sentence or statement: ;)
+- 변수 선언(예약어 등 제약 사항, 카멜 표기법)과 상수(final)
+- 자료형(정수, 실수, 문자, 문자열, 논리형 등) 그리고 초기화(initialize) 또는 대입(assign)
+- 형 변환
+	- 자동(묵시적): 예) 산술 연산 시 자동 형 변환(피연산자들이 리터럴 또는 long이 아닌 경우 변수의 형은 int로 자동 변환됨)
+	- 강제(명시적): 예) 문자열을 자료형으로 강제 타입 변환(parse)
 
 ### 2-4. 연산자와 우선 순위
 - 단항, 이항, 삼항
@@ -153,13 +167,12 @@
 - while
 - do/while
 - for
-- for each(`com.plutozone.syntax.control.ForEach`)
+- [for each](/src/com/plutozone/syntax/control/ForEach.java)
 - break와 continue
 
 ### 2-6. 기본 타입(Primitive Type) vs. 참조 타입(Reference Type)
 - 기본 타입(형) 변수에는 정수, 실수, 문자, 논리에 대한 실제 값(=리터럴)를 저장
-- 참조 타입(형) 변수에는 배열, 열거, 클래스, 인터페이스와 같이 객체를 참조하는 주소(Address)를 저장
-- `com.plutozone.syntax.type.Reference`
+- [참조 타입(형) 변수](/src/com/plutozone/syntax/type/Reference.java)에는 배열, 열거, 클래스, 인터페이스와 같이 객체를 참조하는 주소(Address)를 저장
 
 ### 2-7. 배열(Array)
 - 배열의 선언(객체 포함)과 초기화 그리고 Index
@@ -172,15 +185,14 @@
 - 한정된 상수를 갖는 타입(예: 요일, 계절, 전문 번호 등)
 
 
-## 3. 클래스와 객체 그리고 배열
+## 3. 클래스와 객체
 ### 3-1. 객체 지향 프로그래밍(OOP, Object Oriented Programming)과 클래스(Class)
 - 객체(Object) =  속성(Property or Attribute) + 메서드(Method)<sup>단독이 아닌 객체에 속한 함수라는 의미에서 메서드란 이름 부여(속성도 동일함)</sup>
 - 클래스(Class) = 멤버 변수(Membership Field) + 멤버 함수(Member Function)
 - 패키지(Package)
 - 절차 지향 프로그래밍 vs. 객체 지향 프로그래밍(OOP, Object Oriented Programming)
 - 패키지(Package)와 클래스(Class) 선언과 멤버 변수(Membership Field)와 멤버 함수(Member Function) 정의
-
-![Class](./image/java/class.png)
+	![Class](./image/java/class.png)
 
 ### 3-2. 메서드(Method) 또는 함수(Function)
 - 반환형 이름(매개변수) { …; return 반환값; }
@@ -319,4 +331,4 @@ System.out.println(clazz_3.getName());
 - File, RandomAccessFile
 
 
-## 8. 자바 응용 소프트웨어 개발을 위한 설계 및 구현 그리고 고객 편의성
+## 8. 소프트웨어 개발을 위한 설계 및 구현 그리고 고객 편의성
