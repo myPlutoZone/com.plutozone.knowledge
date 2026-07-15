@@ -7,7 +7,7 @@
 - Network + Programming + Database
 - 1 vs. 0 + true vs. false + Sever vs. Client + PC vs. Server & Network + IDC vs. Cloud
 - Fundamental vs. Basic and Science vs. Engineering and Prepare vs. Choice
-- [학습 목표-1] "Team/Main Project"를 목표로 한 "과목과 참여 기업 솔루션" 교육
+- [학습 목표-1] "Team Project"를 목표로 한 "과목과 참여 기업 솔루션" 교육
 - [학습 목표-2] 1) **면접 시 자세와 의지** 및 **팀프로젝트 산출물** 2) 참여 기업 솔루션 3) 정보처리기사
 
 
@@ -316,5 +316,5 @@
 
 ### 10-4. 과목 교육 및 프로젝트 시
 - [중요] 1) 개념과 목차 그리고 나를 위한 문서화와 용도에 따른 코드화 2) 자동 완성 그리고 3) 검색
-- 6개월간 16개 과목(Network, OS 포함) + Mini Project + Main Project
+- 6개월간 16개 과목(Network, OS 포함) + Mini Project + Team Project
 - PBL(Project and Problem based Project)
