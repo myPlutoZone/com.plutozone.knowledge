@@ -93,8 +93,6 @@
 - [Code Template & Configuration](../development/eclipse.md)
 - [Plug-in](../development/eclipse.md)
 
-### 1-4. To be continue
-
 
 ## 2. 특징 및 기본 문법 그리고 배열
 ### 2-1. About Java
@@ -187,30 +185,128 @@
 
 ## 3. 클래스와 객체
 ### 3-1. 객체 지향 프로그래밍(OOP, Object Oriented Programming)과 클래스(Class)
-- 객체(Object) =  속성(Property or Attribute) + 메서드(Method)<sup>단독이 아닌 객체에 속한 함수라는 의미에서 메서드란 이름 부여(속성도 동일함)</sup>
-- 클래스(Class) = 멤버 변수(Membership Field) + 멤버 함수(Member Function)
-- 패키지(Package)
+> 클래스(Class)는 설계도(=코드로 존재)이며 객체는 그 설계도를 바탕으로 만들어진 실제 제품(=메모리에 존재)이다.
 - 절차 지향 프로그래밍 vs. 객체 지향 프로그래밍(OOP, Object Oriented Programming)
-- 패키지(Package)와 클래스(Class) 선언과 멤버 변수(Membership Field)와 멤버 함수(Member Function) 정의
-	![Class](./image/java/class.png)
+
+![Class](./image/java/class.png)
+```mermaid
+classDiagram
+	class Car {
+		+String 제조사
+		+String 색상
+		+int 속도
+		+시동()
+		+가다()
+		+서다()
+	}
+
+	class myCar {
+		제조사	= "현대"
+		색상	= "흰색"
+		속도	= 80
+	}
+
+	class yourCar {
+		제조사	= "BMW"
+		색상	= "검정"
+		속도	= 120
+	}
+
+	Car <|-- myCar
+	Car <|-- yourCar
+```
+- 클래스(Class) vs. 객체(Object)
+	- `클래스(Class)`
+		- 멤버 변수(Member Field) + 멤버 함수(Member Function) + 생성자(Constructor) in C++
+		- `필드(Field) or 어트리뷰트(Attribute) + 메서드(Method)`<sup>단독이 아닌 객체에 속한 함수라는 의미에서 메서드란 이름 부여(필드도 동일함)</sup>` + 생성자(Constructor) in Java`
+	- **객체(Object)는 클래스(Class)에서 생성된 실제 인스턴스(Instance)이다.**
+		- `객체(Object)` = 행동(Method를 사용) + 상태(Property를 사용)
+		- Field(=실제 저장 공간) vs. Property(=그 저장 공간에 접근하는 인터페이스)
+			```java
+			// Java
+			class Car {
+				// 필드(Field)
+				private String brand;
+				private String color;
+				private int speed;
+
+				// 속성(Property)
+				public String getColor() {
+					return color;
+				}
+
+				public void setColor(String color) {
+					this.color = color;
+				}
+				...
+			}
+
+			Car myCar = new Car();
+			...
+			```	
+			```C#
+			# C#
+			public class Car
+			{
+				// 필드(Field) and 속성(Property)
+				public string brand { get; set; }
+				public string color { get; set; }
+				public int speed { get; set; }
+
+				// 메서드(Method)
+				public void start()
+				{
+					Console.WriteLine($"{brand}의 시동을 켭니다.");
+				}
+
+				public void drive()
+				{
+					Console.WriteLine($"{brand}가 {speed}km/h로 달립니다.");
+				}
+
+				public void stop()
+				{
+					speed = 0;
+					Console.WriteLine($"{brand}가 정지했습니다.");
+				}
+			}
+
+			Car myCar = new Car();
+
+			// 속성 값 저장
+			myCar.brand = "Hyundai";
+			myCar.color = "White";
+			myCar.speed = 80;
+
+			// 속성 값 읽기
+			Console.WriteLine($"브랜드	: {myCar.brand}");
+			Console.WriteLine($"색상	: {myCar.color}");
+			Console.WriteLine($"속도	: {myCar.speed}km/h");
+
+			// 메서드 호출
+			myCar.start();
+			myCar.drive();
+			myCar.stop();
+			```
+- 패키지(Package)
+- 패키지(Package)와 클래스(Class) 선언과 필드와 메서드 정의
 
 ### 3-2. 메서드(Method) 또는 함수(Function)
-- 반환형 이름(매개변수) { …; return 반환값; }
-- Overloading vs. Overriding
+- 반환형 이름(매개변수s) { …; return 반환값; }
+- Overloading(같은 이름의 메서드를 다수 정의) vs. Overriding(재정의)
 
 ### 3-3. 클래스(Class)와 인스턴스(Instance)
 - 클래스형 변수명 = new 생성자;
-- 클래스 정보(`com.plutozone.syntax.classes.Clazz`)
+- [클래스 정보](/src/com/plutozone/syntax/classes/Clazz.java)
+	```java
+	Class clazz_1 = 클래스.class;
+	Class clazz_2 = Class.forName("패키지.클래스");
+	Class clazz_3 = 참조변수.getClass();
 
-```java
-Class clazz_1 = 클래스.class;
-Class clazz_2 = Class.forName("패키지.클래스");
-Class clazz_3 = 참조변수.getClass();
-
-System.out.println(clazz_1.getName());
-System.out.println(clazz_2.getName());
-System.out.println(clazz_3.getName());
-```
+	System.out.println(clazz_1.getName());
+	System.out.println(clazz_2.getName());
+	System.out.println(clazz_3.getName());
+	```
 
 ### 3-4. 생성자(Constructor)
 - 디폴트 생성자와 매개 변수 생성자
@@ -220,12 +316,11 @@ System.out.println(clazz_3.getName());
 
 ### 3-6. 기타
 - this
-- static 변수(=클래스 변수)와 메서드(=클래스 메서드)
-- 변수의 유효 범위: 지역(Local) 변수, 멤버(Instance) 변수, 클래스(Static) 변수
-
-- this
 - static 변수(=클래스 필드)와 메서드(=클래스 메서드)
-- 변수의 유효 범위: 지역(Local) 변수, 멤버(Instance) 변수, 클래스(Static) 변수
+- 변수의 유효 범위
+	- 지역(Local) 변수
+	- 멤버(Instance) 변수
+	- 클래스(Static) 변수
 - Singleton(한 개의 객체만 생성할 수 있으며 메모리 낭비 방지 등을 위해 사용)
 - final과 Constant(static final)
 
@@ -238,11 +333,9 @@ System.out.println(clazz_3.getName());
 - 필드 또는 매개변수의 자동/강제 형 변환(Casting)에 따른 가상 메서드
 
 ### 4-2. 다형성(Polymorphism)
-- 하나의 코드가 여러 자료형으로 구현되어 실행(예: 필드 또는 매개변수의 자동/강제 형 변환에 따른 가상 메서드, 추상 클래스, 인터페이스 등)
-- Down Casting과 instanceof
-
 ![Polymorphism](./image/java/polymorphism.png)
-
+- 하나의 코드가 여러 자료형으로 구현되어 실행(예: 필드 또는 매개변수의 자동 및 강제 형 변환에 따른 가상 메서드, 추상 클래스, 인터페이스 등)
+- Down Casting과 instanceof
 
 ## 5. 추상 클래스와 인터페이스
 ![Abstract + Interface](./image/java/abstract+interface.png)
@@ -272,18 +365,16 @@ System.out.println(clazz_3.getName());
 - Boolean, Byte, Character, Short, Integer 등
 
 ### 6-4. 컬렉션(Collection) Framework<sup>단일 vs. 멀티 쓰레드(잠금과 해제) 그리고 속도</sup>
+![Collection](./image/java/collection.png)
 - Generic Programming: 런타임(Runtime) 시 자료형 확정
 - 제네릭(Generic) 클래스 정의와 사용
 - 자바에서 제공하는 자료 구조 라이브러리를 컬렉션 프레임워크는 대부분 제네릭(Generic)을 사용
 
-![Collection](./image/java/collection.png)
-
 ### 6-5. 내부(Inner) 클래스와 유형
 - 내부 클래스가 외부 클래스와 밀접한 관계에 있고 다른 클래스와 관계가 없을 때
-- 인스턴스 내부 클래스, 정적 내부 클래스, 지역 내부 클래스 그리고 익명(`com.plutozone.syntax.anonymous.*`) 내부 클래스
+- 인스턴스 내부 클래스, 정적 내부 클래스, 지역 내부 클래스 그리고 [익명 내부(자식) 클래스](/src/com/plutozone/syntax/anonymous/UsingAnonymousChild.java), [익명 내부(구현) 클래스](/src/com/plutozone/syntax/anonymous/UsingAnonymousImplement.java)
 
-### 6-6. 중첩(Nested) 클래스
-- `com.plutozone.syntax.classes.UsingNested`
+### 6-6. [중첩(Nested) 클래스](/src/com/plutozone/syntax/classes/UsingNested.java)
 
 ### 6-7. 람다식(Lambda expression, 함수형 프로그래밍) at Java 8 over
 - 람다식 문법과 사용
@@ -292,6 +383,7 @@ System.out.println(clazz_3.getName());
 - 스트림 종류(중간 연산, 최종 연산)와 사용 그리고 특징
 
 ### 6-9. 예외(Exception) 처리와 예외 클래스
+![Exception](./image/java/exception.png)
 - 컴파일 시 에러(Compile Error) = 문법 에러(Syntax Error) vs. 실행 시 에러(Runtime Error) = Bug(버그) 그리고 Debug(디버그)
 - 시스템 에러(Error) = 제어 불가?(예: Static Memory Overflow) vs. 예외(Exception) = 제어 가능(예: File Not Found)
 - try catch finally vs. try With Resource Statements
@@ -299,14 +391,12 @@ System.out.println(clazz_3.getName());
 - 사용자 정의 예외
 - 로그 레벨(log4j: ALL > TRACE > DEBUG > INFO > WARN > ERROR > FATAL > OFF)과 로깅의 중요성 그리고 보안
 
-![Exception](./image/java/exception.png)
-
 
 ## 7. 입출력과 스트림
 ### 7-1. 입출력(Input and Output)과 스트림(Stream) 클래스
 - 스트림(Stream) 클래스: 자바 프로그램과 입출력 장치(예: 키보드, 디스크 등) 사이에서 효율적인 입출력을 위해 제공되는 클래스
-- 입력(*Input*, *Reader) vs. 출력(*Output*, *Writer) 스트림
-- 바이트(*Stream) vs. 문자(*Reader, *Writer) 단위 스트림
+- 입력(Input, Reader) vs. 출력(Output, Writer) 스트림
+- 바이트(Stream) vs. 문자(Reader, Writer) 단위 스트림
 
 ### 7-2. 표준 입출력 등
 - System.in, System.out, System.error
@@ -321,7 +411,7 @@ System.out.println(clazz_3.getName());
 - Writer, FileWriter
 
 ### 7-5. 보조 스트림
-- *Stream*, Buffered*<sup>속도 개선</sup>, Data*
+- Stream, Buffered<sup>속도 개선</sup>, Data
 
 ### 7-6. 직렬화(Serializable)와 역직렬화<sup>인스턴스를 저장 또는 전송을 위해 스트림화</sup>
 - Serializable 인터페이스
