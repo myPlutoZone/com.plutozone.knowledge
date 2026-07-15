@@ -12,15 +12,15 @@
 
 
 ## Contents
-1. 과정 및 자기 소개 등
-2. 정보기술(IT, Information Technology) 조직도
-3. 업무 프로세스와 개발 표준 가이드 for 웹 개발자
-4. 선택과 준비
-5. Network와 NOS 그리고 Server와 Client
-6. Programming Language 종류와 특성
-7. Data와 Database, DB 종류와 특성 그리고 DBMS
-8. Tools
-9. 향후
+01. 과정 및 자기 소개 등
+02. 정보기술(IT, Information Technology) 조직도
+03. 업무 프로세스와 개발 표준 가이드 for 웹 개발자
+04. 선택과 준비
+05. Network와 NOS 그리고 Server와 Client
+06. Programming Language 종류와 특성
+07. Data와 Database, DB 종류와 특성 그리고 DBMS
+08. [Tools ............................................... 도구들](#8-tools)
+09. 향후
 10. 로컬(local) 및 서버 시스템 환경 설정 등 그리고 과목 교육 시작
 
 
@@ -278,64 +278,7 @@
 - eXERD, MySQL WorkBench, ERWin 등
 
 
-## 8. Tools
-### 8-1. Presentation
-- Zoomit, Epic Pen, K Screen Pen(빨간펜)
-- https://codeshare.io
-- https://www.shorturl.at
-
-### 8-2. Requirement
-- XMind or 알Mind
-
-### 8-3. UI 또는 SB(Story Board)
-- https://ovenapp.io/, https://www.canva.com/
-- Pencil
-
-### 8-4. Domain
-- https://whois.co.kr/, https://후이즈검색.한국 or https://xn--c79as89aj0e29b77z.xn--3e0b707e/
-- https://내도메인.한국(MyDomain.Korea) or https://xn--220b31d95hq8o.xn--3e0b707e/ or https://kro.kr(plutozone.kro.kr: 2024-12-22 ~ 2026-03-22), http://www.freenom.com/
-
-### 8-5. Network
-- Visual Route, Advanced IP Scanner, WinShark
-
-### 8-6. SSH + SFTP
-- MobaXterm vs. Putty + FileZilla
-
-### 8-7. ER 또는 UML 등
-- https://www.erdcloud.com, https://app.diagrams.net/ 또는 https://draw.io
-- StarUML, MarkDown(MD)
-	
-### 8-8. 형상관리(CM, Configuration Management) 또는 소프트웨어 구성 관리(SCM: Software Configuration Management) 등
-- Git + GitHub + GitLab vs. Visual SVN 그리고 Client Tool(SourceTree, TortoiseSVN)
-- Redmine
-	
-### 8-9. Code + Text
-- Visual Code, Notepad++, mTail, vi, nano(atom)
-	
-### 8-10. HTML + CSS
-- https://caniuse.com/, https://csscompressor.com/
-
-### 8-11. Java 등
-- Launch4j, Selenium
-- https://ideone.com/
-
-### 8-12. JSON
-- https://codebeautify.org/jsonviewer
-- Postman
-	
-### 8-13. Graphic + Image 등
-- https://pixlr.com/kr/editor/, https://pixabay.com/, https://thenounproject.com/
-- Inkscape, articons
-	
-### 8-14. Virtual Machine
-- Virtual Box
-- BlueStacks, Nox
-	
-### 8-15. Stress Tool
-- Jmeter
-
-### 8-15. Etc
-- mirror.navercorp.com
+## [8. Tools](../utility/tool.md)
 
 
 ## 9. 향후

@@ -123,7 +123,6 @@
 | failure       |  -  | 실패 |
 | list          |  -  | 페이징 있을 시 목록 |
 | listing       |  -  | 페이징 없을 시 목록 | 
-| write         |  -  | 등록 |
 | writeForm     |  -  | 등록 양식 |
 | writeProc     |  -  | 등록 처리 |
 | view          |  -  | 보기 |
