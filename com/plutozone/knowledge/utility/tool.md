@@ -9,6 +9,8 @@
 	- `https://docs.google.com`, https://evernote.com
 - Code
 	- https://codeshare.io
+- System
+	- WinDirStat
 
 ### Presentation 
 - `K Screen Pen(빨간펜)`, Zoomit, Epic Pen
@@ -69,6 +71,8 @@
 	- `Postman`
 - Java
 	- Launch4j, Selenium
+- Database
+	- DBeaver
 - Virtual Machine & Emulator
 	- `Virtual Box`
 	- BlueStacks, `Nox`
