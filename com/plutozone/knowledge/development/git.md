@@ -2,11 +2,12 @@
 
 
 ## Overview
-- Working tree vs. Staging Area vs. Repository
-- Untracked files vs. Changes to be committed
+- `Working Tree` vs. `Staging Area` vs. `Repository(local vs. Remote)`
+- `Untracked files` vs. `Changes to be committed`
 
 
 ## Version & Branch
+> Git의 기능은 버전(변경) 관리다.
 ```bash
 $ git init .				# initialization(git init . vs. git init [FOLDER])
 $ git status				# show working tree status
@@ -28,10 +29,28 @@ $ git revert [ID]			# revert without deleting(=reset) the version
 
 
 ## Backup & Restore
+> Git를 통해 백업과 복원을 할 수 있다.
 
 
 ## Collaboration
+> Git은 협업을 지원한다.
 
 
 ## Tip
 - .gitignore 파일은 1개만 그리고 루트에 있어야 한다.
+- 처음만 올리고 이후 변경은 무시하고 싶다면
+	- 방안 1) assume-unchanged
+		```bash
+		$ git update-index --assume-unchanged config.json				# 로컬에서만 무시
+		$ git update-index --no-assume-unchanged config.json			# 로컬에서만 무시 해제
+		```
+	- 방안 2) skip-worktree
+		```bash
+		$ git update-index --skip-worktree config.json					# 워킹 트리에서 무시
+		$ update-index --no-skip-worktree config.json					# 워킹 트리에서 무시 해제
+		```
+	- 방안 3) 설정 파일 템플릿 사용(권장)
+		```
+		config.example.json	: Git에 저장
+		config.json			: .gitignore에 추가
+		```

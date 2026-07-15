@@ -40,7 +40,7 @@
 - [Clean Code](./development/cleanCode.md)
 - [@Command](./development/command.md)
 - [Eclipse](./development/eclipse.md)
-- [@Git](./development/git.md)
+- [Git](./development/git.md)
 - [@Jmeter](./development/jmeter.md)
 - [@Nox](./development/nox.md)
 - [@Rear](./development/rear.md)
