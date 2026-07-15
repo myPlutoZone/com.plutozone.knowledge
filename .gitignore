@@ -1,7 +1,8 @@
 /.settings/
 /.classpath
 
-
+/WebContent/knowledge/service/map/mapFull.html
+/WebContent/knowledge/service/map/mapSmall.html
 /WebContent/WEB-INF/classes/Hello.class
 /WebContent/WEB-INF/classes/com/
 /WebContent/WEB-INF/classes/log4j.xml
