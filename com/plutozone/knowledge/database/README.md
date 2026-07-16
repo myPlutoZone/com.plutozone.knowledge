@@ -1,4 +1,4 @@
-# com.plutozone.knowledge.Database
+# com.plutozone.knowledge.database
 
 
 ## Contents
@@ -70,14 +70,14 @@ DBMS(데이터베이스 관리 시스템)는 Database의 구성, Access 방법, 
 
 ```mermaid
 flowchart LR
-    A["매출 전표 TABLE<br/>────────────<br/>전표번호 | 년월 | 거래처코드"]
-    B["거래처 TABLE<br/>────────────<br/>거래처코드 | 거래처명"]
-    C["주문 TABLE<br/>────────────<br/>주문번호 | 전표번호 | 상품코드 | 수량"]
-    D["상품 TABLE<br/>────────────<br/>상품코드 | 상품명 | 단가"]
+	A["매출 전표 TABLE<br/>────────────<br/>전표번호 | 년월 | 거래처코드"]
+	B["거래처 TABLE<br/>────────────<br/>거래처코드 | 거래처명"]
+	C["주문 TABLE<br/>────────────<br/>주문번호 | 전표번호 | 상품코드 | 수량"]
+	D["상품 TABLE<br/>────────────<br/>상품코드 | 상품명 | 단가"]
 
-    B -. 거래처코드 .-> A
-    A -. 전표번호 .-> C
-    D -. 상품코드 .-> C
+	B -. 거래처코드 .-> A
+	A -. 전표번호 .-> C
+	D -. 상품코드 .-> C
 ```
 ```mermaid
 erDiagram
