@@ -4,7 +4,7 @@
 ## Overview
 - 프롬프트(잘 묻기) vs. 컨텍스트(자료 제공) vs. 하네스(통합 환경) vs. 에이전트(자체 동작)
 - Vibe Coding
-	- JARVIS(Just a Really Very Intelligent System)
+	- `JaRVIS`(`J`ust `a` `R`eally `V`ery `I`ntelligent `S`ystem)
 	- Prompt vs. Context vs. Harness Engineering
 	- Cursor + Stitch + Playwright by Vibe Coding
 

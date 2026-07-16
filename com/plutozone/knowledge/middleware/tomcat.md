@@ -1,9 +1,16 @@
 # com.plutozone.knowledge.middleware.Tomcat
 
 
-## Recommand
-- Web Server(예: Nginx)는 공용 서비스이므로 공용 계정(예: nginx:nginx는 Nginx 서비스 관리 권한 등) 및 개별 계정(예: backoffice:nginx는 리소스 관리 권한만) 생성
-- Application Server(예: Tomcat)는 개별 서비스이므로 개별 계정(예: backoffice:tomcat, Tomcat 서비스 + 리소스 관리 권한만) 생성
+## Contents
+1. [Recommand](#1-recommand)
+2. [Installation and Configuration](#2-installation-and-configuration)
+3. [Performance](#3-performance)
+4. [Error](#4-error)
+
+
+## 1. Recommand
+- `Web Server(예: Nginx)`는 `공용 서비스`이므로 `공용 계정`(예: nginx:nginx는 Nginx 서비스 관리 권한 등) 및 `개별 계정`(예: backoffice:nginx는 리소스 관리 권한만) 생성
+- `Application Server(예: Tomcat)`는 `개별 서비스`이므로 `개별 계정`(예: backoffice:tomcat, Tomcat 서비스 + 리소스 관리 권한만) 생성
 - Each Domain User(계정: backoffice, 그룹: tomcat)
 	```bash
 	$ sudo groupadd tomcat
@@ -15,7 +22,7 @@
 	```
 
 
-## Installation and Configuration
+## 2. Installation and Configuration
 - Install and Run(계정: backoffice, 그룹: tomcat)
 	```bash
 	$ tar zxvf apache-tomcat-9.0.16.tar.gz
@@ -24,7 +31,7 @@
 	$ chmod 755 shutdown.sh		// 필요 시 변경
 	$ ./start.sh
 	```
-- catalina.out per Daily
+- **catalina.out per Daily**
 	```bash
 	$ pico catalina.sh
 	...
@@ -34,7 +41,32 @@
 	fi
 	...
 	```
+- Parameter for Spring MVC or Boot
+	```bash
+	$ nano %TOMCAT%/bin/setenv.sh
+	...
+	# for Spring MVC or Boot
+	export JAVA_OPTS="${JAVA_OPTS} -Dspring.profiles.active=local"
+	# for web.xml
+	export JAVA_OPTS="${JAVA_OPTS} -Dcommon.mode=local"
+	...
+	```
+	```cmd
+	C:\> notepad %TOMCAT%\bin\setenv.bat
+	...
+	set JAVA_HOME=C:\Program Files\Java\jdk1.7.0_51
+	REM for Spring MVC or Boot
+	set JAVA_OPTS=%JAVA_OPTS% -Dspring.profiles.active=local
+
+	REM for web.mxl
+	set JAVA_OPTS=%JAVA_OPTS% -Dcommon.mode=local
+	...
+
+	```
 - Automatic startup
+	<details>
+	<summary>tomcat_backoffice</summary>
+
 	```bash
 	$ sudo pico /etc/init.d/tomcat_backoffice
 	#!/bin/bash
@@ -77,7 +109,11 @@
 	$ service tomcat_backoffice [start|stop]             // 실행 또는 중지
 	$ sudo reboot
 	```
+	</details>
 - Restart
+	<details>
+	<summary>restart.sh</summary>
+
 	```bash
 	$ pico restart.sh
 	...
@@ -112,7 +148,48 @@
 	fi
 	...
 	```
-- Multi Domain(계정: backoffice,  그룹: tomcat)
+	</details>
+- Cluster 설정
+	```mermaid
+	flowchart TD
+		U[사용자 브라우저]
+
+		LB[Load Balancer]
+
+		T1[Tomcat Server A]
+		T2[Tomcat Server B]
+		T3[Tomcat Server C]
+
+		S1[(Session A)]
+		S2[(Session B)]
+		S3[(Session C)]
+
+		U -->|HTTP Request| LB
+
+		LB --> T1
+		LB --> T2
+		LB --> T3
+
+		T1 --> S1
+		T2 --> S2
+		T3 --> S3
+
+		T1 -. Session Replication .-> T2
+		T2 -. Session Replication .-> T3
+		T3 -. Session Replication .-> T1
+
+		T1 -. Cluster Membership .-> T2
+		T2 -. Cluster Membership .-> T3
+		T3 -. Cluster Membership .-> T1
+	```
+	- [server.xml](./tomcat/server-original.xml) at Tomcat Server Original
+	- [server.xml](./tomcat/server-192.168.0.231.xml) at Tomcat Server A
+	- [server.xml](./tomcat/server-192.168.0.232.xml) at Tomcat Server B
+	- [server.xml](./tomcat/server-192.168.0.233.xml) at Tomcat Server C
+- Multi Domain 설정(계정: backoffice,  그룹: tomcat)
+	<details>
+	<summary>server.xml</summary>
+
 	```bash
 	$ pico ~/apache-tomcat-9.0.16/conf/server.xml
 	...
@@ -181,10 +258,14 @@
 		</Service>
 	</Server>
 	```
+	</details>
 
 
-## Performance
+## 3. Performance
 - 동시 접속자(maxthreads) 설정
+	<details>
+	<summary>server.xml</summary>
+
 	```bash
 	$ pico %TOMCAT%/conf/server.xml
 	 # connectionTimeout        : 클라이언트와 서버간 I/O가 설정한 시간동안 발생하지 않을 경우 타임아웃을 발생(Default: 5000)
@@ -201,28 +282,32 @@
 	$ %TOMCAT%/bin/shutdown.sh
 	$ %TOMCAT%/bin/startup.sh
 	```
+	</details>
 
 
-## Error Message
+## 4. Error
 - Parameters: Invalid chunk ignored
+	<details>
+	<summary>answer</summary>
+
 	```
-	8-1. 에러 메시지
+	[에러 메시지]
 	11-Mar-2020 21:19:39.489 INFO [http-apr-8082-exec-2] org.apache.tomcat.util.http.Parameters.processParameters Invalid chunk starting at byte [6] and ending at byte [263] with a value of [=8de5cb7cd3662398dc632662cd8636face557d6a802b00c15357816d797bab4d34d60469e2f72d3c18551b90fbdf39041c8ca4c544d80f2ff165e72f6e8fa05f0a9c5c229b596eef802e71338a95ad43bb4df577664c991aeadfdace3d4c91057b0fee732cc2d65ec097b2a32ab46c063ba268e0c1c05236f8c5c03ee1c1d171] ignored
 	Note: further occurrences of Parameter errors will be logged at DEBUG level.
 
-	8-1. 방안(출처: http://kokiller2.blogspot.com/2010/03/parameters-invalid-chunk-ignored.html)
-	톰캣 '경고: Parameters: Invalid chunk ignored' 에러 해결 법
-
-	8-1. 증상
+	[출처] 톰캣 '경고: Parameters: Invalid chunk ignored' 에러 해결 법(http://kokiller2.blogspot.com/2010/03/parameters-invalid-chunk-ignored.html)
+	
+	1. 증상
 	2010. 3. 4 오전 8:37:41 org.apache.tomcat.util.http.Parameters processParameters
 	경고: Parameters: Invalid chunk '' ignored.
 
-	8-1. 원인
+	2. 원인
 	Tomcat 에서 URL 주소에 '&&' 또는 '&=' 등이 들어가 있을 경우 발생되는 메시지이다.
 
-	8-1. 해결
-	톰캣설치경로/conf/logging.properties 파일에서 org.apache.tomcat.util.http.Parameters.level = SEVERE 를 추가하고 tomcat을 재시작 한다.
+	3. 해결
+	%톰캣 설치 경로%/conf/logging.properties 파일에서 org.apache.tomcat.util.http.Parameters.level = SEVERE 를 추가하고 tomcat을 재시작 한다.
 	※ 주의: SERVER(X)와 SEVERE(O)를 혼돈하지 말것
 	위의 방법으로 해결되지 않을 경우
 	$JAVA_HOME/jre/lib/logging.properties 파일에 위의 내용을 추가한 후 tomcat을 재시작 한다.
 	```
+	</details>
