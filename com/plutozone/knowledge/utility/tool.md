@@ -11,7 +11,7 @@
 	- https://codeshare.io
 
 ### 1-2. Presentation 
-- `K Screen Pen(빨간펜)`, Zoomit, Epic Pen
+- Epic Pen, Zoomit, `K Screen Pen(빨간펜)`
 
 
 ## 2. Requirement
@@ -63,7 +63,7 @@
 - Visual Route, Advanced IP Scanner, WinShark
 
 ### 4-3. SSH + SFTP
-- `MobaXterm include Network Tools`, Putty, FileZilla
+- Putty, FileZilla, `MobaXterm include Network Tools`
 
 
 ## 5. Source Management(소스 관리) 등
@@ -75,7 +75,7 @@
 ## 6. Text or IDE and Simulator
 - `Notepad++`, vi, nano(atom)
 - mTail
-- `Visual Studio Code`
+- Eclipse/STS, IntelliJ, `Visual Studio Code`
 - https://ideone.com
 
 
@@ -89,13 +89,15 @@
 - Java
 	- Launch4j, Selenium
 - Database
-	- `DBeaver`
+	- Toad, SQL Developer, HeidiSQL, `DBeaver`
 - Virtual Machine & Emulator
-	- `Virtual Box`, VMWare
+	- VMWare, `Virtual Box`
 	- BlueStacks, `Nox`
 - Stress Tool
 	- `Jmeter`
 - System
+	- `Classic-shell`
+	- `CCleaner`
 	- `WinDirStat`
 
 
