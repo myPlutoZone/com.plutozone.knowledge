@@ -26,13 +26,13 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # Document
-## [Information Technology(IT)](./com/plutozone/knowledge/README.md)
+## [Information Technology(IT) 기술 문서](./com/plutozone/knowledge/README.md)
 
 
 # Source
-## com.plutozone.knowledge
-## com.plutozone.openMalls
-## com.plutozone.demo.springBoot
+## [com.plutozone.knowledge](https://github.com/myPlutoZone/com.plutozone.knowledge "IT 기술 문서")
+## [com.plutozone.openMalls](https://github.com/myPlutoZone/com.plutozone.openMalls "Spring Web and MariaDB for Manager + Product + Member + Membership + Message + ...")
+## [com.plutozone.demo.springBoot](https://github.com/myPlutoZone/com.plutozone.demo.springBoot "Demo for SpringBoot by IntelliJ + Maven")
 
 
 # History
