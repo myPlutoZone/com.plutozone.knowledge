@@ -2,8 +2,8 @@
 
 
 - Nox Logging
-```cmd
-> nox_adb.exe shell
-# ls
-# logcat
-```
+	```cmd
+	> nox_adb.exe shell
+	# ls
+	# logcat
+	```

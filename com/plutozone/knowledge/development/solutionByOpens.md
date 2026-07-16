@@ -1,5 +1,6 @@
 # com.plutozone.knowledge.development.SolutionByOpenSources
 
+
 - Open Source
 	- copyright(Apache 2.0) vs. copyleft(GPL 3.0)
 	- Copyright

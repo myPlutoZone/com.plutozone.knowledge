@@ -57,13 +57,13 @@
 - Lambda(=FaaS and Serverless at Computing or Anonymous functions at Programming)와 Trigger
 - Amazon Rekognition(Recognition=Machine and Deep Learning), Polly(=TTS), Lex(=Chatbot)
 - Nework ACL vs. Security Group
+	| 항목      | Nework ACL | Security Group    |
+	| :-------: |:---------: | :---------------: |
+	| 적용 범위 | 서브넷     | 인스턴스 |
+	| 분류      | 차단, 허용 | 허용만 |
+	| 우선 순위 | 낮은 번호  | - |
+	| 상태      | Stateless  | Stateful |
 
-| 항목      | Nework ACL | Security Group    |
-| :-------: |:---------: | :---------------: |
-| 적용 범위 | 서브넷     | 인스턴스 |
-| 분류      | 차단, 허용 | 허용만 |
-| 우선 순위 | 낮은 번호  | - |
-| 상태      | Stateless  | Stateful |
 
 ## 3. Step for Create Network and EC2 Instances
 ### 3-1. Make `VPC`(=전체 인프라 네트워크)
@@ -175,69 +175,69 @@
 ### 6-1. DDNS(Dynamic DNS) with Route 53 + Lambda + CLI
 1. A Record 설정 at Route 53(예: iot.plutozone.com + 192.168.0.1)
 2. IAM 권한 설정(IAM > Role > Create Role > Select AWS and EC2 > 정책) and 저장(EC2-Route53-Update-Role) for 해당 EC2
-```json
-{
-	"Version": "2012-10-17",
-	"Statement": [
+	```json
 	{
-		"Effect": "Allow",
-		"Action": [
-			"route53:ChangeResourceRecordSets",
-			"route53:ListHostedZones",
-			"route53:ListResourceRecordSets"
-		],
-		"Resource": "*"
-	}
-	]
-}
-```
-3. Select 해당 EC2 > 작업 > 보안 > IAM 역할에서 상기 설정된 Role(EC2-Route53-Update-Role) 선택 후 확인
-```bash
-$ curl http://169.254.169.254/latest/meta-data/iam/info
-$ aws sts get-caller-identity
-```
-4. Public IP를 조회 + AWS CLI를 이용해 Route 53의 DNS 레코드 업데이트 at 해당 EC2
-```bash
-$ vi updateIP.sh
-#!/bin/bash
-
-# 설정 변수
-DOMAIN_NAME="iot.plutozone.com"
-HOSTED_ZONE_ID="Z123456ABCDEFG"	# Route 53의 Hosted Zone ID 입력
-TTL=300
-
-# 현재 퍼블릭 IP 조회(checkip.amazonaws.com=현재 EC2 Public DNS 값)
-IP=$(curl -s http://checkip.amazonaws.com)
-
-# 기존 IP와 비교하여 업데이트 여부 판단
-CURRENT_IP=$(dig +short $DOMAIN_NAME)
-
-if [ "$IP" = "$CURRENT_IP" ]; then
-	echo "IP unchanged: $IP"
-	# 미변경 시 종료(exit 0)
-	exit 0
-fi
-
-# DNS 레코드 업데이트
-echo "Updating DNS from $CURRENT_IP to $IP"
-
-aws route53 change-resource-record-sets --hosted-zone-id $HOSTED_ZONE_ID --change-batch '{
-	"Comment": "Auto updating A record via script",
-	"Changes": [{
-		"Action": "UPSERT",
-		"ResourceRecordSet": {
-			"Name": "'"$DOMAIN_NAME"'",
-			"Type": "A",
-			"TTL": '"$TTL"',
-			"ResourceRecords": [{"Value": "'"$IP"'"}]
+		"Version": "2012-10-17",
+		"Statement": [
+		{
+			"Effect": "Allow",
+			"Action": [
+				"route53:ChangeResourceRecordSets",
+				"route53:ListHostedZones",
+				"route53:ListResourceRecordSets"
+			],
+			"Resource": "*"
 		}
-	}]
-}'
-$ chmod +x updateIP.sh
-$ crontab -e
-# 5분마다 실행
-$ */5 * * * * /home/ec2-user/updateIP.sh >> /home/ec2-user/updateIP.log 2>&1
-```
+		]
+	}
+	```
+3. Select 해당 EC2 > 작업 > 보안 > IAM 역할에서 상기 설정된 Role(EC2-Route53-Update-Role) 선택 후 확인
+	```bash
+	$ curl http://169.254.169.254/latest/meta-data/iam/info
+	$ aws sts get-caller-identity
+	```
+4. Public IP를 조회 + AWS CLI를 이용해 Route 53의 DNS 레코드 업데이트 at 해당 EC2
+	```bash
+	$ vi updateIP.sh
+	#!/bin/bash
+
+	# 설정 변수
+	DOMAIN_NAME="iot.plutozone.com"
+	HOSTED_ZONE_ID="Z123456ABCDEFG"	# Route 53의 Hosted Zone ID 입력
+	TTL=300
+
+	# 현재 퍼블릭 IP 조회(checkip.amazonaws.com=현재 EC2 Public DNS 값)
+	IP=$(curl -s http://checkip.amazonaws.com)
+
+	# 기존 IP와 비교하여 업데이트 여부 판단
+	CURRENT_IP=$(dig +short $DOMAIN_NAME)
+
+	if [ "$IP" = "$CURRENT_IP" ]; then
+		echo "IP unchanged: $IP"
+		# 미변경 시 종료(exit 0)
+		exit 0
+	fi
+
+	# DNS 레코드 업데이트
+	echo "Updating DNS from $CURRENT_IP to $IP"
+
+	aws route53 change-resource-record-sets --hosted-zone-id $HOSTED_ZONE_ID --change-batch '{
+		"Comment": "Auto updating A record via script",
+		"Changes": [{
+			"Action": "UPSERT",
+			"ResourceRecordSet": {
+				"Name": "'"$DOMAIN_NAME"'",
+				"Type": "A",
+				"TTL": '"$TTL"',
+				"ResourceRecords": [{"Value": "'"$IP"'"}]
+			}
+		}]
+	}'
+	$ chmod +x updateIP.sh
+	$ crontab -e
+	# 5분마다 실행
+	$ */5 * * * * /home/ec2-user/updateIP.sh >> /home/ec2-user/updateIP.log 2>&1
+	```
 
 
 ## 7. 주의, 권장 및 참고 사항

@@ -2,6 +2,6 @@
 
 
 - Laravel Version
-```bash
-[/var/www/laravel]# php artisan --version
-```
+	```bash
+	[/var/www/laravel]# php artisan --version
+	```

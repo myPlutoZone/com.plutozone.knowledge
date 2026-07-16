@@ -360,4 +360,3 @@ dictionary = {"key1" : "value1", "key2" : value2}
 	num = int(input("4자리 정수: "))
 	print("자리수의 합: ", sum_four(num))
 	```
-

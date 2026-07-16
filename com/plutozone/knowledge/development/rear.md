@@ -10,10 +10,10 @@
 
 # 설치 at Redhat or CentOS
 - 다운로드(RPM): http://relax-and-recover.org
-```bash
-# yum install rear
-# rpm -ivh rear-2.6-1.el7.x86_64.rpm					// 상기 다운로드 참고
-```
+	```bash
+	# yum install rear
+	# rpm -ivh rear-2.6-1.el7.x86_64.rpm					// 상기 다운로드 참고
+	```
 - 설치 시 Dependency가 존재하고 Yum 사용이 불가능할 경우
 	1. CD-ROM 또는 ISO를 Repository로 설정	
 	```bash
@@ -89,6 +89,6 @@
 
 # 복원 실행
 - 저장된 ISO를 이용하여 부팅(필요 시 프롬프트 상에서 Network을 설정)하고 복원 실행(rear -v recover)
-```bash
-# rear -v recover
-```
+	```bash
+	# rear -v recover
+	```

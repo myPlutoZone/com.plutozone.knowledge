@@ -190,32 +190,32 @@ $ systemctl restart dnsmasq
 ## Jenkins Configuration
 - 새로운 Item
 - Jenkins 관리
-  - System Configuration
-    - System
-    - Tools
-    - Plugins
-    - Nodes vs. Clouds(Docker 등)
-  - Security
-    - Security
-    - Credentials
-    - Credential Providers
-    - Users
+	- System Configuration
+		- System
+		- Tools
+		- Plugins
+		- Nodes vs. Clouds(Docker 등)
+	- Security
+		- Security
+		- Credentials
+		- Credential Providers
+		- Users
 
 ### 새로운 Item 등록
 1. Input Name and Select Item Type(=Pipeline)
 2. Input Description and Script
-```bash
-pipeline {
-    agent any
-    stages {
-        stage('hello') {
-            steps {
-                echo 'helloworld'
+    ```bash
+    pipeline {
+        agent any
+        stages {
+            stage('hello') {
+                steps {
+                    echo 'helloworld'
+                }
             }
         }
     }
-}
-```
+    ```
 3. Select Item(=Pipeline) and 지금 빌드
 4. Select Build History and Console Output 등에서 결과를 확인
 5. Select Item(=Pipeline) 삭제
@@ -224,40 +224,40 @@ pipeline {
 1. Select Clouds and Plugins
 2. Install Docker and Reselect Clouds
 3. Select New Cloud and Input Name
-```bash
-# Docker Port 설정
-$ systemctl status docker
-$ vi /usr/lib/systemd/system/docker.service
-ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2379 --containerd=/run/containerd/containerd.sock    # -H tcp://0.0.0.:2379를 추가
-$ systemctl daemon-reload
-$ systemctl restart docker
-```
+	```bash
+	# Docker Port 설정
+	$ systemctl status docker
+	$ vi /usr/lib/systemd/system/docker.service
+	ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2379 --containerd=/run/containerd/containerd.sock    # -H tcp://0.0.0.:2379를 추가
+	$ systemctl daemon-reload
+	$ systemctl restart docker
+	```
 4. Configuratin Docker Cloud details(Docker Host URI=tcp://172.16.0.200:2379 등) and Docker Agent templates(Maven 정보)
 5. Pull maven
-```bash
-$ docker pull maven
-```
+	```bash
+	$ docker pull maven
+	```
 6. ...
 7. Input Name and Select Item Type(=Pipeline)
 8. Input Description and Script
-```bash
-pipeline {
-    agent {
-        node {
-            label 'docker'
-        }
-    }
-    stages {
-        stage('hello') {
-            steps {
-                echo 'helloworld'
-            }
-        }
-    }
-}
-```
+	```bash
+	pipeline {
+		agent {
+			node {
+				label 'docker'
+			}
+		}
+		stages {
+			stage('hello') {
+				steps {
+					echo 'helloworld'
+				}
+			}
+		}
+	}
+	```
 
-### Jenkins Sciprt for Build Farm(maven, gradle, python agent) at Jenkins vs. Jenkinsfile at Source(include Web Hook)
+## Jenkins Sciprt for Build Farm(maven, gradle, python agent) at Jenkins vs. Jenkinsfile at Source(include Web Hook)
 
 
 ## GitLab Installation

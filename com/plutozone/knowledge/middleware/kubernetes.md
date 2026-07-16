@@ -530,18 +530,16 @@ $ kubectl describe ipaddresspool.metallb.io --namespace metallb-system
 ## Reference
 - 내도메인 at 구글 for 무료 도메인
 - GKE(Google Kubernetes Engine)
-```cmd
-C:\> kubectl config get-contexts
-```
-
+  ```cmd
+  C:\> kubectl config get-contexts
+  ```
 - NONE Ready(reset, rm and reconfig) at Node
-```bash
-$ kubeadm reset		# at master/node1/node2
-$ rm -Ff .kube		# at master
-```
-
+  ```bash
+  $ kubeadm reset		# at master/node1/node2
+  $ rm -Ff .kube		# at master
+  ```
 - Hostname and Network
-```bash
-$ vi /etc/hostname                                     # update Hostname
-$ cd /etc/NetworkManager/system-connections            # select NIC and update IP at Rocky(Redhat)
-```
+  ```bash
+  $ vi /etc/hostname                                     # update Hostname
+  $ cd /etc/NetworkManager/system-connections            # select NIC and update IP at Rocky(Redhat)
+  ```

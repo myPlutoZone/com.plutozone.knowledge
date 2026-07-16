@@ -1,4 +1,4 @@
-# com.plutozone.knowledge.language.VueJs
+# com.plutozone.knowledge.language.VueDotjs(Vue.js)
 
 
 ## Vue.js
@@ -7,16 +7,17 @@
 
 ## 개발 환경 설정
 - Node.js 설치 및 확인
-```cmd
-C:\>node -v
-# 프론트 개발 환경 by vite
-C:\>npm run dev			# Run React or Svelte
-C:\>npm run build		# Build React or Svelte
-```
+	```cmd
+	C:\>node -v
+	# 프론트 개발 환경 by vite
+	C:\>npm run dev			# Run React or Svelte
+	C:\>npm run build		# Build React or Svelte
+	```
 
 ## Instance and Component
 ### Instance
 <details><summary>Instance Life Cycle</summary>
+
 ```html
 <html>
 <head>
@@ -73,6 +74,7 @@ C:\>npm run build		# Build React or Svelte
 </html>
 ```
 </details>
+
 
 ### Component
 - 전역 컴포넌트
