@@ -27,6 +27,7 @@
 
 
 ## Language
+- [C/C++ and Visual C++](./language/c+cpp+vcpp.pdf)
 - [CSS](./language/css.md)
 - [HTML](./language/html.md)
 - [Java](./language/java.md)
