@@ -1,4 +1,8 @@
 # com.plutozone.knowledge
+> 본 문서는 정보기술(IT, Information Technology)에 대한 일부 기술적 사항을 소개한다.
+***
+> 본 문서는 필자의 주관에 의해 작성된 것이므로 인용 또는 적용 시 문제가 발생하여도 필자에게는
+법적 책임이 없으며 본 문서는 예고 없이 변경될 수 있다.
 
 
 ## Contents
