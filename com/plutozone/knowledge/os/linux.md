@@ -78,7 +78,7 @@ $ nano shell.sh
 ls -l
 $ . shell.sh
 $ source shell.sh
-$ bash shell.sh
+$ bash shell.sh			# sh shell.sh
 $ chmod 755 shell.sh
 $ ./shell.sh
 ```

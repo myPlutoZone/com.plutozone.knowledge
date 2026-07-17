@@ -13,54 +13,58 @@
 09. [Build for Container ..................................... 빌드](#9-build-for-container)
 10. [Compose for Container ................................. 컴포즈](#10-compose-for-container)
 11. [Example ................................................. 예제](#11-example)
- - [11-1. WordPress(웹 페이지 제작 및 관리용 CMS) + MySQL](#11-1-wordpress웹-페이지-제작-및-관리용-cms--mysql)
- - [11-2. Make Image(Ubuntu + Git + JDK) by docker commit](#11-2-make-imageubuntu--git--jdk-by-docker-commit)
- - [11-3. Make Image(Ubuntu + Python) by docker file](#11-3-make-imageubuntu--python-by-docker-file)
- - [11-4. Make Image(Ubuntu + Python + hello.py) by docker file](#11-4-make-imageubuntu--python--hellopy-by-docker-file)
- - [11-5. Make Image(Ubuntu + Python + hello.py + 환경 변수) by docker file](#11-5-make-imageubuntu--python--hellopy--환경-변수-by-docker-file)
- - [11-6. Make Image(Open JDK 18 + Spring Boot Project at GitHub) by docker file](#11-6-make-imageopen-jdk-18--spring-boot-project-at-github-by-docker-file)
+	- [11-1. WordPress(웹 페이지 제작 및 관리용 CMS) + MySQL](#11-1-wordpress웹-페이지-제작-및-관리용-cms--mysql)
+	- [11-2. Make Image(Ubuntu + Git + JDK) by docker commit](#11-2-make-imageubuntu--git--jdk-by-docker-commit)
+	- [11-3. Make Image(Ubuntu + Python) by docker file](#11-3-make-imageubuntu--python-by-docker-file)
+	- [11-4. Make Image(Ubuntu + Python + hello.py) by docker file](#11-4-make-imageubuntu--python--hellopy-by-docker-file)
+	- [11-5. Make Image(Ubuntu + Python + hello.py + 환경 변수) by docker file](#11-5-make-imageubuntu--python--hellopy--환경-변수-by-docker-file)
+	- [11-6. Make Image(Open JDK 18 + Spring Boot Project at GitHub) by docker file](#11-6-make-imageopen-jdk-18--spring-boot-project-at-github-by-docker-file)
 12. [Reference ............................................... 참고](#12-reference)
 
 
 ## 1. Overview
 > `Docker(=Container)는 충분히 검증되었지만 Host 또는 Virtual Machine이 제공하는 OS 기반 격리보다는 덜 안전하고 비효율적이다고 여겨지기도 한다.`
+
 - docker
-	- images, commit, build
-	- search, start, stop, pause, unpause, run
-	- ps, network, port
-	- info, diff, inspect, logs
+	- images, search, pull, inspect, tag, commit, build, login, push
+	- create, start, stop, pause, unpause, run, rm
+	- ps, top, system, attach vs. exec, diff, logs
+	- network, volume
 	- rm, rmi
 - summary
-	```bash
-	# Image는 myRegistry.com/hello-py:latest이며 로컬에 없을 경우 다운로드되어 Forground / Interactive + TTY Mode(=-i -t) 모드로 실행(-it)
-	# 로컬의 /source 폴더를 컨테이너의 /data에 바인딩(-v /source:/data)
-	# 컨테이너 이름은 demoHelloPy
-	# 환경 변수는 APP=python
-	$ docker run -it -v /source:/data --name demoHelloPy -e APP=python myRegistry.com/hello-py:latest
-
-	# Image는 nginx이며 로컬에 없을 경우 다운로드되어 백그라운드 모드로 실행(-d)
-	# 로컬의 /www 폴더를 컨테이너의 /usr/share/nginx/html에 바인딩(-v /www:/usr/share/nginx/html)
-	# 로컬 1000 포트에 접속할 경우 컨테이너 80 포트로 포워딩(-p 1000:80)
-	# 컨테이너 이름은 demoNginx
-	# 환경 변수는 ENV=hello
-	$ docker run -d -v /www:/usr/share/nginx/html -p 1000:80 --name demoNginx -e ENV=hello nginx
-	$ docker exec -it demoNginx /bin/bash		# docker attach demoNginx
-	# exit(프로세스 종료) vs. [CTRL] + [p] +[q](프로세스 유지)
-	```
+	- 예제-1
+		- Image는 myRegistry.com/hello-py:latest이며 로컬에 없을 경우 다운로드되어 Forground / Interactive + TTY Mode(=-i -t) 모드로 실행(-it)
+		- 로컬의 /source 폴더를 컨테이너의 /data에 바인딩(-v /source:/data)
+		- 컨테이너 이름은 demoHelloPy
+		- 환경 변수는 APP=python
+		```bash
+		$ docker run -it -v /source:/data --name demoHelloPy -e APP=python myRegistry.com/hello-py:latest
+		```
+	- 예제-2
+		- Image는 nginx이며 로컬에 없을 경우 다운로드되어 백그라운드 모드로 실행(-d)
+		- 로컬의 /www 폴더를 컨테이너의 /usr/share/nginx/html에 바인딩(-v /www:/usr/share/nginx/html)
+		- 로컬 1000 포트에 접속할 경우 컨테이너 80 포트로 포워딩(-p 1000:80)
+		- 컨테이너 이름은 demoNginx
+		- 환경 변수는 ENV=hello
+		- exit(프로세스 종료) vs. [CTRL] + [p] +[q](프로세스 유지)
+		```bash
+		$ docker run -d -v /www:/usr/share/nginx/html -p 1000:80 --name demoNginx -e ENV=hello nginx
+		$ docker exec -it demoNginx /bin/bash	# docker attach demoNginx
+		```
 
 
 ## 2. Container and Docker
-- What's Container(= 경량화된 서버 가상화 기술)
+- What's Container(=경량화된 서버 가상화 기술)
 	- Image vs. Container and Image Build vs. Source Build
 	- Process at Source(Dockerfile, ...) + Runtime + Environment
 	- Isolation
 	- Containerization by Container Engine(=Docker) vs. Virtualization(base on OS) by Hypervisor
 	- Bare-Metal 가상화 vs. Host 기반 가상화
-- Docker
+- Docker(=리눅스 커널 기능을 공유하는 기술)
 	- Build, Push and Run(Containerization and Container Basic Life-cycle)
 	- Docker Component = Engine(Client + API + Daemon) + Object + Registry + Compose + Swarm
-	- Object(Image, Container, Network, Volumes, Plugins)
-	- Docker Compose(컨테이너 관리) or Docker Swarm(클러스터 관리) vs. Kubernetes(Orchestrator=Server Cluster Tool, Multi-host 등)
+		- Object = Image, Container, Network, Volumes, Plugins
+		- Docker(컨테이너 관리) and Swarm(클러스터 관리) vs. Kubernetes(Orchestrator=Server Cluster Tool, Multi-host 등)
 - Run VM vs. Container(OCI, Open Container Initiative)
 	- vdi for Oracle VirtualBox
 	- vmdk for VMware
@@ -83,7 +87,8 @@
 - Terminal(MobaXterm)
 
 
-## 4. Install Docker and Configuration
+## 4. Install Docker and Configuration at Linux
+- 필요 시 Docker 이전 버전 삭제(/var/lib/docker 폴더 포함)
 - Install by root(#) at Rocky 9.5(https://docs.rockylinux.org/gemstones/containers/docker/)
 	```bash
 	# CE(Community Edition)
@@ -143,7 +148,7 @@
 # CONTAINTER_ID		: 이미지로부터 생성된 컨테이너의 고유 ID
 $ docker run [IMAGE_NAME]																	# 실행(run = create + start)
 $ docker create [IMAGE_NAME]																# 생성(대문자 사용 불가)
-$ docker start [CONTAINTER_NAME or CONTAINTER_ID%]											# 시작
+$ docker start [CONTAINTER_NAME or CONTAINTER_ID%]											# 시작(start는 백그라운드로 실행)
 $ docker stats [CONTAINTER_NAME or CONTAINTER_ID%]											# 통계(자원 사용량 정보)
 $ docker restart [CONTAINTER_NAME or CONTAINTER_ID%]										# 재시작
 $ docker stop [CONTAINTER_NAME or CONTAINTER_ID%]											# 종료, SIGTERM(15)에 해당하는 안전 종료(참고: kill -l)
@@ -153,7 +158,7 @@ $ docker inspect [CONTAINTER_NAME or CONTAINTER_ID%]
 $ docker inspect -f '{{ .NetworkSettings.IPAddress }}' [CONTAINTER_NAME or CONTAINTER_ID%]	# IP 확인
 $ docker rm [CONTAINTER_ID%]																# 삭제, 해당 컨테이너가 종료(stop or kill)되어 있어야 삭제 가능
 $ docker run --rm																			# 실행 후 즉시 삭제
-$ docker rm -f $(docker container ls -a -q)													# 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
+$ docker rm -f $(docker container ls -a -q)													# 모든 컨테이너 삭제(-f: 강제 삭제) or docker ps -aq(-a: 모두 -q: only ID)
 $ docker rmi [IMAGE_NAME]																	# 이미지 삭제(=docker image rm [IMAGE_NAME], 해당 컨테이너가 삭제되어야 이미지 삭제 가능, -f 시 강제 삭제)
 ```
 
@@ -162,7 +167,9 @@ $ docker rmi [IMAGE_NAME]																	# 이미지 삭제(=docker image rm [I
 - Search Image at Registry and Image at Localhost
 	```bash
 	$ docker search nginx				# Default Registry(hub.docker.com)에서 nginx Image를 검색 = https://hub.docker.com/에서 nginx를 검색
+	$ docker search plutomsw			# Default Registry(hub.docker.com)에서 plutomsw Image 또는 plutomsw 계정의 Private Image를 검색
 	$ docker search quay.io/nginx		# quay.io Registry에서 nginx Image를 검색
+	$ docker search quay.io/uvelyster	# quay.io Registry에서 uvelyster Image 또는 uvelyster 계정의 Private Image를 검색
 	$ docker images						# Localhost의 Image 확인
 	```
 - System Information
@@ -332,10 +339,72 @@ $ docker container run --rm -it --hostname www.test.com --add-host node1.test.co
 
 ## 8. Volume(Storage) for Container
 - EFK(Elastic Search + Fluentd + Kibana) vs. PLG(Promtail + Loki + Grafana) for Logging
-- Storage Mount 유형
-	- Volume mount(by Docker): 볼륨명(/var/lib/docker/volumes/볼륨명)으로 시작(예: ... -v demoVol1:/usr/share/nginx/html ...)
-	- Bind mount(by 사용자): "/"로 시작(예: ... -v /demoVol2:/usr/share/nginx/html ...)
-	- Tempfs mount(by 메모리): ?로 시작(예: ...) 
+- Storage 유형
+	- Volume(at Docker Area, Overlay): 볼륨명(/var/lib/docker/volumes/볼륨명)으로 시작(예: ... -v demoVol1:/usr/share/nginx/html ...)
+	- Bind mount(at File System, Over Mount): "/"로 시작(예: ... -v /demoVol2:/usr/share/nginx/html ...)
+	- Tmpfs mount(at 메모리): ?로 시작(예: ...)
+	```mermaid
+	flowchart LR
+
+		%% ===========================
+		%% Host
+		%% ===========================
+		subgraph Host["Host Machine"]
+			HD["Host Directory<br>/home/user/data"]
+			DV["Docker Volume<br>/var/lib/docker/volumes/..."]
+			RAM["Memory (RAM)"]
+			DISK["Disk Storage"]
+
+			HD --> DISK
+			DV --> DISK
+		end
+
+		%% ===========================
+		%% Container
+		%% ===========================
+		subgraph Container["Docker Container"]
+			APP["Application"]
+
+			DATA["/app/data"]
+			CACHE["/cache"]
+
+			APP --> DATA
+			APP --> CACHE
+		end
+
+		%% ===========================
+		%% Mount Types
+		%% ===========================
+		HD -- "Bind Mount" --> DATA
+		DV -- "Volume" --> DATA
+		RAM -- "Tmpfs Mount" --> CACHE
+
+		%% ===========================
+		%% Characteristics
+		%% ===========================
+		subgraph Features["Characteristics"]
+			B["Bind Mount<br/>- Host 디렉터리 사용<br/>- 개발 환경<br/>- Host 직접 접근"]
+
+			V["Volume<br/>- Docker 관리<br/>- 영구 저장<br/>- 백업 및 공유"]
+
+			T["Tmpfs Mount<br/>- RAM 저장<br/>- 컨테이너 종료 시 삭제<br/>- 캐시·민감정보"]
+		end
+
+		B -.-> HD
+		V -.-> DV
+		T -.-> RAM
+
+		%% Colors
+		classDef bind fill:#E3F2FD,stroke:#1565C0,stroke-width:2px;
+		classDef volume fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px;
+		classDef tmpfs fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px;
+		classDef app fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px;
+
+		class HD,B bind;
+		class DV,V volume;
+		class RAM,T tmpfs;
+		class APP,DATA,CACHE app;
+	```
 ```bash
 $ docker volume ls
 $ docker volume create demoVol1
@@ -349,11 +418,12 @@ $ docker volume inspect demoVol1
 $ nano /var/lib/docker/volumes/demoVol1/_data/index.html
 $ curl 172.17.0.1:1235																			# demoVol1 저장된 index.html(예: 동적 소스, 설정 등)
 $ curl 172.17.0.1:1234
-$ docker run -d --name demoApp3 -p 1236:80 -v demoVol1:/usr/share/nginx/html demo-nginx2nd
+$ docker run -d --name demoApp3 -p 1236:80 -v demoVol1:/usr/share/nginx/html demo-nginx2nd		# demoVol1 volume mount
+$ docker run -d --name demoApp4 -p 1237:80 -v          /usr/share/nginx/html demo-nginx2nd		# 자동 volume mount
 $ curl 172.17.0.1:1236																			# demoVol1
-$ docker run -d --name demoApp4 -p 1237:80 -v /demoVol2:/usr/share/nginx/html demo-nginx2nd		# "/"로 시작할 경우 by 사용자(bind mount)
-$ docker run -d --name demoApp5 -p 1238:80 -v  demoVol1:/usr/share/nginx/html:ro demo-nginx2nd	# 읽기 전용 volume mount
-$ docker run -d --name demoApp6 -p 1239:80 -v /demoVol3:/usr/share/nginx/html:ro demo-nginx2nd	# 읽기 전용 bind mount
+$ docker run -d --name demoApp5 -p 1238:80 -v /demoVol2:/usr/share/nginx/html demo-nginx2nd		# "/"로 시작할 경우 by 사용자(bind mount)
+$ docker run -d --name demoApp6 -p 1239:80 -v  demoVol1:/usr/share/nginx/html:ro demo-nginx2nd	# 읽기 전용 volume mount
+$ docker run -d --name demoApp7 -p 1240:80 -v /demoVol3:/usr/share/nginx/html:ro demo-nginx2nd	# 읽기 전용 bind mount
 $ ls /
 $ docker run -d -e MYSQL_ROOT_PASSWORD=root mysql		# MySQL 설치 시 1) 볼륨을 지장하지 않을 경우 자동 생성 2) 암호 설정(-e)
 $ docker volume ls
@@ -585,5 +655,10 @@ $ docker run -e NAME=$NAME python_hello_with_env
 
 
 ## 12. Reference
-- 이미지(Image), 컨테이너(Container) 그리고 태그(Tag)명에 대문자 사용 불가(영문자와 숫자, '-', '_', '.', '/' 만 허용)
+- 관리
+	- 사용하지 않는 이미지 확인
+		```bash
+		$ docker images -a --no-trunc
+		```
+	- 이미지(Image), 컨테이너(Container) 그리고 태그(Tag)명에 대문자 사용 불가(영문자와 숫자, '-', '_', '.', '/' 만 허용)
 - https://github.com/google/cadvisor (Docker, Kubernetes 등의 리소스 사용량과 성능을 모니터링하는 오픈소스 프로젝트)

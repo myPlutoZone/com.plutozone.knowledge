@@ -96,7 +96,7 @@
 - Stress Tool
 	- `Jmeter`
 - System
-	- `Classic-shell`
+	- `Open-shell` for Windows 11, `Classic-shell` for Windows 10
 	- `CCleaner`
 	- `WinDirStat`
 
