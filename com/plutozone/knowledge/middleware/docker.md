@@ -8,8 +8,8 @@
 04. [Install Docker and Configuration ................... 설치와 구성](#4-install-docker-and-configuration)
 05. [LifeCycle of Docker Container ......................... 생명주기](#5-lifecycle-of-docker-container)
 06. [Commands ............................................... 명령어](#6-commands)
-07. [Network for Container ................................ 네트워크](#7-network-for-container)
-08. [Volume(Storage) for Container ........................... 볼륨](#8-volumestorage-for-container)
+07. [Volume(Storage) for Container ........................... 볼륨](#7-volumestorage-for-container)
+08. [Network for Container ................................ 네트워크](#8-network-for-container)
 09. [Build for Container ..................................... 빌드](#9-build-for-container)
 10. [Compose for Container ................................. 컴포즈](#10-compose-for-container)
 11. [Example ................................................. 예제](#11-example)
@@ -305,39 +305,7 @@ $ docker rmi [IMAGE_NAME]																	# 이미지 삭제(=docker image rm [I
 	```
 
 
-## 7. Network for Container
-```bash
-$ docker network ls										# Network(Default:bridge=호스트에 브릿지 네트워크 추가, host=호스트 네트워크 자체, none=없음) for Container
-$ docker pull plutomsw/demo-busybox
-$ docker tag plutomsw/demo-busybox demo-busybox2nd		# plutomsw/demo-busybox를 demo-busybox2nd로 설정(tag)
-$ docker images
-$ docker run --rm demo-busybox2nd ip a					# 실행 후 즉시 삭제(--rm), IP 확인(ip a = ip addr show): 172.17.0.2 from 172.17.0.0 ~ 172.17.255.255
-$ docker run --rm --network host demo-busybox2nd ip a	# 실행 후 즉시 삭제(--rm), 네트워크 선택(--network), IP 확인(ip a = ip addr show)
-$ docker run --rm --network none demo-busybox2nd ip a	# 실행 후 즉시 삭제(--rm), 네트워크 선택(--network), IP 확인(ip a = ip addr show)
-$ docker network inspect bridge							# bridge detail
-$ docker run -d demo-busybox2nd sleep 1d				# sleep 1d로 해당 컨테이너를 실행
-$ docker network inspect bridge							# bridge detail
-$ docker exec -it [Name or ID%] sh						# sh로 해당 컨테이너로 접근
-$ docker network create -d brigde demoNet									# 기본이 brigde이므로 -d(driver) brigde 옵션 생략 가능
-$ docker network ls
-$ docker network rm demoNet
-$ docker network create demoNet --subnet 172.20.0.0/24						# 사용자 정의 네트워크 생성
-$ docker network ls
-$ docker pull plutomsw/demo-nginx											# [참고] latest는 하기 10. Build에서 v1 > v2 이후의 결과임
-$ docker tag plutomsw/demo-nginx demo-nginx2nd								# tag 설정
-$ docker run -d --network demoNet --name demoApp demo-nginx2nd				# 사용자 정의 네트워크로 컨테이너 실행
-$ docker inspect demoApp | grep IP											# IP 확인
-$ docker run -d --network demoNet --name demoApp2 -p 1000:80 demo-nginx2nd	# 사용자 정의 네트워크로 컨테이너 실행(-p: 포트 포워딩, 요청 포트:응답 포트)
-# http://172.16.0.101:1000 at Host
-$ docker rm -f $(docker container ls -a -q)									# 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
-$ docker network rm demoNet
-# 기타 옵션: --add-host(/etc/hosts 설정), --dns(/etc/resolv.conf 설정), --mac-address(MAC 설정), --hostname(/etc/hostname 설정), --ip(IP 지정)
-$ docker container run --rm -it --hostname www.test.com --add-host node1.test.com:172.17.0.10 --dns 192.168.10.2 centos # hotname, ip addr, ip route, cat /etc/hosts, cat /etc/hostname, df -hT, cat /etc/resolv.conf 등으로 확인
-# 컨테이너 통신 방법 (1) /etc/hosts (2) --link (3) 자동 이름 검색 서비스 in 사용자 정의 네트워크
-```
-
-
-## 8. Volume(Storage) for Container
+## 7. Volume(Storage) for Container
 - EFK(Elastic Search + Fluentd + Kibana) vs. PLG(Promtail + Loki + Grafana) for Logging
 - Storage 유형
 	- Volume(at Docker Area, Overlay): 볼륨명(/var/lib/docker/volumes/볼륨명)으로 시작(예: ... -v demoVol1:/usr/share/nginx/html ...)
@@ -434,6 +402,99 @@ $ docker volume rm demoVol1								# 볼륨 수동 삭제
 $ docker volume rm -f $(docker vloume ls -q)			# 모든 볼륨 삭제
 $ docker volume ls
 $ docker volume prune									# 생성된 모든 볼륨을 삭제
+```
+
+
+## 8. Network for Container
+```mermaid
+flowchart TB
+
+%%==========================
+%% External Network
+%%==========================
+
+Internet((Internet))
+Router["Router<br/>192.168.10.1"]
+
+Internet --- Router
+
+%%==========================
+%% Docker Host
+%%==========================
+
+subgraph HOST["Docker Host"]
+
+	HostEth0["eth0<br/>192.168.10.100/24<br/>(Physical NIC)"]
+
+	Docker0["docker0<br/>172.17.0.1/16<br/>(Linux Bridge)"]
+
+	Veth1["veth#1"]
+
+	Veth2["veth#2"]
+
+	HostEth0 --- Docker0
+	Docker0 --- Veth1
+	Docker0 --- Veth2
+
+end
+
+Router --- HostEth0
+
+%%==========================
+%% Container-1
+%%==========================
+
+subgraph C1["Container-1"]
+
+	Eth1["eth0<br/>172.17.0.2/16"]
+
+end
+
+%%==========================
+%% Container-2
+%%==========================
+
+subgraph C2["Container-2"]
+
+	Eth2["eth0<br/>172.17.0.3/16"]
+
+end
+
+%%==========================
+%% veth Pair
+%%==========================
+
+Eth1 <-->|veth pair| Veth1
+Eth2 <-->|veth pair| Veth2
+```
+```bash
+$ docker network ls										# Network(Default:bridge=호스트에 브릿지 네트워크 추가, host=호스트 네트워크 자체, none=없음) for Container
+$ docker pull plutomsw/demo-busybox
+$ docker tag plutomsw/demo-busybox demo-busybox2nd		# plutomsw/demo-busybox를 demo-busybox2nd로 설정(tag)
+$ docker images
+$ docker run --rm demo-busybox2nd ip a					# 실행 후 즉시 삭제(--rm), IP 확인(ip a = ip addr show): 172.17.0.2 from 172.17.0.0 ~ 172.17.255.255
+$ docker run --rm --network host demo-busybox2nd ip a	# 실행 후 즉시 삭제(--rm), 네트워크 선택(--network), IP 확인(ip a = ip addr show)
+$ docker run --rm --network none demo-busybox2nd ip a	# 실행 후 즉시 삭제(--rm), 네트워크 선택(--network), IP 확인(ip a = ip addr show)
+$ docker network inspect bridge							# bridge detail
+$ docker run -d demo-busybox2nd sleep 1d				# sleep 1d로 해당 컨테이너를 실행
+$ docker network inspect bridge							# bridge detail
+$ docker exec -it [Name or ID%] sh						# sh로 해당 컨테이너로 접근
+$ docker network create -d brigde demoNet									# 기본이 brigde이므로 -d(driver) brigde 옵션 생략 가능
+$ docker network ls
+$ docker network rm demoNet
+$ docker network create demoNet --subnet 172.20.0.0/24						# 사용자 정의 네트워크 생성
+$ docker network ls
+$ docker pull plutomsw/demo-nginx											# [참고] latest는 하기 10. Build에서 v1 > v2 이후의 결과임
+$ docker tag plutomsw/demo-nginx demo-nginx2nd								# tag 설정
+$ docker run -d --network demoNet --name demoApp demo-nginx2nd				# 사용자 정의 네트워크로 컨테이너 실행
+$ docker inspect demoApp | grep IP											# IP 확인
+$ docker run -d --network demoNet --name demoApp2 -p 1000:80 demo-nginx2nd	# 사용자 정의 네트워크로 컨테이너 실행(-p: 포트 포워딩, 요청 포트:응답 포트)
+# http://172.16.0.101:1000 at Host
+$ docker rm -f $(docker container ls -a -q)									# 모든 컨테이너 삭제(-f: 강제 중지 후 삭제) or docker ps -aq
+$ docker network rm demoNet
+# 기타 옵션: --add-host(/etc/hosts 설정), --dns(/etc/resolv.conf 설정), --mac-address(MAC 설정), --hostname(/etc/hostname 설정), --ip(IP 지정)
+$ docker container run --rm -it --hostname www.test.com --add-host node1.test.com:172.17.0.10 --dns 192.168.10.2 centos # hotname, ip addr, ip route, cat /etc/hosts, cat /etc/hostname, df -hT, cat /etc/resolv.conf 등으로 확인
+# 컨테이너 통신 방법 (1) /etc/hosts (2) --link (3) 자동 이름 검색 서비스 in 사용자 정의 네트워크
 ```
 
 
@@ -655,10 +716,16 @@ $ docker run -e NAME=$NAME python_hello_with_env
 
 
 ## 12. Reference
-- 관리
+- 유지 운영
+	- `이미지`(Image), `태그`(Tag)명에 대문자 사용 불가(`컨테이너명만 가능`)
+		- 영문자와 숫자, '-', '_', '.', '/' 만 허용
 	- 사용하지 않는 이미지 확인
 		```bash
 		$ docker images -a --no-trunc
 		```
-	- 이미지(Image), 컨테이너(Container) 그리고 태그(Tag)명에 대문자 사용 불가(영문자와 숫자, '-', '_', '.', '/' 만 허용)
+	- 이미지와 컨테이너의 디스크 사용량 확인
+		```bash
+		$ docker images			# 이미지 디스크 사용량
+		$ docker ps -s			# 컨테이너 디스크 사용량
+		```
 - https://github.com/google/cadvisor (Docker, Kubernetes 등의 리소스 사용량과 성능을 모니터링하는 오픈소스 프로젝트)
