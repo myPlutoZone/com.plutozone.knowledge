@@ -495,6 +495,8 @@ $ docker network rm demoNet
 # 기타 옵션: --add-host(/etc/hosts 설정), --dns(/etc/resolv.conf 설정), --mac-address(MAC 설정), --hostname(/etc/hostname 설정), --ip(IP 지정)
 $ docker container run --rm -it --hostname www.test.com --add-host node1.test.com:172.17.0.10 --dns 192.168.10.2 centos # hotname, ip addr, ip route, cat /etc/hosts, cat /etc/hostname, df -hT, cat /etc/resolv.conf 등으로 확인
 # 컨테이너 통신 방법 (1) /etc/hosts (2) --link (3) 자동 이름 검색 서비스 in 사용자 정의 네트워크
+# 컨테이너 기동 시 고정 IP 설정하려면 1) 신규 네트워크 생성 후 2) 컨테이너 기동 시 --ip 옵션으로 고정 IP를 할당
+# 컨테이너가 host Network를 사용할 경우 동일한 포트를 사용할 수 없다. 예) nginx 컨테이너를 host Network로 기동하고 httpd 컨테이너를 host로 기동하면 80이 사용중이라 기동 안 됨
 ```
 
 
@@ -719,6 +721,11 @@ $ docker run -e NAME=$NAME python_hello_with_env
 - 유지 운영
 	- `이미지`(Image), `태그`(Tag)명에 대문자 사용 불가(`컨테이너명만 가능`)
 		- 영문자와 숫자, '-', '_', '.', '/' 만 허용
+	- Alpine Image(CoreOS)
+		- Alpine Linux는 musl libc와 BusyBox 중심으로 구축된 리눅스 배포판으로 이미지 크기가 5MB에 불과하지만 다른 BusyBox 기반 이미지보다 완전하다는 평가
+		```bash
+		$ docker run --name demoAlpine -it -d alpine ash
+		```
 	- 사용하지 않는 이미지 확인
 		```bash
 		$ docker images -a --no-trunc
