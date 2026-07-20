@@ -41,6 +41,9 @@
 	- Major.Minor.Patch.Build(예: 1.0.0.0)
 	- 안정화 버전(=Even Number Version)
 	- LTS(Long Term Support, 장기 지원 서비스)
+- Java Version
+	- ..., Java 2(1.2.x), ..., Java 7(1.7.x), Java 8(1.8.x), Java 9, ..., Java 17, ...
+	- `Java 1.8.x(Java 8) for 공공 및 SI 프로젝트` vs. Java 17 for Spring Boot
 - JDK 다운로드와 설치 그리고 환경 설정(JAVA_HOME과 PATH 등)
 	```bash
 	$ tar zxvf jdk-21.0.10_linux-x64_bin.tar.gz							# 다운로드 후 압축 해제
@@ -327,6 +330,7 @@ classDiagram
 
 ## 4. 상속과 다형성
 ### 4-1. 상속(Inheritance)<sup>Java is not support Multiple-Inheritance</sup>
+![Inheritance](./image/java/inheritance.png)
 - 상위(Parent, 부모) 클래스와 하위(Child, 자식) 클래스 그리고 상속(extends)
 - 하위 클래스의 생성 프로세스와 super 그리고 형 변환
 - 메서드 재정의(Method Overriding, @Override)와 final
@@ -350,6 +354,16 @@ classDiagram
 - 인터페이스에 전용(private) 메서드 정의 at Java 9 over
 - 다중 구현, 디폴트 메서드 중복 시, 인터페이스 상속, 인터페이스 구현과 상속 동시 적용 및 실무에서 사용 방안
 
+### 5-3. [중첩(Nested) 클래스](/src/com/plutozone/syntax/classes/UsingNested.java)
+클래스 내부에서 선언된 클래스로 멤버로 접근 용이하고 관계 클래스를 숨김으로써 코드의 복잡성을 감소 시키며 멤버 클래스(인스턴스 멤버 클래스와 정적 멤버 클래스)와 로컬 클래스 등이 있다.
+
+### 5-4. 중첩 인터페이스
+클래스의 멤버로 선언된 인터페이스를 말하며 인스턴스와 정적 멤버 모두 가능하며 주로 정적 멤버 인터페이스로 UI 프로그래밍에서 이벤트 처리에 사용된다.
+
+### 5-5. 익명 객체
+- [익명 자식 객체](/src/com/plutozone/syntax/anonymous/UsingAnonymousChild.java): 재사용되지 않고 특정 위치에서 임시로 자식 클래스를 사용할 경우
+- [익명 구현 객체](/src/com/plutozone/syntax/anonymous/UsingAnonymousImplement.java): 재사용되지 않고 특정 위치에서 임시로 구현 클래스를 사용할 경우
+
 
 ## 6. 주요 클래스와 예외 처리
 ### 6-1. 오브젝트(Object) 클래스
@@ -372,17 +386,15 @@ classDiagram
 
 ### 6-5. 내부(Inner) 클래스와 유형
 - 내부 클래스가 외부 클래스와 밀접한 관계에 있고 다른 클래스와 관계가 없을 때
-- 인스턴스 내부 클래스, 정적 내부 클래스, 지역 내부 클래스 그리고 [익명 내부(자식) 클래스](/src/com/plutozone/syntax/anonymous/UsingAnonymousChild.java), [익명 내부(구현) 클래스](/src/com/plutozone/syntax/anonymous/UsingAnonymousImplement.java)
+- 인스턴스 내부 클래스, 정적 내부 클래스, 지역 내부 클래스 그리고 익명 내부 클래스
 
-### 6-6. [중첩(Nested) 클래스](/src/com/plutozone/syntax/classes/UsingNested.java)
-
-### 6-7. 람다식(Lambda expression, 함수형 프로그래밍) at Java 8 over
+### 6-6. 람다식(Lambda expression, 함수형 프로그래밍) at Java 8 over
 - 람다식 문법과 사용
 
-### 6-8. 스트림(Stream)<sup>자료에 대한 Sorting, Filter 기능 등을 제공</sup>
+### 6-7. 스트림(Stream)<sup>자료에 대한 Sorting, Filter 기능 등을 제공</sup>
 - 스트림 종류(중간 연산, 최종 연산)와 사용 그리고 특징
 
-### 6-9. 예외(Exception) 처리와 예외 클래스
+### 6-8. 예외(Exception) 처리와 예외 클래스
 ![Exception](./image/java/exception.png)
 - 컴파일 시 에러(Compile Error) = 문법 에러(Syntax Error) vs. 실행 시 에러(Runtime Error) = Bug(버그) 그리고 Debug(디버그)
 - 시스템 에러(Error) = 제어 불가?(예: Static Memory Overflow) vs. 예외(Exception) = 제어 가능(예: File Not Found)

@@ -19,7 +19,7 @@
 
 
 ## 2. OS
-- [DNS](./os/dns.md)
+- [DNS(Domain Name Service)](./os/dns.md)
 - [Linux](./os/linux.md)
 - [Rocky](./os/rocky.md)
 - [Ubuntu](./os/ubuntu.md)
@@ -28,20 +28,22 @@
 
 ## 3. Language
 - [C/C++ and Visual C++](./language/c+cpp+vcpp.pdf)
-- [CSS](./language/css.md)
-- [HTML](./language/html.md)
+- [CSS(Cascade Style Sheet)](./language/css.md)
+- [HTML(HyperText Markup Language)](./language/html.md)
 - [Java](./language/java.md)
 - [JavaScript](./language/javascript.md)
+- [JSP(Java Server Page)](./language/jsp.md)
 - [Laravel](./language/laravel.md)
 - [Node.js](./language/nodejs.md)
 - [Python](./language/python.md)
+- [Spring](./language/spring.md)
 - [Spring Boot](./language/springboot.md)
 - [Vue.js](./language/vuejs.md)
 
 
 ## 4. Development
 - [Overview of Development](./development/README.md "개발 표준 가이드 등")
-- [AWS](./development/cloud/aws.md)
+- [AWS(Amazon Web Service)](./development/cloud/aws.md)
 - [Clean Code](./development/cleanCode.md)
 - **[Command](./development/command.md)**
 - [Eclipse](./development/eclipse.md)

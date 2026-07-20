@@ -25,7 +25,7 @@
 ### 1-1. 데이터(Data)와 정보(Information)
 ```mermaid
 flowchart LR
-subgraph D[" "]
+subgraph Data[" "]
 	A1["Data 1"]
 	A2["Data 2"]
 	A3["Data ..."]
@@ -33,15 +33,15 @@ end
 
 DB[(Database)]
 
-subgraph I[" "]
+subgraph Informaiton[" "]
 	I1["Information"]
 end
 
-D -- "체계적 저장" --> DB
-DB <-- "효율적인 검색/처리" --> I
+Data -- "체계적 저장" --> DB
+DB <-- "효율적인 검색과 처리" --> Informaiton
 
-style D fill:#ffffff,stroke:#ffffff
-style I fill:#ffffff,stroke:#ffffff
+style Data fill:#ffffff,stroke:#00
+style Informaiton fill:#ffffff,stroke:#00
 ```
 - 데이터 또는 정보 수집
 	- 크롤링(Crawling): 정기 또는 자동화 정보 추출
@@ -62,9 +62,11 @@ style I fill:#ffffff,stroke:#ffffff
 
 
 ### 1-3. DBMS(DataBase Management System)
-DBMS(데이터베이스 관리 시스템)는 Database의 구성, Access 방법, 관리 유지에 대한 모든 Role을 지고 있는 Software System
+> DBMS(데이터베이스 관리 시스템)는 Database의 구성, Access 방법, 관리 유지에 대한 모든 Role을 지고 있는 Software System
 
 - 개요
+- DB의 발전(종이, 파일 등)과 DBMS 그리고 SQL(Structured Query Language)
+
 - 특징(무결성, 독립성, 보안, 중복 최소화, 안정성 등)
 - 구조/형식에 따른 분류(관계형, 객체 지향형, 계층형, 네트워크형, 망형 등)
 
@@ -74,10 +76,10 @@ DBMS(데이터베이스 관리 시스템)는 Database의 구성, Access 방법, 
 
 ```mermaid
 flowchart LR
-	A["매출 전표 TABLE<br/>────────────<br/>전표번호 | 년월 | 거래처코드"]
-	B["거래처 TABLE<br/>────────────<br/>거래처코드 | 거래처명"]
-	C["주문 TABLE<br/>────────────<br/>주문번호 | 전표번호 | 상품코드 | 수량"]
-	D["상품 TABLE<br/>────────────<br/>상품코드 | 상품명 | 단가"]
+	A["매출 전표 Table<br/>────────────<br/>전표번호 | 년월 | 거래처코드"]
+	B["거래처 Table<br/>────────────<br/>거래처코드 | 거래처명"]
+	C["주문 Table<br/>────────────<br/>주문번호 | 전표번호 | 상품코드 | 수량"]
+	D["상품 Table<br/>────────────<br/>상품코드 | 상품명 | 단가"]
 
 	B -. 거래처코드 .-> A
 	A -. 전표번호 .-> C
@@ -217,8 +219,8 @@ flowchart TD
 
 ### 2-5. 기본키(Primary Key)와 외래키(Foreign Key)
 기본 키와 외부 키는 릴레이션십을 작성할 때 사용하는 필드이다. 기본키는 등록한 데이터를 식별하기 위해 사용되므로 반드시 입력되어야 하며 자동 인덱스되며 중복될 수 없다. 외부키는 다른 테이블의 기본키와 일치하는 값을 갖고 있으며 반드시 입력되어야 한다. 기본키와 외부키를 설정할 때 필드명은 동일할 필요는 없으나 데이터형은 동일하게 할 필요가 있다.
-- Primary Key: 매출 전표 TABLE의 전표번호 필드, 상품 TABLE의 상품코드 필드
-- Foreign Key: 주문 TABLE의 전표번호 필드 등
+- Primary Key: 매출 전표 Table의 전표번호 필드, 상품 Table의 상품코드 필드
+- Foreign Key: 주문 Table의 전표번호 필드 등
 
 ### 2-6. 데이터 타입(Data Type)
 - 명시적 변환(Explicit Conversion) vs. 암시적 변환(Implicit Conversion)
