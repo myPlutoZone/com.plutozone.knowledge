@@ -175,16 +175,16 @@
 	- 인터넷 표준 Protocol
 	- IP(목적지로 전송을 목적으로 한 비신뢰성, 비연결성 패킷) vs. TCP(신뢰성) 그리고 UDP(비연결성 등)
 	- OSI 7 Layer의 Transport Layer(TCP)와 Network Layer(IP)가 혼합된 형태로 응용 Protocol(HTTP, FTP, …)의 Base Protocol
-		![TCP/IP](./image/tcpip.png)
+	![TCP/IP](./image/tcpip.png)
 - TCP/IP 데이터 전송 과정
-	![TCP/IP Flow](./image/tcpipFlow.png)
+![TCP/IP Flow](./image/tcpipFlow.png)
 - TCP/IP Handshake(연결 수립과 해제를 위한 가상 회선의 상태와 의미)
-	![TCP/IP Handshake](./image/tcpipHandshake.png)
+![TCP/IP Handshake](./image/tcpipHandshake.png)
 - IP(Internet Protocol) Address Class
-	![IP Class](./image/ipclass.png)
 	- Host(192.168.0.100), Subnet Mask(255.255.255.0), Network(192.168.0.0) IP
 	- Gateway(192.168.0.1), Nework(192.168.0.0), Broadcast(192.168.0.255) IP
 	- A(0xxxxxxx:0 ~ 127.*.*.*), B(10xxxxxx:128 ~ 191.*.*.*), C(110xxxxx:192 ~ 223.*.*.*), D, E Class vs. CIDR(Classless Inter-Domain Routing)
+	![IP Class](./image/ipclass.png)
 	- 사설 IP와 NAT(Network Address Translation)
 		- A 10.0.0.0 ~ 10.255.255.255
 		- B 172.16.0.0 ~ 172.31.255.255
