@@ -1,6 +1,13 @@
 # com.plutozone.knowledge.development.Git
 
 
+## Temp
+- reset(현재 버전을 삭제하고 이전 버전으로) vs. revert(현재 버전을 남기면서 신규 버전 생성)
+- restore
+- git flow is process or tools
+- merge vs. rebase 그러나 결과는 같다.
+
+
 ## Overview
 - `Working Tree` vs. `Staging Area` vs. `Repository(local vs. Remote)`
 - `Untracked files` vs. `Changes to be committed`
