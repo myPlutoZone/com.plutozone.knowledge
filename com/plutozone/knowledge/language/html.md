@@ -26,7 +26,7 @@
 	- CLI(Command Line Interface, 명령어 라인 인터페이스)
 	- GUI(Graphical User Interface, 그래픽 사용자 인터페이스)
 - 요구 사항을 기반으로 화면 설계 표준 정의(로그인, 메인, 페이지 등에 대한 화면 내용, 이동 등 포함)
-- 요구 사항을 기반으로 화면 설계서(SB, Story Board) 작성(프로젝트 수행을 위한 간략한 용어 및 기능 포함)
+- 요구 사항을 기반으로 화면 설계서(SB, Story Board) 작성(`프로젝트 수행을 위한 간략한 용어 및 기능 포함`)
 - 필요 시 화면을 구현하기 위해 순서도(Flow Chart) 작성(예: 로그인)
 
 ### 1-2. 메뉴 구조
@@ -41,7 +41,9 @@
 
 ### 1-4. 화면 개발(구현)
 - Server(Web Server) vs. Client(Browser) and Web Site vs. Web Page
-- Cheat Sheet for HTML, CSS at Google Image(https://www.google.com/imghp?hl=ko&ogbl)
+- `Cheat Sheet` for `HTML`, `CSS` at Google Image(https://www.google.com/imghp?hl=ko&ogbl)
+	![Layout-1](./image/html/html.png)
+	![Layout-1](./image/html/css.png)
 - HTML
 	- 개요와 특징
 	- 구조
@@ -57,9 +59,8 @@
 		- textarea 등
 	- [시맨틱 태그(Semantic Tag)](/WebContent/knowledge/language/html/semantic.html)
 	- [레이아웃(Layout)](./css.md)
-
-![Layout-1](./image/html/layout_1.png)
-![Layout-2](./image/html/layout_2.png)
+		![Layout-1](./image/html/layout_1.png)
+		![Layout-2](./image/html/layout_2.png)
 - CSS(Cascade Style Sheet)
 	- 개요와 특징
 	- 선택자(Selector)
@@ -85,6 +86,14 @@
 
 
 ## 2. 반응형 웹(Responsive Web) 설계 및 구현
+### 반응형 웹이란?
+- HTML + CSS + JavaScript
+
+### 설계와 구현
+- [한 땀 한 땀(hand-crafting the code)](./css.md)
+- 프론트엔드 프레임웍 기반
+- 유료 또는 무료 템플릿(순수 또는 프론트엔드 프레임웍) 기반
+- 솔루션 기반
 
 
 ## 3. 고객 편리성 제공 화면을 위한 설계 및 구현

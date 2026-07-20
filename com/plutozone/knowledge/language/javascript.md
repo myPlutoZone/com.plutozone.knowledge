@@ -58,13 +58,13 @@
 	- 연산자 우선 순위
 - 템플릿 리터럴
 	- JavaScript에서 backtick(`) 문자를 사용하여 문자열을 표현
-	```js
-			var name		= "James";
-			var message	= `Dear ${name} 
-	My name is Pluto.
-				I'm ${1+1} years old.`;
-			alert(message);
-	```
+		```js
+				var name		= "James";
+				var message	= `Dear ${name} 
+		My name is Pluto.
+					I'm ${1+1} years old.`;
+				alert(message);
+		```
 	- 이렇게 사용하면 두가지 기능이 있는데 (1)줄바꿈을 쉽게 할수 있고 (2)문자열 내부에 표현식을 포함할 수 있게 된다.
 
 ## 2. 제어문
@@ -88,18 +88,16 @@
 	- 내장 객체(Built-in Object): Object, String, Date, Array, Math, RegExp 등
 	- 브라우저 객체 모델(BOM, Browser Object Model): window, screen, location, history, navigator 등
 	- 문서 객체 모델(DOM, Document Object Model): HTML 문서 구조
-![Object](./image/js/object.png)
+	![Object](./image/js/object.png)
 
 
 ## 4. 함수(Function)
 - 정의
-
-```
-...
-function functionName() {…}
-...
-```
-
+	```
+	...
+	function functionName() {…}
+	...
+	```
 - 매개 변수
 - 리턴(return)과 값
 - 내장 함수(Built-in Function)
@@ -134,6 +132,39 @@ function functionName() {…}
 - 사용 방식 그리고 버전, 압축 여부 등
 	- Download 방식(https://jquery.com/download/)
 	- CDN 방식(https://cdnjs.com/libraries/jquery)
+
+### jQuery 기반의 선택자(Selector)
+- 직접 선택자: 전체, 아이디, 클래스, 요소, 그룹, 종속 등
+- 인접 선택자: 부모, 상위, 인접 상위, 하위, 자식, 자식들, 이전, 이전들, 다음, 다음들 등	
+- 위치/속성/콘텐츠 탐색 선택자 등	
+![Selector](./image/js/select-1.png)
+![Selector](./image/js/select-2.png)
+![Selector](./image/js/select-3.png)
+
+### jQuery 기반의 조작 메서드(Method)
+- 속성 조작 메서드
+- 수치 조작 메서드
+- 객체(HTML Element) 편집(생성, 복제, 삭제 등) 메서드
+
+### jQuery 기반의 Event 등록과 처리 그리고 제거
+- Event 등록 메서드 종류
+	- 로딩: load(), ready(), error()
+	- 마우스: click(), dblclick(), mouseout(), mouseover(), hover(), mousedown() 등
+	- 포커스: focus(), focusin(), blur(), change()
+	- 키보드: keypress(), keydown(), keyup()
+- Event 등록 방식
+	- 단독
+	- 그룹
+- Event 객체와 종류
+	- 마우스: clientX, clientY, pageX, pageY 등
+	- 키보드: keyCode, altKey, ctrlKey 등 
+	- 전체: target 등
+
+### Ajax(Asychronous JavaScript and XML)
+- HyperText(화면 전환 필요) vs. Ajax 그리고 동기식(응답 대기 필요) vs. 비동기식
+- Text vs. HTML vs. XML vs. JSON
+- Method: load(), $.ajax(), $.post(), $.get(), $.getJSON(), $.getScript(), .ajaxStop(…), .ajaxSuccess(…), .ajaxComplete(…)
+- Non Cross-Domain
 
 
 ## 8. 고객 편리성 제공 화면을 위한 설계 및 구현
