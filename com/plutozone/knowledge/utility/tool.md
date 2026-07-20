@@ -21,9 +21,10 @@
 ## 3. Design
 ### 3-1. UI or SB(Story Board)
 - `Pencil`
-- https://canva.com, https://figma.com/, https://stitch.withgoogle.com/, https://ovenapp.io
+- https://ovenapp.io
+- https://canva.com vs. https://figma.com/ vs. https://stitch.withgoogle.com/
 	|       | Figma | Canva | Stitch |
-	| :---- | :---- | :---- | :----- |
+	| :---: | :---- | :---- | :----- |
 	| 목적 | `UI/UX 디자인` | `디자인과 콘텐츠 제작` | `AI 기반 UI 생성` |
 	| 사용자 | 기획/디자인/개발 | `기획/마케팅` | 기획/디자인/개발 |
 	| 적합 | `전문 디자이너와 개발` | 비디자이너와 마케터 | `AI 활용 빠른 UI 생성` |
@@ -38,8 +39,6 @@
 	| 강점 | 전문적 | 사용성과 템플릿 | 프롬프트만으로 빠른 UI 초안 생성 |
 	| 한계 | 복잡 | 전문 설계 | 후속 편집 |
 	| 할용 | 디자인 | 마케팅/교육/브랜딩 자료 | MVP/아이디어/초기 프로토타입 |
-
-
 
 ### 3-2. ERD(Entity Relationship Diagram) or UML 등
 - `https://erdcloud.com`

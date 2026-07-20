@@ -41,11 +41,13 @@
 	- Message Box
 	- Write Line
 - UiPath Studio 시작 및 화면 구성
-- 변수와 자료형 그리고 범위(데이터 타입에 따른 변수 선언 후 값 지정 및 메시지 박스에 값 출력)
-	- Sequence x 2
-	- Asign x 4
-	- Message Box x 4
-	- For Each
+
+
+# 변수와 자료형 그리고 범위(데이터 타입에 따른 변수 선언 후 값 지정 및 메시지 박스에 값 출력)
+- Sequence x 2
+- Asign x 4
+- Message Box x 4
+- For Each
 
 
 ## Activity와 Package
