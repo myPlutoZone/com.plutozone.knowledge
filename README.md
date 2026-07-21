@@ -35,6 +35,9 @@ plutozone.com의 지적재산권 침해에 해당된다.
 ## [com.plutozone.openMalls](https://github.com/myPlutoZone/com.plutozone.openMalls "Spring Web and MariaDB for Manager + Product + Member + Membership + Message + ...")
 ## [com.plutozone.demo.springBoot](https://github.com/myPlutoZone/com.plutozone.demo.springBoot "Demo for SpringBoot by IntelliJ + Maven")
 
+# Result
+![분석 및 설계](./com/plutozone/knowledge/fundamental/image/박지수.png)
+
 
 # History
 - 2025-04-21 [REPORT] Renewal end!
