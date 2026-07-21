@@ -330,30 +330,212 @@ classDiagram
 
 ## 4. 상속과 다형성
 ### 4-1. 상속(Inheritance)<sup>Java is not support Multiple-Inheritance</sup>
-![Inheritance](./image/java/inheritance.png)
+```mermaid
+classDiagram
+direction TB
+
+class 도형 {
+	<<abstract>>
+	- 이름 : String
+	- 색상 : String
+	+ 그리기() void
+	+ 이동(x : double, y : double) void
+	+ 출력() String
+}
+
+class 점 {
+	- x : double
+	- y : double
+	+ 좌표 설정(x, y) void
+	+ 이동(dx  double, dy : double) void
+	+ 거리 계산(p : 점) double
+}
+
+class 선 {
+	- 시작점 : 점
+	- 끝점 : 점
+	- 두께 : double
+	+ 길이() double
+	+ 기울기() double
+	+ 그리기() void
+}
+
+class 면 {
+	- 꼭짓점 목록 : List<점>
+	- 채우기 색 : String
+	+ 넓이() double
+	+ 둘레() double
+	+ 그리기() void
+}
+
+class 삼각형 {
+	+ 넓이() double
+	+ 둘레() double
+}
+
+class 사각형 {
+	- 가로 : double
+	- 세로 : double
+	+ 넓이() double
+	+ 둘레() double
+}
+
+도형 <|-- 점
+도형 <|-- 선
+도형 <|-- 면
+
+면 <|-- 삼각형
+면 <|-- 사각형
+
+선 --> "2" 점 : 시작/끝
+면 --> "3..*" 점 : 꼭짓점
+```
 - 상위(Parent, 부모) 클래스와 하위(Child, 자식) 클래스 그리고 상속(extends)
 - 하위 클래스의 생성 프로세스와 super 그리고 형 변환
 - 메서드 재정의(Method Overriding, @Override)와 final
 - 필드 또는 매개변수의 자동/강제 형 변환(Casting)에 따른 가상 메서드
 
 ### 4-2. 다형성(Polymorphism)
-![Polymorphism](./image/java/polymorphism.png)
+```mermaid
+classDiagram
+direction TB
+
+class 동물 {
+	<<abstract>>
+	- 이름 : String
+	- 나이 : int
+	+ 먹다() void
+	+ 잠자다() void
+	+ 소리내다() String
+}
+
+class 개 {
+	+ 소리내다() String
+}
+
+class 고양이 {
+	+ 소리내다() String
+}
+
+class 오리 {
+	+ 소리내다() String
+}
+
+동물 <|-- 개
+동물 <|-- 고양이
+동물 <|-- 오리
+
+note for 개 "소리내다() : 멍멍~~~"
+note for 고양이 "소리내다() : 야옹~~~"
+note for 오리 "소리내다() : 꿱꿱~~~"
+```
 - 하나의 코드가 여러 자료형으로 구현되어 실행(예: 필드 또는 매개변수의 자동 및 강제 형 변환에 따른 가상 메서드, 추상 클래스, 인터페이스 등)
 - Down Casting과 instanceof
 
 ## 5. 추상 클래스와 인터페이스
-![Abstract + Interface](./image/java/abstract+interface.png)
+
 ### 5-1. 추상(Abstract) 클래스<sup>동일한 객체 변수로 해당 메서드를 상속한 클래스의 메서드 호출(하나의 코드가 여러 자료형으로 구현되어 실행)</sup>
+```mermaid
+classDiagram
+	direction TB
+
+	class 동물 {
+		<<abstract>>
+		# 이름 : String
+		# 나이 : int
+
+		+ 먹다() void
+		+ 잠자다() void
+		+ 소리내다()* String
+	}
+
+	class 개 {
+		+ 소리내다() String
+	}
+
+	class 고양이 {
+		+ 소리내다() String
+	}
+
+	동물 <|-- 개 : extends
+	동물 <|-- 고양이 : extends
+```
 - 추상 클래스는 구현되지 않은 메서드가 있고 상속(extends) 클래스에서 구현해야 사용 가능
 - final을 통한 템플릿 메서드 정의
 - final: 변수(상수), 메서드(템플릿) 및 클래스(마지막-보안 등)
 
 ### 5-2. 인터페이스(Interface)<sup>동일한 객체 변수로 해당 메서드를 구현한 클래스의 메서드 호출(하나의 코드가 여러 자료형으로 구현되어 실행) + 다중 구현</sup>
+```mermaid
+classDiagram
+	direction TB
+
+	class 소리내기 {
+		<<interface>>
+		+ 소리내다() String
+	}
+
+	class 날기 {
+		<<interface>>
+		+ 날다() void
+	}
+
+	class 개 {
+		+ 소리내다() String
+	}
+
+	class 새 {
+		+ 소리내다() String
+		+ 날다() void
+	}
+
+	소리내기 <|.. 개 : implements
+	소리내기 <|.. 새 : implements
+	날기 <|.. 새 : implements
+```
 - 인터페이스는 모든 메서드가 추상 메서드이며 클래스에서 구현(implements)
 - 인터페이스에 디폴트(default, 재정의 가능)와 정적(static) 메서드 정의 at Java 8 over
 - 인터페이스에 전용(private) 메서드 정의 at Java 9 over
 - 다중 구현, 디폴트 메서드 중복 시, 인터페이스 상속, 인터페이스 구현과 상속 동시 적용 및 실무에서 사용 방안
 
+```mermaid
+classDiagram
+	direction TB
+
+	class 동물 {
+		<<abstract>>
+		# 이름 : String
+		# 나이 : int
+		+ 먹다() void
+		+ 잠자다() void
+		+ 소리내다()* String
+	}
+
+	class 날기 {
+		<<interface>>
+		+ 날다() void
+	}
+
+	class 개 {
+		+ 소리내다() String
+	}
+
+	class 고양이 {
+		+ 소리내다() String
+	}
+
+	class 새 {
+		+ 소리내다() String
+		+ 날다() void
+	}
+
+	%% 추상 클래스 상속
+	동물 <|-- 개 : extends
+	동물 <|-- 고양이 : extends
+	동물 <|-- 새 : extends
+
+	%% 인터페이스 구현
+	날기 <|.. 새 : implements
+```
 ### 5-3. [중첩(Nested) 클래스](/src/com/plutozone/syntax/classes/UsingNested.java)
 클래스 내부에서 선언된 클래스로 멤버로 접근 용이하고 관계 클래스를 숨김으로써 코드의 복잡성을 감소 시키며 멤버 클래스(인스턴스 멤버 클래스와 정적 멤버 클래스)와 로컬 클래스 등이 있다.
 
@@ -379,7 +561,54 @@ classDiagram
 - Boolean, Byte, Character, Short, Integer 등
 
 ### 6-4. 컬렉션(Collection) Framework<sup>단일 vs. 멀티 쓰레드(잠금과 해제) 그리고 속도</sup>
-![Collection](./image/java/collection.png)
+```mermaid
+graph LR
+	Collection["Collection<br/>순서나 집합적인 저장공간"]
+
+	List["List<br/>순서가 있는 저장 공간"]
+	Set["Set<br/>집합적인 저장 공간"]
+
+	Collection --> List
+	Collection --> Set
+
+	LinkedList["LinkedList<br/>링크드리스트"]
+	Stack["Stack<br/>스택 자료구조"]
+	Vector["Vector<br/>동기화 보장"]
+	ArrayList["ArrayList<br/>동기화 보장하지 않음"]
+
+	List --> LinkedList
+	List --> Stack
+	List --> Vector
+	List --> ArrayList
+
+	HashSet["HashSet<br/>Set 계열의 대표 클래스"]
+	SortedSet["SortedSet<br/>정렬을 위한 Set 계열의 클래스"]
+	TreeSet["TreeSet"]
+
+	Set --> HashSet
+	Set --> SortedSet
+	SortedSet --> TreeSet
+
+	Map["Map<br/>키와 값으로 데이터 핸들"]
+
+	Hashtable["Hashtable<br/>동기화를 보장하는 Map 계열의 클래스"]
+	HashMap["HashMap<br/>동기화를 보장하지 않는 Map 계열의 클래스"]
+	SortedMap["SortedMap<br/>정렬을 위한 Map 계열의 클래스"]
+	TreeMap["TreeMap"]
+
+	Map --> Hashtable
+	Map --> HashMap
+	Map --> SortedMap
+	SortedMap --> TreeMap
+
+	classDef interface fill:#d9ecff,stroke:#4f81bd,color:#000;
+	classDef classBox fill:#ffffff,stroke:#666,color:#000;
+	classDef tree fill:#dcd6ff,stroke:#6b5fb5,color:#000;
+
+	class List,Set interface;
+	class Collection,Map,LinkedList,Stack,Vector,ArrayList,HashSet,SortedSet,Hashtable,HashMap,SortedMap classBox;
+	class TreeSet,TreeMap tree;
+```
 - Generic Programming: 런타임(Runtime) 시 자료형 확정
 - 제네릭(Generic) 클래스 정의와 사용
 - 자바에서 제공하는 자료 구조 라이브러리를 컬렉션 프레임워크는 대부분 제네릭(Generic)을 사용
@@ -395,7 +624,62 @@ classDiagram
 - 스트림 종류(중간 연산, 최종 연산)와 사용 그리고 특징
 
 ### 6-8. 예외(Exception) 처리와 예외 클래스
-![Exception](./image/java/exception.png)
+```mermaid
+graph TD
+	Throwable["Throwable"]
+
+	Exception["Exception"]
+	Error["Error"]
+
+	Throwable --> Exception
+	Throwable --> Error
+
+	IOException["I/O Exception"]
+	SQLException["SQL Exception"]
+	ClassNotFoundException["ClassNotFound Exception"]
+	RuntimeException["Runtime Exception"]
+
+	Exception --> IOException
+	Exception --> SQLException
+	Exception --> ClassNotFoundException
+	Exception --> RuntimeException
+
+	ArithmeticException["Arithmetic Exception"]
+	NullPointerException["NullPointer Exception"]
+	NumberFormatException["NumberFormat Exception"]
+	IndexOutOfBoundException["IndexOutOfBound Exception"]
+
+	RuntimeException --> ArithmeticException
+	RuntimeException --> NullPointerException
+	RuntimeException --> NumberFormatException
+	RuntimeException --> IndexOutOfBoundException
+
+	ArrayIndexOutOfBound["Array IndexOutOfBound"]
+	StringIndexOutOfBound["String IndexOutOfBound"]
+
+	IndexOutOfBoundException --> ArrayIndexOutOfBound
+	IndexOutOfBoundException --> StringIndexOutOfBound
+
+	StackOverflowError["Stack Overflow Error"]
+	VirtualMachineError["Virtual Machine Error"]
+	OutOfMemoryError["Out of Memory Error"]
+
+	Error --> StackOverflowError
+	Error --> VirtualMachineError
+	Error --> OutOfMemoryError
+
+	classDef root fill:#b7c7e6,stroke:#4a5d87,color:#000;
+	classDef exception fill:#f57c00,stroke:#c75b00,color:#fff;
+	classDef exceptionChild fill:#fff7f0,stroke:#f57c00,color:#000;
+	classDef error fill:#4aa3df,stroke:#2f78aa,color:#fff;
+	classDef errorChild fill:#eef8ff,stroke:#4aa3df,color:#000;
+
+	class Throwable root;
+	class Exception exception;
+	class Error error;
+	class IOException,SQLException,ClassNotFoundException,RuntimeException,ArithmeticException,NullPointerException,NumberFormatException,IndexOutOfBoundException,ArrayIndexOutOfBound,StringIndexOutOfBound exceptionChild;
+	class StackOverflowError,VirtualMachineError,OutOfMemoryError errorChild;
+```
 - 컴파일 시 에러(Compile Error) = 문법 에러(Syntax Error) vs. 실행 시 에러(Runtime Error) = Bug(버그) 그리고 Debug(디버그)
 - 시스템 에러(Error) = 제어 불가?(예: Static Memory Overflow) vs. 예외(Exception) = 제어 가능(예: File Not Found)
 - try catch finally vs. try With Resource Statements
