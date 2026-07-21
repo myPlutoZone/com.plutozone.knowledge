@@ -3,6 +3,7 @@
 - ![Generic badge](https://img.shields.io/badge/CONFIRM-comment_...-green.svg)
 - ![Generic badge](https://img.shields.io/badge/REFERENCE-comment_...-blue.svg)
 -->
+
 > YOU ARE STRICTLY PROHIBITED TO COPY, DISCLOSE, DISTRIBUTE, MODIFY OR USE THIS
 DOCUMENT IN PART OR AS A WHOLE WITHOUT THE PRIOR WRITTEN CONSENT OF
 PLUTOZONE.COM.
