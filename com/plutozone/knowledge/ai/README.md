@@ -1,7 +1,17 @@
 # com.plutozone.knowledge.ai
 
 
-## Overview
+01. [Overview](#1-overview)
+02. [Fundamental](#2-fundamental)
+03. [ML(Machine Learning, 머신러닝)](#3-mlmachine-learning-머신러닝)
+04. [주요 알고리즘(Algorism)](#4-주요-알고리즘algorism)
+05. [RAG(Retrieval-Augmented Generation, 검색 증강 생성)](#5-ragretrieval-augmented-generation-검색-증강-생성)
+06. [MCP(Model Context Protocol)](#6-mcpmodel-context-protocol)
+07. [Demo](#7-demo)
+08. [Reference](#8-reference)
+
+
+## 1. Overview
 - 프롬프트(잘 묻기) vs. 컨텍스트(자료 제공) vs. 하네스(통합 환경) vs. 에이전트(자체 동작)
 - Vibe Coding
 	- `JaRVIS`(`J`ust `a` `R`eally `V`ery `I`ntelligent `S`ystem)
@@ -9,7 +19,7 @@
 	- Cursor + Stitch + Playwright by Vibe Coding
 
 
-## Fundamental
+## 2. Fundamental
 - 분류와 예측 그리고 생성(Generative)이란?
 - Colab(코랩: https://colab.research.google.com)이란?
 	- 구글이 대화식 개발(파이션 등) 환경인 Jupyter(https://jupyter.org)를 커스터마이징하여 온라인으로 제공
@@ -44,7 +54,7 @@
 	- 케라스(Keras)는 TensorFlow, Theano, CNTK, PyTorch 등 딥 러닝 라이브러리를 백엔드로 사용하여 쉽게 다층 퍼셉트론 신경망 모델, 컨볼루션 신경망 모델, 순환 신경망 모델, 조합 모델 등을 구성 가능
 
 
-## ML(Machine Learning, 머신러닝)
+## 3. ML(Machine Learning, 머신러닝)
 - 데이더 종류 for ML, DL and AI
 	- Scalar(스칼라)
 	- Vector(벡터)
@@ -69,7 +79,7 @@
 	- 그리드 서치는 어떤 매개변수가 적절한지 자동으로 조사하는 방법
 
 
-## 주요 알고리즘(Algorism)
+## 4. 주요 알고리즘(Algorism)
 - ML
 	- K-NN(K-Nearest Neighbor, K-최근접 이웃)
 	- 로지스틱 회귀(인공 신경망 알고리즘의 기초로 사용됨)
@@ -87,7 +97,13 @@
 		- LSTM(Long Short Term-Memory) 또는 RNN(Recurrent Neural Network): ML 기반으로 다음에 위치할 문장을 예측하여 생성
 
 
-## Demo
+## 5. [RAG(Retrieval-Augmented Generation, 검색 증강 생성)](rag.md)
+
+
+## 6. [MCP(Model Context Protocol)](./mcp.md)
+
+
+## 7. Demo
 - ChatBot by Python(ChatBot.zip)
 ```bash
 # 폴더 및 파일 생성
@@ -103,7 +119,7 @@ $ python -m http.server --cgi 8080
 ```
 
 
-## Reference
+## 8. Reference
 - https://chat.openai.com
 - https://platform.openai.com
 - https://bard.google.com
