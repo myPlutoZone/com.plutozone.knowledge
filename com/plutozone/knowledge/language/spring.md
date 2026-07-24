@@ -17,6 +17,8 @@
 - Spring은 Java Web Application 개발을 위한 Open Source Framework
 
 ### Spring Framework의 특징(MVC  포함)
+> IoC는 "누가 객체와 실행 흐름을 관리하느냐"에 대한 개념이고 DI는 "그 제어를 실현하기 위해 객체를 주입하는 구체적인 방법"
+
 - EJB보다 가벼운 경량 컨테이너(Light Weight Container)
 - 제어 역행(IoC, Inversion of Control)<sup>자동 서블릿 또는 빈 생성 by Framework</sup> 기술을 이용해 Application들의 약한 결합(Loosely Coupled)
 - 의존성 주입(DI, Dependency Injection)<sup>자동 객체 생성 by Framework</sup> 기능을 지원
