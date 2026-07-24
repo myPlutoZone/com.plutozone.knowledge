@@ -10,8 +10,16 @@
 - Code
 	- https://codeshare.io
 
-### 1-2. Presentation 
+### 1-2. Presentation
 - Epic Pen, Zoomit, `K Screen Pen(빨간펜)`
+
+
+### 1-3. Online Course
+- https://seomal.com, https://opentutorials.org
+- https://step.or.kr
+- https://boostcourse.org
+- https://kdata.or.kr
+- https://kosta.or.kr
 
 
 ## 2. Requirement
@@ -50,7 +58,7 @@
 ## 4. Network
 ### 4-1. Domain 및 IP
 - 조회
-	- https://whois.co.kr/, `https://후이즈검색.한국` = https://xn--c79as89aj0e29b77z.xn--3e0b707e
+	- https://whois.co.kr/, `https://whois.kr` = https://후이즈검색.한국 = https://xn--c79as89aj0e29b77z.xn--3e0b707e
 - 등록
 	- `https://내도메인.한국` (MyDomain.Korea) = https://xn--220b31d95hq8o.xn--3e0b707e
 	- http://freenom.com
@@ -102,7 +110,7 @@
 
 ## 8. Graphic and Image 등
 - Editor
-	- `https://pixlr.com/kr/editor`
+	- `https://pixlr.com`
 	- `Inkscape`, articons
 - Download
 	- https://pixabay.com, https://thenounproject.com
