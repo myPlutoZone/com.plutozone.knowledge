@@ -64,7 +64,11 @@
 	- Build, Push and Run(Containerization and Container Basic Life-cycle)
 	- Docker Component = Engine(Client + API + Daemon) + Object + Registry + Compose + Swarm
 		- Object = Image, Container, Network, Volumes, Plugins
-		- Docker(컨테이너 관리) and Swarm(클러스터 관리) vs. Kubernetes(Orchestrator=Server Cluster Tool, Multi-host 등)
+		- Registry
+			- Local Registry(예: Docker Registry)
+			- Private Registry(예: Docker Registry + SSL 등, Harbor)
+			- Public Registry(예: Docker Hub, GitHub Container Registry, Quay.io, Amazon ECR Public)
+		- Compose(컨테이너 관리) and Swarm(클러스터 관리) vs. Kubernetes(Orchestrator=Server Cluster Tool, Multi-host 등)
 - Run VM vs. Container(OCI, Open Container Initiative)
 	- vdi for Oracle VirtualBox
 	- vmdk for VMware
