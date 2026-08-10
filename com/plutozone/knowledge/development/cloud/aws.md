@@ -26,6 +26,7 @@
 - VPC(Virtual Private Cloud=Network, 최대 5개)
 	- `The generated VPC(=Default VPC) information is not modified at AWS.`
 	- `2a(롯?정보통신/현?정보기술 at 용인 마북리)/2c(L? U+ at 평촌) AZ(Availability Zone) is difference from 2B(K? at 목동)/2D(SK? at 일산) at ap-northeast-2(아시아 태평양-서울)`
+	- VPC Peering을 고려하여 각 Region의 VPC IP 대역 확인
 - EC2(Elastic Computing Cloud=Host)
 	- Type: Micro(M), Free Tier(T), ...
 	- AMI(Amazon Machine Image): Amazon Linux, Ubuntu, Windows, ...
@@ -43,6 +44,7 @@
 	- EC2 vs. AWS Managed Service
 - RDS(MySQL, PostgreSQL, MariaDB, ..) and Aurora, DynamoDB(=No SQL)
 - Route53(=DNS, 자체 또는 외부 DNS 관리)
+	- Public DNS와 VPC내에서만 유효한 Private DNS(10.0.0.2)를 모두 제공
 - 버킷(=폴더) + 객체(=파일) at S3(Simple Storage Service=NAS or External Storage by HTTPS for File Upload/Download)
 	- 객체 업로드 시 폴더를 추가하면 해당 폴더에 객체가 저장
 - SNS(Simple Notification Service)
@@ -53,6 +55,7 @@
 	- Application Load Balancer(L7 + Containers, ...)
 - ACM(Amazon Certificate Manager=HTTPS/SSL 인증서 관리)
 	- 상용(com, co.kr 등)이 아닌 개인(store, shop 등) 도메인에 대한 SSL 인증서 발급 무료 지원
+	- 와일드 카드 인증서 무료 발급 가능(주의: 내보내기를 활성화할 경우 즉시 과금 발생)
 - ECS(Elastic Container Service) vs. EKS(Elastic Kubernetes Service)
 - Lambda(=FaaS and Serverless at Computing or Anonymous functions at Programming)와 Trigger
 - Amazon Rekognition(Recognition=Machine and Deep Learning), Polly(=TTS), Lex(=Chatbot)
