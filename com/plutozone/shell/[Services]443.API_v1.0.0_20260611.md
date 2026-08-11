@@ -105,7 +105,7 @@ Response 시 JSON 구조는 하기 형식과 같으며 header의 code, message �
 | 2-4    | 회원          | [조회](#회원-조회)             | /member/inquiry.api           | |
 | 2-5    | 회원          | [변경](#회원-변경)             | /member/alter.api             | |
 | 2-6    | 회원          | [탈퇴](#회원-탈퇴)             | /member/withdraw.api          | |
-| 3-1    | 모니터링      | [등록](#모니터링-등록)         | /monitor/writeProc.api        | |
+| 3-1    | 모니터링/장애  | [등록](#장애-등록)         | /monitor/writeProc.api        | |
 
 **6. Detail of Interface**
 
@@ -123,7 +123,7 @@ reg_svr		varchar(16)	default null comment '등록 서버',
 dt_upt		datetime	default null comment '수정 일시',
 upt_svr		varchar(16)	default null comment '수정 서버'
 
-# 모니터링 등록
+# 장애 등록
 
 * `#0000FF` id=별도 문의, passwd=별도 문의
 * 연동처에 따라 토큰 발급에 관한 정책이 상이할 수 있습니다.
