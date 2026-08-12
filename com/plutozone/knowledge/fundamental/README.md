@@ -319,3 +319,6 @@
 ### 10-4. 과목 교육 및 프로젝트 시
 - [중요] 1) `개념과 목차 그리고 나를 위한 문서화와 용도에 따른 코드화` at 과목 2) `자동 완성` at IDE 그리고 3) `검색과 프롬프트`
 - `6개월간 16개 과목(Network, OS 포함)` + `Mini Project` + `Team Project` 그리고 `PBL(Project and Problem based Project)`
+
+### 10-5. 결과물
+![분석 및 설계](./image/박지수.png)

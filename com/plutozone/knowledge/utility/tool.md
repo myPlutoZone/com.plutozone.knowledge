@@ -14,12 +14,8 @@
 - Epic Pen, Zoomit, `K Screen Pen(빨간펜)`
 
 
-### 1-3. Online Course
-- https://seomal.com, https://opentutorials.org
-- https://step.or.kr
-- https://boostcourse.org
-- https://kdata.or.kr
-- https://kosta.or.kr
+### 1-3. Documentation
+- https://github.com/gohugoio/hugo/releases
 
 
 ## 2. Requirement
