@@ -9,16 +9,16 @@
 	- MPL 2.0: 수정한 파일은 공개하되 전체 프로젝트 공개는 원하지 않을 때
 	- GPL/LGPL: 오픈소스 기여와 파생 저작물의 공개를 강하게 또는 일부 보장하고 싶을 때
 
-| License      | 상업 사용  | 수정 가능  | 소스 공개 의무     | 특허 조항       | Copyleft |
-| ------------ | :-------: | :-------: | :-------------: | :------------: | ----------- |
-| Apache 2.0   |     O     |     O     |       X         |       O        |     X       |
-| MIT          |     O     |     O     |       X         |       △       |     X       |
-| BSD 2-Clause |     O     |     O     |       X         |       △       |     X       |
-| BSD 3-Clause |     O     |     O     |       X         |       △       |     X       |
-| ISC          |     O     |     O     |       X         |       △       |     X       |
-| MPL 2.0      |     O     |     O     | 수정한 파일만     |       O        | 약한 Copyleft |
+| License      | 상업 사용 | 수정 가능 | 소스 공개 의무     | 특허 조항      | Copyleft      |
+| ------------ | :-------: | :-------: | :----------------: | :------------: | :-----------: |
+| Apache 2.0   |     O     |     O     |       X            |       O        |     X         |
+| MIT          |     O     |     O     |       X            |       ?        |     X         |
+| BSD 2-Clause |     O     |     O     |       X            |       ?        |     X         |
+| BSD 3-Clause |     O     |     O     |       X            |       ?        |     X         |
+| ISC          |     O     |     O     |       X            |       ?        |     X         |
+| MPL 2.0      |     O     |     O     | 수정한 파일만      |       O        | 약한 Copyleft |
 | LGPL         |     O     |     O     | 라이브러리 수정 시 |       O        | 약한 Copyleft |
-| GPL v3       |     O     |     O     |       O         |        O       | 강한 Copyleft |
+| GPL v3       |     O     |     O     |       O            |       O        | 강한 Copyleft |
 
 
 ## 리눅스 배포판 and Apache Web Server
