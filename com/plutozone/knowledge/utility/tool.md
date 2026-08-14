@@ -15,7 +15,12 @@
 
 
 ### 1-3. Documentation
-- https://github.com/gohugoio/hugo/releases
+- 정적 사이트 생성기(SSG, Static Site Generator)
+	- https://github.com/gohugoio/hugo/releases(Go)
+	- Jekyll(Ruby)
+	- Next.js(React/JavaScript)
+	- Astro(JavaScript/Multi-framework)
+	- Docusaurus(React)
 
 
 ## 2. Requirement
