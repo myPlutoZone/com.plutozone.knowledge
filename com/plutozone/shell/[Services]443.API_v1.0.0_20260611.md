@@ -94,18 +94,19 @@ Response 시 JSON 구조는 하기 형식과 같으며 header의 code, message �
 
 | NO     | Entity        | Function                       | Path                          | Etc |
 | :----: | :------------ | :----------------------------- | :---------------------------- | :-- |
-| 1-1    | 토큰          | [발급](#토큰-발급)             | /security/token/issue.api     | |
-| 1-2    | 토큰          | [조회](#토큰-조회)             | /security/token/?.api         | 생성일, 상태(활성, 만료, 폐기, 재발급 등), 만료일, 최종 사용일시 등 |
-| 1-3    | 토큰          | [폐기](#토큰-폐기)             | /security/token/?.api         | |
-| 1-4    | 토큰          | [재발급](#토큰-재발급)         | /security/token/?.api         | |
-| 1-5    | 토큰          | [사용 이력](#토큰-사용 이력)   | /security/token/?.api         | |
-| 2-1    | 회원          | [약관](#회원-약관)             | /member/terms.api             | 마케팅 활용, 제3자 제공 동의 등 |
-| 2-2    | 회원          | [가입 여부](#회원-가입 여부)   | /member/exist.api             | |
-| 2-3    | 회원          | [가입](#회원-가입)             | /member/register.api          | 이용자(Join) vs. 회원(Register) |
-| 2-4    | 회원          | [조회](#회원-조회)             | /member/inquiry.api           | |
-| 2-5    | 회원          | [변경](#회원-변경)             | /member/alter.api             | |
-| 2-6    | 회원          | [탈퇴](#회원-탈퇴)             | /member/withdraw.api          | |
-| 3-1    | 모니터링/장애  | [등록](#장애-등록)         | /monitor/writeProc.api        | |
+| 1-1    | 토큰          | [발급](#토큰-발급)          | /security/token/issue.api     | |
+| 1-2    | 토큰          | [조회](#토큰-조회)          | /security/token/?.api         | 생성일, 상태(활성, 만료, 폐기, 재발급, 갱신 등), 만료일, 최종 사용일시 등 |
+| 1-3    | 토큰          | [폐기](#토큰-폐기)          | /security/token/?.api         | |
+| 1-4    | 토큰          | [재발급](#토큰-재발급)       | /security/token/?.api         | |
+| 1-5    | 토큰          | [갱신](#토큰-갱신)          | /security/token/?.api         | |
+| 1-6    | 토큰          | [사용 이력](#토큰-사용 이력) | /security/token/?.api         | |
+| 2-1    | 회원          | [약관](#회원-약관)                 | /member/terms.api             | 마케팅 활용, 제3자 제공 동의 등 |
+| 2-2    | 회원          | [가입 여부](#회원-가입 여부)        | /member/exist.api             | |
+| 2-3    | 회원          | [가입](#회원-가입)                 | /member/register.api          | 이용자(Join) vs. 회원(Register) |
+| 2-4    | 회원          | [조회](#회원-조회)                 | /member/inquiry.api           | |
+| 2-5    | 회원          | [변경](#회원-변경)                 | /member/alter.api             | |
+| 2-6    | 회원          | [탈퇴](#회원-탈퇴)                 | /member/withdraw.api          | |
+| 3-1    | 모니터링      | [등록](#모니터링-등록) | /monitor/writeProc.api        | |
 
 **6. Detail of Interface**
 
@@ -123,7 +124,7 @@ reg_svr		varchar(16)	default null comment '등록 서버',
 dt_upt		datetime	default null comment '수정 일시',
 upt_svr		varchar(16)	default null comment '수정 서버'
 
-# 장애 등록
+# 모니터링 등록
 
 * `#0000FF` id=별도 문의, passwd=별도 문의
 * 연동처에 따라 토큰 발급에 관한 정책이 상이할 수 있습니다.

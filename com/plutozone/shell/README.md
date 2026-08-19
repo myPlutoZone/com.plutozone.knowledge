@@ -23,8 +23,16 @@ plutozone.com의 지적재산권 침해에 해당된다.
 - ...
 
 
-# History
-- 2026-05-14 [CREATE] Initial Release
+# Requirement
+## Service
+- 개발과 운영이 없이 시스템과 서비스를 모니터링할 수 있다.
+- 모든 것이 아닌 원하는 리소스(CPU, Memory, Disk, Access Traffic 등)만을 모니터링할 수 있다.
+- 장애 또는 현황을 실시간으로 확인할 수 있다.
+
+
+## System
+- com.plutozone.shell(Command + Msmtp + Gmail + Crontab + Curl) for monitorSystem.sh or monitorService.sh
+- com.plutozone.monitor(PHP + MySQL + Email or SMS)
 
 
 # Installation and Configuration
@@ -48,6 +56,5 @@ $ nano monitorService.sh
 ```
 
 
-# Reference
-- com.plutozone.shell(Command + Msmtp + Gmail + Crontab + Curl) for monitorSystem.sh or monitorService.sh
-- com.plutozone.monitor(PHP + MySQL + Email or SMS)
+# History
+- 2026-05-14 [CREATE] Initial Release
