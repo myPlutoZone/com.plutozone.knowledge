@@ -105,7 +105,7 @@
 	- `Jmeter`
 - System
 	- `Open-shell` for Windows 11, `Classic-shell` for Windows 10
-	- `CCleaner`
+	- `Wise Registry Cleaner`, CCleaner
 	- `WinDirStat`
 
 
