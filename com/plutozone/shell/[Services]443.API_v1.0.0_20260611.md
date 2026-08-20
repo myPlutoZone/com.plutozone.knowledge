@@ -1,121 +1,179 @@
 # API Version 1.0.0 for com.plutozone.services
 
-```
-YOU ARE STRICTLY PROHIBITED TO COPY, DISCLOSE, DISTRIBUTE, MODIFY OR USE THIS PROGRAM
+> YOU ARE STRICTLY PROHIBITED TO COPY, DISCLOSE, DISTRIBUTE, MODIFY OR USE THIS PROGRAM
 IN PART OR AS A WHOLE WITHOUT THE PRIOR WRITTEN CONSENT OF PLUTOZONE.COM.
 PLUTOZONE.COM OWNS THE INTELLECTUAL PROPERTY RIGHTS IN AND TO THIS PROGRAM.
 COPYRIGHT © 2026 PLUTOZONE.COM ALL RIGHTS RESERVED.
-
-하기 프로그램에 대한 저작권을 포함한 지적재산권은 plutozone.com에 있으며,
+***
+> 하기 프로그램에 대한 저작권을 포함한 지적재산권은 plutozone.com에 있으며,
 plutozone.com이 명시적으로 허용하지 않는 사용, 복사, 변경 및 제 3자에 의한 공개, 배포는 엄격히 금지되며
 plutozone.com의 지적재산권 침해에 해당된다.
-Copyright © 2026 plutozone.com All Rights Reserved.
-```
+***
+> Copyright © 2026 plutozone.com All Rights Reserved.
 
-**1. 이력(History)**
+## 1. History(이력)
 
 | Version | Date       | Contents |
 | :-----: | :---------:| :-------:|
 | 1.0.0   | 2026-06-11 | [CREATE]Initial Release |
 
-**2. 개요(Overview)**
+## 2. Overview(개요)
 
 본 문서는 com.plutozone.services의 API Server와 통신하기 위한 연동(Interface) 규격에 대해 기술한다.
 
-**2.1 문서 버전(Document Version)**
+### 2.1 Document Version(문서 버전)
 
 본 문서의 버전은 3개 영역으로 나뉘며 각 자리의 의미는 다음과 같으며 빌드 버전은 사용하지 않는다.
+
 - 첫째 자리: Major 버전(규격서 Major 변경 시)
 - 둘째 자리: Minor 버전(규격서 Minor 변경 시)
 - 셋째 자리: Patch 버전(규격 변경 없이 코드, 설명 등 추가 또는 변경 시)
 
-**2.2 용어(Terms)**
+### 2.2 Terms(용어)
 
 `자사의 정책에 의거하여 하기 용어는 대체 또는 혼용될 수 있습니다.`
 
-| Term                         | Abbreviation | Description |
-| :--------------------------- | :--: | :----------------- |
-| API Server                   |  -   | com.plutozone.services의 대외용 API 서버(API Server)로 인가 후 접속 가능하다. |
-| Alliance                     | ALI  | 제휴사는 고객사(Client)와 협력사(Partner)를 포함한다. |
-| Channel                      | CHN  | 채널사는 자사의 서비스를 게시할 수 있는 플랫폼을 의미하여 대표적으로 통신사가 있다. |
-| Manager                      | MNG  | `관리자`는 com.plutozone.services의 관리용 서비스를 이용하는 `사용자`를 말한다. |
-| Member                       | MBR  | `회원`는 com.plutozone.services의 고객용 서비스를 이용하는 `사용자`를 말한다. |
+| Term                         | Abbreviation | Description                                                                   |
+| :--------------------------- | :----------: | :---------------------------------------------------------------------------- |
+| API Server                   |  -           | com.plutozone.services의 대외용 API 서버(API Server)로 인가 후 접속 가능하다. |
+| Alliance                     | ALI          | 제휴사는 고객사(Client)와 협력사(Partner)를 포함한다. |
+| Channel                      | CHN          | 채널사는 자사의 서비스를 게시할 수 있는 플랫폼을 의미하여 대표적으로 통신사가 있다. |
+| Manager                      | MNG          | `관리자`는 com.plutozone.services의 관리용 서비스를 이용하는 `사용자`를 말한다. |
+| Member                       | MBR          | `회원`는 com.plutozone.services의 고객용 서비스를 이용하는 `사용자`를 말한다. |
 
-**3. 연동 방식(Interface Architecture)**
+## 3. Interface Architecture(연동 구조)
 
 기본적으로 `HTTPS + POST` 방식을 사용하며 Request, Response 시 JSON 타입으로 데이터(필요 시 데이터 암호화)를 송수신한다.
 
-**4. 연동 정의(Interface Define)**
+## 4. 연동 정의(Interface Define)
 
-**4.1 HTTP Header**
+### 4.1 HTTP Header
 
-HTTP Header의 Content-Type과 Accept 속성에 "application/json; charset=UTF-8"을 지정하여야 한다.
-- Content-Type: application/json; charset=UTF-8
-- Accept: application/json; charset=UTF-8
+- HTTP Header의 Content-Type과 Accept 속성에 "application/json; charset=UTF-8"을 지정하여야 한다.
+  - Content-Type: application/json; charset=UTF-8
+  - Accept: application/json; charset=UTF-8
+- 파일 다운로드일 경우 application/octect_stream를 사용한다.
 
-파일 다운로드일 경우 application/octect_stream를 사용한다.
+### 4.2 Request(요청)
 
-**4.2 요청(Request)**
+Request 시 JSON 구조는 하기 형식과 같으며 1) header의 `#0000FF` seq_srv=`별도 문의`, ver=`문서 버전`, lang=`ko`, token은 하기 토근 발급을 참고하고 2) body는 하기 인터페이스 목록를 참고 바랍니다.
 
-Request 시 JSON 구조는 하기 형식과 같으며 header의 `#0000FF` seq_srv=`별도 문의`, ver=`문서 버전`, lang=`ko`, token은 하기 토근 발급을 참고하고 body는 하기 인터페이스 상세를 참고 바랍니다.
-```
+```json
 {
-	"header": {
-		"seq_srv": 7,
-		"ver": "1.0.0",
-		"lang": "ko",
-		"token": "JSON Web Token is ..."
-},
-	"body": {
-	}
+    "header": {
+        "seq_srv": 7,
+        "ver": "1.0.0",
+        "lang": "ko",
+        "token": "JSON Web Token is ..."
+    },
+    "body": {
+        ...
+    }
 }
 ```
 
-**4.3 응답(Response)**
+### 4.3 Response(응답)
 
-Response 시 JSON 구조는 하기 형식과 같으며 header의 code, message 및 body는 하기 code, message 및 인터페이스 상세를 참고 바랍니다.
-```
+Response 시 JSON 구조는 하기 형식과 같으며 1) header의 code, message는 코드 목록를 참고하고 2) body는 하기 인터페이스 목록를 참고 바랍니다.
+
+```json
 {
-	"header": {
-  		"code": "0000",
-		"message": "SUCCESS"
-	},
-	"body": {
-	}
+    "header": {
+        "code": "0000",
+        "message": "SUCCESS"
+    },
+    "body": {
+        ...
+    }
 }
 ```
 
-**5. List of Interface**
+## 5. List of Interface(인터페이스 목록)
 
 `연동처의 정책에 의거하여 하기 기능은 선택적으로 연동할 수 있다.`
 
-- 개발 서버(접근 권한은 별도 문의): 별도 문의
-- 상용 서버(접근 권한은 별도 문의): 별도 문의
+- 개발 서버(접근 권한은 별도 문의): `별도 문의`
+- 상용 서버(접근 권한은 별도 문의): `별도 문의`
 
 | NO     | Entity        | Function                       | Path                          | Etc |
 | :----: | :------------ | :----------------------------- | :---------------------------- | :-- |
-| 1-1    | 토큰          | [발급](#토큰-발급)          | /security/token/issue.api     | |
-| 1-2    | 토큰          | [조회](#토큰-조회)          | /security/token/?.api         | 생성일, 상태(활성, 만료, 폐기, 재발급, 갱신 등), 만료일, 최종 사용일시 등 |
-| 1-3    | 토큰          | [폐기](#토큰-폐기)          | /security/token/?.api         | |
-| 1-4    | 토큰          | [재발급](#토큰-재발급)       | /security/token/?.api         | |
-| 1-5    | 토큰          | [갱신](#토큰-갱신)          | /security/token/?.api         | |
-| 1-6    | 토큰          | [사용 이력](#토큰-사용 이력) | /security/token/?.api         | |
-| 2-1    | 회원          | [약관](#회원-약관)                 | /member/terms.api             | 마케팅 활용, 제3자 제공 동의 등 |
-| 2-2    | 회원          | [가입 여부](#회원-가입 여부)        | /member/exist.api             | |
-| 2-3    | 회원          | [가입](#회원-가입)                 | /member/register.api          | 이용자(Join) vs. 회원(Register) |
-| 2-4    | 회원          | [조회](#회원-조회)                 | /member/inquiry.api           | |
-| 2-5    | 회원          | [변경](#회원-변경)                 | /member/alter.api             | |
-| 2-6    | 회원          | [탈퇴](#회원-탈퇴)                 | /member/withdraw.api          | |
-| 3-1    | 모니터링      | [등록](#모니터링-등록) | /monitor/writeProc.api        | |
+| 3-1    | Monitoring    | [등록](#모니터링-등록)          | /monitor/writeProc.api        | |
 
-**6. Detail of Interface**
+<!--
+| 1-1    | Token          | [발급](#토큰-발급)          | /security/token/issue.api     | |
+| 1-2    | Token          | [조회](#토큰-조회)          | /security/token/?.api         | 생성일, 상태(활성, 만료, 폐기, 재발급, 갱신 등), 만료일, 최종 사용일시 등 |
+| 1-3    | Token          | [폐기](#토큰-폐기)          | /security/token/?.api         | |
+| 1-4    | Token          | [재발급](#토큰-재발급)       | /security/token/?.api         | |
+| 1-5    | Token          | [갱신](#토큰-갱신)          | /security/token/?.api         | |
+| 1-6    | Token          | [사용 이력](#토큰-사용 이력) | /security/token/?.api         | |
+| 2-1    | Member         | [약관](#회원-약관)                 | /member/terms.api             | 마케팅 활용, 제3자 제공 동의 등 |
+| 2-2    | Member         | [가입 여부](#회원-가입 여부)        | /member/exist.api             | |
+| 2-3    | Member         | [가입](#회원-가입)                 | /member/register.api          | 이용자(Join) vs. 회원(Register) |
+| 2-4    | Member         | [조회](#회원-조회)                 | /member/inquiry.api           | |
+| 2-5    | Member         | [변경](#회원-변경)                 | /member/alter.a               | |
+| 2-6    | Member         | [탈퇴](#회원-탈퇴)                 | /member/withdraw.api          | |
+-->
 
+## 6. Interface List
+
+<!--
+### 토큰 발급
+
+- id=`별도 문의`, passwd=`별도 문의`
+- 연동처에 따라 토큰 발급에 관한 정책이 상이할 수 있습니다.
+
+| NO    | Request Body         | Data Type(Size) | Required  | Description |
+| :---: | :------------------- | :-------------- | :-------: | :---------- |
+| 1     | id                   | VARCHAR(16)     | Y         | 아이디 |
+| 2     | passwd               | VARCHAR(16)     | Y         | 암호 |
+
+| NO    | Response Body        | Data Type(Size) | Required  | Description |
+| :---: | :------------------- | :-------------- | :-------: | :---------- |
+| 1     | token                | VARCHAR(256)    | Y         | 토큰 |
+| 2     | expired              | CHAR(19)        | Y         | 토큰 만료 일시 |
+
+```json
+REQUEST
+{
+    "header": {
+        "seq_srv": 7,
+        "ver": "1.0.0",
+        "lang": "ko",
+        "token": ""
+    },
+    "body": {
+        "id": "[ID]",
+        "passwd": "[PASSWD]"
+    }
+}
+
+RESPONSE
+{
+    "header": {
+        "code": "0000",
+        "message": "성공"
+    },
+    "body": {
+        "token": "JSON Web Token(JWT) is ...",
+        "expired": "2019-08-17 16:34:20"
+    }
+}
+```
+-->
+
+### 모니터링 등록
+
+<!--
 [ANSI 데이터 타입]
-TINYINT
-SMALLINT
-INT
-BIGINT
+- TINYINT, SMALLINT, INTEGER, BIGINT
+- REAL, DOUBLE PRECISION, DECIMAL(p,s)
+- CHAR(n), VARCHAR(n), CLOB
+- DATE, TIME, TIMESTAMP
+- BOOLEAN
+- BLOB
+-->
 
+<!--
 seq_fail_code	smallint	default null comment '장애 코드 일련번호',
 flg_fail	char(1)		default null comment '장애 여부',
 memo		varchar(1024)	default null comment '메모',
@@ -123,23 +181,19 @@ dt_reg		datetime	not null comment '등록 일시',
 reg_svr		varchar(16)	default null comment '등록 서버',
 dt_upt		datetime	default null comment '수정 일시',
 upt_svr		varchar(16)	default null comment '수정 서버'
-
-# 모니터링 등록
-
-* `#0000FF` id=별도 문의, passwd=별도 문의
-* 연동처에 따라 토큰 발급에 관한 정책이 상이할 수 있습니다.
+-->
 
 | NO    | Request Body         | Data Type(Size) | Required  | Description |
 | :---: | :------------------- | :-------------- | :-------: | :---------- |
-| 1     | seq_srv              | smallint        | Y         | 서비스 일련번호 |
-| 2     | seq_mon_target       | int             | Y         | 모니터링 대상 일련번호 |
+| 1     | seq_srv              | SMALLINT        | Y         | 서비스 일련번호 |
+| 2     | seq_mon_target       | INTEGER         | Y         | 모니터링 대상 일련번호 |
 
 | NO    | Response Body        | Data Type(Size) | Required  | Description |
 | :---: | :------------------- | :-------------- | :-------: | :---------- |
-| 1     | token                | varchar(256)    | Y         | 토큰 |
-| 2     | expired              | Char(19)        | Y         | 토큰 만료 일시 |
+| 1     | token                | VARCHAR(256)    | Y         | 토큰 |
+| 2     | expired              | VARCHAR(19)     | Y         | 토큰 만료 일시 |
 
-```
+```json
 REQUEST
 {
     "header": {
@@ -166,54 +220,8 @@ RESPONSE
     }
 }
 ```
-
-
-`추후 제공 예정입니다.`
 
 <!--
-# 토큰 발급
-
-* `#0000FF` id=별도 문의, passwd=별도 문의
-* 연동처에 따라 토큰 발급에 관한 정책이 상이할 수 있습니다.
-
-| NO    | Request Body         | Data Type(Size) | Required  | Description |
-| :---: | :------------------- | :-------------- | :-------: | :---------- |
-| 1     | id                   | varchar(16)     | Y         | 아이디 |
-| 2     | passwd               | varchar(16)     | Y         | 암호 |
-
-| NO    | Response Body        | Data Type(Size) | Required  | Description |
-| :---: | :------------------- | :-------------- | :-------: | :---------- |
-| 1     | token                | varchar(256)    | Y         | 토큰 |
-| 2     | expired              | Char(19)        | Y         | 토큰 만료 일시 |
-
-```
-REQUEST
-{
-    "header": {
-        "seq_srv": 7,
-        "ver": "1.0.0",
-        "lang": "ko",
-        "token": ""
-    },
-    "body": {
-        "id": "[ID]",
-        "passwd": "[PASSWD]"
-    }
-}
-
-RESPONSE
-{
-    "header": {
-        "code": "0000",
-        "message": "성공"
-    },
-    "body": {
-        "token": "JSON Web Token(JWT) is ...",
-        "expired": "2019-08-17 16:34:20"
-    }
-}
-```
-
 # 회원 가입
 * 필요 시 회원 약관 및 가입 여부를 추가 연동할 수 있습니다.
 
@@ -372,9 +380,7 @@ RESPONSE
 ```
 -->
 
-**7. List of Codes**
-
-`추후 제공 예정입니다.`
+## 7. Code List(코드 목록)
 
 <!--
 | NO    | Code                 | Data Type(Size) | Value  | Description |
