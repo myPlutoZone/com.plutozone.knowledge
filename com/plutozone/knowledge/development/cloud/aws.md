@@ -32,6 +32,7 @@
 	- AMI(Amazon Machine Image): Amazon Linux, Ubuntu, Windows, ...
 	- ELB(Elastic Load Balancer, Support L4 and L7) vs. Auto Scaling by EC2(Amazon EC2 Auto Scaling, Not Support LB and HC)
 		- Load Balancer(LB)
+			- 교차 영역 로드 밸런싱 활성화 지원 여부와 과금
 		- Health Check(HC)
 		- Auto Scaling
 	- Storage at EC2
