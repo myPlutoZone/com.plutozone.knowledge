@@ -1,47 +1,43 @@
 #!/bin/bash
 
 # ---------------------------------------------------
-# CPU Average(5 times + 3 second) Usage(%)
+# RPS(Requests Per Second)
 # ---------------------------------------------------
-# USAGE_CPU=$(top -bn5 -d 3 | awk '/Cpu/ {usage=100-$8; sum+=usage; count++} END {printf("%d", sum/count)}')
-USAGE_CPU=$(top -bn1 | awk '/Cpu/ {usage=100-$8; printf("%d", usage)}')
+LIMIT="25/Aug/2026:12:00:00"
+# LIMIT=$(date -d '1 hour ago' '+%d/%b/%Y:%H:%M:%S')
+
+STATUS_RPS=$(awk -v rps="$RPS" -v limit="$LIMIT" '
+{
+	t=substr($4,2,20)
+	if (t >= limit)
+		c[t]++
+}
+END {
+	for (t in c)
+		if (c[t] >= rps)
+			print c[t], t
+}
+' "$LOG_FILE")
 
 # ---------------------------------------------------
-# Memory Usage(%)
+# 404(File Not Found)
 # ---------------------------------------------------
-USAGE_MEMORY=$(free | awk '/Mem/ {printf("%.0f"), $3/$2 * 100}')
 
 # ---------------------------------------------------
-# Disk Usage(%)
+# User-Agent("bot", "curl", "spider", ...)
 # ---------------------------------------------------
-USAGE_DISK=$(df / | awk 'NR==2 {gsub("%",""); print $5}')
 
 # ---------------------------------------------------
 # Email Subject and Content
 # ---------------------------------------------------
-EMAIL_PREFIX="[::: Warning :::][$HOSTNAME]"
+EMAIL_PREFIX="[::: Warning :::][Apache Web Server at $HOSTNAME]"
 EMAIL_SUBJECT=""
 USAGE_ITEMS=()
 EMAIL_CONTENT=""
 
-# if ((USAGE_CPU >= CPU )); then
-#	USAGE_ITEMS+=("CPU Average Usage($CPU%) Over")
-#	EMAIL_CONTENT+="[$TIMESTAMP] CPU Average(5 times + 3 second) Usage: ${USAGE_CPU}%\n"
-# fi
-
-if (( USAGE_CPU >= CPU )); then
-	USAGE_ITEMS+=("CPU Usage($CPU%) Over")
-	EMAIL_CONTENT+="[$TIMESTAMP] CPU Usage: ${USAGE_CPU}%\n"
-fi
-
-if (( USAGE_MEMORY >= MEMORY )); then
-	USAGE_ITEMS+=("Memory Usage($MEMORY%) Over")
-	EMAIL_CONTENT+="[$TIMESTAMP] Memory Usage: ${USAGE_MEMORY}%\n"
-fi
-
-if (( USAGE_DISK >= DISK )); then
-	USAGE_ITEMS+=("Disk Usage($DISK%) Over")
-	EMAIL_CONTENT+="[$TIMESTAMP] Disk Usage: ${USAGE_DISK}%\n"
+if [[ -n "$STATUS_RPS" ]]; then
+	USAGE_ITEMS+=("Requests Per Second($RPS) Over")
+	EMAIL_CONTENT+="[$TIMESTAMP] Requests Per Second\n${STATUS_RPS}\n"
 fi
 
 EMAIL_SUBJECT="$EMAIL_PREFIX"
