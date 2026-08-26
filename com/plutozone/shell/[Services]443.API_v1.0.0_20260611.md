@@ -122,15 +122,15 @@ Response 시 JSON 구조는 하기 형식과 같으며 1) header의 code, messag
 - id=`별도 문의`, passwd=`별도 문의`
 - 연동처에 따라 토큰 발급에 관한 정책이 상이할 수 있습니다.
 
-| NO    | Request Body         | Data Type(Size) | Required  | Description |
-| :---: | :------------------- | :-------------- | :-------: | :---------- |
-| 1     | id                   | VARCHAR(16)     | Y         | 아이디 |
-| 2     | passwd               | VARCHAR(16)     | Y         | 암호 |
+| NO    | Request Body         | Data Type(Size) | Required | Description |
+| :---: | :------------------- | :-------------- | :------: | :---------- |
+| 1     | id                   | VARCHAR(16)     | Y        | 아이디 |
+| 2     | passwd               | VARCHAR(16)     | Y        | 암호 |
 
-| NO    | Response Body        | Data Type(Size) | Required  | Description |
-| :---: | :------------------- | :-------------- | :-------: | :---------- |
-| 1     | token                | VARCHAR(256)    | Y         | 토큰 |
-| 2     | expired              | CHAR(19)        | Y         | 토큰 만료 일시 |
+| NO    | Response Body        | Data Type(Size) | Required | Description |
+| :---: | :------------------- | :-------------- | :------: | :---------- |
+| 1     | token                | VARCHAR(256)    | Y        | 토큰 |
+| 2     | expired              | CHAR(19)        | Y        | 토큰 만료 일시 |
 
 ```json
 REQUEST
@@ -172,26 +172,21 @@ RESPONSE
 - BOOLEAN
 - BLOB
 -->
+| NO    | Request Body         | Data Type(Size) | Required | Description |
+| :---: | :------------------- | :-------------- | :------: | :---------- |
+| 1     | seq_srv              | SMALLINT        | Y        | 서비스 일련번호 |
+| 2     | seq_mon_target       | INTEGER         | Y        | 모니터링 대상 일련번호 |
+| 3     | seq_fail_code        | SMALLINT        | Y        | 장애 코드 일련번호 |
+| 4     | flg_fail             | CHAR(1)         | Y        | 장애 여부 |
+| 5     | memo                 | VARCHAR(1024)   | Y        | 메모 |
+| 6     | reg_svr              | VARCHAR(16)     | Y        | 등록 서버 |
+| 7     | reg_svr_dt           | CHAR(19)        | Y        | 등록 서버 일시(YYYY-MM-DD HH:MM:SS) |
+| 8     | upt_svr              | VARCHAR(16)     | -        | 수정 서버(수정 시 필수) |
+| 9     | upt_svr_dt           | CHAR(19)        | -        | 수정 서버 일시(YYYY-MM-DD HH:MM:SS, 수정 시 필수) |
 
-<!--
-seq_fail_code	smallint	default null comment '장애 코드 일련번호',
-flg_fail	char(1)		default null comment '장애 여부',
-memo		varchar(1024)	default null comment '메모',
-dt_reg		datetime	not null comment '등록 일시',
-reg_svr		varchar(16)	default null comment '등록 서버',
-dt_upt		datetime	default null comment '수정 일시',
-upt_svr		varchar(16)	default null comment '수정 서버'
--->
-
-| NO    | Request Body         | Data Type(Size) | Required  | Description |
-| :---: | :------------------- | :-------------- | :-------: | :---------- |
-| 1     | seq_srv              | SMALLINT        | Y         | 서비스 일련번호 |
-| 2     | seq_mon_target       | INTEGER         | Y         | 모니터링 대상 일련번호 |
-
-| NO    | Response Body        | Data Type(Size) | Required  | Description |
-| :---: | :------------------- | :-------------- | :-------: | :---------- |
-| 1     | token                | VARCHAR(256)    | Y         | 토큰 |
-| 2     | expired              | VARCHAR(19)     | Y         | 토큰 만료 일시 |
+| NO    | Response Body        | Data Type(Size) | Required | Description |
+| :---: | :------------------- | :-------------- | :------: | :---------- |
+| 1     | seq_mon              | BIGINT          | Y        | 모니터링 일련번호 |
 
 ```json
 REQUEST
@@ -225,22 +220,22 @@ RESPONSE
 # 회원 가입
 * 필요 시 회원 약관 및 가입 여부를 추가 연동할 수 있습니다.
 
-| NO    | Request Body         | Data Type(Size) | Required  | Description |
-| :---: | :------------------- | :-------------- | :-------: | :---------- |
-| 1     | seq_ali              | Integer         | Y         | 제휴사 일련번호 |
-| 2     | seq_mbs              | Integer         | Y         | 멤버십 일련번호 |
-| 3     | mbs_card_num         | Big Integer     | -         | 멤버십 카드 번호: 휴대폰 번호가 없을 경우 |
-| 4     | cellphone            | varchar(16)     | -         | 휴대폰 번호: 멤버십 카드 번호가 있어도 휴대폰 번호 조회가 우선 |
+| NO    | Request Body         | Data Type(Size) | Required | Description |
+| :---: | :------------------- | :-------------- | :------: | :---------- |
+| 1     | seq_ali              | Integer         | Y        | 제휴사 일련번호 |
+| 2     | seq_mbs              | Integer         | Y        | 멤버십 일련번호 |
+| 3     | mbs_card_num         | Big Integer     | -        | 멤버십 카드 번호: 휴대폰 번호가 없을 경우 |
+| 4     | cellphone            | varchar(16)     | -        | 휴대폰 번호: 멤버십 카드 번호가 있어도 휴대폰 번호 조회가 우선 |
 
-| NO    | Response Body        | Data Type(Size) | Required  | Description |
-| :---: | :------------------- | :-------------- | :-------: | :---------- |
-| 1     | mbs_card_num         | Big Integer     | Y         | 멤버십 카드 번호 |
-| 2     | seq_mbs_grade        | Small Integer   | Y         | 멤버십 등급 일련번호 |
-| 3     | mbs_grade_nm         | varchar(64)     | Y         | 멤버십 등급 자국명 |
-| 4     | mbs_grade_en         | varchar(64)     | Y         | 멤버십 등급 영문명 |
-| 5     | total                | Integer         | Y         | 누적 포인트 |
-| 6     | usable               | Integer         | Y         | 가용 포인트 |
-| 7     | expect               | Integer         | Y         | 예정 포인트 |
+| NO    | Response Body        | Data Type(Size) | Required | Description |
+| :---: | :------------------- | :-------------- | :------: | :---------- |
+| 1     | mbs_card_num         | Big Integer     | Y        | 멤버십 카드 번호 |
+| 2     | seq_mbs_grade        | Small Integer   | Y        | 멤버십 등급 일련번호 |
+| 3     | mbs_grade_nm         | varchar(64)     | Y        | 멤버십 등급 자국명 |
+| 4     | mbs_grade_en         | varchar(64)     | Y        | 멤버십 등급 영문명 |
+| 5     | total                | Integer         | Y        | 누적 포인트 |
+| 6     | usable               | Integer         | Y        | 가용 포인트 |
+| 7     | expect               | Integer         | Y        | 예정 포인트 |
 ```
 REQUEST
 {
@@ -279,20 +274,20 @@ RESPONSE
 # 회원 탈퇴
 * 온라인에서 구매한 교환권 목록
 
-| NO    | Request Body         | Data Type(Size) | Required  | Description |
-| :---: | :------------------- | :-------------- | :-------: | :---------- |
-| 1     | mbs_card_num         | Big Integer     | -         | 멤버십 카드 번호: 포인트 적립/사용 필수 |
+| NO    | Request Body         | Data Type(Size) | Required | Description |
+| :---: | :------------------- | :-------------- | :------: | :---------- |
+| 1     | mbs_card_num         | Big Integer     | -        | 멤버십 카드 번호: 포인트 적립/사용 필수 |
 
-| NO    | Response Body        | Data Type(Size) | Required  | Description |
-| :---: | :------------------- | :-------------- | :-------: | :---------- |
-| 1     | seq_buy_mst          | Big Integer     | Y         | 구매 마스터 일련번호 |
-| 2     | seq_mbs_shp          | Integer         | Y         | 멤버십 매장 일련번호 |
-| 3     | mnu_code             | Big Integer     | Y         | 제조 코드(I/F Server 기준의 교환권 마스터 번호) |
-| 4     | buy_prd_nm           | varchar(128)    | Y         | 상품명(1건 이상일 경우 상품명 외 * 건으로 표시) |
-| 5     | count_buys           | Integer         | Y         | 총 구매 수 |
-| 6     | flg_exchanged        | Char(1)         | Y         | 교환 여부 |
-| 7     | dt_limit_start       | Char(12)        | Y         | 사용 기간 시작 일시(YYYYMMDDHHmm) |
-| 8     | dt_limit_end         | Char(12)        | Y         | 사용 기간 종료 일시(YYYYMMDDHHmm) |
+| NO    | Response Body        | Data Type(Size) | Required | Description |
+| :---: | :------------------- | :-------------- | :------: | :---------- |
+| 1     | seq_buy_mst          | Big Integer     | Y        | 구매 마스터 일련번호 |
+| 2     | seq_mbs_shp          | Integer         | Y        | 멤버십 매장 일련번호 |
+| 3     | mnu_code             | Big Integer     | Y        | 제조 코드(I/F Server 기준의 교환권 마스터 번호) |
+| 4     | buy_prd_nm           | varchar(128)    | Y        | 상품명(1건 이상일 경우 상품명 외 * 건으로 표시) |
+| 5     | count_buys           | Integer         | Y        | 총 구매 수 |
+| 6     | flg_exchanged        | Char(1)         | Y        | 교환 여부 |
+| 7     | dt_limit_start       | Char(12)        | Y        | 사용 기간 시작 일시(YYYYMMDDHHmm) |
+| 8     | dt_limit_end         | Char(12)        | Y        | 사용 기간 종료 일시(YYYYMMDDHHmm) |
 
 ```
 REQUEST
