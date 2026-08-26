@@ -37,7 +37,7 @@ EMAIL_CONTENT=""
 
 if [[ -n "$STATUS_RPS" ]]; then
 	USAGE_ITEMS+=("Requests Per Second($RPS) Over")
-	EMAIL_CONTENT+="[$TIMESTAMP] Requests Per Second\n${STATUS_RPS}\n"
+	EMAIL_CONTENT+="[$(date '+%Y-%m-%d %H:%M:%S')] Requests Per Second\n${STATUS_RPS}\n"
 fi
 
 EMAIL_SUBJECT="$EMAIL_PREFIX"

@@ -15,11 +15,9 @@ plutozone.com의 지적재산권 침해에 해당된다.
 ## 1. TODO
 
 - `Send CPU, Memory, Disk from monitorSystem.sh to com.plutozone.monitor by API Document`
-- monitor.service.sh
-- monitor.security.sh
-- monitor.inspection.sh
+- monitorService.sh + monitorSecurity.sh + monitorInspection.sh
 - Service Mode: local | development | production
-- Message Type: email | sms
+- Messaging Type: email | sms
 
 ## 2. Overview
 
@@ -29,10 +27,10 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 ### 3-1. Service
 
-- 개발과 운영이 없이 시스템과 서비스를 모니터링할 수 있다.
-- 모든 것이 아닌 원하는 리소스(CPU, Memory, Disk, Access Traffic 등)만을 모니터링할 수 있다.
+- 개발 및 운영 리소스(물적, 인적 등)가 없어도 시스템과 서비스를 효율적으로 모니터링할 수 있다.
+- 모든 것이 아닌 꼭 필요한 리소스(CPU, Memory, Disk, Access Traffic 등)만을 모니터링할 수 있다.
 - 장애 또는 현황을 실시간으로 확인할 수 있다.
-- com.plutozone.shell에서는 Linux만 지원한다.
+- com.plutozone.shell에서는 Linux만 지원하며 com.plutozone.agent는 여러 OS를 지원한다.
 
 ### 3-2. System
 
@@ -60,6 +58,13 @@ $ ~/monitor.sh
 $ crontab -e
 */10 * * * * /home/USER/monitor.sh system
 */20 * * * * /home/USER/monitor.sh service
+...
+```
+
+- for Monitor(yum or apt)
+
+```bash
+$ sudo yum install sysstat # for mpstat
 ...
 ```
 

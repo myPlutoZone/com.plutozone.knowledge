@@ -19,7 +19,7 @@ for URL in "${URLS[@]}"; do
 		# ---------------------------------------------------
 		# Logging
 		# ---------------------------------------------------
-		printf "[%s] [ERROR] %s request failed(TIME_OUT, %sms)\n" "$TIMESTAMP" "$URL" "$RESPONSE_TIME" >> "$FILE_LOG"
+		printf "[%s] [ERROR] %s request failed(TIME_OUT, %sms)\n" "$(date '+%Y-%m-%d %H:%M:%S')" "$URL" "$RESPONSE_TIME" >> "$FILE_LOG"
 		
 		EMAIL_CONTENT="[${TIMESTAMP}] [ERROR] ${URL} request failed(TIME_OUT, ${RESPONSE_TIME}ms)"
 		# ---------------------------------------------------
@@ -32,12 +32,12 @@ for URL in "${URLS[@]}"; do
 		# ---------------------------------------------------
 		# Logging
 		# ---------------------------------------------------
-		printf "[%s] [OK] %s(HTTP %s, %sms)\n" "$TIMESTAMP" "$URL" "$HTTP_CODE" "$RESPONSE_TIME" >> "$FILE_LOG"
+		printf "[%s] [OK] %s(HTTP %s, %sms)\n" "$(date '+%Y-%m-%d %H:%M:%S')" "$URL" "$HTTP_CODE" "$RESPONSE_TIME" >> "$FILE_LOG"
 	else
 		# ---------------------------------------------------
 		# Logging
 		# ---------------------------------------------------
-		printf "[%s] [WARN] %s returned(HTTP %s, %sms)\n" "$TIMESTAMP" "$URL" "$HTTP_CODE" "$RESPONSE_TIME" >> "$FILE_LOG"
+		printf "[%s] [WARN] %s returned(HTTP %s, %sms)\n" "$(date '+%Y-%m-%d %H:%M:%S')" "$URL" "$HTTP_CODE" "$RESPONSE_TIME" >> "$FILE_LOG"
 		
 		EMAIL_CONTENT="[${TIMESTAMP}] [WARN] ${URL} returned(HTTP ${HTTP_CODE}, ${RESPONSE_TIME}ms)"
 		# ---------------------------------------------------
