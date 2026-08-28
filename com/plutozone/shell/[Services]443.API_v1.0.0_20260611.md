@@ -56,15 +56,15 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 ### 4.2 Request(요청)
 
-Request 시 JSON 구조는 하기 형식과 같으며 1) header의 `#0000FF` seq_srv=`별도 문의`, ver=`문서 버전`, lang=`ko`, token은 하기 토근 발급을 참고하고 2) body는 하기 인터페이스 목록를 참고 바랍니다.
+Request 시 JSON 구조는 하기 형식과 같으며 1) header의 `#0000FF` seq_srv=`별도 문의(이하 포함)`, ver="문서 버전", lang="ko", token="`별도 문의`"하고 2) body는 하기 인터페이스 목록를 참고 바랍니다.
 
 ```json
 {
     "header": {
-        "seq_srv": 7,
-        "ver": "1.0.0",
-        "lang": "ko",
-        "token": "JSON Web Token is ..."
+        "seq_srv": 0
+        , "ver": "1.0.0"
+        , "lang": "ko"
+        , "token": "JSON Web Token(JWT) is ..."
     },
     "body": {
         ...
@@ -74,13 +74,13 @@ Request 시 JSON 구조는 하기 형식과 같으며 1) header의 `#0000FF` seq
 
 ### 4.3 Response(응답)
 
-Response 시 JSON 구조는 하기 형식과 같으며 1) header의 code, message는 코드 목록를 참고하고 2) body는 하기 인터페이스 목록를 참고 바랍니다.
+Response 시 JSON 구조는 하기 형식과 같으며 1) header의 code, message는 하기 `코드 목록`를 참고하고 2) body는 하기 `인터페이스 목록`를 참고 바랍니다.
 
 ```json
 {
     "header": {
-        "code": "0000",
-        "message": "SUCCESS"
+        "code": "0000"
+        , "message": "성공"
     },
     "body": {
         ...
@@ -92,8 +92,8 @@ Response 시 JSON 구조는 하기 형식과 같으며 1) header의 code, messag
 
 `연동처의 정책에 의거하여 하기 기능은 선택적으로 연동할 수 있다.`
 
-- 개발 서버(접근 권한은 별도 문의): `별도 문의`
-- 상용 서버(접근 권한은 별도 문의): `별도 문의`
+- 개발 서버: `별도 문의`
+- 상용 서버: `별도 문의`
 
 | NO     | Entity        | Function                       | Path                          | Etc |
 | :----: | :------------ | :----------------------------- | :---------------------------- | :-- |
@@ -136,26 +136,26 @@ Response 시 JSON 구조는 하기 형식과 같으며 1) header의 code, messag
 REQUEST
 {
     "header": {
-        "seq_srv": 7,
-        "ver": "1.0.0",
-        "lang": "ko",
-        "token": ""
+        "seq_srv": 0
+        , "ver": "1.0.0"
+        , "lang": "ko"
+        , "token": ""
     },
     "body": {
-        "id": "[ID]",
-        "passwd": "[PASSWD]"
+        "id": "[ID]"
+        , "passwd": "[PASSWD]"
     }
 }
 
 RESPONSE
 {
     "header": {
-        "code": "0000",
-        "message": "성공"
+        "code": "0000"
+        , "message": "성공"
     },
     "body": {
-        "token": "JSON Web Token(JWT) is ...",
-        "expired": "2019-08-17 16:34:20"
+        "token": "JSON Web Token(JWT) is ..."
+        , "expired": "2019-08-17 16:34:20"
     }
 }
 ```
@@ -172,17 +172,20 @@ RESPONSE
 - BOOLEAN
 - BLOB
 -->
+
+- seq_mon_target=`별도 문의`, reg_svr=`별도 문의`
+
 | NO    | Request Body         | Data Type(Size) | Required | Description |
 | :---: | :------------------- | :-------------- | :------: | :---------- |
 | 1     | seq_srv              | SMALLINT        | Y        | 서비스 일련번호 |
 | 2     | seq_mon_target       | INTEGER         | Y        | 모니터링 대상 일련번호 |
-| 3     | seq_fail_code        | SMALLINT        | Y        | 장애 코드 일련번호 |
-| 4     | flg_fail             | CHAR(1)         | Y        | 장애 여부 |
-| 5     | memo                 | VARCHAR(1024)   | Y        | 메모 |
+| 3     | seq_fail_code        | SMALLINT        | Y        | 장애 코드 일련번호(`코드 목록`) |
+| 4     | flg_fail             | CHAR(1)         | Y        | 장애 여부(Y or N) |
+| 5     | memo                 | VARCHAR(1024)   | O        | 메모 |
 | 6     | reg_svr              | VARCHAR(16)     | Y        | 등록 서버 |
 | 7     | reg_svr_dt           | CHAR(19)        | Y        | 등록 서버 일시(YYYY-MM-DD HH:MM:SS) |
-| 8     | upt_svr              | VARCHAR(16)     | -        | 수정 서버(수정 시 필수) |
-| 9     | upt_svr_dt           | CHAR(19)        | -        | 수정 서버 일시(YYYY-MM-DD HH:MM:SS, 수정 시 필수) |
+| 8     | upt_svr              | VARCHAR(16)     | N        | 수정 서버(단, 수정 시 필수) |
+| 9     | upt_svr_dt           | CHAR(19)        | N        | 수정 서버 일시(YYYY-MM-DD HH:MM:SS 단, 수정 시 필수) |
 
 | NO    | Response Body        | Data Type(Size) | Required | Description |
 | :---: | :------------------- | :-------------- | :------: | :---------- |
@@ -192,26 +195,32 @@ RESPONSE
 REQUEST
 {
     "header": {
-        "seq_srv": 7,
-        "ver": "1.0.0",
-        "lang": "ko",
-        "token": ""
+        "seq_srv": 0
+        , "ver": "1.0.0"
+        , "lang": "ko"
+        , "token": "JSON Web Token(JWT) is ..."
     },
     "body": {
-        "id": "[ID]",
-        "passwd": "[PASSWD]"
+        "seq_srv": 0
+        , "seq_mon_target": 0
+		, "seq_fail_code": 0
+		, "flg_fail": "N"
+		, "memo": "10"
+		, "reg_svr": "PLZ_WAS_001"
+		, "reg_svr_dt": "2026-08-28 17:38:09"
+		, "upt_svr": ""
+		, "upt_svr_dt": ""
     }
 }
 
 RESPONSE
 {
     "header": {
-        "code": "0000",
-        "message": "성공"
+        "code": "0000"
+        , "message": "성공"
     },
     "body": {
-        "token": "JSON Web Token(JWT) is ...",
-        "expired": "2019-08-17 16:34:20"
+        "seq_mon": 1
     }
 }
 ```
@@ -240,14 +249,14 @@ RESPONSE
 REQUEST
 {
     "header": {
-        "seq_srv": 7
-        , "ver": 1
+        "seq_srv": 0
+        , "ver": "1.0.0"
         , "lang": "ko"
-        , "token": "JWT"
+        , "token": "JSON Web Token(JWT) is ..."
     },
 	"body": {
 		"seq_ali": 3
-		,"seq_mbs": 1
+		, "seq_mbs": 1
 		, "mbs_card_num": 7008190000783650
 		, "cellphone": "01099471973"
 	}
@@ -256,121 +265,18 @@ REQUEST
 RESPONSE
 {
     "header": {
-        "code": "0000",
-        "message": "성공"
+        "code": "0000"
+        , "message": "성공"
     },
     "body": {
-        "mbs_card_num": 7008190000783650,
-        "seq_mbs_grade": 1,
-        "mbs_grade_nm": "일반",
-        "mbs_grade_en": "Gernal",
-        "total": 11,
-        "usable": 1,
-        "expect": 0
+        "mbs_card_num": 7008190000783650
+        , "seq_mbs_grade": 1
+        , "mbs_grade_nm": "일반"
+        , "mbs_grade_en": "Gernal"
+        , "total": 11
+        , "usable": 1
+        , "expect": 0
     }
-}
-```
-
-# 회원 탈퇴
-* 온라인에서 구매한 교환권 목록
-
-| NO    | Request Body         | Data Type(Size) | Required | Description |
-| :---: | :------------------- | :-------------- | :------: | :---------- |
-| 1     | mbs_card_num         | Big Integer     | -        | 멤버십 카드 번호: 포인트 적립/사용 필수 |
-
-| NO    | Response Body        | Data Type(Size) | Required | Description |
-| :---: | :------------------- | :-------------- | :------: | :---------- |
-| 1     | seq_buy_mst          | Big Integer     | Y        | 구매 마스터 일련번호 |
-| 2     | seq_mbs_shp          | Integer         | Y        | 멤버십 매장 일련번호 |
-| 3     | mnu_code             | Big Integer     | Y        | 제조 코드(I/F Server 기준의 교환권 마스터 번호) |
-| 4     | buy_prd_nm           | varchar(128)    | Y        | 상품명(1건 이상일 경우 상품명 외 * 건으로 표시) |
-| 5     | count_buys           | Integer         | Y        | 총 구매 수 |
-| 6     | flg_exchanged        | Char(1)         | Y        | 교환 여부 |
-| 7     | dt_limit_start       | Char(12)        | Y        | 사용 기간 시작 일시(YYYYMMDDHHmm) |
-| 8     | dt_limit_end         | Char(12)        | Y        | 사용 기간 종료 일시(YYYYMMDDHHmm) |
-
-```
-REQUEST
-{
-    "header": {
-        "seq_srv": 7,
-        "ver": 1,
-        "lang": "ko",
-        "token": "JWT"
-    },
-    "body": {
-        "mbs_card_num": 1000000000000001
-    }
-}
-
-RESPONSE
-{
-    "header": {
-        "code": "0000",
-        "message": "성공"
-    },
-    "body": [
-        {
-            "seq_buy_mst": 109,
-            "seq_mbs_shp": 2,
-            "mnu_code": 8008190000647404,
-            "buy_prd_nm": "테스트 상품 외 2건",
-            "count_buys": 1,
-            "flg_exchanged": "N",
-            "dt_limit_start": "201910310000",
-            "dt_limit_end": "201910312359"
-        },
-        {
-            "seq_buy_mst": 123,
-            "seq_mbs_shp": 2,
-            "mnu_code": 8008190000296435,
-            "buy_prd_nm": "테스트 상품 외 4건",
-            "count_buys": 5,
-            "flg_exchanged": "N",
-            "dt_limit_start": "201910310000",
-            "dt_limit_end": "201910312359"
-        },
-        {
-            "seq_buy_mst": 124,
-            "seq_mbs_shp": 2,
-            "mnu_code": 8008190000244742,
-            "buy_prd_nm": "테스트 상품 외 4건",
-            "count_buys": 5,
-            "flg_exchanged": "N",
-            "dt_limit_start": "201910310000",
-            "dt_limit_end": "201910312359"
-        },
-        {
-            "seq_buy_mst": 126,
-            "seq_mbs_shp": 2,
-            "mnu_code": 8008190000225761,
-            "buy_prd_nm": "테스트 상품 외 4건",
-            "count_buys": 5,
-            "flg_exchanged": "N",
-            "dt_limit_start": "201910310000",
-            "dt_limit_end": "201910312359"
-        },
-        {
-            "seq_buy_mst": 127,
-            "seq_mbs_shp": 2,
-            "mnu_code": 8008190000548166,
-            "buy_prd_nm": "테스트 상품 외 4건",
-            "count_buys": 5,
-            "flg_exchanged": "N",
-            "dt_limit_start": "201910310000",
-            "dt_limit_end": "201910312359"
-        },
-        {
-            "seq_buy_mst": 128,
-            "seq_mbs_shp": 2,
-            "mnu_code": 8008190000394413,
-            "buy_prd_nm": "테스트 상품 외 3건",
-            "count_buys": 4,
-            "flg_exchanged": "Y",
-            "dt_limit_start": "201910310000",
-            "dt_limit_end": "201910312359"
-        }
-    ]
 }
 ```
 -->
