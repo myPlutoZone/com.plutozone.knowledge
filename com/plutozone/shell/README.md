@@ -14,7 +14,6 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 ## 1. TODO
 
-- 언어 코드(ISO 639-1): language(ko, en, zh, ...) vs. locale(ko-KR, en-US, en-GB, zh-CN, zh-TW, zh-HK, ...) at com.plutozone
 - `Send CPU, Memory, Disk from monitorSystem.sh to com.plutozone.monitor by API Document`
 - monitorService.sh + monitorSecurity.sh + monitorInspection.sh
 - Service Mode: local | development | production
