@@ -14,7 +14,7 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 ## 1. TODO
 
-- `Send CPU, Memory, Disk from monitorSystem.sh to com.plutozone.monitor by API Document`
+- `Send CPU, Memory, Disk from monitorSystem.sh to com.plutozone.monitor`
 - monitorService.sh + monitorSecurity.sh + monitorInspection.sh
 - Service Mode: local | development | production
 - Messaging Type: email | sms
@@ -27,8 +27,9 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 ### 3-1. Service
 
-- 개발 및 운영 리소스(물적, 인적 등)가 없어도 시스템과 서비스를 효율적으로 모니터링할 수 있다.
+- 개발 및 운영 리소스(물적, 인적 등)가 없어도 시스템과 서비스를 효율적으로 관리할 수 있다.
 - 모든 것이 아닌 꼭 필요한 리소스(CPU, Memory, Disk, Access Traffic 등)만을 모니터링할 수 있다.
+- 모니터링 이후에 이상징후와 장애 탐지, 원인 분석 및 장애 대응을 자동화할 수 있다.
 - 장애 또는 현황을 실시간으로 확인할 수 있다.
 - com.plutozone.shell에서는 Linux만 지원하며 com.plutozone.agent는 여러 OS를 지원한다.
 
@@ -45,15 +46,9 @@ plutozone.com의 지적재산권 침해에 해당된다.
 $ sudo yum install -y msmtp # for Redhat(Rocky, Amazon Linux) and If necessary, Use $ sudo yum install -y epel-release
 $ sudo apt install -y msmtp # for Ubuntu
 $ nano ~/.msmtprc
-...
 $ chmod 600 ~/.msmtprc
 $ nano monitor.sh
-...
 $ chmod +x monitor.sh
-$ touch monitorSystem.log
-# $ touch monitorService.log
-# $ touch monitorSecurity.log
-# $ touch monitorInspection.log
 $ ~/monitor.sh
 $ crontab -e
 */10 * * * * /home/USER/monitor.sh system
