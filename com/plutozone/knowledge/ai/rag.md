@@ -223,6 +223,16 @@ flowchart TB
 - 검색 후(Post-Retrieval) 모듈: 유사도 검색 후에 실행되는 모듈
 - 생성(Generation) 모듈: LLM에 보내기 직전에 실행되는 모듈
 
+| RAG 단계 | 모듈 종류 | 주요 인터페이스 / 클래스 | 역할 | 대표 구현 |
+|---|---|---|---|---|
+| **Pre-Retrieval** | Query Transformation | `QueryTransformer` | 검색 전에 사용자 질의를 더 검색하기 좋은 형태로 변환 | `RewriteQueryTransformer`, `CompressionQueryTransformer`, `TranslationQueryTransformer` |
+| **Pre-Retrieval** | Query Expansion | `QueryExpander` | 하나의 질의를 여러 개의 다양한 질의로 확장 | `MultiQueryExpander` |
+| **Retrieval** | Document Retrieval | `DocumentRetriever` | 변환·확장된 질의를 기반으로 관련 Document 검색 | `VectorStoreDocumentRetriever` |
+| **Retrieval** | Query Routing | `QueryRouter` | 여러 Retriever 또는 데이터 소스로 질의를 라우팅 | `AllRetrieversQueryRouter` 등 |
+| **Retrieval** | Document Join | `DocumentJoiner` | 여러 Query/Retriever에서 검색된 Document를 하나로 결합 | `ConcatenationDocumentJoiner` |
+| **Post-Retrieval** | Document Post-Processing | `DocumentPostProcessor` | 검색된 Document를 재정렬, 필터링, 압축 등으로 후처리 | 커스텀 구현 가능 |
+| **Generation** | Query Augmentation | `QueryAugmenter` | 검색된 Document의 내용을 사용자 질의에 추가하여 LLM 입력으로 구성 | `ContextualQueryAugmenter` |
+
 ### 3-2. TokenTextSplitter
 
 #### Parameter(매개변수)
@@ -242,3 +252,14 @@ flowchart TB
 	- 다시 텍스트로 디코딩
 	- 텍스트를 minChunksizeChars 기준으로 분리하되 자연스러운 분리가 되도록 minChunkSizeChars 이후에 나오는 마침표, 물음표, 느낌표, 줄바꿈에서 분리
 	- 분리된 텍스트의 앞뒤 공백을 제거하고 keepSeparator 설정에 따라 줄바꿈 문자를 제거
+<!--
+알아 두면 좋아요 TokenTextSplitter의 동작 이해하기
+방금 살펴본 파라미터들이 실제 텍스트 분할 과정에서 어떻게 적용되는지 제빵사의 작업 방식에 빗대 어 이해해 봅시다. 제빵사 앞에는 아주 긴 바게트 빵 한 개가 놓여 있습니다. 제빵사는 앞에서 설정한 파라미터 기준에 맞춰 빵을 자릅니다.
+1. 자르기 준비: 제빵사는 "이 긴 빵 하나에서 최대 5000조각까지만 잘라낼 거야. 그리고 잘라낸 조각 이 10g도 안 되는 부스러기라면 손님에게 낼 수 없으니 과감하게 버리겠어."라는 목표를 설정합니다.
+2. 최소량 확보: 제빵사는 빵을 자르기 시작할 때, 일단 최소 200g의 크기가 될 때까지는 칼을 대지 않 고 무조건 길이를 확보합니다. 한 입 거리도 안 되는 너무 작은 조각이 나오는 것을 막기 위함입니다.
+3. 지점 탐색: 200g을 넘어서는 순간부터 제빵사는 눈을 크게 뜨고 빵 표면에 자연스럽게 나 있는 '결' 이나 '칼집' (마침표나 줄 바꿈)을 찾기 시작합니다. 이때 잘린 단면의 모양(줄 바꿈 등)을 뭉개지 않고 원래 결을 그대로 살려서 자를 준비를 합니다.
+4. 유연한 절단: 목표치인 800g에 도달하기 전에 예쁜 결(마침표)을 발견하면, 미련 없이 그곳을 자릅 니다. 조각이 800g을 꽉 채우지 못하더라도, 손님이 먹기 좋게(문장의 의미가 끊기지 않게) 만드는 것 이 더 중요하기 때문입니다.
+5. 강제 절단: 만약 빵이 너무 밋밋해서 썰기 좋은 결을 찾지 못한 채 목표치인 800g에 도달해버렸다면 제빵사는 빵이 더 이상 커지는 것을 막기 위해 800g이 되는 지점에서 칼로 싹둑 강제로 자릅니다.
+6. 다음 작업: 성공적으로 잘라낸 빵 조각을 바구니에 담고, 남은 빵을 가져와 다시 2번부터 똑같은 과 정을 반복하며 끝까지 소분합니다.
+이처럼 TokenTextSplitter는 단순한 기계적 분할이 아니라, 문맥의 끊김을 최소화하는 똑똑한 분할 전 략을 사용합니다.
+-->	
