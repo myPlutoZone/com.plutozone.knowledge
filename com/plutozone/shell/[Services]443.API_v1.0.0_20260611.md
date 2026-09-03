@@ -203,13 +203,13 @@ REQUEST
     "body": {
         "seq_srv": 0
         , "seq_mon_target": 0
-		, "seq_fail_code": 0
-		, "flg_fail": "N"
-		, "memo": "10"
-		, "reg_svr": "PLZ_WAS_001"
-		, "reg_svr_dt": "2026-08-28 17:38:09"
-		, "upt_svr": ""
-		, "upt_svr_dt": ""
+        , "seq_fail_code": 0
+        , "flg_fail": "N"
+        , "memo": "10"
+        , "reg_svr": "PLZ_WAS_001"
+        , "reg_svr_dt": "2026-08-28 17:38:09"
+        , "upt_svr": ""
+        , "upt_svr_dt": ""
     }
 }
 
@@ -255,10 +255,10 @@ REQUEST
         , "token": "JSON Web Token(JWT) is ..."
     },
 	"body": {
-		"seq_ali": 3
-		, "seq_mbs": 1
-		, "mbs_card_num": 7008190000783650
-		, "cellphone": "01099471973"
+        "seq_ali": 3
+        , "seq_mbs": 1
+        , "mbs_card_num": 7008190000783650
+        , "cellphone": "01099471973"
 	}
 }
 
