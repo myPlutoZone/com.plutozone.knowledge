@@ -1,4 +1,4 @@
-# com.plutozone.knowledge.language.VueDotjs(Vue.js)
+# com.plutozone.knowledge.language.VueDotJs(Vue.js)
 
 
 ## Vue.js
