@@ -251,6 +251,7 @@
 - **EIP(Elastic IP)를 생성 후 EC2 등에 할당하지 않을 경우 별도 추가 과금 발생**
 
 ### 7-2. 권장
+- 태그는 다다익선(예: 태그는 비용에 대한 구분 등 다양하게 활용 가능)
 - Default VPC 삭제(필요 시 Subnet, Routing Table, Internet Gateway, ACL, Security Group 등 포함) for 보안
 - 생성한 VPCs, SGs, EC2s, LBs 등의 삭제는 역순으로
 - 일반적으로 Bastion Server(관제용), NAT Gateway(패치용), EKS Management Server(관리용)만을 Public Zone에 배치
