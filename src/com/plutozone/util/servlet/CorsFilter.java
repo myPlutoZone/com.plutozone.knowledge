@@ -23,6 +23,10 @@ package com.plutozone.util.servlet;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 /**
  * @version 1.0.0
@@ -34,15 +38,21 @@ import java.io.IOException;
  */
 public class CorsFilter implements Filter {
 	
+	/** Logger */
+	private static Logger logger = LoggerFactory.getLogger(CorsFilter.class);
+	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
 		HttpServletRequest httpServletRequest	= (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		
-		System.out.println("req.getMethod(): " + httpServletRequest.getMethod());
-		
 		String origin = httpServletRequest.getHeader("Origin");
+		
+		logger.info("---------------------------------------------------------------------------");
+		logger.info("httpServletRequest.getHeader(\"Origin\"): " + origin);
+		logger.info("httpServletRequest.getMethod(): " + httpServletRequest.getMethod());
+		logger.info("---------------------------------------------------------------------------");
 		
 		if ("http://localhost:5173".equals(origin)
 				|| "http://127.0.0.1:5173".equals(origin)) {
@@ -52,8 +62,6 @@ public class CorsFilter implements Filter {
 			httpServletResponse.setHeader("Access-Control-Allow-Methods"		, "GET, POST, PUT, DELETE, OPTIONS");
 			httpServletResponse.setHeader("Access-Control-Allow-Headers"		, "Content-Type, Authorization, X-Requested-With");
 		}
-		
-		
 		
 		// Preflight 요청
 		if ("OPTIONS".equalsIgnoreCase(httpServletRequest.getMethod())) {
