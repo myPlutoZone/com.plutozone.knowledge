@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_74"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-log4j12-1.6.6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-api-1.6.6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/selenium-api-4.11.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/selenium-chrome-driver-4.11.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/selenium-chromium-driver-4.11.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/selenium-firefox-driver-4.11.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/selenium-remote-driver-4.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-9.0.16/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-9.0.16/lib/servlet-api.jar"/>
+	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
+</classpath>
