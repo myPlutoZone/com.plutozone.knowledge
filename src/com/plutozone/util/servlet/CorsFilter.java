@@ -54,7 +54,8 @@ public class CorsFilter implements Filter {
 		logger.info("httpServletRequest.getMethod(): " + httpServletRequest.getMethod());
 		logger.info("---------------------------------------------------------------------------");
 		
-		if ("http://localhost:5173".equals(origin)
+		if ("http://localhost:4173".equals(origin)					// VITE Production(4173)
+				|| "http://localhost:5173".equals(origin)			// VITE Development(5173)
 				|| "http://127.0.0.1:5173".equals(origin)) {
 			
 			httpServletResponse.setHeader("Access-Control-Allow-Origin"			, origin);
