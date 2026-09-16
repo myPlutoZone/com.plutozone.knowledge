@@ -226,18 +226,27 @@ flowchart TD
 - 명시적 변환(Explicit Conversion) vs. 암시적 변환(Implicit Conversion)
 
 #### ANSI
-| Oracle     | ANSI     | 범위(크기)      | Range |
-|------------|----------|----------------|-------|
-| NUMBER(3)  | tinyint  | 2^8  (1 바이트) | -2^7(-128) ~ 2^7-1(127) 또는 0 ~ 255 |
-| NUMBER(5)  | smallint | 2^16 (2 바이트) | -2^15(-32,768) ~ 2^15-1(32,767) 또는 0 ~ 65,535 |
-| NUMBER(10) | int      | 2^32 (4 바이트) | -2^31(-2,147,483,648) ~ 2^31-1(2,147,483,647) 또는 0 ~ 4,294,967,295 |
-| NUMBER(19) | bigint   | 2^64 (8 바이트) | -2^63 ~ 2^63-1 |
+- TINYINT, SMALLINT, INTEGER, BIGINT
+- REAL, DOUBLE PRECISION, DECIMAL(p,s)
+- CHAR(n), VARCHAR(n), CLOB
+- DATE, TIME, TIMESTAMP
+- BOOLEAN
+- BLOB
 
 #### Oracle
 - NUMBER
 - CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB, NCLOB
 - BLOB
 - DATE
+
+#### ANSI vs. Oracle for Integer
+| Oracle     | ANSI     | 범위(크기)      | Range                                                                |
+| :--------- | :------: | :-------------: | :------------------------------------------------------------------- |
+| NUMBER(3)  | TINYINT  | 2^8  (1 바이트) | -2^7(-128) ~ 2^7-1(127) 또는 0 ~ 255                                 |
+| NUMBER(5)  | SMALLINT | 2^16 (2 바이트) | -2^15(-32,768) ~ 2^15-1(32,767) 또는 0 ~ 65,535                      |
+| NUMBER(10) | INTEGER  | 2^32 (4 바이트) | -2^31(-2,147,483,648) ~ 2^31-1(2,147,483,647) 또는 0 ~ 4,294,967,295 |
+| NUMBER(19) | BIGINT   | 2^64 (8 바이트) | -2^63 ~ 2^63-1                                                       |
+
 
 ### 2-7. 계획과 테이블 설계
 ```mermaid

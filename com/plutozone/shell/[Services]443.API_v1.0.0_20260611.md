@@ -162,17 +162,6 @@ RESPONSE
 -->
 
 ### 모니터링 등록
-
-<!--
-[ANSI 데이터 타입]
-- TINYINT, SMALLINT, INTEGER, BIGINT
-- REAL, DOUBLE PRECISION, DECIMAL(p,s)
-- CHAR(n), VARCHAR(n), CLOB
-- DATE, TIME, TIMESTAMP
-- BOOLEAN
-- BLOB
--->
-
 - seq_mon_target=`별도 문의`, reg_svr=`별도 문의`
 
 | NO    | Request Body         | Data Type(Size) | Required | Description |
