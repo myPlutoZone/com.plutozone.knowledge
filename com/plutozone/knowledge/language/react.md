@@ -16,6 +16,15 @@ C:\> ren my-react myReact
 C:\> cd myReact
 REM npm run start
 C:\> npm start
+C:\> npm run build
+C:\> npm install -g serve
+C:\> serve -s build
+C:\> REM npm install -g firebase-tools
+C:\> firebase login
+C:\> firebase init
+C:\> ...
+C:\> firebase deploy --only hosting
+C:\> firebase logout
 ```
 
 
