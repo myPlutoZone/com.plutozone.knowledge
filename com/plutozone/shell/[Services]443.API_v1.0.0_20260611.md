@@ -1,5 +1,4 @@
-# API Version 1.0.0 for com.plutozone.services
-
+# RESTful API Version 1.0.0 for com.plutozone.services
 > YOU ARE STRICTLY PROHIBITED TO COPY, DISCLOSE, DISTRIBUTE, MODIFY OR USE THIS PROGRAM
 IN PART OR AS A WHOLE WITHOUT THE PRIOR WRITTEN CONSENT OF PLUTOZONE.COM.
 PLUTOZONE.COM OWNS THE INTELLECTUAL PROPERTY RIGHTS IN AND TO THIS PROGRAM.
@@ -11,53 +10,46 @@ plutozone.com의 지적재산권 침해에 해당된다.
 ***
 > Copyright © 2026 plutozone.com All Rights Reserved.
 
-## 1. History(이력)
 
-| Version | Date       | Contents |
-| :-----: | :---------:| :-------:|
-| 1.0.0   | 2026-06-11 | [CREATE]Initial Release |
+## 1. History(이력)
+| Version | Date | Contents |
+| :---: | :---: | :---: |
+| 1.0.0 | 2026-06-11 | [CREATE]Initial Release |
+
 
 ## 2. Overview(개요)
-
-본 문서는 com.plutozone.services의 API Server와 통신하기 위한 연동(Interface) 규격에 대해 기술한다.
+본 문서는 com.plutozone.services의 RESTful API Server와 통신하기 위한 연동(Interface) 규격에 대해 기술한다.
 
 ### 2.1 Document Version(문서 버전)
-
 본 문서의 버전은 3개 영역으로 나뉘며 각 자리의 의미는 다음과 같으며 빌드 버전은 사용하지 않는다.
-
 - 첫째 자리: Major 버전(규격서 Major 변경 시)
 - 둘째 자리: Minor 버전(규격서 Minor 변경 시)
 - 셋째 자리: Patch 버전(규격 변경 없이 코드, 설명 등 추가 또는 변경 시)
 
 ### 2.2 Terms(용어)
+자사의 정책에 의거하여 하기 용어는 대체 또는 혼용될 수 있습니다.
+| Term | Abbreviation | Description |
+| :--- | :---: | :--- |
+| RESTful API Server | - | com.plutozone.services의 대외용 RESTful API 서버로 인가 후 접속 가능하다. |
+| Alliance | ALI | 제휴사는 고객사(Client)와 협력사(Partner)를 포함한다. |
+| Channel | CHN | 채널사는 자사의 서비스를 게시할 수 있는 플랫폼을 의미하여 대표적으로 통신사가 있다. |
+| Manager | MNG | `관리자`는 com.plutozone.services의 관리용 서비스를 이용하는 `사용자`를 말한다. |
+| Member | MBR | `회원`는 com.plutozone.services의 고객용 서비스를 이용하는 `사용자`를 말한다. |
 
-`자사의 정책에 의거하여 하기 용어는 대체 또는 혼용될 수 있습니다.`
-
-| Term                         | Abbreviation | Description                                                                   |
-| :--------------------------- | :----------: | :---------------------------------------------------------------------------- |
-| API Server                   |  -           | com.plutozone.services의 대외용 API 서버(API Server)로 인가 후 접속 가능하다. |
-| Alliance                     | ALI          | 제휴사는 고객사(Client)와 협력사(Partner)를 포함한다. |
-| Channel                      | CHN          | 채널사는 자사의 서비스를 게시할 수 있는 플랫폼을 의미하여 대표적으로 통신사가 있다. |
-| Manager                      | MNG          | `관리자`는 com.plutozone.services의 관리용 서비스를 이용하는 `사용자`를 말한다. |
-| Member                       | MBR          | `회원`는 com.plutozone.services의 고객용 서비스를 이용하는 `사용자`를 말한다. |
 
 ## 3. Interface Architecture(연동 구조)
-
 기본적으로 `HTTPS + POST` 방식을 사용하며 Request, Response 시 JSON 타입으로 데이터(필요 시 데이터 암호화)를 송수신한다.
 
+
 ## 4. 연동 정의(Interface Define)
-
 ### 4.1 HTTP Header
-
 - HTTP Header의 Content-Type과 Accept 속성에 "application/json; charset=UTF-8"을 지정하여야 한다.
-  - Content-Type: application/json; charset=UTF-8
-  - Accept: application/json; charset=UTF-8
+	- Content-Type: application/json; charset=UTF-8
+	- Accept: application/json; charset=UTF-8
 - 파일 다운로드일 경우 application/octect_stream를 사용한다.
 
 ### 4.2 Request(요청)
-
 Request 시 JSON 구조는 하기 형식과 같으며 1) header의 `#0000FF` seq_srv=`별도 문의(이하 포함)`, ver="문서 버전", lang="ko", token="`별도 문의`"하고 2) body는 하기 인터페이스 목록를 참고 바랍니다.
-
 ```json
 {
     "header": {
@@ -73,9 +65,7 @@ Request 시 JSON 구조는 하기 형식과 같으며 1) header의 `#0000FF` seq
 ```
 
 ### 4.3 Response(응답)
-
 Response 시 JSON 구조는 하기 형식과 같으며 1) header의 code, message는 하기 `코드 목록`를 참고하고 2) body는 하기 `인터페이스 목록`를 참고 바랍니다.
-
 ```json
 {
     "header": {
@@ -88,37 +78,38 @@ Response 시 JSON 구조는 하기 형식과 같으며 1) header의 code, messag
 }
 ```
 
+
 ## 5. List of Interface(인터페이스 목록)
-
-`연동처의 정책에 의거하여 하기 기능은 선택적으로 연동할 수 있다.`
-
+연동처의 정책에 의거하여 하기 기능은 선택적으로 연동할 수 있다.
 - 개발 서버: `별도 문의`
 - 상용 서버: `별도 문의`
 
-| NO     | Entity        | Function                       | Path                          | Etc |
-| :----: | :------------ | :----------------------------- | :---------------------------- | :-- |
-| 3-1    | Monitoring    | [등록](#모니터링-등록)          | /monitor/writeProc.api        | |
-
+| NO | Entity | Method | Function | Path | Etc |
+| :---: | :--- | :---: | :--- | :--- | :--- |
+| 3-1 | Monitoring | POST | [등록](#모니터링-등록) | /monitors | |
 <!--
-| 1-1    | Token          | [발급](#토큰-발급)          | /security/token/issue.api     | |
-| 1-2    | Token          | [조회](#토큰-조회)          | /security/token/?.api         | 생성일, 상태(활성, 만료, 폐기, 재발급, 갱신 등), 만료일, 최종 사용일시 등 |
-| 1-3    | Token          | [폐기](#토큰-폐기)          | /security/token/?.api         | |
-| 1-4    | Token          | [재발급](#토큰-재발급)       | /security/token/?.api         | |
-| 1-5    | Token          | [갱신](#토큰-갱신)          | /security/token/?.api         | |
-| 1-6    | Token          | [사용 이력](#토큰-사용 이력) | /security/token/?.api         | |
-| 2-1    | Member         | [약관](#회원-약관)                 | /member/terms.api             | 마케팅 활용, 제3자 제공 동의 등 |
-| 2-2    | Member         | [가입 여부](#회원-가입 여부)        | /member/exist.api             | |
-| 2-3    | Member         | [가입](#회원-가입)                 | /member/register.api          | 이용자(Join) vs. 회원(Register) |
-| 2-4    | Member         | [조회](#회원-조회)                 | /member/inquiry.api           | |
-| 2-5    | Member         | [변경](#회원-변경)                 | /member/alter.a               | |
-| 2-6    | Member         | [탈퇴](#회원-탈퇴)                 | /member/withdraw.api          | |
+Query Parameter
+Path Parameter
+Request Field
+
+| 1-1 | Token  | POST | [발급](#토큰-발급) | /tokens | |
+| 1-2 | Token  | GET | [조회](#토큰-조회) | /tokens | 생성일, 상태(활성, 만료, 폐기, 갱신, 재발급 등), 만료일, 최종 사용일시 등 |
+| 1-3 | Token  | DELETE | [폐기](#토큰-폐기) | /tokens | |
+| 1-4 | Token  | POST | [갱신](#토큰-갱신) | /tokens/refresh | 기존 토큰을 사용해서 신규 토큰을 발급 |
+| 1-5 | Token  | POST | [재발급](#토큰-재발급) | /tokens/reissue | 만료·폐기·분실 등의 이유로 신규 토큰을 다시 발급 |
+| 1-6 | Token  | GET | [사용 이력](#토큰-사용-이력) | /tokens/use/ | |
+| 2-1 | Member | GET | [약관](#회원-약관) | /members/terms/ | 마케팅 활용, 제3자 제공 동의 등 |
+| 2-2 | Member | GET | [가입 여부](#회원-가입-여부) | /members/exists | |
+| 2-3 | Member | POST | [가입](#회원-가입) | /members | |
+| 2-4 | Member | GET | [조회](#회원-조회) | /members/me | |
+| 2-5 | Member | PATCH | [변경](#회원-변경) | /members/me | |
+| 2-6 | Member | DELETE | [탈퇴](#회원-탈퇴) | /members/me | |
 -->
 
-## 6. Interface List
 
+## 6. Interface List
 <!--
 ### 토큰 발급
-
 - id=`별도 문의`, passwd=`별도 문의`
 - 연동처에 따라 토큰 발급에 관한 정책이 상이할 수 있습니다.
 
@@ -129,11 +120,11 @@ Response 시 JSON 구조는 하기 형식과 같으며 1) header의 code, messag
 
 | NO    | Response Body        | Data Type(Size) | Required | Description |
 | :---: | :------------------- | :-------------- | :------: | :---------- |
-| 1     | token                | VARCHAR(256)    | Y        | 토큰 |
+| 1     | Token        | VARCHAR(256)    | Y        | 토큰 |
 | 2     | expired              | CHAR(19)        | Y        | 토큰 만료 일시 |
 
 ```json
-REQUEST
+Request 
 {
     "header": {
         "seq_srv": 0
@@ -147,7 +138,7 @@ REQUEST
     }
 }
 
-RESPONSE
+Response 
 {
     "header": {
         "code": "0000"
@@ -164,24 +155,24 @@ RESPONSE
 ### 모니터링 등록
 - seq_mon_target=`별도 문의`, reg_svr=`별도 문의`
 
-| NO    | Request Body         | Data Type(Size) | Required | Description |
-| :---: | :------------------- | :-------------- | :------: | :---------- |
-| 1     | seq_srv              | SMALLINT        | Y        | 서비스 일련번호 |
-| 2     | seq_mon_target       | INTEGER         | Y        | 모니터링 대상 일련번호 |
-| 3     | seq_fail_code        | SMALLINT        | Y        | 장애 코드 일련번호(`코드 목록`) |
-| 4     | flg_fail             | CHAR(1)         | Y        | 장애 여부(Y or N) |
-| 5     | memo                 | VARCHAR(1024)   | O        | 메모 |
-| 6     | reg_svr              | VARCHAR(16)     | Y        | 등록 서버 |
-| 7     | reg_svr_dt           | CHAR(19)        | Y        | 등록 서버 일시(YYYY-MM-DD HH:MM:SS) |
-| 8     | upt_svr              | VARCHAR(16)     | N        | 수정 서버(단, 수정 시 필수) |
-| 9     | upt_svr_dt           | CHAR(19)        | N        | 수정 서버 일시(YYYY-MM-DD HH:MM:SS 단, 수정 시 필수) |
+| NO | Request Body | Data Type(Size) | Required | Description |
+| :---: | :--- | :-------------- | :------: | :---------- |
+| 1 | seq_srv | SMALLINT | Y | 서비스 일련번호 |
+| 2 | seq_mon_target | INTEGER | Y | 모니터링 대상 일련번호 |
+| 3 | seq_fail_code | SMALLINT | Y | 장애 코드 일련번호(`코드 목록`) |
+| 4 | flg_fail | CHAR(1) | Y | 장애 여부(Y or N) |
+| 5 | memo | VARCHAR(1024) | O | 메모 |
+| 6 | reg_svr | VARCHAR(16) | Y | 등록 서버 |
+| 7 | reg_svr_dt | CHAR(19) | Y | 등록 서버 일시(YYYY-MM-DD HH:MM:SS) |
+| 8 | upt_svr | VARCHAR(16) | N | 수정 서버(단, 수정 시 필수) |
+| 9 | upt_svr_dt | CHAR(19) | N | 수정 서버 일시(YYYY-MM-DD HH:MM:SS 단, 수정 시 필수) |
 
-| NO    | Response Body        | Data Type(Size) | Required | Description |
-| :---: | :------------------- | :-------------- | :------: | :---------- |
-| 1     | seq_mon              | BIGINT          | Y        | 모니터링 일련번호 |
+| NO | Response Body | Data Type(Size) | Required | Description |
+| :---: | :--- | :--- | :---: | :--- |
+| 1 | seq_mon | BIGINT | Y | 모니터링 일련번호 |
 
 ```json
-REQUEST
+Request 
 {
     "header": {
         "seq_srv": 0
@@ -202,7 +193,7 @@ REQUEST
     }
 }
 
-RESPONSE
+Response 
 {
     "header": {
         "code": "0000"
@@ -235,7 +226,7 @@ RESPONSE
 | 6     | usable               | Integer         | Y        | 가용 포인트 |
 | 7     | expect               | Integer         | Y        | 예정 포인트 |
 ```
-REQUEST
+Request 
 {
     "header": {
         "seq_srv": 0
@@ -251,7 +242,7 @@ REQUEST
 	}
 }
 
-RESPONSE
+Response 
 {
     "header": {
         "code": "0000"
