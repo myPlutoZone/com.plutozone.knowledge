@@ -13,12 +13,12 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 ## 1. History(이력)
 | Version | Date | Contents |
-| :---: | :---: | :---: |
+| :---: | :---: | :--- |
 | 1.0.0 | 2026-06-11 | [CREATE]Initial Release |
 
 
 ## 2. Overview(개요)
-본 문서는 com.plutozone.services의 RESTful API Server와 통신하기 위한 연동(Interface) 규격에 대해 기술한다.
+> 본 문서(com.plutozone.services API 규격서)는 com.plutozone.services의 RESTful API Server와 통신하기 위한 연동(Interface) 규격에 대해 기술한다.
 
 ### 2.1 Document Version(문서 버전)
 본 문서의 버전은 3개 영역으로 나뉘며 각 자리의 의미는 다음과 같으며 빌드 버전은 사용하지 않는다.
@@ -38,7 +38,33 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 ## 3. Interface Architecture(연동 구조)
-기본적으로 `HTTPS + POST` 방식을 사용하며 Request, Response 시 JSON 타입으로 데이터(필요 시 데이터 암호화)를 송수신한다.
+### 3-1. 환경 및 통신 규격
+| Category | Details | Remarks |
+| :--- | :--- | :--- |
+| Protocol | HTTP/S | |
+| Server | `별도 문의` | 개발, 상용  등 |
+| Base URL | `/v1` | |
+| Data Format | JSON | 필요 시 데이터 암호화 |
+| Character Encoding | UTF-8 | |
+| Authentication Method | Bearer Token | |
+| HTTP Method | GET, POST, PUT, PATCH, DELETE | |
+
+- `엔티티는 명사` 형태의 URL로 표현하며 `행위는 HTTP Method`로 표현한다.
+- 요청 및 응답 데이터는 JSON 형식을 사용한다.
+- HTTP Status Code를 이용하여 처리 결과를 표현한다.
+- API 버전은 URL에 포함하고 문서 버전은 요청 헤더에 포함한다.
+- 날짜/시간은 ISO 8601 형식(예: YYYY-MM-DD, `YYYY-MM-DDTHH:MM:SS`, YYYY-MM-DDTHH:MM:SS+09:00)을 사용한다.
+- 인증이 필요한 API는 Authorization Header를 사용한다.
+
+### 3-2. HTTP Method(권장)
+| Method | Usage | URL |
+| :---: | :---: | :--- |
+| GET | 목록 | /members?page=1&size=10&mbr_nm=홍길동&mbr_age=20 |
+| POST | 생성 | /members |
+| GET | 조회 | /members/{seq_mbr} |
+| PATCH | 일부 수정 | /members/{seq_mbr} |
+| PUT | 전체 수정 | /members/{seq_mbr} |
+| DELETE | 삭제 | /members/{seq_mbr} |
 
 
 ## 4. 연동 정의(Interface Define)
@@ -46,6 +72,7 @@ plutozone.com의 지적재산권 침해에 해당된다.
 - HTTP Header의 Content-Type과 Accept 속성에 "application/json; charset=UTF-8"을 지정하여야 한다.
 	- Content-Type: application/json; charset=UTF-8
 	- Accept: application/json; charset=UTF-8
+	- Authorization: Bearer {Token}
 - 파일 다운로드일 경우 application/octect_stream를 사용한다.
 
 ### 4.2 Request(요청)
@@ -80,23 +107,22 @@ Response 시 JSON 구조는 하기 형식과 같으며 1) header의 code, messag
 
 
 ## 5. List of Interface(인터페이스 목록)
-연동처의 정책에 의거하여 하기 기능은 선택적으로 연동할 수 있다.
-- 개발 서버: `별도 문의`
-- 상용 서버: `별도 문의`
+- 연동처의 정책에 의거하여 하기 기능은 선택적으로 연동할 수 있다.
 
-| NO | Entity | Method | Function | Path | Etc |
+| NO | Entity | Method | Function | URL | Etc |
 | :---: | :--- | :---: | :--- | :--- | :--- |
-| 3-1 | Monitoring | POST | [등록](#모니터링-등록) | /monitors | |
+| 3-1 | Monitoring | GET | [목록](#모니터링-목록) | /monitors?page=&size=&search_field=&search_term=&sort_field=&sort_order= | |
+| 3-2 | Monitoring | POST | [등록](#모니터링-등록) | /monitors | |
 <!--
 Query Parameter
 Path Parameter
 Request Field
 
 | 1-1 | Token  | POST | [발급](#토큰-발급) | /tokens | |
-| 1-2 | Token  | GET | [조회](#토큰-조회) | /tokens | 생성일, 상태(활성, 만료, 폐기, 갱신, 재발급 등), 만료일, 최종 사용일시 등 |
-| 1-3 | Token  | DELETE | [폐기](#토큰-폐기) | /tokens | |
-| 1-4 | Token  | POST | [갱신](#토큰-갱신) | /tokens/refresh | 기존 토큰을 사용해서 신규 토큰을 발급 |
-| 1-5 | Token  | POST | [재발급](#토큰-재발급) | /tokens/reissue | 만료·폐기·분실 등의 이유로 신규 토큰을 다시 발급 |
+| 1-2 | Token  | DELETE | [폐기](#토큰-폐기) | /tokens | |
+| 1-3 | Token  | POST | [갱신](#토큰-갱신) | /tokens/refresh | 기존 토큰을 사용해서 신규 토큰을 발급 |
+| 1-4 | Token  | POST | [재발급](#토큰-재발급) | /tokens/reissue | 만료·폐기·분실 등의 이유로 신규 토큰을 다시 발급 |
+| 1-5 | Token  | GET | [조회](#토큰-조회) | /tokens | 생성일, 상태(활성, 만료, 폐기, 갱신, 재발급 등), 만료일, 최종 사용 일시 등 |
 | 1-6 | Token  | GET | [사용 이력](#토큰-사용-이력) | /tokens/use/ | |
 | 2-1 | Member | GET | [약관](#회원-약관) | /members/terms/ | 마케팅 활용, 제3자 제공 동의 등 |
 | 2-2 | Member | GET | [가입 여부](#회원-가입-여부) | /members/exists | |
@@ -151,12 +177,59 @@ Response
 }
 ```
 -->
+### 모니터링 목록
+| NO | `Query Parameter` | Data Type(Size) | Required | Description |
+| :---: | :--- | :--- | :---: | :--- |
+| 1 | page | SMALLINT | N | 페이지 번호(기본값: 1) |
+| 2 | size | TINYINT | N | 페이지 크기(기본값: 10) |
+| 3 | search_field | VARCHAR(16) | N | 검색 대상(seq_mon_target 등) |
+| 4 | search_term | VARCHAR(16) | N | 검색어 |
+| 5 | sort_field | VARCHAR(8) | N | 정렬 대상(reg_svr_dt 등) |
+| 6 | sort_order | VARCHAR(8) | N | 정렬 방식(asc or desc) |
+
+| NO | Response Body | Data Type(Size) | Required | Description |
+| :---: | :--- | :--- | :---: | :--- |
+| 1 | seq_mon | BIGINT | Y | 모니터링 일련번호 |
+
+```json
+Request 
+{
+    "header": {
+        "seq_srv": 0
+        , "ver": "1.0.0"
+        , "lang": "ko"
+        , "token": "JSON Web Token(JWT) is ..."
+    },
+    "body": {
+        "seq_srv": 0
+        , "seq_mon_target": 0
+        , "seq_fail_code": 0
+        , "flg_fail": "N"
+        , "memo": "10"
+        , "reg_svr": "PLZ_WAS_001"
+        , "reg_svr_dt": "2026-08-28 17:38:09"
+        , "upt_svr": ""
+        , "upt_svr_dt": ""
+    }
+}
+
+Response 
+{
+    "header": {
+        "code": "0000"
+        , "message": "성공"
+    },
+    "body": {
+        "seq_mon": 1
+    }
+}
+```
 
 ### 모니터링 등록
 - seq_mon_target=`별도 문의`, reg_svr=`별도 문의`
 
-| NO | Request Body | Data Type(Size) | Required | Description |
-| :---: | :--- | :-------------- | :------: | :---------- |
+| NO | `Request Body` | Data Type(Size) | Required | Description |
+| :---: | :--- | :--- | :---: | :--- |
 | 1 | seq_srv | SMALLINT | Y | 서비스 일련번호 |
 | 2 | seq_mon_target | INTEGER | Y | 모니터링 대상 일련번호 |
 | 3 | seq_fail_code | SMALLINT | Y | 장애 코드 일련번호(`코드 목록`) |
@@ -262,6 +335,10 @@ Response
 -->
 
 ## 7. Code List(코드 목록)
+### 7-1. HTTP Response Code
+| NO | Code | Description |
+| :---: | :---: | :--- |
+| 1-1 | 200 | OK |
 
 <!--
 | NO    | Code                 | Data Type(Size) | Value  | Description |
