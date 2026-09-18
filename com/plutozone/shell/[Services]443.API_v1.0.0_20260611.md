@@ -49,22 +49,25 @@ plutozone.com의 지적재산권 침해에 해당된다.
 | Authentication Method | Bearer Token | |
 | HTTP Method | GET, POST, PUT, PATCH, DELETE | |
 
-- `엔티티는 명사` 형태의 URL로 표현하며 `행위는 HTTP Method`로 표현한다.
+- `엔티티는 명사 형태의 URL`로 표현하며 `행위는 HTTP Method`로 표현하며 `HTTP Status Code는 처리 결과`를 표현한다.
 - 요청 및 응답 데이터는 JSON 형식을 사용한다.
-- HTTP Status Code를 이용하여 처리 결과를 표현한다.
-- API 버전은 URL에 포함하고 문서 버전은 요청 헤더에 포함한다.
-- 날짜/시간은 ISO 8601 형식(예: YYYY-MM-DD, `YYYY-MM-DDTHH:MM:SS`, YYYY-MM-DDTHH:MM:SS+09:00)을 사용한다.
+- `API 버전은 URL`에 포함하고 `문서 버전은 요청 헤더`에 포함한다.
+- 날짜/시간은 ISO 8601 형식(예: YYYY-MM-DD, `YYYY-MM-DD HH:MM:SS`, YYYY-MM-DDTHH:MM:SS+09:00)을 사용한다.
 - 인증이 필요한 API는 Authorization Header를 사용한다.
 
 ### 3-2. HTTP Method(권장)
-| Method | Usage | URL |
-| :---: | :---: | :--- |
-| GET | 목록 | /members?page=1&size=10&mbr_nm=홍길동&mbr_age=20 |
-| POST | 생성 | /members |
-| GET | 조회 | /members/{seq_mbr} |
-| PATCH | 일부 수정 | /members/{seq_mbr} |
-| PUT | 전체 수정 | /members/{seq_mbr} |
-| DELETE | 삭제 | /members/{seq_mbr} |
+- Path Parameter = 무엇을 대상으로 하는가?
+- Query Parameter = 어떻게 조회/처리할 것인가?
+- Requst Body = 어떤 데이터를 전달할 것인가?
+
+| Method | Usage | URI | Path Parameter | Query Parameter | Request Body |
+| :---: | :---: | :--- | :--- | :--- | :--- |
+| GET | 목록 | /users | | 페이징/검색/필터/정렬 | |
+| GET | 조회 | /users/{id} | id | 부가 옵션 | |
+| POST | 생성 | /users | | 부가 옵션 | 생성 데이터 |
+| PATCH | 일부 수정 | /users/{id} | id | 부가 옵션 | 일부 데이터 |
+| PUT | 전체 수정 | /users/{id} | id | 부가 옵션 | 전체 데이터 |
+| DELETE | 삭제 | /users/{id} | id | 부가 옵션 | |
 
 
 ## 4. 연동 정의(Interface Define)
@@ -109,9 +112,9 @@ Response 시 JSON 구조는 하기 형식과 같으며 1) header의 code, messag
 ## 5. List of Interface(인터페이스 목록)
 - 연동처의 정책에 의거하여 하기 기능은 선택적으로 연동할 수 있다.
 
-| NO | Entity | Method | Function | URL | Etc |
+| NO | Entity | Method | Function | URI | Etc |
 | :---: | :--- | :---: | :--- | :--- | :--- |
-| 3-1 | Monitoring | GET | [목록](#모니터링-목록) | /monitors?page=&size=&search_field=&search_term=&sort_field=&sort_order= | |
+| 3-1 | Monitoring | GET | [목록](#모니터링-목록) | /monitors | |
 | 3-2 | Monitoring | POST | [등록](#모니터링-등록) | /monitors | |
 <!--
 Query Parameter
@@ -178,18 +181,28 @@ Response
 ```
 -->
 ### 모니터링 목록
+> GET {Base URL}/monitors?page=1&size=10&search_field=reg_svr&search_term=PLZ_WAS_001&sort_field=reg_svr_dt&sort_order=asc
+
 | NO | `Query Parameter` | Data Type(Size) | Required | Description |
 | :---: | :--- | :--- | :---: | :--- |
-| 1 | page | SMALLINT | N | 페이지 번호(기본값: 1) |
-| 2 | size | TINYINT | N | 페이지 크기(기본값: 10) |
-| 3 | search_field | VARCHAR(16) | N | 검색 대상(seq_mon_target 등) |
+| 1 | page | SMALLINT | N | 페이지 번호(`기본값`: 1) |
+| 2 | size | TINYINT | N | 페이지 크기(`기본값`: 10) |
+| 3 | search_field | VARCHAR(16) | N | 검색 대상(reg_svr 등) |
 | 4 | search_term | VARCHAR(16) | N | 검색어 |
-| 5 | sort_field | VARCHAR(8) | N | 정렬 대상(reg_svr_dt 등) |
-| 6 | sort_order | VARCHAR(8) | N | 정렬 방식(asc or desc) |
-
+| 5 | sort_field | VARCHAR(16) | N | 정렬 대상(reg_svr_dt 등) |
+| 6 | sort_order | VARCHAR(8) | N | 정렬(`기본값`: asc or desc) |
+<!--
+sort=+category,-price
+sort=category|desc,price|asc
+-->
 | NO | Response Body | Data Type(Size) | Required | Description |
 | :---: | :--- | :--- | :---: | :--- |
-| 1 | seq_mon | BIGINT | Y | 모니터링 일련번호 |
+| 1 | - | Array[Object] | Y | 모니터링 객체 배열 |
+
+<!--
+Array(String)
+"role" : ["admin", "manager"]
+-->
 
 ```json
 Request 
@@ -201,15 +214,6 @@ Request
         , "token": "JSON Web Token(JWT) is ..."
     },
     "body": {
-        "seq_srv": 0
-        , "seq_mon_target": 0
-        , "seq_fail_code": 0
-        , "flg_fail": "N"
-        , "memo": "10"
-        , "reg_svr": "PLZ_WAS_001"
-        , "reg_svr_dt": "2026-08-28 17:38:09"
-        , "upt_svr": ""
-        , "upt_svr_dt": ""
     }
 }
 
@@ -219,9 +223,30 @@ Response
         "code": "0000"
         , "message": "성공"
     },
-    "body": {
-        "seq_mon": 1
-    }
+    "body": [
+        {
+            "seq_mon": 1
+            , "seq_mon_target": 0
+            , "seq_fail_code": 0
+            , "flg_fail": "N"
+            , "memo": "10"
+            , "reg_svr": "PLZ_WAS_001"
+            , "reg_svr_dt": "2026-08-28 17:38:09"
+            , "upt_svr": ""
+            , "upt_svr_dt": ""
+        }
+        , {
+            "seq_mon": 2
+            , "seq_mon_target": 0
+            , "seq_fail_code": 1
+            , "flg_fail": "Y"
+            , "memo": "99"
+            , "reg_svr": "PLZ_WAS_001"
+            , "reg_svr_dt": "2026-08-28 17:38:19"
+            , "upt_svr": ""
+            , "upt_svr_dt": ""
+        }
+    ]
 }
 ```
 
@@ -236,9 +261,9 @@ Response
 | 4 | flg_fail | CHAR(1) | Y | 장애 여부(Y or N) |
 | 5 | memo | VARCHAR(1024) | O | 메모 |
 | 6 | reg_svr | VARCHAR(16) | Y | 등록 서버 |
-| 7 | reg_svr_dt | CHAR(19) | Y | 등록 서버 일시(YYYY-MM-DD HH:MM:SS) |
-| 8 | upt_svr | VARCHAR(16) | N | 수정 서버(단, 수정 시 필수) |
-| 9 | upt_svr_dt | CHAR(19) | N | 수정 서버 일시(YYYY-MM-DD HH:MM:SS 단, 수정 시 필수) |
+| 7 | reg_svr_dt | CHAR(19) | Y | 등록 서버 일시 |
+| 8 | upt_svr | VARCHAR(16) | N | 수정 서버(`단, 수정 시 필수`) |
+| 9 | upt_svr_dt | CHAR(19) | N | 수정 서버 일시(`단, 수정 시 필수`) |
 
 | NO | Response Body | Data Type(Size) | Required | Description |
 | :---: | :--- | :--- | :---: | :--- |
@@ -336,9 +361,18 @@ Response
 
 ## 7. Code List(코드 목록)
 ### 7-1. HTTP Response Code
-| NO | Code | Description |
-| :---: | :---: | :--- |
-| 1-1 | 200 | OK |
+| Code | Description |
+| :---: | :--- |
+| 200 | OK(조회/수정 성공) |
+| 201 | Created(생성 성공) |
+| 204 | No Content(삭제 성공) |
+| 400 | Bad Request(잘못된 요청) |
+| 401 | Unauthorized(인증 실패=인증 없는 요청 등) |
+| 403 | Forbidden(권한 없음=접근 권한 없음 등) |
+| 404 | Not Found(리소스 없음=회원을 찾을 수 없음 등) |
+| 409 | Conflict(중복/충돌=이메일 중복 등) |
+| 422 | Unprocessable Entity(입력값 검증 실패) |
+| 500 | Internal Server Error(서버 내부 오류) |
 
 <!--
 | NO    | Code                 | Data Type(Size) | Value  | Description |
