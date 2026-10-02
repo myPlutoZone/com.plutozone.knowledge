@@ -180,17 +180,17 @@ flowchart TB
 
 > 메모리 기능 동작 프로세스
 
-### 3-1. 내장 Advisor
+### 2-2. 내장 Advisor
 
-#### 3-1-1. 로깅 Advisor(SimpleLoggerAdvisor)
+#### 2-2-1. 로깅 Advisor(SimpleLoggerAdvisor)
 
 : ChatClient의 요청과 응답 내용을 로깅하며 LLM 상호작용을 디버깅하고 모니터링을 할 때 유용
 
-#### 3-1-2. 사용자 질문 검사 Advisor(SafeGuardAdvisor)
+#### 2-2-2. 사용자 질문 검사 Advisor(SafeGuardAdvisor)
 
 : 사용자 질문에서 민감한 단어가 포함되어 있을 경우 요청을 처리하지 않고 차단
 
-#### 3-1-3. 대화 기억(Chat Memory) Advisor
+#### 2-2-3. 대화 기억(Chat Memory) Advisor
 
 ##### MessageChatMemoryAdvisor
 
@@ -204,7 +204,7 @@ flowchart TB
 
 : 대화 기억을 벡터 저장소에서 검색하여 프롬프트의 시스템 텍스트에 추가(벡터 데이터베이스를 활용해 현재 질문과 관련된 과거 기록만 선별해 가져오며 대화량이 많아져도 필요한 맥락을 효과적으로 활용 가능)
 
-#### 3-1-4. 검색 증강 생성(RAG) Advisor
+#### 2-2-4. 검색 증강 생성(RAG) Advisor
 
 ##### QuestionAnswerAdvisor
 
@@ -233,7 +233,7 @@ flowchart TB
 | **Post-Retrieval** | Document Post-Processing | `DocumentPostProcessor` | 검색된 Document를 재정렬, 필터링, 압축 등으로 후처리 | 커스텀 구현 가능 |
 | **Generation** | Query Augmentation | `QueryAugmenter` | 검색된 Document의 내용을 사용자 질의에 추가하여 LLM 입력으로 구성 | `ContextualQueryAugmenter` |
 
-### 3-2. TokenTextSplitter
+### 2-3. TokenTextSplitter
 
 #### Parameter(매개변수)
 
@@ -262,4 +262,13 @@ flowchart TB
 5. 강제 절단: 만약 빵이 너무 밋밋해서 썰기 좋은 결을 찾지 못한 채 목표치인 800g에 도달해버렸다면 제빵사는 빵이 더 이상 커지는 것을 막기 위해 800g이 되는 지점에서 칼로 싹둑 강제로 자릅니다.
 6. 다음 작업: 성공적으로 잘라낸 빵 조각을 바구니에 담고, 남은 빵을 가져와 다시 2번부터 똑같은 과 정을 반복하며 끝까지 소분합니다.
 이처럼 TokenTextSplitter는 단순한 기계적 분할이 아니라, 문맥의 끊김을 최소화하는 똑똑한 분할 전 략을 사용합니다.
--->	
+-->
+
+
+### 3. Reference
+#### markitdown
+> Microsoft에서 만든 문서 파일을 Markdown 형식으로 변환하는 Python 도구
+```cmd
+C:\> pip install markitdown
+C:\> markitdown sample.pdf > sample.md
+```
