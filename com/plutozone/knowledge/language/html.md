@@ -1,23 +1,18 @@
 # com.plutozone.knowledge.language.HTML
 
 
-01. HTML 기반의 웹 화면 설계 및 구현
-02. 반응형 웹(Responsive Web) 설계 및 구현
-03. 고객 편리성 제공 화면을 위한 설계 및 구현
-
-## Introduction to HTML
-- 정적 리소스(Static Resource)
-- HTML + CSS + JavaScript는 웹 브라우저(Web Browser)에서 실행
-- Web Page at Backend vs. Web Page at Frontend
-- Publisher vs. Developer
-- My JavaScript Library vs. jQuery(Dynamic UI), AngularJS(Mobile), Vue.js(Dynamic Web Page), …
-- [학습 목표] 1) 관리자의 화면 설계서(SB, Story Board) 작성 2) 관리자 화면 구현
+## Introduction to HTML, CSS, JavaScript(jQuery) and Front Framework
+- HTML + CSS + JavaScript는 웹 브라우저(Web Browser)에서 실행 and 정적 리소스(Static Resource)
+- `My JavaScript Library` vs. `jQuery` vs. `React, AngularJS, Vue.js, …`
+- `Front UI Framework`(=웹사이트의 UI를 쉽고 빠르게 만들 수 있도록 미리 만들어진 CSS와 JavaScript를 제공, 예: Bootstrap, ...) vs. `Front Development Framework`(예: React, ...)
+- `Backend vs. Frontend` and `Publisher vs. Developer`
+- 서비스 및 관리자 화면 설계서(SB=Story Board)와 구현
 
 
 ## Contents
-1. HTML 기반의 웹 화면 설계 및 구현
-2. 반응형 웹(Responsive Web) 설계 및 구현
-3. 고객 편리성 제공 화면을 위한 설계 및 구현
+1. [HTML 기반의 웹 화면 설계 및 구현](#1-html-기반의-웹-화면-설계-및-구현)
+2. [반응형 웹(Responsive Web) 설계 및 구현](#2-반응형-웹responsive-web-설계-및-구현)
+3. [고객 편리성 제공 화면을 위한 설계 및 구현](#3-고객-편리성-제공-화면을-위한-설계-및-구현)
 
 
 ## 1. HTML 기반의 웹 화면 설계 및 구현

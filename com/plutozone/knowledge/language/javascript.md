@@ -26,7 +26,7 @@
 ### 기본 문법
 - 문장(;)과 대소문자 구분 등
 - 선언문
-	```
+	```html
 	...
 	<head>
 		<script> … </script>
@@ -38,7 +38,7 @@
 	```
 - 주석
 	- //
-	- /* …*/
+	- /* … */
 - 전역 또는 지역 변수
 	- var
 	- 예약어
@@ -59,27 +59,28 @@
 - 템플릿 리터럴
 	- JavaScript에서 backtick(`) 문자를 사용하여 문자열을 표현
 		```js
-				var name		= "James";
-				var message	= `Dear ${name} 
+				var name	= "James";
+				var message	= `Dear ${name}
 		My name is Pluto.
 					I'm ${1+1} years old.`;
 				alert(message);
 		```
 	- 이렇게 사용하면 두가지 기능이 있는데 (1)줄바꿈을 쉽게 할수 있고 (2)문자열 내부에 표현식을 포함할 수 있게 된다.
 
+
 ## 2. 제어문
 ### 조건문(Conditional Statements)
-	- if
-	- if/else
-	- if/else if
-	- if/else if/else
-	- switch/case
+- if
+- if/else
+- if/else if
+- if/else if/else
+- switch/case
 
 ### 반복문(Loop Statements)
-	- while
-	- do/while
-	- for
-	- break와 continue
+- while
+- do/while
+- for
+- break와 continue
 
 
 ## 3. 객체(Object)
@@ -93,7 +94,7 @@
 
 ## 4. 함수(Function)
 - 정의
-	```
+	```javascript
 	...
 	function functionName() {…}
 	...
@@ -136,7 +137,7 @@
 ### jQuery 기반의 선택자(Selector)
 - 직접 선택자: 전체, 아이디, 클래스, 요소, 그룹, 종속 등
 - 인접 선택자: 부모, 상위, 인접 상위, 하위, 자식, 자식들, 이전, 이전들, 다음, 다음들 등	
-- 위치/속성/콘텐츠 탐색 선택자 등	
+- 위치/속성/콘텐츠 탐색 선택자 등
 ![Selector](./image/js/select-1.png)
 ![Selector](./image/js/select-2.png)
 ![Selector](./image/js/select-3.png)
