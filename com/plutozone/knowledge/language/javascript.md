@@ -136,7 +136,7 @@
 
 ### jQuery 기반의 선택자(Selector)
 - 직접 선택자: 전체, 아이디, 클래스, 요소, 그룹, 종속 등
-- 인접 선택자: 부모, 상위, 인접 상위, 하위, 자식, 자식들, 이전, 이전들, 다음, 다음들 등	
+- 인접 선택자: 부모, 상위, 인접 상위, 하위, 자식, 자식들, 이전, 이전들, 다음, 다음들 등
 - 위치/속성/콘텐츠 탐색 선택자 등
 ![Selector](./image/js/select-1.png)
 ![Selector](./image/js/select-2.png)
@@ -158,7 +158,7 @@
 	- 그룹
 - Event 객체와 종류
 	- 마우스: clientX, clientY, pageX, pageY 등
-	- 키보드: keyCode, altKey, ctrlKey 등 
+	- 키보드: keyCode, altKey, ctrlKey 등
 	- 전체: target 등
 
 ### Ajax(Asychronous JavaScript and XML)
