@@ -6,12 +6,8 @@
 2. [Installation and Configuration](#2-installation-and-configuration)
 3. [Performance](#3-performance)
 4. [Error](#4-error)
+5. [Tip](#5-tip)
 
-
-## 0. Temp
-- 윈도우에서 Tomcat Console를 UTF-8로 설정
-	- 레지스트리에서 컴퓨터\HKEY_CURRENT_USER\Console\Tomcat를 확인 또는 필요 시 생성
-	- DWORD로 CodePage 생성 후 10진수로 65001 값을 설정
 
 ## 1. Recommand
 - `Web Server(예: Nginx)`는 `공용 서비스`이므로 `공용 계정`(예: nginx:nginx는 Nginx 서비스 관리 권한 등) 및 `개별 계정`(예: backoffice:nginx는 리소스 관리 권한만) 생성
@@ -32,8 +28,8 @@
 	```bash
 	$ tar zxvf apache-tomcat-9.0.16.tar.gz
 	$ cd ~/apache-tomcat-9.0.16/bin
-	$ chmod 755 startup.sh		// 필요 시 변경
-	$ chmod 755 shutdown.sh		// 필요 시 변경
+	$ chmod 755 startup.sh		# 필요 시 변경
+	$ chmod 755 shutdown.sh		# 필요 시 변경
 	$ ./start.sh
 	```
 - **catalina.out per Daily**
@@ -41,8 +37,8 @@
 	$ pico catalina.sh
 	...
 	if [ -z "$CATALINA_OUT" ] ; then
-		# CATALINA_OUT="$CATALINA_BASE"/logs/catalina.out   // 주석 처리
-		CATALINA_OUT=/dev/null                              // null 처리
+		# CATALINA_OUT="$CATALINA_BASE"/logs/catalina.out	# 주석 처리
+		CATALINA_OUT=/dev/null								# null 처리
 	fi
 	...
 	```
@@ -316,3 +312,11 @@
 	$JAVA_HOME/jre/lib/logging.properties 파일에 위의 내용을 추가한 후 tomcat을 재시작 한다.
 	```
 	</details>
+
+
+## 5. Tip
+- Tomcat Console 화면에서 한글이 깨어질 때
+	- 방법 1) [권장] Tomcat Console의 Encoding을 UTF-8로 설정
+		- 레지스트리에서 컴퓨터\HKEY_CURRENT_USER\Console\Tomcat를 확인 또는 필요 시 생성
+		- DWORD로 CodePage 생성 후 10진수로 65001 값을 설정
+	- 방법 2) /conf/logging.properties 파일에서 Tomcat Console의 Logging Encoding을 EUC-KR로 변경
