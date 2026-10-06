@@ -8,6 +8,11 @@
 4. [Error](#4-error)
 
 
+## 0. Temp
+- 윈도우에서 Tomcat Console를 UTF-8로 설정
+	- 레지스트리에서 컴퓨터\HKEY_CURRENT_USER\Console\Tomcat를 확인 또는 필요 시 생성
+	- DWORD로 CodePage 생성 후 10진수로 65001 값을 설정
+
 ## 1. Recommand
 - `Web Server(예: Nginx)`는 `공용 서비스`이므로 `공용 계정`(예: nginx:nginx는 Nginx 서비스 관리 권한 등) 및 `개별 계정`(예: backoffice:nginx는 리소스 관리 권한만) 생성
 - `Application Server(예: Tomcat)`는 `개별 서비스`이므로 `개별 계정`(예: backoffice:tomcat, Tomcat 서비스 + 리소스 관리 권한만) 생성
