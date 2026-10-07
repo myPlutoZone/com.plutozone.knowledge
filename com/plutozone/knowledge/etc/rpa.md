@@ -29,7 +29,7 @@
 	- UiPath Orchestrator(원격 및 로봇에 대한 통합 관리 시스템)
 	- UiPath Robot(로봇은 Attended-유인 시스템 vs. Unattended-무인 시스템으로 구분)
 - UiPath 홈페이지 또는 포럼의 교육 및 기술 자료 참고
-- Tip	
+- Tip
 	- Activity 안 보일 시 필터의 클래식을 체크할 것
 	- Activity 수정 시 F2 키를 클릭하면 선택 전에 시간 여유가 생김
 
@@ -43,7 +43,7 @@
 - UiPath Studio 시작 및 화면 구성
 
 
-# 변수와 자료형 그리고 범위(데이터 타입에 따른 변수 선언 후 값 지정 및 메시지 박스에 값 출력)
+## 변수와 자료형 그리고 범위(데이터 타입에 따른 변수 선언 후 값 지정 및 메시지 박스에 값 출력)
 - Sequence x 2
 - Asign x 4
 - Message Box x 4
