@@ -4,7 +4,7 @@
 ## RPA(Robotic Process Automation, 로봇 프로세스 자동화 = 소프트웨어 로봇) vs. 하드웨어 로봇
 - RPA는 `단순하고 반복적인 일을 하는 곳에 적용 가능` vs. 창의적 업무는 우리가
 - 자동화의 진화 단계(PWC 참고)
-	- 자동화 스크립트 or 매크로(예: 엑셀 등 특정 환경에서만 동작)
+	- 자동화 스크립트 또는 매크로(예: AutoHotKey, 엑셀 등은 특정 환경에서 동작)
 	- RPA(로봇 프로세스 자동화: Rule Base)
 	- 프로세스 통합(여러 업무를 통합하여 자동화)
 	- 지능형 자동화(IPA, Intelligent Robotic Automation: AI 기반)
@@ -40,7 +40,7 @@
 
 
 ## UiPath 시작
-- EX-1) Hello, UiPath
+- Hello, UiPath at EX-01
 	- 새 프로젝트 > 프로세스
 	- Flowchat
 	- Message Box
@@ -65,7 +65,7 @@
 - 변수 선언은 1) 변수 패널 또는 2) 해당 Activity에서 단축키 이용(Ctrl + K)하여 선언
 - 자료형은 .NET Framework 기반으로 제공
 - 범위는 변수 패널에서 전역 또는 지역 등으로 설정
-- EX-2) 데이터 타입에 따른 변수 선언 후 값 지정 및 메시지 박스에 값 출력
+- 데이터 타입에 따른 변수 선언 후 값 지정 및 메시지 박스에 값 출력 at EX-02
 	- 새 프로젝트 > 프로세스
 	- Flowchat
 	- Sequence x 2
@@ -76,7 +76,7 @@
 
 ## Package와 Activity
 - Package 검색 및 설치(예: PDF는 패키지 설치 필요) 그리고 관리
-- 자주 사용하는 Activity와 속성
+- 자주 사용하는 Activity와 속성 at EX-03
 	- Flowchat, Sequence, Message Box, Write Line, Assign, For Each
 	- Click
 		- ContinueOnError
@@ -101,22 +101,30 @@
 
 
 ## 데이터(.NET 기반) 조작(사용 및 관리)
-- 문자열
-- 시간
-- 배열과 리스트
-- 데이터 테이블
+- 문자열 at EX-04
+	- ToString
+	- Equals
+	- Contains
+	- Substring
+	- Split
+	- IndexOf
+- 시간 at EX-04
+	- DateTime.Now
+	- ...
+- 배열(Array)과 리스트(List) at EX-04
+	- Count
+	- ...
+- 데이터 테이블 at EX-04
+	- ...
 
 
-## 레코딩(Recoding)
+## 기능
+- 레코딩(Recoding)
+- 스크래핑(Scraping)
+- 셀렉터(Selector)
+- PDF
+- 이메일(Email)
 
 
-## 스크래핑(Scraping)
-
-
-## 셀렉터(Selector)
-
-
-## PDF
-
-
-## 이메일(Email)
+## 프로젝트
+### 네이버 메인(Main)의 증시 영역(DIV)에서 TOP 3(종목명만) at PJ-01
