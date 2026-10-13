@@ -42,41 +42,45 @@
 ## UiPath 시작
 - Hello, UiPath at EX-01
 	- 새 프로젝트 > 프로세스
-	- Flowchat
-	- Message Box
 	- Write Line
+	- Message Box
+		- 상위
+		- 다음 작업 후 자동 종료
+		- 버튼
+		- 캡션
+		- 출력
 - UiPath Studio 시작 및 화면 구성
-- Sequence vs. Flowchat
-
-| 항목 | Sequence | Flowchart |
-| :---: | :--- | :--- |
-| 구조 | 순차적 실행 구조 | 분기 및 경로 중심 구조 |
-| 실행 | 위에서 아래로 순차 실행 | 여러 방향으로 흐름 구성 가능 |
-| 조건 처리 | If 등으로 조건 처리 | Flow Decision, If 등으로 조건 처리 |
-| 반복 처리 | While, For Each 등 사용 | 반복 경로를 연결하여 구성 가능 |
-| 가독성 | 단순한 작업에 적합 | 복잡한 업무 흐름을 시각화하기에 적합 |
-| 난이도 | 비교적 간단함 | 경로가 많아지면 복잡해질 수 있음 |
-| 유지 보수 | 선형 프로세스 수정이 쉬움 | 분기 및 전체 흐름 파악에 유리함 |
-| 주요 활용 | 엑셀 처리, 데이터 입력, 파일 저장 | 승인 프로세스, 성공·실패 분기, 조건별 업무 처리 |
-| 권장 사용 | 정해진 순서대로 작업할 때 | 조건에 따라 실행 경로가 달라질 때 |
 
 
 ## 변수와 자료형 그리고 범위
-- 변수 선언은 1) 변수 패널 또는 2) 해당 Activity에서 단축키 이용(Ctrl + K)하여 선언
-- 자료형은 .NET Framework 기반으로 제공
-- 범위는 변수 패널에서 전역 또는 지역 등으로 설정
 - 데이터 타입에 따른 변수 선언 후 값 지정 및 메시지 박스에 값 출력 at EX-02
 	- 새 프로젝트 > 프로세스
 	- Flowchat
+		- Sequence vs. Flowchat
+			| 항목 | Sequence | Flowchart |
+			| :---: | :--- | :--- |
+			| 구조 | 순차적 실행 구조 | 분기 및 경로 중심 구조 |
+			| 실행 | 위에서 아래로 순차 실행 | 여러 방향으로 흐름 구성 가능 |
+			| 조건 처리 | If 등으로 조건 처리 | Flow Decision, If 등으로 조건 처리 |
+			| 반복 처리 | While, For Each 등 사용 | 반복 경로를 연결하여 구성 가능 |
+			| 가독성 | 단순한 작업에 적합 | 복잡한 업무 흐름을 시각화하기에 적합 |
+			| 난이도 | 비교적 간단함 | 경로가 많아지면 복잡해질 수 있음 |
+			| 유지 보수 | 선형 프로세스 수정이 쉬움 | 분기 및 전체 흐름 파악에 유리함 |
+			| 주요 활용 | 엑셀 처리, 데이터 입력, 파일 저장 | 승인 프로세스, 성공·실패 분기, 조건별 업무 처리 |
+			| 권장 사용 | 정해진 순서대로 작업할 때 | 조건에 따라 실행 경로가 달라질 때 |
 	- Sequence x 2
 	- Assign x 4
 	- Message Box x 4
 	- For Each
+- 변수 선언은 1) 변수 패널 또는 2) 해당 Activity에서 단축키 이용(Ctrl + K)하여 선언
+- 자료형은 .NET Framework 기반으로 제공
+- 범위는 변수 패널에서 전역 또는 지역 등으로 설정
 
 
 ## Package와 Activity
 - Package 검색 및 설치(예: PDF는 패키지 설치 필요) 그리고 관리
 - 자주 사용하는 Activity와 속성 at EX-03
+	- 새 프로젝트 > 프로세스 > Flowchat
 	- Flowchat, Sequence, Message Box, Write Line, Assign, For Each
 	- Click
 		- ContinueOnError
@@ -101,6 +105,7 @@
 
 
 ## 데이터(.NET 기반) 조작(사용 및 관리)
+- 새 프로젝트 > 프로세스 > Flowchat
 - 문자열 at EX-04
 	- ToString
 	- Equals
@@ -114,16 +119,34 @@
 - 배열(Array)과 리스트(List) at EX-04
 	- Count
 	- ...
-- 데이터 테이블 at EX-04
+- (Build) Data Table at EX-04
 	- ...
 
 
 ## 기능
-- 레코딩(Recoding)
-- 스크래핑(Scraping)
-- 셀렉터(Selector)
-- PDF
+- 레코딩(Recoding) at EX-05
+	- 새 프로젝트 > 프로세스 > Flowchat
+	- 레코딩 by 메모장
+		- 메모장 실행
+		- 레코딩 시작 및 종료
+	- 레코딩 by 웹 브라우저
+		- 웹 브라우저 실행
+		- 레코딩 시작 및 종료
+		- Get Text
+		- Message Box
+- 스크래핑(Scraping) at EX-06
+	- 새 프로젝트 > 프로세스 > Flowchat
+	- 웹 페이지 크롤링 by 웹 브라우저
+		- 웹 브라우저 실행 및 대상 접속
+		- Attach Browser
+		- Maximize Windows
+		- Extract Table Data
+		- Excel Application Scrope vs. Write CSV
+		- Close Windows
 - 이메일(Email)
+...
+- xPDF(Portable Document Format)
+- x셀렉터(Selector)
 
 
 ## 프로젝트
