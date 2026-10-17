@@ -151,3 +151,13 @@
 
 ## 프로젝트
 ### 네이버 메인(Main)의 증시 영역(DIV)에서 TOP 3(종목명만) at PJ-01
+
+
+## 참고
+### SMTP
+- Google
+	- host smtp.gmail.com
+	- port 587
+- Naver
+	- host smtp.naver.com
+	- port 465

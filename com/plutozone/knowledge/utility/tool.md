@@ -11,7 +11,7 @@
 	- https://codeshare.io
 
 ### 1-2. Presentation
-- Epic Pen, Zoomit, `K Screen Pen(빨간펜)`
+- `K Screen Pen(빨간펜) by ESC(취소), Ctrl+Tab(사용)`, Zoomit, Epic Pen
 
 
 ### 1-3. Documentation
@@ -32,7 +32,7 @@
 - `Pencil`
 - https://ovenapp.io
 - https://canva.com vs. https://figma.com/ vs. https://stitch.withgoogle.com/
-	|       | Figma | Canva | Stitch |
+	| - | Figma | Canva | Stitch |
 	| :---: | :---- | :---- | :----- |
 	| 목적 | `UI/UX 디자인` | `디자인과 콘텐츠 제작` | `AI 기반 UI 생성` |
 	| 사용자 | 기획/디자인/개발 | `기획/마케팅` | 기획/디자인/개발 |
@@ -71,7 +71,7 @@
 - Visual Route, Advanced IP Scanner, WinShark
 
 ### 4-3. SSH + SFTP
-- Putty, FileZilla, `MobaXterm include Network Tools`
+- `MobaXterm include Network Tools`, Putty, FileZilla
 
 
 ## 5. Source Management(소스 관리) 등
@@ -83,24 +83,24 @@
 ## 6. Text or IDE and Simulator
 - `Notepad++`, vi, nano(atom)
 - mTail
-- Eclipse/STS, IntelliJ, `Visual Studio Code`
+- `Visual Studio Code`, IntelliJ, STS/Eclipse
 - https://ideone.com
 
 
 ## 7. Case Tool and Utility
 - HTML + CSS
-	- https://caniuse.com, `https://csscompressor.com`
+	- `https://csscompressor.com`, https://caniuse.com
 - JavaScript
 - JSON
-	- https://codebeautify.org/jsonviewer
 	- `Postman`
+	- https://codebeautify.org/jsonviewer
 - Java
 	- Launch4j, Selenium
 - Database
-	- Toad, SQL Developer, HeidiSQL, `DBeaver`
+	- `DBeaver`, HeidiSQL, MySQL Workbench, SQL Developer, Toad
 - Virtual Machine & Emulator
-	- VMWare, `Virtual Box`
-	- BlueStacks, `Nox`
+	- `Virtual Box`, VMWare
+	- `Nox`, BlueStacks
 - Stress Tool
 	- `Jmeter`
 - System

@@ -43,7 +43,7 @@ plutozone.com의 지적재산권 침해에 해당된다.
 | :--- | :--- | :--- |
 | Protocol | HTTP/S | |
 | Server | `별도 문의` | 개발, 상용  등 |
-| Base URL | `/v1` | |
+| API Version | `/v1` | |
 | Data Format | JSON | 필요 시 데이터 암호화 |
 | Character Encoding | UTF-8 | |
 | Authentication Method | Bearer Token | |
@@ -181,7 +181,7 @@ Response
 ```
 -->
 ### 모니터링 목록
-> GET {Base URL}/monitors?page=1&size=10&search_field=reg_svr&search_term=PLZ_WAS_001&sort_field=reg_svr_dt&sort_order=asc
+> GET {API Version}/monitors?page=1&size=10&search_field=reg_svr&search_term=PLZ_WAS_001&sort_field=reg_svr_dt&sort_order=asc
 
 | NO | `Query Parameter` | Data Type(Size) | Required | Description |
 | :---: | :--- | :--- | :---: | :--- |
