@@ -1,5 +1,46 @@
 # com.plutozone.knowledge.fundamental(80H)
 
+> 데이터를 네트워크, 프로그래밍 그리고 데이터베이스 관점에서 어떻게 관리되고 연동되는지 마크다운 다이어그램으로 한 개로만 작성해 주세요! at ChatGPT
+
+```mermaid
+flowchart TD
+    U["사용자 / 클라이언트"] --> N["네트워크 계층<br/>HTTP / HTTPS · TCP/IP · DNS"]
+    N --> API["API 서버<br/>요청 수신 · 인증 · 라우팅"]
+
+    API --> P["프로그래밍 계층<br/>비즈니스 로직 · 데이터 처리 · 검증"]
+
+    P --> C["캐시 계층<br/>Redis · 반복 조회 최적화"]
+    C <--> P
+
+    P --> ORM["데이터 접근 계층<br/>ORM · SQL · 트랜잭션"]
+    ORM --> DB["데이터베이스 계층<br/>MySQL · PostgreSQL · MongoDB"]
+
+    DB --> STORE[("데이터 저장<br/>테이블 · 문서 · 인덱스")]
+    STORE --> DB
+
+    DB --> ORM
+    ORM --> P
+    P --> API
+    API --> N
+    N --> U
+
+    DB -. "복제 · 백업 · 복구" .-> BK[("백업 저장소")]
+
+    SEC["보안 · 권한 · 암호화 · 로깅 · 모니터링"] -. "전 계층 적용" .-> N
+    SEC -.-> API
+    SEC -.-> P
+    SEC -.-> DB
+
+    classDef network fill:#DCEBFF,stroke:#3973AC,color:#17365D
+    classDef program fill:#E5DDFB,stroke:#7856A6,color:#39265C
+    classDef database fill:#DDF4E4,stroke:#39865A,color:#174D2D
+    classDef security fill:#FFF0D5,stroke:#C58B28,color:#6B4810
+
+    class N,API network
+    class P,C,ORM program
+    class DB,STORE,BK database
+    class SEC security
+```
 
 ## Keynote
 - 직업 교육(Education) vs. 직업 훈련(Training) and 교육의 가장 중요한 목적은 동기 부여

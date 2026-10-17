@@ -9,11 +9,11 @@
 
 ## Configuration
 - When an error called `"Downloading external resources is disabled."` occurs
-	```
+	```text
 	Tick off the option "download artifact javadoc" at Window > Preference > Maven
 	```
 - Workspace settings when starting Eclipse
-	```
+	```cmd
 	# 하기 파일에서 RECENT_WORKSPACES 값을 삭제 또는 변경
 	C:\> notepad.exe %ECLIPSE%\configuration\.settings\org.eclipse.ui.ide.prefs
 	```
@@ -56,7 +56,7 @@
 
 ## Plug-in(Help > Install New Software)
 - Properties Editor(http://propedit.sourceforge.jp/eclipse/updates)
-	```
+	```cmd
 	# 하기와 같이 수동으로 플러그인 설치 가능
 	C:> copy jp.gr.java_conf.ussiy.app.propedit_6.0.5.jar %ECLIPSE%\plugins
 	C:> notepad.exe %ECLIPSE%\configuration\org.eclipse.equinox.simpleconfigurator\bundles.info
@@ -69,13 +69,13 @@
 
 ## Tips
 - When a Git password Error occurs
-	```
+	```cmd
 	Delete ID/Value Informations at References > General > Security > Secure Storage > Contents > GIT
 	or
 	C:\del C:\Users\%USER%\.eclipse\org.eclipse.equinox.security\secure_storage
 	```
 - Remove Launch History
-	```
+	```cmd
 	# 하기 경로에서 파일을 삭제
 	%WORKSPACE%/.metadata/.plugins/org.eclipse.debug.core/.launches
 	```
