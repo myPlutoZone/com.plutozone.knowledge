@@ -39,9 +39,9 @@
 
 ### 1-4. 화면 구현
 - Server vs. Client and Web Site vs. Web Page
-	- 웹 서버(Web Server)의 종류(예: Apache, Nginx, IIS, ...)와 구축
-	- 웹 클라이언트(Web Client=Web Browser)의 종류(예: Chrome, Edge, ...)와 특징 그리고 호환성
-	- 웹 페이지 개발 도구의 종류(예: VS Code, notepad, vi, nano, ...)와 설치
+	- 웹 서버(Web Server)의 종류(예: Apache, Nginx, IIS, ...)와 구축(참고: `Tomcat으로 대체`) 그리고 `설정 및 사용법`
+	- 웹 클라이언트(Web Client=Web Browser)의 종류(예: `Chrome`, Edge, ...)와 설치 그리고 `설정 및 사용법(개발자 도구, 캐쉬 등)`
+	- 웹 페이지 개발 도구의 종류(예: `VS Code`, notepad, `vi`, nano, ...)와 설치 그리고 `설정 및 사용법`
 	- ![Generic badge](https://img.shields.io/badge/중요-서버_vs._로컬-red.svg) 웹 페이지(hello.html) 개발 후 `웹 서버로 실행` vs. `파일로 실행`
 - Web Server(WS) vs. Web Application Server(WAS)
 - `Cheat Sheet` for `HTML`, `CSS` at Google Image(https://www.google.com/imghp?hl=ko&ogbl)

@@ -59,11 +59,11 @@
 - 템플릿 리터럴
 	- JavaScript에서 backtick(`) 문자를 사용하여 문자열을 표현
 		```js
-				var name	= "James";
-				var message	= `Dear ${name}
+		var name	= "James";
+		var message	= `Dear ${name}
 		My name is Pluto.
-					I'm ${1+1} years old.`;
-				alert(message);
+		I'm ${1+1} years old.`;
+		alert(message);
 		```
 	- 이렇게 사용하면 두가지 기능이 있는데 (1)줄바꿈을 쉽게 할수 있고 (2)문자열 내부에 표현식을 포함할 수 있게 된다.
 
@@ -86,10 +86,68 @@
 ## 3. 객체(Object)
 - 객체(Object) = 메소드(Method) + 속성(Property) + 이벤트(Event)
 - 객체(All of Object in Browser Script Engine) in JavaScript
+	```mermaid
+	flowchart TB
+	ROOT["All of Object in Browser Script Engine"]
+
+	ROOT --> DOM["DOM (Document Object Model)"]
+	ROOT --> BOM["BOM (Browser Object Model)"]
+	ROOT --> JS["Built-in Object at JavaScript"]
+
+	%% DOM
+	DOM --> DOC["<b>document</b>"]
+	DOC --> HTML["Root element: &lt;html&gt;"]
+
+	HTML --> HEAD["Element: &lt;head&gt;"]
+	HTML --> BODY["Element: &lt;body&gt;"]
+
+	HEAD --> TITLE["Element: &lt;title&gt;"]
+	TITLE --> TITLETEXT["Text: &quot;My Title&quot;"]
+
+	BODY --> A["Element: &lt;a&gt;"]
+	BODY --> H1["Element: &lt;h1&gt;"]
+
+	A --> LINKTEXT["Text: &quot;My Link&quot;"]
+	A -.-> HREF["Attribute: &quot;href&quot;"]
+
+	H1 --> H1TEXT["Text: &quot;My Header&quot;"]
+
+	BODY -.-> MORE1["..."]
+
+	%% Additional DOM objects
+	DOC -.-> FORM["form"]
+	DOC -.-> IMAGE["image"]
+	DOC -.-> MORE2["..."]
+
+	%% BOM
+	BOM --> WINDOW["window"]
+	WINDOW --> BOMDOC["<b>document</b>"]
+	WINDOW --> HISTORY["history"]
+	WINDOW --> LOCATION["location"]
+	WINDOW --> NAVIGATOR["navigator"]
+	WINDOW --> SCREEN["screen"]
+
+	SCREEN -.-> MORE3["..."]
+
+	%% JavaScript built-in objects
+	JS --> OBJECT["Object"]
+	JS --> STRING["String"]
+	JS --> DATE["Date"]
+	JS --> ARRAY["Array"]
+	JS --> FUNCTION["Function"]
+	JS -.-> MORE4["..."]
+
+	%% Styling
+	classDef root fill:#fff,stroke:#666,stroke-width:1.5px,color:#222;
+	classDef category fill:#fff,stroke:#666,stroke-width:1.5px,color:#222;
+	classDef node fill:#fff,stroke:#666,color:#222;
+	class ROOT root;
+	class DOM,BOM,JS category;
+	class DOC,HTML,HEAD,BODY,TITLE,TITLETEXT,A,H1,LINKTEXT,HREF,H1TEXT,FORM,IMAGE,MORE1,MORE2,WINDOW,BOMDOC,HISTORY,LOCATION,NAVIGATOR,SCREEN,MORE3,OBJECT,STRING,DATE,ARRAY,FUNCTION,MORE4 node;
+	```
 	- 내장 객체(Built-in Object): Object, String, Date, Array, Math, RegExp 등
 	- 브라우저 객체 모델(BOM, Browser Object Model): window, screen, location, history, navigator 등
 	- 문서 객체 모델(DOM, Document Object Model): HTML 문서 구조
-	![Object](./image/js/object.png)
 
 
 ## 4. 함수(Function)
@@ -135,12 +193,62 @@
 	- CDN 방식(https://cdnjs.com/libraries/jquery)
 
 ### jQuery 기반의 선택자(Selector)
-- 직접 선택자: 전체, 아이디, 클래스, 요소, 그룹, 종속 등
-- 인접 선택자: 부모, 상위, 인접 상위, 하위, 자식, 자식들, 이전, 이전들, 다음, 다음들 등
-- 위치/속성/콘텐츠 탐색 선택자 등
-![Selector](./image/js/select-1.png)
-![Selector](./image/js/select-2.png)
-![Selector](./image/js/select-3.png)
+- 직접(전체, 아이디, 클래스, 요소, 그룹, 종속 등) 선택자
+	```html
+	<!DOCTYPE html>
+	<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<title>아이디(#) 선택자</title>
+		<script src="js/jquery.js"></script>
+		<script>
+			$(function() {
+				$("#title").css("color", "red");
+			});
+		</script>
+	</head>
+	<body>
+		<h1 id="title">제목</h1>
+	</body>
+	</html>
+	```
+	```html
+	<!DOCTYPE html>
+	<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<title>클래스(.) 선택자</title>
+		<script src="js/jquery.js"></script>
+		<script>
+			$(function(){
+				$(".tit").css("background-color", "#ff0").css("border", "2px dashed #f00");
+			});
+		</script>
+	</head>
+	<body>
+		<h1>제이쿼리</h1>
+		<h2 class="tit">선택자</h2>
+		<h3>직접 선택자</h3>
+	</body>
+	</html>
+	```
+- 인접(부모, 상위, 인접 상위, 하위, 자식, 자식들, 이전, 이전들, 다음, 다음들 등), 위치, 속성, 콘텐츠 등 선택자
+	```CSS
+	# CSS 기반의 선택자(selector, http://flukeout.github.io/)
+	- ul li {...}					: ul 다음의 li들
+	- ul * {...}					: ul 다음의 모든
+	- ul .CLASS * {...}				: CLASS를 가진 ul 다음의 모든
+	- #ID li {...}					: ID의 다음의 li들
+	- #ID > li {...}				: ID의 직계 li
+	- ul.CLASS {...}				: CLASS를 가진 ul들
+	- ul, ol {...}					: ul들과 ol들
+	- ul, .CLASS {...}				: ul들과 CLASS들
+	- div + ul {...}				: div가 가진 ul들
+	- div .CLASS {...}				: div가 가진 .CLASS들
+	- div ~ ul {...}				: div 다음의 ul들
+	- ul li:first-child {...}		: ul 다음의 li들 중에서 첫 번째
+	- ul li:only-child {...}		: ul 다음의 li가 하나뿐인 li들
+	```
 
 ### jQuery 기반의 조작 메서드(Method)
 - 속성 조작 메서드
