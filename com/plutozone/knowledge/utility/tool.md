@@ -50,9 +50,8 @@
 	| 할용 | 디자인 | 마케팅/교육/브랜딩 자료 | MVP/아이디어/초기 프로토타입 |
 
 ### 3-2. ERD(Entity Relationship Diagram) or UML 등
-- `https://erdcloud.com`
+- `https://erdcloud.com`, eXERD, MySQL WorkBench, ERWin 등
 - `https://draw.io` = https://app.diagrams.net
-- `draw.io`, eXERD, MySQL WorkBench, ERWin 등
 - StarUML
 
 

@@ -319,4 +319,4 @@
 	- 방법 1) [권장] Tomcat Console의 Encoding을 UTF-8로 설정
 		- 레지스트리에서 컴퓨터\HKEY_CURRENT_USER\Console\Tomcat를 확인 또는 필요 시 생성
 		- DWORD로 CodePage 생성 후 10진수로 65001 값을 설정
-	- 방법 2) /conf/logging.properties 파일에서 Tomcat Console의 Logging Encoding을 EUC-KR로 변경
+	- 방법 2) /conf/logging.properties 파일에서 Tomcat Console의 Logging Encoding을 UTF-8을 주석 처리 또는 EUC-KR로 변경
