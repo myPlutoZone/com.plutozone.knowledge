@@ -23,9 +23,9 @@
 @import url(/css/initial.css);
 @import url(/css/font.css);
 
-.txtLeft  {text-align:left   !important}
-.txtCenter{text-align:center !important}
-.txtRight {text-align:right  !important}
+.txtLeft	{text-align: left !important}
+.txtCenter	{text-align: center !important}
+.txtRight	{text-align: right !important}
 
-.btnBasic{border-radius:5px;display:inline-block;min-width:50px;height:26px;line-height:26px;text-align:center;background-color:#808080;color:#FFFFFF;vertical-align:middle;margin:10px auto 10px;padding:0px 7px}
-.btnMore {border-radius:5px;display:inline-block;min-width:50px;height:26px;line-height:26px;text-align:center;background-color:#000000;color:#808080;vertical-align:middle;margin:10px auto 10px;padding:0px 7px}
+.btnBasic	{border-radius: 5px; display: inline-block; min-width: 50px; height: 26px; line-height: 26px; text-align: center; background-color: #808080; color: #FFFFFF; vertical-align: middle; margin: 10px auto 10px; padding: 0px 7px}
+.btnMore	{border-radius: 5px; display: inline-block; min-width: 50px; height: 26px; line-height: 26px; text-align: center; background-color: #000000; color: #808080; vertical-align: middle; margin: 10px auto 10px; padding: 0px 7px}

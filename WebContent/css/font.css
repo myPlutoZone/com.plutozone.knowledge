@@ -23,17 +23,19 @@
 @charset "UTF-8";
 
 @font-face {
-	font-family:"NanumGothic";
-	src:url(/css/font/NanumGothic.eot);
-	src:url(/css/font/NanumGothic.eot?#iefix) format("embeded-opentype"),
+	font-family: "NanumGothic";
+	src: url(/css/font/NanumGothic.eot);
+	src: url(/css/font/NanumGothic.eot?#iefix) format("embeded-opentype"),
 		url(/css/font/NanumGothic.woff) format("woff")
 }
+
 @font-face {
-	font-family:"NanumGothicBold";
-	src:url(/css/font/NanumGothicBold.eot);
-	src:url(/css/font/NanumGothicBold.eot?#iefix) format("embeded-opentype"),
+	font-family: "NanumGothicBold";
+	src: url(/css/font/NanumGothicBold.eot);
+	src: url(/css/font/NanumGothicBold.eot?#iefix) format("embeded-opentype"),
 		url(/css/font/NanumGothicBold.woff) format("woff")
 }
+
 /*
 @font-face {
 	font-family:"NanumGothicExtraBold";

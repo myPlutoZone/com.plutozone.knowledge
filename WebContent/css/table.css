@@ -30,13 +30,16 @@ table.headTop_01 {
 	border: 1px solid #CCC;
 	background-color: white
 }
-table.headTop_01 th, table.headTop_01 td {
+
+table.headTop_01 th,
+table.headTop_01 td {
 	padding: 3px;
 	text-align: left;
 	border-right: 1px solid #CCC;
 	border-bottom: 1px solid #CCC;
 	text-align: center
 }
+
 table.headTop_01 th {
 	background-color: #000000;
 	color: #CCC
@@ -52,6 +55,7 @@ table.headLeft_01 {
 	border-top: 1px solid #ccc;
 	border-left: 3px solid #369;
 }
+
 table.headLeft_01 th {
 	padding: 3px;
 	font-weight: bold;
@@ -60,6 +64,7 @@ table.headLeft_01 th {
 	border-right: 1px solid #ccc;
 	border-bottom: 1px solid #ccc
 }
+
 table.headLeft_01 td {
 	padding: 3px;
 	vertical-align: top;
