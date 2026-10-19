@@ -22,13 +22,13 @@
 
 .container {margin: 10px; display: flex; flex-direction: column}
 .container > header	{border: 1px solid #000000; padding: 10px}
-.container > nav	{border: 1px solid #FF0000; padding: 10px}
+.container > nav	{border: 1px solid #ff0000; padding: 10px}
 .container > footer	{border: 1px solid #000000; padding: 10px; text-align: center}
 
-.content {display: flex; border: 1px solid #0000FF}
-.content	> nav		{text-align: left;		margin: 5px; border: 1px solid #FF0000; flex-basis: 300px}
-.content	> article	{text-align: center;	margin: 5px; border: 1px solid #00FF00; flex-basis: 100%}
-.content	> aside		{text-align: right;		margin: 5px; border: 1px solid #0000FF; flex-basis: 300px}
+.content {display: flex; border: 1px solid #0000ff}
+.content	> nav		{text-align: left;		margin: 5px; border: 1px solid #ff0000; flex-basis: 300px}
+.content	> article	{text-align: center;	margin: 5px; border: 1px solid #00ff00; flex-basis: 100%}
+.content	> aside		{text-align: right;		margin: 5px; border: 1px solid #0000ff; flex-basis: 300px}
 
 @media(max-width: 500px) {
 	.content { flex-direction: column;}

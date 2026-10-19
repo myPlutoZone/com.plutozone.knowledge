@@ -37,13 +37,13 @@ hr{display:none}
 caption{visibility:hidden;overflow:hidden;width:0;height:0;font-size:0;line-height:0;text-indent:-9999px}
 legend{position:absolute;visibility:hidden;overflow:hidden;width:0px;height:0px;font-size:0px;line-height:0;text-indent:-9999px}
 a,a:active,a:focus{text-decoration:none;color:#000}
-a:hover{text-decoration:none;color:#C0C0C0}
+a:hover{text-decoration:none;color:#c0c0c0}
 input,textarea,button{line-height:1.2;vertical-align:middle}
-textarea{background:#FFFFFF;width:99%;height:100px;padding:0px 3px 0px;color:#454545;vertical-align:middle;border:1px solid #CCCCCC;resize:none;font-family:NanumGothic,Arial,"맑은 고딕",돋움}
+textarea{background:#ffffff;width:99%;height:100px;padding:0px 3px 0px;color:#454545;vertical-align:middle;border:1px solid #ccc;resize:none;font-family:NanumGothic,Arial,"맑은 고딕",돋움}
 select{border:1px solid #d7d7d7;vertical-align:middle;line-height:28px;height:28px;color:#666;font-family:NanumGothic,Arial,"맑은 고딕",돋움}
-select:focus {background-color:#F0F0F0;}
+select:focus {background-color:#f0f0f0;}
 label{vertical-align:middle}
-input[type="text"],input[type="password"]{background:#FFFFFF;padding:0px 3px 0px;vertical-align:middle;border:1px solid #D7D7D7;color:#666;font-family:NanumGothic,Arial,"맑은 고딕",돋움;height:22px;line-height:22px}
+input[type="text"],input[type="password"]{background:#ffffff;padding:0px 3px 0px;vertical-align:middle;border:1px solid #d7d7d7;color:#666;font-family:NanumGothic,Arial,"맑은 고딕",돋움;height:22px;line-height:22px}
 input[type="file"],input[type="button"]{vertical-align:middle;width:80%;margin-right:6px}
 input[type="checkbox"],input[type="radio"]{margin:0;padding:0;vertical-align:middle;width:13px;height:13px;line-height:13px}
-input:focus {background-color:#F0F0F0}
+input:focus {background-color:#f0f0f0}

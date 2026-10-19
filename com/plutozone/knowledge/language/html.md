@@ -82,6 +82,13 @@
 		- Tag(<?>)
 		- Class(.)
 		- ID(#)
+		- 기타
+			| 선택자 | 설명 |
+			| :--- | --- |
+			| `.parent > p` | 부모 바로 아래 자식 `<p>`만 선택 |
+			| `.parent p` | 부모 내부 모든 하위 `<p>`들 선택 |
+			| `.parent + p` | `.parent` 바로 다음 형제 `<p>`만 선택 |
+			| `.parent ~ p` | `.parent` 뒤에 모든 형제 `<p>`들 선택 |
 	- 속성(Attribute)과 Value(값)
 		- font-family
 		- font-size
@@ -125,7 +132,7 @@
 		```
 
 ### 1-4. 화면 검증
-- HTML by validator.w3.org + CSS by https://css-validator.org/validator.ko.html or https://css-validator.org
+- HTML by validator.w3.org + CSS by https://jigsaw.w3.org/css-validator or https://css-validator.org/validator.ko.html
 - 테스트 케이스 작성 그리고 단위 테스트 또는 통합 테스트
 
 ### 1-5. 기타

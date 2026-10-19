@@ -27,22 +27,22 @@ table.headTop_01 {
 	/* width: 95%; */
 	line-height: 1.5;
 	/* margin: 1rem auto; */
-	border: 1px solid #CCC;
-	background-color: white
+	border: 1px solid #ccc;
+	background-color: white;
 }
 
 table.headTop_01 th,
 table.headTop_01 td {
 	padding: 3px;
 	text-align: left;
-	border-right: 1px solid #CCC;
-	border-bottom: 1px solid #CCC;
-	text-align: center
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	text-align: center;
 }
 
 table.headTop_01 th {
 	background-color: #000000;
-	color: #CCC
+	color: #ccc;
 }
 
 /* 좌측 헤더 테이블 */
@@ -62,12 +62,12 @@ table.headLeft_01 th {
 	vertical-align: top;
 	color: #153d73;
 	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc
+	border-bottom: 1px solid #ccc;
 }
 
 table.headLeft_01 td {
 	padding: 3px;
 	vertical-align: top;
 	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc
+	border-bottom: 1px solid #ccc;
 }
