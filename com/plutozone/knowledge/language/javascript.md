@@ -6,10 +6,9 @@
 02. 제어문
 03. 객체(Object)
 04. 함수(Function)
-05. 객체(HTML Element) 선택과 관리 및 이벤트 처리
-06. Ajax(Asychronous JavaScript and XML)
-07. jQuery
-08. 고객 편리성 제공 화면을 위한 설계 및 구현
+05. Ajax(Asychronous JavaScript and XML)
+06. jQuery
+07. 고객 편리성 제공 화면을 위한 설계 및 구현
 
 
 ## 1. JavaScript 특징과 기본 문법들
@@ -30,9 +29,11 @@
 	...
 	<head>
 		<script> … </script>
+		<script src="common.js"></script>
 	</head>
 	<body>
 		<script> … </script>
+		<script src="common.js"></script>
 	</body>
 	...
 	```
@@ -165,13 +166,7 @@
 	- eval() 등
 
 
-## 5. 객체(HTML Element) 선택과 관리 및 이벤트 처리
-### 선택자(Selector)
-### 관리 메서드(Method)
-### 이벤트(Event) 등록과 처리 그리고 제거
-
-
-## 6. Ajax(Asychronous JavaScript and XML)
+## 5. Ajax(Asychronous JavaScript and XML)
 - 비동식 방식의 JavaScript와 XML
 - HyperText(화면 전환 필요) vs. Ajax 그리고 동기식(응답 대기 필요) vs. 비동기식
 - Text vs. HTML vs. XML vs. JSON
@@ -183,7 +178,7 @@
 - [Mojs-2](/WebContent/knowledge/language/js/mojs-2.html)
 
 
-## 7. jQuery
+## 6. jQuery
 ### jQuery란?
 - JavaScript의 대표적인 Library
 - 브라우저 호환성(DOM과 Event Object가 브라우저에 따라 상이함) 문제 해결?
@@ -233,22 +228,6 @@
 	</html>
 	```
 - 인접(부모, 상위, 인접 상위, 하위, 자식, 자식들, 이전, 이전들, 다음, 다음들 등), 위치, 속성, 콘텐츠 등 선택자
-	```CSS
-	# CSS 기반의 선택자(selector, http://flukeout.github.io/)
-	- ul li {...}					: ul 다음의 li들
-	- ul * {...}					: ul 다음의 모든
-	- ul .CLASS * {...}				: CLASS를 가진 ul 다음의 모든
-	- #ID li {...}					: ID의 다음의 li들
-	- #ID > li {...}				: ID의 직계 li
-	- ul.CLASS {...}				: CLASS를 가진 ul들
-	- ul, ol {...}					: ul들과 ol들
-	- ul, .CLASS {...}				: ul들과 CLASS들
-	- div + ul {...}				: div가 가진 ul들
-	- div .CLASS {...}				: div가 가진 .CLASS들
-	- div ~ ul {...}				: div 다음의 ul들
-	- ul li:first-child {...}		: ul 다음의 li들 중에서 첫 번째
-	- ul li:only-child {...}		: ul 다음의 li가 하나뿐인 li들
-	```
 
 ### jQuery 기반의 조작 메서드(Method)
 - 속성 조작 메서드
@@ -276,7 +255,7 @@
 - Non Cross-Domain
 
 
-## 8. 고객 편리성 제공 화면을 위한 설계 및 구현
+## 7. 고객 편리성 제공 화면을 위한 설계 및 구현
 ### 메인
 ### 로그인
 ### 목록
