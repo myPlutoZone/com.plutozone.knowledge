@@ -10,10 +10,10 @@
 
 
 ## Contents
-1. [HTML 기반의 웹 화면 설계 및 구현](#1-html-기반의-웹-화면-설계-및-구현)
-2. [반응형 웹(Responsive Web) 설계 및 구현](#2-반응형-웹responsive-web-설계-및-구현)
-3. [고객 편리성 제공 화면을 위한 설계 및 구현](#3-고객-편리성-제공-화면을-위한-설계-및-구현)
-4. 참고
+01. [HTML 기반의 웹 화면 설계 및 구현](#1-html-기반의-웹-화면-설계-및-구현)
+02. [반응형 웹(Responsive Web) 설계 및 구현](#2-반응형-웹responsive-web-설계-및-구현)
+03. [고객 편리성 제공 화면을 위한 설계 및 구현](#3-고객-편리성-제공-화면을-위한-설계-및-구현)
+04. [참고](#4-참고)
 
 
 ## 1. HTML 기반의 웹 화면 설계 및 구현
@@ -38,24 +38,25 @@
 - 웹의 3요소(표준, 접근성, 호환성)
 
 ### 1-4. 화면 구현
+- Syntax Error vs. Compile Error vs. Runtime Error
 - ![Generic badge](https://img.shields.io/badge/중요-Web_Page_=_HTML_+_CSS_+_JavaScript-red.svg)
-	| 기술 | 역할 | 주요 기능 | 비유 |
+	| 기술 | 역할 | 주요 기능 | 비고 |
 	|---|---|---|---|
 	| HTML | 웹 페이지의 구조와 콘텐츠 구성 | 제목, 문단, 이미지, 링크, 입력 폼 등 | 집의 뼈대 |
 	| CSS | 웹 페이지의 디자인과 레이아웃 | 색상, 글꼴, 크기, 간격, 배치, 애니메이션 등 | 집의 인테리어 |
 	| JavaScript | 웹 페이지의 동작과 기능 구현 | 클릭 이벤트, 데이터 처리, 화면 변경, 유효성 검사 등 | 집의 전기 및 자동화 시스템 |
 - Server vs. Client and Web Site vs. Web Page
-	- 웹 서버(Web Server)의 종류(예: Apache, Nginx, IIS, ...)와 구축(참고: `Tomcat으로 대체`) 그리고 `설정 및 사용법`
-	- 웹 클라이언트(Web Client=Web Browser)의 종류(예: `Chrome`, Edge, ...)와 설치 그리고 `설정 및 사용법(개발자 도구, 캐쉬 등)`
-	- 웹 페이지 개발 도구의 종류(예: `VS Code`, notepad, `vi`, nano, ...)와 설치 그리고 `설정 및 사용법`
-	- ![Generic badge](https://img.shields.io/badge/중요-서버_vs._로컬-red.svg) 웹 페이지(hello.html) 개발 후 `웹 서버로 실행` vs. `파일로 실행`
+	- 웹 서버(Web Server)의 종류(예: Apache, Nginx, IIS, ...)와 `구축(참고: Tomcat으로 대체) 그리고 설정 및 사용법`
+	- 웹 클라이언트(Web Client=Web Browser)의 종류(예: `Chrome`, Edge, ...)와 `설치` 그리고 [설정](../development/vscode.md) 및 `사용법(개발자 도구, 캐쉬 등)`
+	- 웹 페이지 개발 도구의 종류(예: `VS Code`, notepad, `vi`, nano, ...)와 `설치 그리고 설정 및 사용법`
+	- ![Generic badge](https://img.shields.io/badge/중요-서버_vs._파일-red.svg) 웹 페이지(hello.html) 개발 후 `서버로 실행` vs. `파일로 실행`
 - Web Server(WS) vs. Web Application Server(WAS)
 
 #### 1-4-1. HTML(HyperText Markup Language)
 - `Cheat Sheet` for `HTML` at Google Image(https://www.google.com/imghp?hl=ko&ogbl)
 	![HTML](./image/html/html.png)
 - 개요와 특징
-- 구조
+- 구조와 주석
 	```html
 	<!DOCTYPE html>
 	<html>
@@ -81,19 +82,19 @@
 
 #### 1-4-2. [CSS(Cascade Style Sheet)](./css.md)
 - `Cheat Sheet` for `CSS` at Google Image(https://www.google.com/imghp?hl=ko&ogbl)
-![CSS](./image/css/css.png)
+	![CSS](./image/css/css.png)
 
 #### 1-4-3. [JavaScript](./javascript.md)
 - `Cheat Sheet` for `JavaScript` at Google Image(https://www.google.com/imghp?hl=ko&ogbl)
-![CSS](./image/javascript/javascript.jpg)
+	![CSS](./image/javascript/javascript.jpg)
 
 ### 1-5. 화면 검증
 - HTML by validator.w3.org + CSS by https://jigsaw.w3.org/css-validator or https://css-validator.org/validator.ko.html
 - 테스트 케이스 작성 그리고 단위 테스트 또는 통합 테스트
 
 ### 1-6. 기타
-- HTML의 가독성
-- CSS, JavaScript의 가독성과 최적화(min 등) 그리고 보안(난독화 등)
+- HTML의 `가독성`
+- CSS, JavaScript의 `가독성과 최적화(min 등)` 그리고 `보안(난독화 등)`
 
 
 ## 2. 반응형 웹(Responsive Web) 설계 및 구현
@@ -109,12 +110,13 @@
 
 ## 3. 고객 편리성 제공 화면을 위한 설계 및 구현
 ### 3-1. 메인
-### 3-2. 로그인
-### 목록
-### 등록 폼 및 등록
-### 보기
-### 수정 폼 및 수정
-### 삭제(처리)
+### 3-2. 가입
+### 3-3. 로그인
+### 3-4. 목록
+### 3-5. 등록 폼 및 등록
+### 3-6. 보기
+### 3-7. 수정 폼 및 수정
+### 3-8. 삭제(처리)
 
 
 ## 4. 참고

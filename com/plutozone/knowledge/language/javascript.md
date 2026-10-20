@@ -2,8 +2,8 @@
 
 
 ## Contents
-01. JavaScript 특징과 기본 문법들
-02. 제어문
+01. [JavaScript 특징과 기본 문법들](#1-javascript-특징과-기본-문법들)
+02. [제어문](#2-제어문)
 03. 객체(Object)
 04. 함수(Function)
 05. Ajax(Asychronous JavaScript and XML)
@@ -12,17 +12,39 @@
 
 
 ## 1. JavaScript 특징과 기본 문법들
-### 에러 시 at `크롬 개발자 모드`
+### 1-1. `크롬 개발자 모드`
+- 에러 시
+	```html
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+		<script>aler("Hello, JavaScript");</script>
+	</head>
+	<body>
+		JavaScript
+	</body>
+	</html>
+	```
+- 주요 패널
+	- Elements(요소들)
+	- Console(콘솔)
+	- Sources(소스들)
+	- ...
+- 설정
+	- 캐쉬
+	- 쿠키
 
-### 개요
+### 1-2. 개요
 - Frontend vs. Backend
 - HTML, CSS, and JavaScript are downloaded from the Server and run in the Browser.
-- 탄생과 표준화 그리고 확장(jQuery, AngularJS, ReactJS, Vue.js, Node.js, PhoneGap 등)
+- 탄생(Mocha at Netscape Navigator)과 표준화(ES6) 그리고 확장(jQuery, Angular, React, Vue.js, Node.js, PhoneGap 등)
 
-### 개발 환경
-- Browser(IE, Edge, Chrome 등) + Editor(Notepad, EditPlus, SublimeText, Brackets, Visual Studio Code, Eclipse 등)
+### 1-3. 개발 환경
+- Browser(IE, `Edge`, `Chrome` 등)
+- Editor(Notepad, EditPlus, SublimeText, Brackets, [Visual Studio Code](../development/vscode.md), `Notepad++`, Eclipse 등)
 
-### 기본 문법
+### 1-4. 기본 문법
 - 문장(;)과 대소문자 구분 등
 - 선언문
 	```html
@@ -40,25 +62,53 @@
 - 주석
 	- //
 	- /* … */
-- 전역 또는 지역 변수
-	- var
+- 변수 범위(Scope: 전역 또는 지역)와 선언
+	- var, let(중복 불가), const(상수=변경 불가)
+	- 변수명 첫 글자는 ...만을 허용 and 첫 글자 다음은 ...만을 허용
+	- Naming Rule(Camel 표기법 등)
 	- 예약어
 - 자료형
 	- String(")
 	- Char(')
 	- Number
 	- Boolean(true, false)
-	- Undefined
+	- undefined and typeof
+	- Object
+		```html
+		<script>
+			var tv = new Object( );
+			tv.color = "white";
+			tv.price = 300000;
+			tv.info = function( ) {
+				document.write("tv 색상: " + this.color, "<br>");
+				document.write("tv 가격: " + this.price, "<br>");
+			}
+
+			var car = { 
+				color: "black",
+				price: 5000000,
+				info: function( ) {
+					document.write("car 색상: " + this.color, "<br>");
+					document.write("car 가격: " + this.price, "<br>");
+				} 
+			}; 
+
+			document.write("<h1>tv 객체 메서드 호출</h1>");
+			tv.info();
+			document.write("<h1>car 객체 메서드 호출</h1>");
+			car.info();        
+		</script>
+		```
 - 연산자
-	- 산술
-	- 대입
-	- 증감
-	- 비교
-	- 논리
-	- 삼항
-	- 연산자 우선 순위
+	- 산술: +, -, *, /, %
+	- 대입: = , +=, -=, *=, /=, %=
+	- 증감: ++, --
+	- 비교: >, <, >=, <=, ==(자료형 미확인), !=(자료형 미확인), ===(자료형 확인), !==(자료형 확인)
+	- 논리: &&, ||, !
+	- 삼항: 조건식 ? 코드1: 코드2
+	- 형 변환과 연산자 우선 순위
 - 템플릿 리터럴
-	- JavaScript에서 backtick(`) 문자를 사용하여 문자열을 표현
+	- JavaScript에서 backtick(`) 문자를 사용하여 문자열을 표현(줄바꿈 + 문자열 내부에 표현식을 포함)
 		```js
 		var name	= "James";
 		var message	= `Dear ${name}
@@ -66,7 +116,6 @@
 		I'm ${1+1} years old.`;
 		alert(message);
 		```
-	- 이렇게 사용하면 두가지 기능이 있는데 (1)줄바꿈을 쉽게 할수 있고 (2)문자열 내부에 표현식을 포함할 수 있게 된다.
 
 
 ## 2. 제어문
@@ -75,18 +124,23 @@
 - if/else
 - if/else if
 - if/else if/else
-- switch/case
+- Nested if
+- Block({}) Level Scope
+- switch/case/break/default
 
 ### 반복문(Loop Statements)
 - while
 - do/while
 - for
-- break와 continue
-
+- break(중지)와 continue(건너뛰기)
+- Nested Loop
 
 ## 3. 객체(Object)
 - 객체(Object) = 메소드(Method) + 속성(Property) + 이벤트(Event)
 - 객체(All of Object in Browser Script Engine) in JavaScript
+	- 내장 객체(Built-in Object): Object, String, Date, Array, Math, RegExp 등
+	- 브라우저 객체 모델(BOM, Browser Object Model): window, screen, location, history, navigator 등
+	- 문서 객체 모델(DOM, Document Object Model): HTML 문서 구조
 	```mermaid
 	flowchart TB
 	ROOT["All of Object in Browser Script Engine"]
@@ -146,9 +200,6 @@
 	class DOM,BOM,JS category;
 	class DOC,HTML,HEAD,BODY,TITLE,TITLETEXT,A,H1,LINKTEXT,HREF,H1TEXT,FORM,IMAGE,MORE1,MORE2,WINDOW,BOMDOC,HISTORY,LOCATION,NAVIGATOR,SCREEN,MORE3,OBJECT,STRING,DATE,ARRAY,FUNCTION,MORE4 node;
 	```
-	- 내장 객체(Built-in Object): Object, String, Date, Array, Math, RegExp 등
-	- 브라우저 객체 모델(BOM, Browser Object Model): window, screen, location, history, navigator 등
-	- 문서 객체 모델(DOM, Document Object Model): HTML 문서 구조
 
 
 ## 4. 함수(Function)
