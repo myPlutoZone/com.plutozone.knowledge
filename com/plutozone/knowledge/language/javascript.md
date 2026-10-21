@@ -4,8 +4,8 @@
 ## Contents
 01. [JavaScript 특징과 기본 문법들](#1-javascript-특징과-기본-문법들)
 02. [제어문](#2-제어문)
-03. 객체(Object)
-04. 함수(Function)
+03. [객체(Object)](#3-객체object)
+04. [함수(Function)](#4-함수function)
 05. Ajax(Asychronous JavaScript and XML)
 06. jQuery
 07. 고객 편리성 제공 화면을 위한 설계 및 구현
@@ -72,8 +72,8 @@
 	- Char(')
 	- Number
 	- Boolean(true, false)
-	- undefined and typeof
-	- Object
+	- Array([])
+	- Object({})
 		```html
 		<script>
 			var tv = new Object( );
@@ -99,6 +99,7 @@
 			car.info();        
 		</script>
 		```
+		- undefined and typeof
 - 연산자
 	- 산술: +, -, *, /, %
 	- 대입: = , +=, -=, *=, /=, %=
@@ -135,10 +136,12 @@
 - break(중지)와 continue(건너뛰기)
 - Nested Loop
 
+
 ## 3. 객체(Object)
+> 자바스크립트 *(예: 배열)을 실무적으로 이용하는 예제 3가지를 보여주세요! at LLM
 - 객체(Object) = 메소드(Method) + 속성(Property) + 이벤트(Event)
 - 객체(All of Object in Browser Script Engine) in JavaScript
-	- 내장 객체(Built-in Object): Object, String, Date, Array, Math, RegExp 등
+	- 내장 객체(Built-in Object): Object, String, Date, Math, Array, Map, RegExp 등
 	- 브라우저 객체 모델(BOM, Browser Object Model): window, screen, location, history, navigator 등
 	- 문서 객체 모델(DOM, Document Object Model): HTML 문서 구조
 	```mermaid
@@ -209,12 +212,12 @@
 	function functionName() {…}
 	...
 	```
-- 매개 변수
+- 매개(Parameter) 변수와 인수(Argument)
 - 리턴(return)과 값
-- 내장 함수(Built-in Function)
-	- encode*()
-	- parse*()
-	- eval() 등
+- Scope
+- 객체 생성자 함수와 프로토타입 메서드
+- 내장 함수(Built-in Function): encode*(), parse*(), eval() 등
+- Arrow Function과 Module Pattern
 
 
 ## 5. Ajax(Asychronous JavaScript and XML)

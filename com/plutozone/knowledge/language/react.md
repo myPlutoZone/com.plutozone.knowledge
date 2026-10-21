@@ -14,8 +14,12 @@ REM Project Naming Rule(Not allowed '-')
 C:\> npm init react-app my-react
 C:\> ren my-react myReact
 C:\> cd myReact
-REM npm run start
+REM react 서버를 npm으로 실행(=npm run start)
 C:\> npm start
+REM react 서버를 yarn(=npm 이후의 Node Package Manager)으로 실행(=yarn run start)
+REM C:\> yarn start
+REM react와 node 서버를 동시에 실행
+REM C:\> yarn dev
 C:\> npm run build
 C:\> npm install -g serve
 C:\> serve -s build
