@@ -15,8 +15,8 @@
 - Eclipse vs. STS(Spring Tool Suite)
 - 통합 개발 툴(IDE)에서 Text, Syntax, Compile를 구분하고 Runtime 에러를 이해하고 활용(예: 데이터베이스 또는 네트워크 장애 발생 시)
 - 특수 문자와 아스키 코드
-	```
-	~!@#$%^&*()_+{}|:"<>?`-=[]\;',./	 
+	```text
+	~!@#$%^&*()_+{}|:"<>?`-=[]\;',./
 	```
 - [클린 코드](../development/cleanCode.md) vs. [개발 표준 가이드](../development/README.md) vs. [리팩터링](../development/refactoring.md)
 
