@@ -1,4 +1,4 @@
-# com.plutozone.knowledge.fundamental(80H)
+# com.plutozone.knowledge.fundamental
 
 > 데이터를 네트워크, 프로그래밍 그리고 데이터베이스 관점에서 어떻게 관리되고 연동되는지 마크다운 다이어그램으로 한 개로만 작성해 주세요! at ChatGPT
 
@@ -67,11 +67,17 @@ flowchart TD
 
 ## 1. 과정 및 자기 소개 등
 ### 1-1. 훈련(Training) 과정명
+자바와 생성형 AI를 활용한 차세대 CRM플랫폼 개발(KDT/960 시간)
+<!--
 - JAVA와 AI/RPA/빅데이터를 활용한 E-커머스 개발자 양성 취업과정
 - 개발 관점의 개선된 훈련 과정명은 `Java와 AI 및 Big Data를 활용한 e-Commerce 웹 개발자 양성 과정`
+-->
 
 ### 1-2. 훈련(Training) 기간
+- 28시간(4시간 x 7일/선행 학습) + 960시간(24주/과정 학습:약 6개월) = 1040시간
+<!--
 - 80시간(2주/선행 학습) + 960시간(24주/과정 학습:약 6개월) = 1040시간
+-->
 
 ### 1-3. 정보 기술(Information Technology) 분야
 - *[NOS] Windows, Ubuntu*
@@ -362,4 +368,4 @@ flowchart TD
 - `6개월간 16개 과목(Network, OS 포함)` + `Mini Project` + `Team Project` 그리고 `PBL(Project and Problem based Project)`
 
 ### 10-5. 결과물
-![분석 및 설계](./image/박지수.png)
+![분석 및 설계](./image/exParkJisu.png)
