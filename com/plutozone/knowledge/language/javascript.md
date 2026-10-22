@@ -217,7 +217,7 @@
 - Scope
 - 객체 생성자 함수와 프로토타입 메서드
 - 내장 함수(Built-in Function): encode*(), parse*(), eval() 등
-- Arrow Function과 Module Pattern
+- Arrow Function(주의: this 키워드 범위 at General vs. Arrow Function)과 [Module Pattern](/WebContent/knowledge/language/js/module.html)
 
 
 ## 5. Ajax(Asychronous JavaScript and XML)
