@@ -1,21 +1,20 @@
 # com.plutozone.knowledge.fundamental
-
-> 데이터를 네트워크, 프로그래밍 그리고 데이터베이스 관점에서 어떻게 관리되고 연동되는지 마크다운 다이어그램으로 한 개로만 작성해 주세요! at ChatGPT
+> `데이터`를 `네트워크`, `프로그래밍` 그리고 `데이터베이스` 관점에서 어떻게 `관리되고 연동`되는지 한 개의 `마크다운 다이어그램`으로 작성해 주세요! at ChatGPT
 
 ```mermaid
 flowchart TD
-    U["사용자 / 클라이언트"] --> N["네트워크 계층<br/>HTTP / HTTPS · TCP/IP · DNS"]
-    N --> API["API 서버<br/>요청 수신 · 인증 · 라우팅"]
+    U["사용자<br/>(Client)"] --> N["네트워크 계층<br/>(HTTP/HTTPS·TCP/IP·DNS)"]
+    N --> API["API 계층<br/>(요청 수신·인증·라우팅)"]
 
-    API --> P["프로그래밍 계층<br/>비즈니스 로직 · 데이터 처리 · 검증"]
-
-    P --> C["캐시 계층<br/>Redis · 반복 조회 최적화"]
+    API --> P["프로그래밍 계층<br/>(비즈니스 로직·데이터 처리·검증)"]
+    P --> C["캐시 계층<br/>(Redis·반복 조회 최적화)"]
     C <--> P
 
-    P --> ORM["데이터 접근 계층<br/>ORM · SQL · 트랜잭션"]
-    ORM --> DB["데이터베이스 계층<br/>MySQL · PostgreSQL · MongoDB"]
+    P --> ORM["데이터 접근 계층<br/>(ORM·SQL·트랜잭션)"]
+    ORM --> DB["데이터베이스 계층<br/>(MySQL·PostgreSQL·MongoDB)"]
 
-    DB --> STORE[("데이터 저장<br/>테이블 · 문서 · 인덱스")]
+    DB --> STORE[("데이터 저장<br/>(테이블·문서·인덱스)")]
+	DB -. "복제 · 백업 · 복구" .-> BK[("백업 저장소")]
     STORE --> DB
 
     DB --> ORM
@@ -24,11 +23,11 @@ flowchart TD
     API --> N
     N --> U
 
-    DB -. "복제 · 백업 · 복구" .-> BK[("백업 저장소")]
-
-    SEC["보안 · 권한 · 암호화 · 로깅 · 모니터링"] -. "전 계층 적용" .-> N
+    SEC["보안·권한·암호화·로깅·모니터링"] -. "전 계층 적용" .-> N
     SEC -.-> API
     SEC -.-> P
+	SEC -.-> ORM
+	SEC -.-> C
     SEC -.-> DB
 
     classDef network fill:#DCEBFF,stroke:#3973AC,color:#17365D
@@ -45,9 +44,9 @@ flowchart TD
 ## Keynote
 - 직업 교육(Education) vs. 직업 훈련(Training) and 교육의 가장 중요한 목적은 동기 부여
 - Developer in IT(Information Technology) vs. Illiterate, User, End User, Administrator, Nerd(Geek), Hacker, Guru, Wizard
-- Network + Programming + Database
+- **Network or NOS** + Programming + Database
 - 1 vs. 0 + true vs. false + Sever vs. Client + PC vs. Server & Network + IDC vs. Cloud
-- Fundamental vs. Basic and Science vs. Engineering and Prepare vs. Choice
+- `Fundamental vs. Basic` and `Science vs. Engineering` and `Prepare vs. Choice`
 - [학습 목표-1] "Team Project"를 목표로 한 "과목과 참여 기업 솔루션" 교육
 - [학습 목표-2] 1) **면접 시 자세와 의지** 및 **포트폴리오** 그리고 **팀프로젝트 산출물** 2) 참여 기업 솔루션 3) 정보처리기사
 
@@ -57,7 +56,7 @@ flowchart TD
 02. 정보기술(IT, Information Technology) 조직도
 03. 업무 프로세스와 개발 표준 가이드 for 웹 개발자
 04. 선택과 준비
-05. Network와 NOS 그리고 Server와 Client
+05. **Network와 NOS 그리고 Server와 Client**
 06. Programming Language 종류와 특성
 07. Data와 Database, DB 종류와 특성 그리고 DBMS
 08. [Tools ............................................... 도구들](#8-tools)
@@ -74,19 +73,29 @@ flowchart TD
 -->
 
 ### 1-2. 훈련(Training) 기간
-- 28시간(4시간 x 7일/선행 학습) + 960시간(24주/과정 학습:약 6개월) = 1040시간
+- 28시간(4시간 x 7일/선행 학습) + 960시간(24주/과정 학습:약 6개월)
 <!--
 - 80시간(2주/선행 학습) + 960시간(24주/과정 학습:약 6개월) = 1040시간
 -->
 
 ### 1-3. 정보 기술(Information Technology) 분야
-- *[NOS] Windows, Ubuntu*
+- [Overview] CRM(Customer Relationship Management, 고객 관계 관리: 고객 정보를 수집·분석하고 고객과의 관계를 관리하여 고객 만족도와 충성도를 높이고 매출을 증대하는 전략 및 시스템을 의미)
+	- 예) 고객의 구매 이력 및 상담 기록 관리
+	- 예) 고객별 맞춤형 상품 추천
+	- 예) 마케팅 메시지 및 프로모션 자동 발송
+	- 예) 고객 문의와 불만 사항 관리
+<!--
+- [Overview] e-Commerce
+-->
+- **[NOS] Windows, Ubuntu**
+- [Cloud] AWS
 - [Programming] HTML, CSS, JavaScript/jQuery
-- [Programming] Java, JSP, Spring MVC/Boot, Python for Machine Learning + Deep Learning, Android
+- [Programming] Java, JSP, Spring MVC/Boot, Python for Machine Learning + Deep Learning + LLM<!--, Android -->
 - [Database] Oracle, MariaDB, ANSI SQL
-- [Solution] UiPath(RPA)
+- [Solution] UiPath(RPA), OutSystems(Low Code)
+- [Etc] SCM(Source Code Management)
 
-### *1-4. 과목 상세(시간 포함)*
+### 1-4. 과목 상세(시간 포함)
 
 ### 1-5. 자기 소개
 - 강사 그리고 교육생의 이름, 사는 곳, 주력 또는 희망 분야(조직도 참고), 취미, 하고 싶은 말 등
@@ -137,11 +146,13 @@ flowchart TD
 - [선택] Science(과학) vs. Engineering(공학) and Pure(순수) IT vs. Application(응용) IT
 - [선택] APP(iOS, aOS) vs. Web
 - [선택] Front vs. Backend
-- [준비] `자기 소개서` + `프로젝트 산출물(프로젝트에서 역할, 헌장 및 관리 포함)`
+- [준비] `포트폴리오(자기 소개서)` + `프로젝트 산출물(프로젝트에서 역할, 헌장 및 관리 포함)`
 
 ### 4-2. 현재를 위한 준비와 수행
 - [권장] 용어, 폰트, 로고 및 양식 등
+<!--
 - [필수] e-Commerce(전자 상거래) + [필수] Web(관리자 또는 판매자) + [필수] Web(구매자) + [필수] APP(구매자)
+-->
 - [준비] 1) 목표 서비스(=프로젝트 헌장)을 분석 및 설계하고 2) 과목과 솔루션을 진행하면서 모듈화하여 3) 구현 및 관리(=프로젝트 관리)
 - [수행] 요구 사항, 분석, 설계, 화면(프론트 vs. 백앤드 + 웹 vs. 앱 등)과 기능(화면 vs. 로직 vs. API 등) 그리고 검증 등
 
@@ -199,7 +210,7 @@ flowchart TD
 	- 3 계층: 네트워크(Network) 예) IP, ICMP
 	- 2 계층: 데이터 링크(Data Link) 예) MAC
 	- 1 계층: 물리(Physical) 예) Device and Cable
- - TCP/IP 4 Layer
+- TCP/IP 4 Layer
    	- 4 계층: 응용(Application) = Application + Presentation + Session 예) HTTP/S, SSL/TLS
    	- 3 계층: 전송(Transport) = Transport 예) TCP, UDP
    	- 2 계층: 인터넷(Internet) = Network 예) IP, ICMP
@@ -255,6 +266,7 @@ flowchart TD
 - traceroute/tracert
 
 ### 5-6. NOS
+> [리눅스 서버를 웹 어플리케이션 서버로 사용하고 관리하기 위한 필수 기술을 8시간 가량의 분량으로 정리해 주세요! at ChatGPT](linux(8H).md)
 - Microsoft Windows Network(Protocol, File/Print Sharing 등) 설치와 대표적인 Service(Active Directory, DNS, DHCP, IIS 등)
 - Linux Network 설치와 대표적인 Service
 - Docker, VM 및 Cloud
@@ -281,7 +293,7 @@ flowchart TD
 ### 5-8. Client
 - Web Browser에는 Chrome, Edge 등이 있다.
 - Web Browser를 통하여 HTML, CSS, JavaScript가 어떻게 Client로 Download되는지 확인
-- URI(Uniform Resource **Identifier**) = URL(Uniform Resource **Locator** = 프로토롤 + 호스트 주소 + 포트 번호 + 경로 + 파라미터) + URN(Uniform Resource **Name**)
+- URI(Uniform Resource Identifier) = URL(Uniform Resource Locator = 프로토롤 + 호스트 주소 + 포트 번호 + 경로 + 파라미터) + URN(Uniform Resource Name)
 
 ### 5-9. HTTP
 - HTTP vs. HTTPS(SSL/TLS) and HTTP/0.9 vs. HTTP/1.0 vs. HTTP/1.1(연결 지향 + 파이프 라이닝) vs. HTTP/2 vs. HTTPS/3
@@ -319,12 +331,8 @@ flowchart TD
 ### 7-3. SQL(Structured Query Language)
 - ANSI vs. PL/SQL vs. T-SQL 등
 
-### 7-4. Client Tool
-- Toad, SQL Developer, HeidiSQL 등
-
-### 7-5. ERD(Entity Relationship Diagram) Tool
-- https://erdcloud.com/, draw.io
-- eXERD, MySQL WorkBench, ERWin 등
+### 7-4. Client & ERD(Entity Relationship Diagram) Tool
+- ...
 
 
 ## [8. Tools](../utility/tool.md)
