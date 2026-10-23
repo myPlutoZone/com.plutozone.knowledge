@@ -1,4 +1,4 @@
-# com.plutozone.knowledge.fundamental
+# com.plutozone.knowledge.fundamental(80H)
 > `데이터`를 `네트워크`, `프로그래밍` 그리고 `데이터베이스` 관점에서 어떻게 `관리되고 연동`되는지 한 개의 `마크다운 다이어그램`으로 작성해 주세요! at ChatGPT
 
 ```mermaid
