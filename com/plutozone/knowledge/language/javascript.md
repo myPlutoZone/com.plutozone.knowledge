@@ -6,9 +6,10 @@
 02. [제어문](#2-제어문)
 03. [객체(Object)](#3-객체object)
 04. [함수(Function)](#4-함수function)
-05. Ajax(Asychronous JavaScript and XML)
+05. Asychronous and FETCH
 06. jQuery
 07. 고객 편리성 제공 화면을 위한 설계 및 구현
+08. Reference
 
 
 ## 1. JavaScript 특징과 기본 문법들
@@ -220,16 +221,12 @@
 - Arrow Function(주의: this 키워드 범위 at General vs. Arrow Function)과 [Module Pattern](/WebContent/knowledge/language/js/module.html)
 
 
-## 5. Ajax(Asychronous JavaScript and XML)
-- 비동식 방식의 JavaScript와 XML
-- HyperText(화면 전환 필요) vs. Ajax 그리고 동기식(응답 대기 필요) vs. 비동기식
+## 5. Asychronous and FETCH
+- 비동식(Asychronous) vs. 동기식(Sychronous)
+- HyperText(화면 전환 필요) vs. Ajax and FETCH
 - Text vs. HTML vs. XML vs. JSON
-
-
-## Example
-- [JavaScript](/WebContent/knowledge/language/js/default.html)
-- [Mojs-1](/WebContent/knowledge/language/js/mojs-1.html)
-- [Mojs-2](/WebContent/knowledge/language/js/mojs-2.html)
+- Promise 객체 and async 함수와 await
+- FETCH API
 
 
 ## 6. jQuery
@@ -317,3 +314,11 @@
 ### 보기
 ### 수정 폼 및 수정
 ### 삭제(처리)
+
+
+## 8. Reference
+### Example
+- [JavaScript](/WebContent/knowledge/language/js/default.html)
+- [Mojs-1](/WebContent/knowledge/language/js/mojs-1.html)
+- [Mojs-2](/WebContent/knowledge/language/js/mojs-2.html)
+- ...
