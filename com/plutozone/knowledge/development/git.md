@@ -1,7 +1,6 @@
 # com.plutozone.knowledge.development.Git
 
 
-
 ## Overview
 | NO | 공식 용어(일반적 표현) | 번역 | 용도 | 관련 명령어 |
 | :---: | :--- | :---: | :--- | :--- |
@@ -11,35 +10,47 @@
 | 4 | Remote Repository | `원격 저장소` | 공유할 수 있는 원격 저장소 | `git push`, `git pull`, `git fetch` |
 ```mermaid
 flowchart LR
-	W["Working Tree<br/>(작업 디렉터리)"]
-	I["Index<br/>(스테이징 영역)"]
-	L["HEAD / Local Repository<br/>(로컬 저장소)"]
-	R["Remote Repository<br/>(원격 저장소)"]
+	subgraph LOCAL["로컬"]
+		direction LR
+		W[("Working Tree<br/>(작업 디렉터리)")]
+		I[("Index<br/>(스테이징 영역)")]
+		L[("HEAD / Local Repository<br/>(로컬 저장소)")]
+	end
 
-	W -->|"add"| I
-	I -->|"commit"| L
-	L -->|"push"| R
-	R -->|"fetch"| L
-	L -->|"merge / rebase"| W
+	R[("Remote Repository<br/>(원격 저장소)")]
 
-	W -.->|"diff"| I
-	I -.->|"diff --staged(=cached)"| L
-	W -.->|"diff HEAD"| L
+	W -->|"git add &lt;file&gt;<br/>(신규 파일)"| I
+	W -->|"git add -u<br/>(추적 중인 파일만)"| I
+	W <-.->|"git diff<br/>(작업 디렉터리 ↔ 스테이징 영역)"| I
+	W <-.->|"git diff HEAD<br/>(작업 디렉터리 ↔ HEAD)"| L
+	W -->|"git commit -a<br/>(추적 중인 파일만)"| L
 
-	classDef w fill:#eeeeee,stroke:#555,color:#111
-	classDef i fill:#a5f5f5,stroke:#333,color:#111
-	classDef l fill:#8df0b2,stroke:#333,color:#111
-	classDef r fill:#fff19a,stroke:#333,color:#111
+	I -->|"git checkout -- &lt;file&gt;<br/>(스테이징 이전 상태로 복원)"| W
+	I -->|"git commit"| L
+	I <-->|"git diff --staged(=cached)<br/>(스테이징 영역 ↔ HEAD)"| L
 
-	class W w
-	class I i
-	class L l
-	class R r
+	L -->|"git merge / rebase"| W
+	L -->|"git checkout HEAD -- &lt;file&gt;<br/>(파일 변경 취소)"| W
+	L -->|"git push"| R
+
+	R -->|"git fetch<br/>(원격 추적 브랜치 갱신)"| L
+	R -->|"git pull<br/>(fetch + 통합)"| L
+	R -->|"git pull --rebase<br/>(fetch + rebase)"| L
+
+	classDef workspace fill:#eeeeee,stroke:#555,color:#111
+	classDef index fill:#a5f5f5,stroke:#333,color:#111
+	classDef local fill:#8df0b2,stroke:#333,color:#111
+	classDef remote fill:#fff19a,stroke:#333,color:#111
+	
+	class W workspace
+	class I index
+	class L local
+	class R remote
 ```
 | 주요 명령어 | 동작 | 설명 |
 | :--- | :--- | :--- |
 | `git init` | 저장소 초기화 | 현재 디렉터리를 Git 저장소로 초기화 |
-| `git add .` | Working Tree → Staging Area | 작업 트리의 변경 사항을 스테이징 영역에 등록 |
+| `git add .` | Working Tree → Staging Area | 작업 트리의 변경 사항(신규 파일 포함)을 스테이징 영역에 등록 |
 | `git commit` | Staging Area → Local Repository | 스테이징된 변경 사항을 로컬 저장소에 기록 |
 | `git push` | Local Repository → Remote Repository | 로컬 커밋을 원격 저장소로 전송 |
 | `git fetch` | Remote Repository → 원격 추적 정보 | 원격 변경 사항을 가져오되 현재 작업 브랜치에는 자동 통합하지 않음 |
@@ -52,44 +63,6 @@ flowchart LR
 - git flow is process or tools
 - merge vs. rebase 그러나 결과는 같다.
 - `Untracked files` vs. `Changes to be committed`
-- Git Data Transport Commands
-	```mermaid
-	flowchart TB
-		subgraph LOCAL["로컬 개발 환경"]
-			direction LR
-			W[("Workspace<br/>작업 디렉터리")]
-			I[("Index / Staging Area<br/>스테이징 영역")]
-			L[("Local Repository<br/>로컬 저장소")]
-		end
-
-		R[("Remote Repository<br/>원격 저장소")]
-
-		W -->|"git add &lt;file&gt;"| I
-		W -->|"git add -u"| I
-		I -->|"git commit"| L
-		W -->|"git commit -a<br/>(추적 중인 파일만)"| L
-		L -->|"git push"| R
-
-		R -->|"git fetch<br/>(원격 추적 브랜치 갱신)"| L
-		R -->|"git pull<br/>(fetch + 통합)"| L
-		R -->|"git pull --rebase<br/>(fetch + rebase)"| L
-
-		L -->|"git checkout HEAD -- &lt;file&gt;<br/>(파일 변경 취소)"| W
-		I -->|"git checkout -- &lt;file&gt;<br/>(스테이징 전 상태로 복원)"| W
-
-		W <-->|"git diff<br/>(작업 디렉터리 ↔ 스테이징 영역)"| I
-		W <-->|"git diff HEAD<br/>(작업 디렉터리 ↔ HEAD)"| L
-		I <-->|"git diff --cached<br/>(스테이징 영역 ↔ HEAD)"| L
-
-		classDef workspace fill:#eeeeee,stroke:#555,color:#111
-		classDef index fill:#a5f5f5,stroke:#333,color:#111
-		classDef local fill:#8df0b2,stroke:#333,color:#111
-		classDef remote fill:#fff19a,stroke:#333,color:#111
-		class W workspace
-		class I index
-		class L local
-		class R remote
-	```
 - 명령어
 	| 명령어 | 데이터 흐름 및 동작 |
 	| :--- | :--- |

@@ -1,6 +1,8 @@
 # com.plutozone.knowledge.utility
 
 ## PC 최적화
+- 계정
+	- 추가 및 관리 등 for me and others
 - 시작
 	- 시작 프로그램 at 작업 관리자
 	- 검색, 뉴스 및 관심사 등 at 작업 표시줄
@@ -12,6 +14,8 @@
 	- WinDirStat
 - 레지스트리
 	- 모든 파일, 가장 큰 파일 by Wise Registry Cleaner
+- 원격
+	- 크롬 원격 데스크탑
 - 관리
 	- 화면 보호기 설정(10분)
 
