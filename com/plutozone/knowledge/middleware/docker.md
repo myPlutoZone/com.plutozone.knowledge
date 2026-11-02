@@ -5,7 +5,7 @@
 01. [Overview .................................................. 개요](#1-overview)
 02. [Container and Docker ............................ 컨테이너와 도커](#2-container-and-docker)
 03. [Environments .............................................. 환경](#3-environments)
-04. [Install Docker and Configuration ................... 설치와 구성](#4-install-docker-and-configuration)
+04. [Install Docker and Configuration ................... 설치와 구성](#4-install-docker-and-configuration-at-linux)
 05. [LifeCycle of Docker Container ......................... 생명주기](#5-lifecycle-of-docker-container)
 06. [Commands ............................................... 명령어](#6-commands)
 07. [Volume(Storage) for Container ........................... 볼륨](#7-volumestorage-for-container)
@@ -14,7 +14,7 @@
 10. [Compose for Container ................................. 컴포즈](#10-compose-for-container)
 11. [Example ................................................. 예제](#11-example)
 	- [11-1. WordPress(웹 페이지 제작 및 관리용 CMS) + MySQL](#11-1-wordpress웹-페이지-제작-및-관리용-cms--mysql)
-	- [11-2. Make Image(Ubuntu + Git + JDK) by docker commit](#11-2-make-imageubuntu--git--jdk-by-docker-commit)
+	- [11-2. Make Image(Ubuntu + Git + JDK) by docker commit](#11-2-make-imageubuntu--git--open-jdk-8-by-docker-commit)
 	- [11-3. Make Image(Ubuntu + Python) by docker file](#11-3-make-imageubuntu--python-by-docker-file)
 	- [11-4. Make Image(Ubuntu + Python + hello.py) by docker file](#11-4-make-imageubuntu--python--hellopy-by-docker-file)
 	- [11-5. Make Image(Ubuntu + Python + hello.py + 환경 변수) by docker file](#11-5-make-imageubuntu--python--hellopy--환경-변수-by-docker-file)
@@ -725,6 +725,7 @@ $ docker run -e NAME=$NAME python_hello_with_env
 
 ## 12. Reference
 - [Docker](./docker.pdf)
+- Docker Golden Image란?
 - 유지 운영
 	- `이미지`(Image), `태그`(Tag)명에 대문자 사용 불가(`컨테이너명만 가능`)
 		- 영문자와 숫자, '-', '_', '.', '/' 만 허용

@@ -1,6 +1,7 @@
 # com.plutozone.knowledge.development.VirtualBox
 
 
+- Vagrant란?
 - Command
 	```bash
 	$ VBoxManage list vms								# VM 목록
