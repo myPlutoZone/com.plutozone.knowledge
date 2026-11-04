@@ -18,9 +18,8 @@
 
 
 ## 1. 개요
-> Data and Information vs. DB(DataBase) vs. DBMS(DataBase Management System) vs. RDBMS(Relational DataBase Management System)
-
-> Database for Programmer vs. DBA(Database Administrator) 
+> Data and Information vs. DB(DataBase) vs. DBMS(DataBase Management System) vs. RDBMS(Relational DataBase Management System)<br>
+> Database for Programmer vs. DBA(Database Administrator)
 
 ### 1-1. 데이터(Data)와 정보(Information)
 ```mermaid
@@ -761,7 +760,6 @@ WHERE
 
 #### 분석 및 순위
 #### 피벗 함수
-####  ...
 
 ### 7-3. Table
 - GUI vs. SQL
@@ -884,17 +882,17 @@ ORDER BY나 GROUP BY 절에 사용되는 칼럼 순으로 인덱스를 생성하
 - 객체(제약 조건)에 따른 권장 접두어
 
 	| 객체 | 접두어 | 예 | 비고 |
-	| :--- | :-----: | :------------------------ | :------------------------ |
-	| Primary Key           | `PK_`  | PK_USER                     | 기본 키 |
-	| Foreign Key           | `FK_`  | FK_ORDER_USER               | 외래 키 |
-	| Index                 | `IX_`  | IX_USER_NAME                | 일반 인덱스(IDX_도 사용) |
-	| Composite Index       | IX_    | IX_ORDER_STATUS_CREATED_AT  | 컬럼명을 순서대로 작성 |
-	| Composite Index       | CIX_   | CIX_ORDER_STATUS_CREATED_AT | 복합 인덱스를 구분할 때 |
-	| Unique Index          | `UX_`  | UX_USER_EMAIL               | 유일 인덱스(가장 많이 사용하는 관례) |
-	| Unique Index          | UIX_   | UIX_USER_EMAIL              | 유일 인덱스를 구분할때(일부 프로젝트에서 사용) |
-	| Unique Constraint     | `UQ_`  | UQ_USER_EMAIL               | 유일 제약 조건 |
-	| Check Constraint      | `CK_`  | CK_USER_AGE                 | 체크 제약 조건 |
-	| Default Constraint    | DF_    | DF_USER_CREATED_AT          | 기본 제약 조건 |
+	| :--- | :---: | :--- | :--- |
+	| Primary Key | `PK_` | PK_USER | 기본 키 |
+	| Foreign Key | `FK_` | FK_ORDER_USER | 외래 키 |
+	| Index | `IX_` | IX_USER_NAME | 일반 인덱스(IDX_도 사용) |
+	| Composite Index | IX_ | IX_ORDER_STATUS_CREATED_AT | 컬럼명을 순서대로 작성 |
+	| Composite Index | CIX_ | CIX_ORDER_STATUS_CREATED_AT | 복합 인덱스를 구분할 때 |
+	| Unique Index | `UX_` | UX_USER_EMAIL | 유일 인덱스(가장 많이 사용하는 관례) |
+	| Unique Index | UIX_ | UIX_USER_EMAIL | 유일 인덱스를 구분할때(일부 프로젝트에서 사용) |
+	| Unique Constraint | `UQ_` | UQ_USER_EMAIL | 유일 제약 조건 |
+	| Check Constraint | `CK_` | CK_USER_AGE | 체크 제약 조건 |
+	| Default Constraint | DF_ | DF_USER_CREATED_AT | 기본 제약 조건 |
 
 #### 개발(Development) 시
 - 필요한 Table의 항목만 추출한다.
