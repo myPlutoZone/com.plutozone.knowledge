@@ -18,7 +18,8 @@
 
 
 ## 1. 개요
-> Data and Information vs. DB(DataBase) vs. DBMS(DataBase Management System) vs. RDBMS(Relational DataBase Management System)<br>
+> Data and Information vs. DB(DataBase) vs. DBMS(DataBase Management System) vs. RDBMS(Relational DataBase Management System)
+***
 > Database for Programmer vs. DBA(Database Administrator)
 
 ### 1-1. 데이터(Data)와 정보(Information)
