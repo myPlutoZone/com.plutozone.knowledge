@@ -58,3 +58,31 @@ Copyright © 2026 plutozone.com All Rights Reserved
 
 ## 5. History
 - 2026-05-14 [CREATE] Initial Release
+
+<!--
+#!/bin/bash
+
+JSON='{
+    "header": {
+        "seq_srv": -1
+        , "ver": "1.0.0"
+        , "lang": "ko"
+        , "token": "JWT"
+    }
+	, "body": {
+        "seq_srv": -1
+        , "seq_mon_target": -1
+        , "seq_fail_code": 0
+        , "flg_fail": "N"
+        , "memo": "10"
+        , "reg_svr": "PLZ_WAS_001"
+        , "reg_svr_dt": "2026-08-28 17:38:09"
+        , "upt_svr": ""
+        , "upt_svr_dt": ""
+    }
+}'
+
+curl -X POST "http://192.168.56.1:8080/monitor/monitors/writeProc.api" \
+  -H "Content-Type: application/json" \
+  -d "$JSON"
+-->
